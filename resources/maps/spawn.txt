@@ -1,0 +1,14 @@
+# this file is automatically loaded when a New Game starts.
+# it's a dummy map to send the player to the actual starting point.
+
+[header]
+width=1
+height=1
+spawnpoint=0,0,0
+
+[event]
+type=teleport
+location=0,0,0,0
+destination=16,11
+filename=averguard_atrium.txt
+
