@@ -42,7 +42,7 @@ static void init(bool fullscreen) {
 		exit(2);
 	}
 	
-	if (Mix_OpenAudio(22050, AUDIO_S16, 2, 4096)) {
+	if (Mix_OpenAudio(22050, AUDIO_S16, 2, 1024)) {
 		fprintf (stderr, "Unable to OpenAudio: %s\n", SDL_GetError());
 		SDL_Quit();
 		exit(1);

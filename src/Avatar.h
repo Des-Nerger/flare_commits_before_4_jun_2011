@@ -52,7 +52,8 @@ private:
 	Mix_Chunk *sound_weapon1;
 	Mix_Chunk *sound_hit;
 	Mix_Chunk *sound_die;
-		
+	Mix_Chunk *sound_steps;
+			
 public:
 	Avatar(InputState *_inp, MapIso *_map);
 	~Avatar();

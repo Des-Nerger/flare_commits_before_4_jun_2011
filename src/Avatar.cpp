@@ -67,9 +67,10 @@ void Avatar::loadGraphics() {
 void Avatar::loadSounds() {
 	sound_weapon1 = Mix_LoadWAV("soundfx/sword.ogg");
 	sound_hit = Mix_LoadWAV("soundfx/male_hit.ogg");
-	sound_die = Mix_LoadWAV("soundfx/male_die.ogg");	
-	
-	if (!sound_weapon1 || !sound_hit || !sound_die) {
+	sound_die = Mix_LoadWAV("soundfx/male_die.ogg");
+	sound_steps = Mix_LoadWAV("soundfx/footstep.ogg");
+			
+	if (!sound_weapon1 || !sound_hit || !sound_die || !sound_steps) {
 	  printf("Mix_LoadWAV: %s\n", Mix_GetError());
 	  SDL_Quit();
 	}
@@ -222,6 +223,10 @@ void Avatar::logic() {
 			if (curFrame >= 24) curFrame = 0;
 			dispFrame = (curFrame /3) + 4;
 			
+			if (curFrame == 4 || curFrame == 16) {
+				Mix_PlayChannel(-1, sound_steps, 0);
+			}
+
 			// handle direction changes
 			set_direction();
 
@@ -365,5 +370,7 @@ Avatar::~Avatar() {
 	Mix_FreeChunk(sound_weapon1);
 	Mix_FreeChunk(sound_hit);
 	Mix_FreeChunk(sound_die);
+	Mix_FreeChunk(sound_steps);
+		
 	if (haz != NULL) delete(haz);	
 }
