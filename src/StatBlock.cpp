@@ -19,13 +19,13 @@ StatBlock::StatBlock() {
 	// physical stats
 	hp = 12 + physical * 4;
 	maxhp = hp;
-	frames_per_hp = 0;
+	hp_per_minute = 0;
 	hp_ticker = 0;
 	
 	// magical stats
 	mp = magical * 2;
 	maxmp = mp;
-	frames_per_mp = 0;
+	mp_per_minute = 0;
 	mp_ticker = 0;
 	
 	// offense stats
@@ -104,18 +104,18 @@ void StatBlock::recalc() {
 void StatBlock::logic() {
 
 	// health regen
-	if (frames_per_hp > 0 && hp < maxhp && hp > 0) {
+	if (hp_per_minute > 0 && hp < maxhp && hp > 0) {
 		hp_ticker++;
-		if (hp_ticker >= frames_per_hp) {
+		if (hp_ticker >= (60 * FRAMES_PER_SEC)/hp_per_minute) {
 			hp++;
 			hp_ticker = 0;
 		}
 	}
 
 	// mana regen
-	if (frames_per_mp > 0 && mp < maxmp && hp > 0) {
+	if (mp_per_minute > 0 && mp < maxmp && hp > 0) {
 		mp_ticker++;
-		if (mp_ticker >= frames_per_mp) {
+		if (mp_ticker >= (60 * FRAMES_PER_SEC)/mp_per_minute) {
 			mp++;
 			mp_ticker = 0;
 		}

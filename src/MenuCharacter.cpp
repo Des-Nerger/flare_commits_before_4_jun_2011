@@ -88,13 +88,13 @@ void MenuCharacter::render() {
 	ss << stats->maxhp;
 	font->render(ss.str(), 172, 138, JUSTIFY_CENTER, screen);
 	ss.str("");
-	ss << stats->frames_per_hp;
+	ss << stats->hp_per_minute;
 	font->render(ss.str(), 268, 138, JUSTIFY_CENTER, screen);
 	ss.str("");
 	ss << stats->maxmp;
 	font->render(ss.str(), 172, 202, JUSTIFY_CENTER, screen);
 	ss.str("");
-	ss << stats->frames_per_mp;
+	ss << stats->mp_per_minute;
 	font->render(ss.str(), 268, 202, JUSTIFY_CENTER, screen);
 	ss.str("");
 	ss << (stats->accuracy - 5) << "%";

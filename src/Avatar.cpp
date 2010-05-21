@@ -42,8 +42,8 @@ Avatar::Avatar(InputState *_inp, MapIso *_map) {
 	stats.dmg_ranged_max = 0;
 	stats.recalc();
 	
-	//stats.frames_per_hp = 90;
-	//stats.frames_per_mp = 90;
+	stats.hp_per_minute = 5;
+	stats.mp_per_minute = 5;
 	cooldown_melee = 0;
 	
 	// when aiming attacks (not ground spells) adjust for players aiming at
@@ -65,12 +65,15 @@ void Avatar::loadGraphics() {
 }
 
 void Avatar::loadSounds() {
-	sound_weapon1 = Mix_LoadWAV("soundfx/sword.ogg");
+	sound_weapon1 = Mix_LoadWAV("soundfx/melee_attack.ogg");
 	sound_hit = Mix_LoadWAV("soundfx/male_hit.ogg");
 	sound_die = Mix_LoadWAV("soundfx/male_die.ogg");
-	sound_steps = Mix_LoadWAV("soundfx/footstep.ogg");
+	sound_steps[0] = Mix_LoadWAV("soundfx/step_echo1.ogg");
+	sound_steps[1] = Mix_LoadWAV("soundfx/step_echo2.ogg");
+	sound_steps[2] = Mix_LoadWAV("soundfx/step_echo3.ogg");
+	sound_steps[3] = Mix_LoadWAV("soundfx/step_echo4.ogg");
 			
-	if (!sound_weapon1 || !sound_hit || !sound_die || !sound_steps) {
+	if (!sound_weapon1 || !sound_hit || !sound_die || !sound_steps[0]) {
 	  printf("Mix_LoadWAV: %s\n", Mix_GetError());
 	  SDL_Quit();
 	}
@@ -223,8 +226,10 @@ void Avatar::logic() {
 			if (curFrame >= 24) curFrame = 0;
 			dispFrame = (curFrame /3) + 4;
 			
+			int stepfx = rand() % 4;
+			
 			if (curFrame == 4 || curFrame == 16) {
-				Mix_PlayChannel(-1, sound_steps, 0);
+				Mix_PlayChannel(-1, sound_steps[stepfx], 0);
 			}
 
 			// handle direction changes
@@ -370,7 +375,10 @@ Avatar::~Avatar() {
 	Mix_FreeChunk(sound_weapon1);
 	Mix_FreeChunk(sound_hit);
 	Mix_FreeChunk(sound_die);
-	Mix_FreeChunk(sound_steps);
-		
+	Mix_FreeChunk(sound_steps[0]);
+	Mix_FreeChunk(sound_steps[1]);
+	Mix_FreeChunk(sound_steps[2]);
+	Mix_FreeChunk(sound_steps[3]);
+			
 	if (haz != NULL) delete(haz);	
 }

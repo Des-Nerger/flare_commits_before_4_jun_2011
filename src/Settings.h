@@ -8,6 +8,7 @@
 #ifndef SETTINGS_H
 #define SETTINGS_H
 
+const int FRAMES_PER_SEC = 30;
 const int UNITS_PER_TILE = 64;
 const int TILE_SHIFT = 6; // for fast bitshift divides
 const int UNITS_PER_PIXEL_X = 2;

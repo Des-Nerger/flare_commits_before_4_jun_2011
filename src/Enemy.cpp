@@ -338,6 +338,20 @@ void Enemy::logic() {
 			// handle animation
 			curFrame++;
 			dispFrame = (curFrame / 4) + 16;
+
+			if (curFrame == 1) {
+				sfx_attack = true;
+			}
+			
+			// the attack hazard is alive for a single frame
+			if (curFrame == 8 && haz == NULL) {
+				haz = new Hazard();
+				haz->setCollision(&(map->collider));
+				haz->pos = calcVector(pos, direction, (UNITS_PER_TILE*3)/4 );
+				haz->radius = UNITS_PER_TILE;
+				haz->source = SRC_ENEMY;
+				haz->lifespan = 1;
+			}
 			
 			if (curFrame == 15) {
 				newState(ENEMY_STANCE);
@@ -365,11 +379,8 @@ void Enemy::logic() {
 		case ENEMY_DEAD:
 			if (curFrame < 17) curFrame++;
 			dispFrame = (curFrame /3) + 22;
-		
-			if (curFrame == 12) {
-				sfx_die = true;
-				sfx_hit = true;
-			}
+			if (curFrame == 1) sfx_hit = true;
+			if (curFrame == 12) sfx_die = true;
 			
 			break;
 			

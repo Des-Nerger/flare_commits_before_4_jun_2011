@@ -56,7 +56,7 @@ static void init(bool fullscreen) {
 static void mainLoop () {
 
 	bool done = false;
-	int fps = 30;
+	int fps = FRAMES_PER_SEC;
 	int delay = 1000/fps;
 	int prevTicks = SDL_GetTicks();
 	int nowTicks;

@@ -11,6 +11,7 @@
 #define STAT_BLOCK_H
 
 #include <string>
+#include "Settings.h"
 using namespace std;
 
 class StatBlock {
@@ -44,13 +45,13 @@ public:
 	// physical stats
 	int hp;
 	int maxhp;
-	int frames_per_hp;
+	int hp_per_minute;
 	int hp_ticker;
 
 	// magical stats
 	int mp;
 	int maxmp;
-	int frames_per_mp;
+	int mp_per_minute;
 	int mp_ticker;
 	
 	// offense stats

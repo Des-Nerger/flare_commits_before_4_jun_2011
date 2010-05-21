@@ -30,9 +30,9 @@ void EnemyManager::loadGraphics() {
 
 void EnemyManager::loadSounds() {
 	sound_attack = Mix_LoadWAV("soundfx/zombie_attack.ogg");
-	sound_hit = Mix_LoadWAV("soundfx/zombie_growl.ogg");
-	sound_die = Mix_LoadWAV("soundfx/fall.ogg");
-	sound_critdie = Mix_LoadWAV("soundfx/zombie_explode.ogg");
+	sound_hit = Mix_LoadWAV("soundfx/zombie_hit.ogg");
+	sound_die = Mix_LoadWAV("soundfx/zombie_die.ogg");
+	sound_critdie = Mix_LoadWAV("soundfx/zombie_critdie.ogg");
 	
 	if (!sound_attack || !sound_hit || !sound_die || !sound_critdie) {
 		printf("Mix_LoadWAV: %s\n", Mix_GetError());
