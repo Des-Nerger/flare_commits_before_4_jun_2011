@@ -30,6 +30,9 @@ private:
 	MenuLog *log;
 	MenuActionBar *act;
 	MenuHealthMana *hpmp;
+	Mix_Chunk *sfx_open;
+	Mix_Chunk *sfx_close;
+	
 	
 	StatBlock *stats;
 	InputState *inp;
@@ -37,6 +40,7 @@ private:
 	SDL_Surface *screen;
 	
 	bool key_lock;
+	void loadSounds();
 	
 public:
 	MenuManager(SDL_Surface *screen, InputState *inp, FontEngine *font, StatBlock *stats);

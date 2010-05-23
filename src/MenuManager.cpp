@@ -21,7 +21,19 @@ MenuManager::MenuManager(SDL_Surface *_screen, InputState *_inp, FontEngine *_fo
 	hpmp = new MenuHealthMana(screen, font);
 	
 	pause = false;
+	loadSounds();
 }
+
+void MenuManager::loadSounds() {
+	sfx_open = Mix_LoadWAV("soundfx/inventory/inventory_page.ogg");
+	sfx_close = Mix_LoadWAV("soundfx/inventory/inventory_close.ogg");
+	
+	if (!sfx_open) {
+		printf("Mix_LoadWAV: %s\n", Mix_GetError());
+		SDL_Quit();
+	}	
+}
+
 
 void MenuManager::logic() {
 
@@ -32,28 +44,49 @@ void MenuManager::logic() {
 	if (inp->pressing[INVENTORY] && !key_lock) {
 		key_lock = true;
 		inv->visible = !inv->visible;
-		if (inv->visible) pow->visible = false;
+		if (inv->visible) {
+			Mix_PlayChannel(-1, sfx_open, 0);
+			pow->visible = false;
+		}
+		else
+			Mix_PlayChannel(-1, sfx_close, 0);
+		
 	}
 
 	// powers menu toggle
 	if (inp->pressing[POWERS] && !key_lock) {
 		key_lock = true;
 		pow->visible = !pow->visible;
-		if (pow->visible) inv->visible = false;
+		if (pow->visible) {
+			Mix_PlayChannel(-1, sfx_open, 0);
+			inv->visible = false;
+		}
+		else
+			Mix_PlayChannel(-1, sfx_close, 0);
 	}
 
 	// character menu toggle
 	if (inp->pressing[CHARACTER] && !key_lock) {
 		key_lock = true;
 		chr->visible = !chr->visible;
-		if (chr->visible) log->visible = false;
+		if (chr->visible) {
+			Mix_PlayChannel(-1, sfx_open, 0);
+			log->visible = false;
+		}
+		else
+			Mix_PlayChannel(-1, sfx_close, 0);
 	}
 	
 	// log menu toggle
 	if (inp->pressing[LOG] && !key_lock) {
 		key_lock = true;
 		log->visible = !log->visible;
-		if (log->visible) chr->visible = false;
+		if (log->visible) {
+			Mix_PlayChannel(-1, sfx_open, 0);
+			chr->visible = false;
+		}
+		else
+			Mix_PlayChannel(-1, sfx_close, 0);
 	}
 	
 	pause = (inv->visible || pow->visible || chr->visible || log->visible);
@@ -73,6 +106,8 @@ void MenuManager::closeAll() {
 	pow->visible = false;
 	chr->visible = false;
 	log->visible = false;
+		
+	Mix_PlayChannel(-1, sfx_close, 0);
 }
 
 MenuManager::~MenuManager() {
@@ -81,4 +116,7 @@ MenuManager::~MenuManager() {
 	delete(chr);
 	delete(log);
 	delete(act);
+	Mix_FreeChunk(sfx_open);
+	Mix_FreeChunk(sfx_close);
+	
 }
