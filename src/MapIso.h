@@ -29,25 +29,39 @@ struct Map_Enemy {
 	int direction;
 };
 
+struct Event_Component {
+	string type;
+	string s;
+	int x;
+	int y;
+	int z;
+};
+
 struct Map_Event {
 	string type;
 	SDL_Rect location;
-	Point destination;
-	string filename;
-	int value;
+	Event_Component components[8];
+	int comp_num;
 };
+
+
 
 class MapIso {
 private:
 	SDL_Surface *screen;
 	Mix_Music *music;
+	Mix_Chunk *sfx;
 	
 	string parse_section_title(string tok);
 	void parse_key_pair(string tok, string &key, string &val);
 	int eatFirstInt(string &s, char separator);
 	unsigned short eatFirstHex(string &s, char separator);
+	string eatFirstString(string &s, char separator);
 	void executeEvent(int eid);
-	
+	void removeEvent(int eid);
+	void clearEvents();
+	void playSFX(string filename);
+		
 	// map events
 	Map_Event events[256];
 	int event_count;
@@ -60,7 +74,6 @@ public:
 	int load(string filename);
 	void loadMusic();
 	void render(Renderable r[], int rnum);
-	void clearEvents();
 	void checkEvents(Point loc);
 
 	// vars

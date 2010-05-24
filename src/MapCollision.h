@@ -27,7 +27,7 @@ const int CHECK_SIGHT = 2;
 
 class MapCollision {
 private:
-	unsigned short colmap[256][256];
+
 	bool line_check(int x1, int y1, int x2, int y2, int checktype);
 	
 public:
@@ -38,7 +38,9 @@ public:
 	bool is_empty(int x, int y);
 	bool line_of_sight(int x1, int y1, int x2, int y2);
 	bool line_of_movement(int x1, int y1, int x2, int y2);
-	
+
+	unsigned short colmap[256][256];
+		
 	int result_x;
 	int result_y;
 };

@@ -325,8 +325,25 @@ data=
 [event]
 type=teleport
 location=62,2,1,0
-destination=8,58
-filename=averguard_atrium.txt
+intermap=averguard_atrium.txt,8,58
+
+[event]
+type=container
+location=31,22,0,1
+mapmod=object,31,22,165
+soundfx=soundfx/inventory/inventory_page.ogg
+
+[event]
+type=container
+location=28,22,0,1
+mapmod=object,28,22,165
+soundfx=soundfx/inventory/inventory_page.ogg
+
+[event]
+type=container
+location=25,22,0,1
+mapmod=object,25,22,165
+soundfx=soundfx/inventory/inventory_page.ogg
 
 [enemy]
 type=zombie

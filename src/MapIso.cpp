@@ -24,6 +24,8 @@ MapIso::MapIso(SDL_Surface *_screen) {
 	clearEvents();
 	enemy_awaiting_queue = false;
 	
+	sfx = NULL;
+	
 	// spawn is a special map that defines where the campaign begins
 	load("spawn.txt");
 }
@@ -45,21 +47,6 @@ string trim(string s, char c) {
 	}
 	if (first <= last) return s.substr(first,last-first+1);
 	return "";
-}
-
-void MapIso::clearEvents() {
-	for (int i=0; i<256; i++) {
-		events[i].type = "";
-		events[i].location.x = 0;
-		events[i].location.y = 0;
-		events[i].location.w = 0;
-		events[i].location.h = 0;
-		events[i].destination.x = 0;
-		events[i].destination.y = 0;
-		events[i].filename = "";
-		events[i].value = 0;
-	}
-	event_count = 0;
 }
 
 string MapIso::parse_section_title(string s) {
@@ -92,12 +79,54 @@ unsigned short MapIso::eatFirstHex(string &s, char separator) {
 	return num;
 }
 
+string MapIso::eatFirstString(string &s, char separator) {
+	int seppos = s.find_first_of(separator);
+	string outs = s.substr(0, seppos);
+	s = s.substr(seppos+1, s.length());
+	return outs;
+}
+
+void MapIso::clearEvents() {
+	for (int i=0; i<256; i++) {
+		events[i].type = "";
+		events[i].location.x = 0;
+		events[i].location.y = 0;
+		events[i].location.w = 0;
+		events[i].location.h = 0;
+		events[i].comp_num = 0;
+		for (int j=0; j<8; j++) {
+			events[i].components[j].type = "";
+			events[i].components[j].s = "";
+			events[i].components[j].x = 0;
+			events[i].components[j].y = 0;
+			events[i].components[j].z = 0;
+		}
+	}
+	event_count = 0;
+}
+
+void MapIso::removeEvent(int eid) {
+	for (int i=eid; i<event_count; i++) {
+		if (i<256) {
+			events[i] = events[i+1];
+		}
+	}
+	event_count--;
+}
+
 void MapIso::clear_enemy(Map_Enemy e) {
 	e.pos.x = 0;
 	e.pos.y = 0;
 	e.direction = 0;
 	e.type = "";
 }
+
+void MapIso::playSFX(string filename) {
+	if (sfx) Mix_FreeChunk(sfx);
+	sfx = Mix_LoadWAV(filename.c_str());
+	if (sfx) Mix_PlayChannel(-1, sfx, 0);	
+}
+
 
 /**
  * load
@@ -111,6 +140,8 @@ int MapIso::load(string filename) {
 	string val;
 	string cur_layer;
 	string data_format;
+  
+	clearEvents();
   
     event_count = 0;
   
@@ -239,17 +270,33 @@ int MapIso::load(string filename) {
 							events[event_count-1].location.w = eatFirstInt(val, ',');
 							events[event_count-1].location.h = eatFirstInt(val, ',');							
 						}
-						else if (key == "destination") {
-							val = val + ",";						
-							events[event_count-1].destination.x = eatFirstInt(val, ',');
-							events[event_count-1].destination.y = eatFirstInt(val, ',');							
+						else {
+	
+						
+							// new event component
+							Event_Component *e = &events[event_count-1].components[events[event_count-1].comp_num];
+							e->type = key;
+							
+							if (key == "intermap") {
+								val = val + ",";
+								e->s = eatFirstString(val, ',');
+								e->x = eatFirstInt(val, ',');
+								e->y = eatFirstInt(val, ',');
+							}
+							else if (key == "mapmod") {
+								val = val + ",";
+								e->s = eatFirstString(val, ',');
+								e->x = eatFirstInt(val, ',');
+								e->y = eatFirstInt(val, ',');
+								e->z = eatFirstInt(val, ',');
+							}
+							else if (key == "soundfx") {
+								e->s = val;
+							}
+							
+							events[event_count-1].comp_num++;
 						}
-						else if (key == "filename") {
-							events[event_count-1].filename = val;
-						}
-						else if (key == "value") {
-							events[event_count-1].value = atoi(val.c_str());
-						}
+							
 					}
 				}
 			}
@@ -392,12 +439,34 @@ void MapIso::checkEvents(Point loc) {
 }
 
 void MapIso::executeEvent(int eid) {
-	if (events[eid].type == "teleport") {
-		teleportation = true;
-		teleport_mapname = events[eid].filename;
+	Event_Component *ec;
+	for (int i=0; i<events[eid].comp_num; i++) {
+		ec = &events[eid].components[i];
 		
-		teleport_desination.x = events[eid].destination.x * UNITS_PER_TILE + UNITS_PER_TILE/2;
-		teleport_desination.y = events[eid].destination.y * UNITS_PER_TILE + UNITS_PER_TILE/2;
+		if (ec->type == "intermap") {
+			teleportation = true;
+			teleport_mapname = ec->s;
+			teleport_desination.x = ec->x * UNITS_PER_TILE + UNITS_PER_TILE/2;
+			teleport_desination.y = ec->y * UNITS_PER_TILE + UNITS_PER_TILE/2;
+		}
+		else if (ec->type == "mapmod") {
+			if (ec->s == "collision") {
+				collision[ec->x][ec->y] = ec->z;
+				collider.colmap[ec->x][ec->y] = ec->z;
+			}
+			else if (ec->s == "object") {
+				object[ec->x][ec->y] = ec->z;			
+			}
+			else if (ec->s == "background") {
+				background[ec->x][ec->y] = ec->z;			
+			}
+		}
+		else if (ec->type == "soundfx") {
+			playSFX(ec->s);
+		}
+	}
+	if (events[eid].type == "container") {
+		removeEvent(eid);
 	}
 }
 
@@ -406,5 +475,6 @@ MapIso::~MapIso() {
 		Mix_HaltMusic();
 		Mix_FreeMusic(music);
 	}
+	if (sfx) Mix_FreeChunk(sfx);
 }
 

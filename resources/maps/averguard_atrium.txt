@@ -205,20 +205,17 @@ data=
 [event]
 type=teleport
 location=7,2,1,0
-destination=15,126
-filename=averguard_temple.txt
+intermap=averguard_temple.txt,15,126
 
 [event]
 type=teleport
 location=15,52,0,1
-destination=1,55
-filename=averguard_prison.txt
+intermap=averguard_prison.txt,1,55
 
 [event]
 type=teleport
 location=7,59,1,0
-destination=62,3
-filename=averguard_academy.txt
+intermap=averguard_academy.txt,62,3
 
 [enemy]
 type=zombie

@@ -9,6 +9,6 @@ spawnpoint=0,0,0
 [event]
 type=teleport
 location=0,0,0,0
-destination=16,11
-filename=averguard_atrium.txt
+intermap=averguard_atrium.txt,16,11
+
 
