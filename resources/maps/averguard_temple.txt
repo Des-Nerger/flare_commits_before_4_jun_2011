@@ -428,8 +428,25 @@ mapmod=object,15,88,113
 mapmod=collision,15,88,0
 soundfx=soundfx/door_open.ogg
 
-# books
+# next two are books in the library room
 [event]
+type=container
+location=2,117,1,0
+mapmod=object,2,117,164
+soundfx=soundfx/inventory/inventory_page.ogg
+
+[event]
+type=container
+location=2,121,1,0
+mapmod=object,2,121,164
+soundfx=soundfx/inventory/inventory_page.ogg
+
+# chest in the boss room
+[event]
+type=container
+location=14,1,2,1
+mapmod=object,15,1,161
+soundfx=soundfx/wood_open.ogg
 
 
 [enemy]
