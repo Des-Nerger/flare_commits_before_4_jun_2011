@@ -126,7 +126,7 @@ function recalcStats() {
   $o = parseInt(document.getElementById('offense').value);
   $d = parseInt(document.getElementById('defense').value);
   document.getElementById('hp').value = 12 + $p * 4;
-  document.getElementById('mp').value = -2 + $m * 4;
+  document.getElementById('mp').value = 0 + $m * 4;
   document.getElementById('hit1').value = 70 + $o * 5;
   document.getElementById('hit2').value = 65 + $o * 5;
   document.getElementById('hit3').value = 60 + $o * 5;
@@ -139,12 +139,8 @@ function recalcStats() {
   document.getElementById('miss5').value = $d * 5;   
   document.getElementById('crit').value = $p + $m + $o + $d;
  
-  // from talents 
-  if ($p + $o >= 9) document.getElementById('crit').value = ($p + $m + $o + $d) * 2;
-  if ($p + $d >= 9) document.getElementById('hps').value = 1;
-  else document.getElementById('hps').value = 0;
-  if ($m + $d >= 9) document.getElementById('mps').value = 1;
-  else document.getElementById('mps').value = 0;
+  document.getElementById('hps').value = 4 + $p;
+  document.getElementById('mps').value = 4 + $m;
 
   $mainhand = document.getElementById('mainhand');
   $offhand = document.getElementById('offhand');
@@ -472,12 +468,12 @@ function describe($e) {
   <tr>
     <th>HP</th>
     <td><input type="text" id="hp" size="2" value="" readonly="readonly" /></td>
-    <td>(regen per <input type="text" id="hps" size="1" value="" readonly="reaodnly" /> sec)</td>
+    <td>(regen <input type="text" id="hps" size="1" value="" readonly="reaodnly" />/minute)</td>
   </tr>
   <tr>
     <th>MP</th>
     <td><input type="text" id="mp" size="2" value="" readonly="readonly" /></td>
-    <td>(regen per <input type="text" id="mps" size="1" value="" readonly="reaodnly" /> sec)</td>
+    <td>(regen <input type="text" id="mps" size="1" value="" readonly="reaodnly" />/minute)</td>
   </tr>
 </table>
 
