@@ -175,7 +175,7 @@ int Avatar::face(int mapx, int mapy) {
  */
 void Avatar::logic() {
 	Point target;
-
+	int stepfx;
 	stats.logic();
 
 	// handle internal cooldowns
@@ -226,7 +226,7 @@ void Avatar::logic() {
 			if (curFrame >= 24) curFrame = 0;
 			dispFrame = (curFrame /3) + 4;
 			
-			int stepfx = rand() % 4;
+			stepfx = rand() % 4;
 			
 			if (curFrame == 4 || curFrame == 16) {
 				Mix_PlayChannel(-1, sound_steps[stepfx], 0);
