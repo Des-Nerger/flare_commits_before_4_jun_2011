@@ -1,5 +1,6 @@
-name=Skeletal Warrior
-file_prefix=skeleton
+name=Skeleton
+sfx_prefix=skeleton
+gfx_prefix=skeleton_weak
 
 # combat stats
 hp=2

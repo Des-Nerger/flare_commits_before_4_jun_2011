@@ -32,7 +32,8 @@ public:
 	bool alive;
 	
 	string name;
-	string file_prefix;
+	string sfx_prefix;
+	string gfx_prefix;
 	
 	int level;
 	

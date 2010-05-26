@@ -1,5 +1,6 @@
 name=Rotting Zombie
-file_prefix=zombie
+sfx_prefix=zombie
+gfx_prefix=zombie
 
 # combat stats
 hp=1

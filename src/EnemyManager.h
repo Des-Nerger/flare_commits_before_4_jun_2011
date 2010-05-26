@@ -13,22 +13,25 @@
 #include "Enemy.h"
 #include "Utils.h"
 
-const int max_classes = 8;
+const int max_sfx = 8;
+const int max_gfx = 32;
 
 class EnemyManager {
 private:
 	MapIso *map;
 	void loadGraphics(string type_id);
 	void loadSounds(string type_id);
-	void loadAssets(string type_id);
 
-	string file_prefixes[max_classes];
-	int file_prefix_count;
-	SDL_Surface *sprites[max_classes];	
-	Mix_Chunk *sound_phys_melee[max_classes];
-	Mix_Chunk *sound_hit[max_classes];
-	Mix_Chunk *sound_die[max_classes];
-	Mix_Chunk *sound_critdie[max_classes];
+	string gfx_prefixes[max_gfx];
+	int gfx_count;
+	string sfx_prefixes[max_sfx];
+	int sfx_count;
+	
+	SDL_Surface *sprites[max_gfx];	
+	Mix_Chunk *sound_phys_melee[max_sfx];
+	Mix_Chunk *sound_hit[max_sfx];
+	Mix_Chunk *sound_die[max_sfx];
+	Mix_Chunk *sound_critdie[max_sfx];
 	
 public:
 	EnemyManager(MapIso *_map);

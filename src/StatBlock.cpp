@@ -75,8 +75,9 @@ void StatBlock::load(string filename) {
 					num = atoi(val.c_str());
 					
 					if (key == "name") name = val;
-					else if (key == "file_prefix") file_prefix = val;
-
+					else if (key == "sfx_prefix") sfx_prefix = val;
+					else if (key == "gfx_prefix") gfx_prefix = val;
+					
 					// combat stats
 					else if (key == "hp") hp = num;
 					else if (key == "mp") mp = num;
