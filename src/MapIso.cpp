@@ -31,60 +31,6 @@ MapIso::MapIso(SDL_Surface *_screen) {
 }
 
 
-/**
- * trim: remove leading and trailing c from s
- */
-string trim(string s, char c) {
-	int first = 0;
-	int last = s.length()-1;
-	if (last <= 0) return "";
-
-	while (s.at(first) == c && first < s.length()-1) {
-		first++;
-	}
-	while (s.at(last) == c && last >= first) {
-		last--;
-	}
-	if (first <= last) return s.substr(first,last-first+1);
-	return "";
-}
-
-string MapIso::parse_section_title(string s) {
-	return s.substr(1, s.find_first_of(']') -1);
-}
-
-void MapIso::parse_key_pair(string s, string &key, string &val) {
-	int colon = s.find_first_of('=');
-	key = s.substr(0, colon);
-	val = s.substr(colon+1, s.length());
-}
-
-/**
- * Given a string that starts with a number then a comma
- * Return that int, and modify the string to remove the num and comma
- *
- * This is basically a really lazy "split" replacement
- */
-int MapIso::eatFirstInt(string &s, char separator) {
-	int seppos = s.find_first_of(separator);
-	int num = atoi(s.substr(0, seppos).c_str());
-	s = s.substr(seppos+1, s.length());
-	return num;
-}
-
-unsigned short MapIso::eatFirstHex(string &s, char separator) {
-	int seppos = s.find_first_of(separator);
-	unsigned short num = xtoi(s.substr(0, seppos));
-	s = s.substr(seppos+1, s.length());
-	return num;
-}
-
-string MapIso::eatFirstString(string &s, char separator) {
-	int seppos = s.find_first_of(separator);
-	string outs = s.substr(0, seppos);
-	s = s.substr(seppos+1, s.length());
-	return outs;
-}
 
 void MapIso::clearEvents() {
 	for (int i=0; i<256; i++) {
@@ -228,9 +174,9 @@ int MapIso::load(string filename) {
 									getline(infile, line);
 									line = line + ',';
 									for (int i=0; i<w; i++) {
-										if (cur_layer == "background") background[i][j] = this->eatFirstHex(line, ',');
-										else if (cur_layer == "object") object[i][j] = this->eatFirstHex(line, ',');
-										else if (cur_layer == "collision") collision[i][j] = this->eatFirstHex(line, ',');
+										if (cur_layer == "background") background[i][j] = eatFirstHex(line, ',');
+										else if (cur_layer == "object") object[i][j] = eatFirstHex(line, ',');
+										else if (cur_layer == "collision") collision[i][j] = eatFirstHex(line, ',');
 									}
 								}
 							}
@@ -239,9 +185,9 @@ int MapIso::load(string filename) {
 									getline(infile, line);
 									line = line + ',';
 									for (int i=0; i<w; i++) {
-										if (cur_layer == "background") background[i][j] = this->eatFirstInt(line, ',');
-										else if (cur_layer == "object") object[i][j] = this->eatFirstInt(line, ',');
-										else if (cur_layer == "collision") collision[i][j] = this->eatFirstInt(line, ',');
+										if (cur_layer == "background") background[i][j] = eatFirstInt(line, ',');
+										else if (cur_layer == "object") object[i][j] = eatFirstInt(line, ',');
+										else if (cur_layer == "collision") collision[i][j] = eatFirstInt(line, ',');
 									}
 								}
 							}

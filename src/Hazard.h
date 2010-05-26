@@ -30,6 +30,9 @@ public:
 	int source;
 	int enemyIndex;
 	
+	int dmg_min;
+	int dmg_max;
+	
 	FPoint pos;
 	FPoint speed;
 	int lifespan; // ticks down to zero

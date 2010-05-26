@@ -124,10 +124,10 @@ void MenuCharacter::render() {
 	ss << stats->crit << "%";
 	font->render(ss.str(), 144, 402, JUSTIFY_CENTER, screen);	
 	ss.str("");
-	if (stats->minabsorb == stats->maxabsorb)
-		ss << stats->minabsorb;
+	if (stats->absorb_min == stats->absorb_max)
+		ss << stats->absorb_min;
 	else
-		ss << stats->minabsorb << "-" << stats->maxabsorb;
+		ss << stats->absorb_min << "-" << stats->absorb_max;
 	font->render(ss.str(), 272, 370, JUSTIFY_CENTER, screen);
 	ss.str("");
 	ss << stats->resist_fire << "%";

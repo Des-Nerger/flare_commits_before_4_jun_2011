@@ -404,15 +404,15 @@ soundfx=soundfx/wood_open.ogg
 
 
 [enemy]
-type=zombie
+type=skeleton
 spawnpoint=60,14,3
 
 [enemy]
-type=zombie
+type=skeleton
 spawnpoint=65,14,3
 
 [enemy]
-type=zombie
+type=rotting_zombie
 spawnpoint=62,26,1
 
 [enemy]
@@ -420,7 +420,7 @@ type=zombie
 spawnpoint=65,28,0
 
 [enemy]
-type=zombie
+type=rotting_zombie
 spawnpoint=50,25,5
 
 [enemy]
@@ -428,11 +428,11 @@ type=zombie
 spawnpoint=50,30,5
 
 [enemy]
-type=zombie
+type=skeletal_warrior
 spawnpoint=35,30,6
 
 [enemy]
-type=zombie
+type=skeleton
 spawnpoint=31,23,3
 
 [enemy]
@@ -440,7 +440,7 @@ type=zombie
 spawnpoint=27,34,2
 
 [enemy]
-type=zombie
+type=rotting_zombie
 spawnpoint=20,23,7
 
 [enemy]
@@ -448,11 +448,11 @@ type=zombie
 spawnpoint=20,37,4
 
 [enemy]
-type=zombie
+type=skeletal_warrior
 spawnpoint=11,47,1
 
 [enemy]
-type=zombie
+type=rotting_zombie
 spawnpoint=27,46,3
 
 [enemy]
@@ -460,7 +460,7 @@ type=zombie
 spawnpoint=40,54,2
 
 [enemy]
-type=zombie
+type=rotting_zombie
 spawnpoint=49,52,1
 
 [enemy]
@@ -468,7 +468,7 @@ type=zombie
 spawnpoint=55,44,3
 
 [enemy]
-type=zombie
+type=rotting_zombie
 spawnpoint=54,61,6
 
 [enemy]
@@ -476,7 +476,7 @@ type=zombie
 spawnpoint=46,63,0
 
 [enemy]
-type=zombie
+type=rotting_zombie
 spawnpoint=28,63,1
 
 [enemy]
@@ -496,12 +496,9 @@ type=zombie
 spawnpoint=21,75,1
 
 [enemy]
-type=zombie
+type=rotting_zombie
 spawnpoint=14,67,5
 
-[enemy]
-type=zombie
-spawnpoint=5,91,1
 
 [enemy]
 type=zombie
@@ -520,7 +517,7 @@ type=zombie
 spawnpoint=36,67,4
 
 [enemy]
-type=zombie
+type=rotting_zombie
 spawnpoint=31,56,7
 
 [enemy]
@@ -539,15 +536,15 @@ type=zombie
 spawnpoint=41,48,2
 
 [enemy]
-type=zombie
+type=skeleton
 spawnpoint=52,52,3
 
 [enemy]
-type=zombie
+type=skeleton
 spawnpoint=57,70,5
 
 [enemy]
-type=zombie
+type=skeleton
 spawnpoint=35,53,0
 
 [enemy]
@@ -555,14 +552,16 @@ type=zombie
 spawnpoint=17,35,2
 
 [enemy]
-type=zombie
+type=rotting_zombie
 spawnpoint=21,32,1
 
 [enemy]
-type=zombie
+type=skeletal_warrior
 spawnpoint=38,37,3
 
-
+[enemy]
+type=skeleton_boss
+spawnpoint=5,91,1
 
 
 

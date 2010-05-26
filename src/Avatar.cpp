@@ -175,7 +175,7 @@ int Avatar::face(int mapx, int mapy) {
  */
 void Avatar::logic() {
 	Point target;
-	int stepfx;
+
 	stats.logic();
 
 	// handle internal cooldowns
@@ -226,7 +226,7 @@ void Avatar::logic() {
 			if (curFrame >= 24) curFrame = 0;
 			dispFrame = (curFrame /3) + 4;
 			
-			stepfx = rand() % 4;
+			int stepfx = rand() % 4;
 			
 			if (curFrame == 4 || curFrame == 16) {
 				Mix_PlayChannel(-1, sound_steps[stepfx], 0);
@@ -333,11 +333,14 @@ void Avatar::logic() {
 	map->checkEvents(pos);
 }
 
-void Avatar::takeHit() {
+void Avatar::takeHit(int dmg_min, int dmg_max) {
+	int dmg;
+	dmg = dmg_min + (rand() % (dmg_max - dmg_min));
+
 	if (curState != AVATAR_DEAD) {
 		curFrame = 0;
 		
-		stats.hp = stats.hp - (1 + rand() % 4);
+		stats.hp = stats.hp - dmg;
 			
 		if (stats.hp <= 0) {
 			dispFrame = 18;

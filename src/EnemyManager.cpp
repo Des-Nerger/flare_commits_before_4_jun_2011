@@ -11,33 +11,61 @@
 EnemyManager::EnemyManager(MapIso *_map) {
 	map = _map;
 	enemy_count = 0;
+	file_prefix_count = 0;
 	
 	handleNewMap();
-	loadGraphics();
-	loadSounds();
 }
 
 /**
  * Enemies share graphic/sound resources (usually there are groups of similar enemies)
  */
-void EnemyManager::loadGraphics() {
+void EnemyManager::loadGraphics(string type_id) {
 	
-	sprites = IMG_Load("images/zombie.png");
-	if(!sprites) {
-		fprintf(stderr, "Couldn't load image: %s\n", IMG_GetError());
+	// TODO: throw an error if a map tries to use too many monsters
+	if (file_prefix_count == max_classes) return;
+	
+	// first check to make sure the sprite isn't already loaded
+	for (int i=0; i<file_prefix_count; i++) {
+		if (file_prefixes[i] == type_id) {
+			return; // already have this one
+		}
 	}
+
+	sprites[file_prefix_count] = IMG_Load(("images/enemies/" + type_id + ".png").c_str());
+	if(!sprites[file_prefix_count]) {
+		fprintf(stderr, "Couldn't load image: %s\n", IMG_GetError());
+		SDL_Quit();
+	}
+	
+	file_prefixes[file_prefix_count] = type_id;
+	file_prefix_count++;
 }
 
-void EnemyManager::loadSounds() {
-	sound_attack = Mix_LoadWAV("soundfx/zombie_attack.ogg");
-	sound_hit = Mix_LoadWAV("soundfx/zombie_hit.ogg");
-	sound_die = Mix_LoadWAV("soundfx/zombie_die.ogg");
-	sound_critdie = Mix_LoadWAV("soundfx/zombie_critdie.ogg");
+void EnemyManager::loadSounds(string type_id) {
+
+	int i = file_prefix_count-1;
 	
-	if (!sound_attack || !sound_hit || !sound_die || !sound_critdie) {
+	sound_phys_melee[i] = Mix_LoadWAV(("soundfx/enemies/" + type_id + "_phys_melee.ogg").c_str());
+	sound_hit[i] = Mix_LoadWAV(("soundfx/enemies/" + type_id + "_hit.ogg").c_str());
+	sound_die[i] = Mix_LoadWAV(("soundfx/enemies/" + type_id + "_die.ogg").c_str());
+	sound_critdie[i] = Mix_LoadWAV(("soundfx/enemies/" + type_id + "_critdie.ogg").c_str());
+		
+	if (!sound_phys_melee[i] 
+	 || !sound_hit[i]
+	 || !sound_die[i] 
+	 || !sound_critdie[i]) {
 		printf("Mix_LoadWAV: %s\n", Mix_GetError());
 		SDL_Quit();
 	}	
+}
+
+void EnemyManager::loadAssets(string type_id) {
+	int current = file_prefix_count;
+	loadGraphics(type_id);
+	if (file_prefix_count > current) {
+		// new enemy type, so also load on this id
+		loadSounds(type_id);
+	}
 }
 
 /**
@@ -52,14 +80,25 @@ void EnemyManager::handleNewMap () {
 	
 	enemy_count = 0;
 	
+	for (int j=0; j<file_prefix_count; j++) {
+		SDL_FreeSurface(sprites[j]);
+		Mix_FreeChunk(sound_phys_melee[j]);
+		Mix_FreeChunk(sound_hit[j]);
+		Mix_FreeChunk(sound_die[j]);
+		Mix_FreeChunk(sound_critdie[j]);
+	}
+	file_prefix_count = 0;
+	
 	while (!map->enemies.empty()) {
 		me = map->enemies.front();
 		map->enemies.pop();
-		enemies[enemy_count] = new Enemy(map);
-		enemies[enemy_count]->pos.x = me.pos.x;
-		enemies[enemy_count]->pos.y = me.pos.y;
-		enemies[enemy_count]->direction = me.direction;
 		
+		enemies[enemy_count] = new Enemy(map);
+		enemies[enemy_count]->stats.pos.x = me.pos.x;
+		enemies[enemy_count]->stats.pos.y = me.pos.y;
+		enemies[enemy_count]->stats.direction = me.direction;
+		enemies[enemy_count]->stats.load("enemies/" + me.type + ".txt");
+		loadAssets(enemies[enemy_count]->stats.file_prefix);
 		enemy_count++;
 	}
 }
@@ -68,19 +107,26 @@ void EnemyManager::handleNewMap () {
  * perform logic() for all enemies
  */
 void EnemyManager::logic() {
+	int pref_id;
+
 	for (int i=0; i<enemy_count; i++) {
-		enemies[i]->heroPos = heroPos;
+		enemies[i]->stats.hero_pos = heroPos;
 		enemies[i]->logic();
 		
+		for (int j=0; j<file_prefix_count; j++) {
+			if (file_prefixes[j] == enemies[i]->stats.file_prefix)
+				pref_id = j;
+		}
+		
 		// check sound effects
-		if (enemies[i]->sfx_hit) Mix_PlayChannel(-1, sound_hit, 0);
-		if (enemies[i]->sfx_attack) Mix_PlayChannel(-1, sound_attack, 0);
-		if (enemies[i]->sfx_die) Mix_PlayChannel(-1, sound_die, 0);		
-		if (enemies[i]->sfx_critdie) Mix_PlayChannel(-1, sound_critdie, 0);		
+		if (enemies[i]->sfx_hit) Mix_PlayChannel(-1, sound_hit[pref_id], 0);
+		if (enemies[i]->sfx_phys_melee) Mix_PlayChannel(-1, sound_phys_melee[pref_id], 0);
+		if (enemies[i]->sfx_die) Mix_PlayChannel(-1, sound_die[pref_id], 0);		
+		if (enemies[i]->sfx_critdie) Mix_PlayChannel(-1, sound_critdie[pref_id], 0);		
 		
 		// clear sound flags
 		enemies[i]->sfx_hit = false;
-		enemies[i]->sfx_attack = false;
+		enemies[i]->sfx_phys_melee = false;
 		enemies[i]->sfx_die = false;
 		enemies[i]->sfx_critdie = false;
 	}
@@ -93,7 +139,10 @@ void EnemyManager::logic() {
  */
 Renderable EnemyManager::getRender(int enemyIndex) {
 	Renderable r = enemies[enemyIndex]->getRender();
-	r.sprite = sprites;
+	for (int i=0; i<file_prefix_count; i++) {
+		if (file_prefixes[i] == enemies[enemyIndex]->stats.file_prefix)
+			r.sprite = sprites[i];
+	}
 	return r;	
 }
 
@@ -101,10 +150,14 @@ EnemyManager::~EnemyManager() {
 	for (int i=0; i<enemy_count; i++) {
 		delete(enemies[i]);
 	}
-	SDL_FreeSurface(sprites);
-	Mix_FreeChunk(sound_attack);
-	Mix_FreeChunk(sound_hit);
-	Mix_FreeChunk(sound_die);
-	Mix_FreeChunk(sound_critdie);
+	
+	for (int i=0; i<file_prefix_count; i++) {
+		SDL_FreeSurface(sprites[i]);
+		Mix_FreeChunk(sound_phys_melee[i]);
+		Mix_FreeChunk(sound_hit[i]);
+		Mix_FreeChunk(sound_die[i]);
+		Mix_FreeChunk(sound_critdie[i]);
+	}
+
 }
 

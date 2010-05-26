@@ -20,6 +20,7 @@
 #include "TileSet.h"
 #include "MapCollision.h"
 #include "Settings.h"
+#include "UtilsParsing.h"
 
 using namespace std;
 
@@ -52,11 +53,6 @@ private:
 	Mix_Music *music;
 	Mix_Chunk *sfx;
 	
-	string parse_section_title(string tok);
-	void parse_key_pair(string tok, string &key, string &val);
-	int eatFirstInt(string &s, char separator);
-	unsigned short eatFirstHex(string &s, char separator);
-	string eatFirstString(string &s, char separator);
 	void executeEvent(int eid);
 	void removeEvent(int eid);
 	void clearEvents();

@@ -10,38 +10,23 @@
 
 Enemy::Enemy(MapIso *_map) {
 	map = _map;
-	speed = 3;
-	dspeed = 2;
-	curState = ENEMY_STANCE;
-	curFrame = 0;
-	dispFrame = 0;
-	direction = 7;
-	pos.x = 200;
-	pos.y = 200;
-	
-	meleeRange = UNITS_PER_TILE;
-	threatRange = UNITS_PER_TILE *8;
-	dirFavor = 12;
-	dirTicks = 0;
-	patrolTicks = 0;
-	
-	chance_melee_phys = 6;
-	chance_melee_mag = 2;
-	chance_ranged_phys = 0;
-	chance_ranged_mag = 0;
-	cooldown = 0;
-	stats.hp = 3;
+
+	stats.cur_state = ENEMY_STANCE;
+	stats.cur_frame = 0;
+	stats.disp_frame = 0;	
+	stats.dir_ticks = 0;
+	stats.patrol_ticks = 0;
+	stats.cooldown = 0;
+	stats.last_seen.x = -1;
+	stats.last_seen.y = -1;
+	stats.in_combat = false;
 	
 	haz = NULL;
 	
-	sfx_attack = false;
+	sfx_phys_melee = false;
 	sfx_hit = false;
 	sfx_die = false;
 	sfx_critdie = false;
-	
-	lastSeen.x = -1;
-	lastSeen.y = -1;
-	in_combat = false;
 }
 
 /**
@@ -51,23 +36,23 @@ Enemy::Enemy(MapIso *_map) {
  * @return Returns false if wall collision, otherwise true.
  */
 bool Enemy::move() {
-	switch (direction) {
+	switch (stats.direction) {
 		case 0:
-			return map->collider.move(pos.x, pos.y, -1, 1, dspeed);
+			return map->collider.move(stats.pos.x, stats.pos.y, -1, 1, stats.dspeed);
 		case 1:
-			return map->collider.move(pos.x, pos.y, -1, 0, speed);
+			return map->collider.move(stats.pos.x, stats.pos.y, -1, 0, stats.speed);
 		case 2:
-			return map->collider.move(pos.x, pos.y, -1, -1, dspeed);
+			return map->collider.move(stats.pos.x, stats.pos.y, -1, -1, stats.dspeed);
 		case 3:
-			return map->collider.move(pos.x, pos.y, 0, -1, speed);
+			return map->collider.move(stats.pos.x, stats.pos.y, 0, -1, stats.speed);
 		case 4:
-			return map->collider.move(pos.x, pos.y, 1, -1, dspeed);
+			return map->collider.move(stats.pos.x, stats.pos.y, 1, -1, stats.dspeed);
 		case 5:
-			return map->collider.move(pos.x, pos.y, 1, 0, speed);
+			return map->collider.move(stats.pos.x, stats.pos.y, 1, 0, stats.speed);
 		case 6:
-			return map->collider.move(pos.x, pos.y, 1, 1, dspeed);
+			return map->collider.move(stats.pos.x, stats.pos.y, 1, 1, stats.dspeed);
 		case 7:
-			return map->collider.move(pos.x, pos.y, 0, 1, speed);
+			return map->collider.move(stats.pos.x, stats.pos.y, 0, 1, stats.speed);
 	}
 	return true;
 }
@@ -78,8 +63,8 @@ bool Enemy::move() {
 int Enemy::face(int mapx, int mapy) {
 
 	// inverting Y to convert map coordinates to standard cartesian coordinates
-	int dx = mapx - pos.x;
-	int dy = pos.y - mapy;
+	int dx = mapx - stats.pos.x;
+	int dy = stats.pos.y - mapy;
 
 	// avoid div by zero
 	if (dx == 0) {
@@ -104,39 +89,39 @@ int Enemy::face(int mapx, int mapy) {
 		if (dy > 0) return 3;
 		else return 7;
 	}
-	return direction;
+	return stats.direction;
 }
 
 /**
  * The current direction leads to a wall.  Try the next best direction, if one is available.
  */
 int Enemy::faceNextBest(int mapx, int mapy) {
-	int dx = abs(mapx - pos.x);
-	int dy = abs(mapy - pos.y);
-	switch (direction) {
+	int dx = abs(mapx - stats.pos.x);
+	int dy = abs(mapy - stats.pos.y);
+	switch (stats.direction) {
 		case 0:
 			if (dy > dx) return 7;
 			else return 1;
 		case 1:
-			if (mapy > pos.y) return 0;
+			if (mapy > stats.pos.y) return 0;
 			else return 2;
 		case 2:
 			if (dx > dy) return 1;
 			else return 3;
 		case 3:
-			if (mapx < pos.x) return 2;
+			if (mapx < stats.pos.x) return 2;
 			else return 4;
 		case 4:
 			if (dy > dx) return 3;
 			else return 5;
 		case 5:
-			if (mapy < pos.y) return 4;
+			if (mapy < stats.pos.y) return 4;
 			else return 6;
 		case 6:
 			if (dx > dy) return 5;
 			else return 7;
 		case 7:
-			if (mapx > pos.x) return 6;
+			if (mapx > stats.pos.x) return 6;
 			else return 0;
 	}
 	return 0;
@@ -146,16 +131,16 @@ int Enemy::faceNextBest(int mapx, int mapy) {
  * Calculate distance between the enemy and the hero
  */
 int Enemy::getDistance(Point dest) {
-	int dx = dest.x - pos.x;
-	int dy = dest.y - pos.y;
+	int dx = dest.x - stats.pos.x;
+	int dy = dest.y - stats.pos.y;
 	double step1 = (double)dx * (double)dx + (double)dy * (double)dy;
 	double step2 = sqrt(step1);
 	return int(step2);
 }
 
 void Enemy::newState(int state) {
-	curState = state;
-	curFrame = 0;
+	stats.cur_state = state;
+	stats.cur_frame = 0;
 }
 	
 /**
@@ -171,75 +156,81 @@ void Enemy::logic() {
 	int prev_direction;
 	bool los = false;
 	Point pursue_pos;
+	int max_frame;
+	int mid_frame;
 	
 	// general info about this enemy vs. the hero
-	dist = getDistance(heroPos);
-	if (dist < threatRange)
-		los = map->collider.line_of_sight(pos.x, pos.y, heroPos.x, heroPos.y);
+	dist = getDistance(stats.hero_pos);
+	if (dist < stats.threat_range)
+		los = map->collider.line_of_sight(stats.pos.x, stats.pos.y, stats.hero_pos.x, stats.hero_pos.y);
 	else
 		los = false;
 		
 	// set combat status and lastseen
-	if (los && dist < threatRange) {
-		in_combat = true;
-		lastSeen.x = heroPos.x;
-		lastSeen.y = heroPos.y;
+	if (los && dist < stats.threat_range) {
+		stats.in_combat = true;
+		stats.last_seen.x = stats.hero_pos.x;
+		stats.last_seen.y = stats.hero_pos.y;
 	}
-	else if (lastSeen.x >= 0 && lastSeen.y >= 0) {
-		if (getDistance(lastSeen) <= (speed+speed) && patrolTicks == 0) {
-			lastSeen.x = -1;
-			lastSeen.y = -1;
-			patrolTicks = 8;
+	else if (stats.last_seen.x >= 0 && stats.last_seen.y >= 0) {
+		if (getDistance(stats.last_seen) <= (stats.speed+stats.speed) && stats.patrol_ticks == 0) {
+			stats.last_seen.x = -1;
+			stats.last_seen.y = -1;
+			stats.patrol_ticks = 8;
 		}		
 	}
-	if (dist > threatRange+threatRange) {
-		in_combat = false;
-		patrolTicks = 0;
-		lastSeen.x = -1;
-		lastSeen.y = -1;
+	if (dist > stats.threat_range+stats.threat_range) {
+		stats.in_combat = false;
+		stats.patrol_ticks = 0;
+		stats.last_seen.x = -1;
+		stats.last_seen.y = -1;
 	}
 	
 	// where is the creature heading?
 	// TODO: add fleeing for X ticks
 	if (los) {
-		pursue_pos.x = lastSeen.x = heroPos.x;
-		pursue_pos.y = lastSeen.y = heroPos.y;
-		patrolTicks = 0;
+		pursue_pos.x = stats.last_seen.x = stats.hero_pos.x;
+		pursue_pos.y = stats.last_seen.y = stats.hero_pos.y;
+		stats.patrol_ticks = 0;
 	}
-	else if (in_combat) {
-		if (patrolTicks > 0) {
-			patrolTicks--;
-			if (patrolTicks == 0) {
-				in_combat = false;
+	else if (stats.in_combat) {
+		if (stats.patrol_ticks > 0) {
+			stats.patrol_ticks--;
+			if (stats.patrol_ticks == 0) {
+				stats.in_combat = false;
 			}			
 		}
-		pursue_pos.x = lastSeen.x;
-		pursue_pos.y = lastSeen.y;
+		pursue_pos.x = stats.last_seen.x;
+		pursue_pos.y = stats.last_seen.y;
 	}
 
-	if (cooldown > 0) cooldown--;
+	if (stats.cooldown > 0) stats.cooldown--;
 	
-	switch(curState) {
+	switch(stats.cur_state) {
 		case ENEMY_STANCE:
 		
 			// handle animation
-		    curFrame++;
-			if (curFrame >= 80) curFrame = 0;
-			if (curFrame >= 40)
-				dispFrame = (79 - curFrame) / 10;
-			else
-				dispFrame = curFrame / 10;
+		    stats.cur_frame++;
 			
-			if (in_combat) {
+			// stance is a back/forth animation
+			mid_frame = stats.anim_stance_frames * stats.anim_stance_duration;
+			max_frame = mid_frame + mid_frame;
+			if (stats.cur_frame >= max_frame) stats.cur_frame = 0;
+			if (stats.cur_frame >= mid_frame)
+				stats.disp_frame = (max_frame -1 - stats.cur_frame) / stats.anim_stance_duration + stats.anim_stance_position;
+			else
+				stats.disp_frame = stats.cur_frame / stats.anim_stance_duration + stats.anim_stance_position;
+			
+			if (stats.in_combat) {
 
 				// update direction to face the target
-				if (++dirTicks > dirFavor && patrolTicks == 0) {
-					direction = face(pursue_pos.x, pursue_pos.y);				
-					dirTicks = 0;
+				if (++stats.dir_ticks > stats.dir_favor && stats.patrol_ticks == 0) {
+					stats.direction = face(pursue_pos.x, pursue_pos.y);				
+					stats.dir_ticks = 0;
 				}
 		
 				// performed ranged actions
-				if (dist > meleeRange) {
+				if (dist > stats.melee_range) {
 				
 					// CHECK: flee!
 					// CHECK: pursue!
@@ -248,23 +239,23 @@ void Enemy::logic() {
 					}
 					else {
 						// hit an obstacle, try the next best angle
-						prev_direction = direction;
-						direction = faceNextBest(pursue_pos.x, pursue_pos.y);
+						prev_direction = stats.direction;
+						stats.direction = faceNextBest(pursue_pos.x, pursue_pos.y);
 						if (move()) {
 							newState(ENEMY_MOVE);
 						}
-						else direction = prev_direction;
+						else stats.direction = prev_direction;
 					}
 					
 				}
 				// perform melee actions
-				else if (dist <= meleeRange && cooldown == 0) {
+				else if (dist <= stats.melee_range && stats.cooldown == 0) {
 				
 					// CHECK: melee attack!
-					if ((rand() % 100) < chance_melee_phys) {
+					if ((rand() % 100) < stats.chance_melee_phys) {
 						newState(ENEMY_MELEE_PHYS);
 					}
-					else if ((rand() % 100) < chance_melee_mag) {
+					else if ((rand() % 100) < stats.chance_melee_mag) {
 						newState(ENEMY_MELEE_MAG);
 					}
 				}
@@ -275,26 +266,29 @@ void Enemy::logic() {
 		case ENEMY_MOVE:
 		
 			// handle animation
-			curFrame++;
-			if (curFrame >= 32) curFrame = 0;
-			dispFrame = (curFrame /4) + 4;
+			stats.cur_frame++;
 			
-			if (in_combat) {
+			// run is a looped animation
+			max_frame = stats.anim_run_frames * stats.anim_run_duration;
+			if (stats.cur_frame >= max_frame) stats.cur_frame = 0;
+			stats.disp_frame = (stats.cur_frame / stats.anim_run_duration) + stats.anim_run_position;
+			
+			if (stats.in_combat) {
 
-				if (++dirTicks > dirFavor && patrolTicks == 0) {
-					direction = face(pursue_pos.x, pursue_pos.y);				
-					dirTicks = 0;
+				if (++stats.dir_ticks > stats.dir_favor && stats.patrol_ticks == 0) {
+					stats.direction = face(pursue_pos.x, pursue_pos.y);				
+					stats.dir_ticks = 0;
 				}
 				
-				if (dist > meleeRange) {
+				if (dist > stats.melee_range) {
 				
 					if (!move()) {
 						// hit an obstacle.  Try the next best angle
-						prev_direction = direction;
-						direction = faceNextBest(pursue_pos.x, pursue_pos.y);
+						prev_direction = stats.direction;
+						stats.direction = faceNextBest(pursue_pos.x, pursue_pos.y);
 						if (!move()) {
 							newState(ENEMY_STANCE);
-							direction = prev_direction;
+							stats.direction = prev_direction;
 						}
 					}
 				}
@@ -310,85 +304,101 @@ void Enemy::logic() {
 		case ENEMY_MELEE_PHYS:
 		
 			// handle animation
-			curFrame++;
-			dispFrame = (curFrame / 4) + 12;
+			stats.cur_frame++;
+			
+			// melee is a play-once animation
+			max_frame = stats.anim_melee_frames * stats.anim_melee_duration;
+			stats.disp_frame = (stats.cur_frame / stats.anim_melee_duration) + stats.anim_melee_position;
 
-			if (curFrame == 1) {
-				sfx_attack = true;
+			if (stats.cur_frame == 1) {
+				sfx_phys_melee = true;
 			}
 
 			// the attack hazard is alive for a single frame
-			if (curFrame == 8 && haz == NULL) {
+			if (stats.cur_frame == max_frame/2 && haz == NULL) {
 				haz = new Hazard();
 				haz->setCollision(&(map->collider));
-				haz->pos = calcVector(pos, direction, (UNITS_PER_TILE*3)/4 );
+				haz->pos = calcVector(stats.pos, stats.direction, (UNITS_PER_TILE*3)/4 );
 				haz->radius = UNITS_PER_TILE;
 				haz->source = SRC_ENEMY;
 				haz->lifespan = 1;
+				haz->dmg_min = stats.dmg_melee_min;
+				haz->dmg_max = stats.dmg_melee_max;
 			}
 
-			if (curFrame == 15) {
+			if (stats.cur_frame == max_frame-1) {
 				newState(ENEMY_STANCE);
-				cooldown = 30;
+				stats.cooldown = 30;
 			}
 			break;
 		
 		case ENEMY_MELEE_MAG:
 	
 			// handle animation
-			curFrame++;
-			dispFrame = (curFrame / 4) + 16;
+			stats.cur_frame++;
+			max_frame = stats.anim_magic_frames * stats.anim_magic_duration;
+			stats.disp_frame = (stats.cur_frame / stats.anim_magic_duration) + stats.anim_magic_position;
 
-			if (curFrame == 1) {
-				sfx_attack = true;
+			if (stats.cur_frame == 1) {
+				// TODO: update
+				sfx_phys_melee = true;
 			}
 			
 			// the attack hazard is alive for a single frame
-			if (curFrame == 8 && haz == NULL) {
+			if (stats.cur_frame == max_frame/2 && haz == NULL) {
 				haz = new Hazard();
 				haz->setCollision(&(map->collider));
-				haz->pos = calcVector(pos, direction, (UNITS_PER_TILE*3)/4 );
+				haz->pos = calcVector(stats.pos, stats.direction, (UNITS_PER_TILE*3)/4 );
 				haz->radius = UNITS_PER_TILE;
 				haz->source = SRC_ENEMY;
 				haz->lifespan = 1;
+				haz->dmg_min = stats.dmg_magic_min;
+				haz->dmg_max = stats.dmg_magic_max;
 			}
 			
-			if (curFrame == 15) {
+			if (stats.cur_frame == max_frame-1) {
 				newState(ENEMY_STANCE);
-				cooldown = 30;
+				stats.cooldown = 30;
 			}
 			break;
 		
 		case ENEMY_HIT:
 			// enemy has taken damage.  cycle through 
-			curFrame++;
+			stats.cur_frame++;
 
-			if (curFrame == 1) {
+			// hit is a back/forth animation
+			mid_frame = stats.anim_hit_frames * stats.anim_hit_duration;
+			max_frame = mid_frame + mid_frame;
+			if (stats.cur_frame >= mid_frame)
+				stats.disp_frame = (max_frame -1 - stats.cur_frame) / stats.anim_hit_duration + stats.anim_hit_position;
+			else
+				stats.disp_frame = stats.cur_frame / stats.anim_hit_duration + stats.anim_hit_position;
+			
+			if (stats.cur_frame == 1) {
 				sfx_hit = true;
 			}
 			
-			if (curFrame < 3) dispFrame = 22;
-			else if (curFrame < 6) dispFrame = 23;
-			else dispFrame = 22;
-			
-			if (curFrame == 8) {
+			if (stats.cur_frame == max_frame-1) {
 				newState(ENEMY_STANCE);
 			}
 			
 			break;
 		case ENEMY_DEAD:
-			if (curFrame < 17) curFrame++;
-			dispFrame = (curFrame /3) + 22;
-			if (curFrame == 1) sfx_hit = true;
-			if (curFrame == 12) sfx_die = true;
+			max_frame = (stats.anim_die_frames-1) * stats.anim_die_duration;
+			if (stats.cur_frame < max_frame) stats.cur_frame++;
+			stats.disp_frame = (stats.cur_frame / stats.anim_die_duration) + stats.anim_die_position;
+			
+			if (stats.cur_frame == 1) sfx_hit = true;
+			if (stats.cur_frame == 1) sfx_die = true;
 			
 			break;
 			
 		case ENEMY_CRITDEAD:
-			if (curFrame < 31) curFrame++;
-			dispFrame = (curFrame /4) + 28;
+			max_frame = (stats.anim_critdie_frames-1) * stats.anim_critdie_duration;
+			if (stats.cur_frame < max_frame) stats.cur_frame++;
+			stats.disp_frame = (stats.cur_frame / stats.anim_critdie_duration) + stats.anim_critdie_position;
 			
-			if (curFrame == 1) {
+			if (stats.cur_frame == 1) {
 				sfx_critdie = true;
 			}
 			
@@ -398,8 +408,8 @@ void Enemy::logic() {
 }
 
 void Enemy::takeHit() {
-	if (curState != ENEMY_DEAD && curState != ENEMY_CRITDEAD) {
-		curFrame = 0;
+	if (stats.cur_state != ENEMY_DEAD && stats.cur_state != ENEMY_CRITDEAD) {
+		stats.cur_frame = 0;
 		
 		bool crit = (rand() % 100) < 30;
 		
@@ -409,16 +419,16 @@ void Enemy::takeHit() {
 			stats.hp = stats.hp -1;
 			
 		if (stats.hp <= 0 && crit) {
-			dispFrame = 28;
-			curState = ENEMY_CRITDEAD;
+			stats.disp_frame = 28;
+			stats.cur_state = ENEMY_CRITDEAD;
 		}
 		else if (stats.hp <= 0) {
-			dispFrame = 22;
-			curState = ENEMY_DEAD;		
+			stats.disp_frame = 22;
+			stats.cur_state = ENEMY_DEAD;		
 		}
 		else {
-			dispFrame = 22;
-			curState = ENEMY_HIT;
+			stats.disp_frame = 22;
+			stats.cur_state = ENEMY_HIT;
 		}
 	}
 }
@@ -430,15 +440,15 @@ void Enemy::takeHit() {
  */
 Renderable Enemy::getRender() {
 	Renderable r;
-	r.map_pos.x = pos.x;
-	r.map_pos.y = pos.y;
+	r.map_pos.x = stats.pos.x;
+	r.map_pos.y = stats.pos.y;
 	r.src = new SDL_Rect();
-	r.src->x = 128 * dispFrame;
-	r.src->y = 128 * direction;
-	r.src->w = 128;
-	r.src->h = 128;
-	r.offset.x = 64;
-	r.offset.y = 96;
+	r.src->x = stats.render_size.x * stats.disp_frame;
+	r.src->y = stats.render_size.y * stats.direction;
+	r.src->w = stats.render_size.x;
+	r.src->h = stats.render_size.y;
+	r.offset.x = stats.render_offset.x;
+	r.offset.y = stats.render_offset.y;
 	return r;	
 }
 

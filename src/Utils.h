@@ -110,22 +110,6 @@ static bool isWithin(Point center, int radius, Point target) {
 	return (calcDist(center, target) < radius);
 }
 
-static unsigned short xtoi(string hex) {
-	char c0 = hex.at(0);
-	char c1 = hex.at(1);
-	unsigned short val;
-	
-	if (c0 >= 97) val = c0 - 87;
-	else if (c0 >= 65) val = c0 - 55;
-	else val = c0 - 48;
-	val = val * 16;
-	
-	if (c1 >= 97) val = val + c1 - 87;
-	else if (c1 >= 65) val = val + c1 - 55;
-	else val = val + c1 - 48;
-	
-	return val;
-}
 
 static void zsort(Renderable r[], int rnum) {
 

@@ -63,7 +63,7 @@ public:
 	void set_direction();
 	int face(int mapx, int mapy);
 	Renderable getRender();
-	void takeHit();
+	void takeHit(int dmg_min, int dmg_max);
 	
 	// vars
 	Point pos;

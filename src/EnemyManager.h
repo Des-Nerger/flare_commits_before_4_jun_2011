@@ -13,38 +13,22 @@
 #include "Enemy.h"
 #include "Utils.h"
 
-// Enemies of the same name share the same behavior type
-struct EnemyBehavior {
-	int melee_range;
-	int threat_range;
-
-	int direction_duration;
-	int patrol_duration;
-
-	int chance_pursue;
-	int chance_flee;
-	int chance_melee_phys;
-	int chance_melee_mag;
-	int chance_ranged_phys;
-	int chance_ranged_mag;
-
-	int cooldown_melee_phys;
-	int cooldown_melee_mag;
-	int cooldown_ranged_phys;
-	int cooldown_ranged_mag;
-};
+const int max_classes = 8;
 
 class EnemyManager {
 private:
 	MapIso *map;
-	void loadGraphics();
-	void loadSounds();
+	void loadGraphics(string type_id);
+	void loadSounds(string type_id);
+	void loadAssets(string type_id);
 
-	SDL_Surface *sprites;
-	Mix_Chunk *sound_attack;
-	Mix_Chunk *sound_hit;
-	Mix_Chunk *sound_die;
-	Mix_Chunk *sound_critdie;
+	string file_prefixes[max_classes];
+	int file_prefix_count;
+	SDL_Surface *sprites[max_classes];	
+	Mix_Chunk *sound_phys_melee[max_classes];
+	Mix_Chunk *sound_hit[max_classes];
+	Mix_Chunk *sound_die[max_classes];
+	Mix_Chunk *sound_critdie[max_classes];
 	
 public:
 	EnemyManager(MapIso *_map);

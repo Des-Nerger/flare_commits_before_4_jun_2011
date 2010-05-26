@@ -15,6 +15,8 @@ Hazard::Hazard() {
 	speed.y = 0.0;
 	multitarget = false;
 	active = true;
+	dmg_min = 0;
+	dmg_max = 0;
 }
 
 void Hazard::setCollision(MapCollision *_collider) {

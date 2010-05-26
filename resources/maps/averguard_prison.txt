@@ -371,11 +371,11 @@ soundfx=soundfx/door_open.ogg
 
 
 [enemy]
-type=zombie
+type=rotting_zombie
 spawnpoint=2,45,5
 
 [enemy]
-type=zombie
+type=rotting_zombie
 spawnpoint=6,47,7
 
 [enemy]
@@ -387,7 +387,7 @@ type=zombie
 spawnpoint=20,52,7
 
 [enemy]
-type=zombie
+type=rotting_zombie
 spawnpoint=23,52,7
 
 [enemy]
@@ -395,19 +395,19 @@ type=zombie
 spawnpoint=12,65,5
 
 [enemy]
-type=zombie
+type=rotting_zombie
 spawnpoint=8,74,7
 
 [enemy]
-type=zombie
+type=rotting_zombie
 spawnpoint=5,74,7
 
 [enemy]
-type=zombie
+type=rotting_zombie
 spawnpoint=2,74,7
 
 [enemy]
-type=zombie
+type=rotting_zombie
 spawnpoint=23,67,3
 
 [enemy]
@@ -415,11 +415,11 @@ type=zombie
 spawnpoint=24,65,7
 
 [enemy]
-type=zombie
+type=rotting_zombie
 spawnpoint=23,64,7
 
 [enemy]
-type=zombie
+type=skeleton
 spawnpoint=11,97,7
 
 [enemy]
@@ -427,11 +427,11 @@ type=zombie
 spawnpoint=12,98,2
 
 [enemy]
-type=zombie
+type=skeleton
 spawnpoint=13,97,7
 
 [enemy]
-type=zombie
+type=rotting_zombie
 spawnpoint=15,98,5
 
 [enemy]
@@ -439,35 +439,35 @@ type=zombie
 spawnpoint=7,87,5
 
 [enemy]
-type=zombie
+type=rotting_zombie
 spawnpoint=12,85,7
 
 [enemy]
-type=zombie
+type=skeleton
 spawnpoint=11,87,6
 
 [enemy]
-type=zombie
+type=skeleton
 spawnpoint=15,88,3
 
 [enemy]
-type=zombie
+type=skeletal_warrior
 spawnpoint=16,84,7
 
 [enemy]
-type=zombie
+type=rotting_zombie
 spawnpoint=36,55,5
 
 [enemy]
-type=zombie
+type=rotting_zombie
 spawnpoint=38,55,1
 
 [enemy]
-type=zombie
+type=rotting_zombie
 spawnpoint=37,54,7
 
 [enemy]
-type=zombie
+type=rotting_zombie
 spawnpoint=37,56,3
 
 [enemy]
@@ -495,11 +495,11 @@ type=zombie
 spawnpoint=69,47,7
 
 [enemy]
-type=zombie
+type=skeletal_warrior
 spawnpoint=56,57,4
 
 [enemy]
-type=zombie
+type=skeleton
 spawnpoint=63,52,0
 
 [enemy]
@@ -507,11 +507,11 @@ type=zombie
 spawnpoint=91,69,3
 
 [enemy]
-type=zombie
+type=skeleton
 spawnpoint=92,76,6
 
 [enemy]
-type=zombie
+type=skeletal_warrior
 spawnpoint=87,74,3
 
 [enemy]
@@ -527,6 +527,6 @@ type=zombie
 spawnpoint=93,44,4
 
 [enemy]
-type=zombie
+type=zombie_boss
 spawnpoint=89,6,7
 
