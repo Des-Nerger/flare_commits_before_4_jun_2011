@@ -560,6 +560,30 @@ type=skeletal_warrior
 spawnpoint=38,37,3
 
 [enemy]
+type=antlion
+spawnpoint=6,80,5
+
+[enemy]
+type=antlion
+spawnpoint=13,84,4
+
+[enemy]
+type=antlion
+spawnpoint=19,90,4
+
+[enemy]
+type=antlion
+spawnpoint=13,74,7
+
+[enemy]
+type=antlion
+spawnpoint=54,70,2
+
+[enemy]
+type=antlion
+spawnpoint=55,65,4
+
+[enemy]
 type=skeleton_boss
 spawnpoint=5,91,1
 
