@@ -335,7 +335,8 @@ void Avatar::logic() {
 
 void Avatar::takeHit(int dmg_min, int dmg_max) {
 	int dmg;
-	dmg = dmg_min + (rand() % (dmg_max - dmg_min));
+	if (dmg_min == dmg_max) dmg = dmg_min;
+	else dmg = dmg_min + (rand() % (dmg_max - dmg_min));
 
 	if (curState != AVATAR_DEAD) {
 		curFrame = 0;

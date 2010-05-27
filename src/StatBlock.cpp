@@ -37,7 +37,7 @@ StatBlock::StatBlock() {
 	stunned_duration = 0;
 	
 	temphp = 0;
-
+	cooldown_ticks = 0;
 	
 }
 
@@ -81,6 +81,7 @@ void StatBlock::load(string filename) {
 					// combat stats
 					else if (key == "hp") hp = num;
 					else if (key == "mp") mp = num;
+					else if (key == "cooldown") cooldown = num;
 					else if (key == "accuracy") accuracy = num;
 					else if (key == "avoidance") avoidance = num;
 					else if (key == "dmg_melee_min") dmg_melee_min = num;
@@ -102,6 +103,7 @@ void StatBlock::load(string filename) {
 					else if (key == "chance_melee_mag") chance_melee_mag = num;
 					else if (key == "chance_ranged_phys") chance_ranged_phys = num;
 					else if (key == "chance_ranged_mag") chance_ranged_mag = num;
+					
 					else if (key == "melee_range") melee_range = num;
 					else if (key == "threat_range") threat_range = num;
 

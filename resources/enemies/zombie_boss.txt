@@ -13,10 +13,12 @@ chance_melee_phys=20
 chance_melee_mag=15
 chance_ranged_phys=0
 chance_ranged_mag=0
+
 dmg_melee_min=2
 dmg_melee_max=6
 dmg_magic_min=3
 dmg_magic_max=6
+cooldown=25
 
 # animation info
 render_size_x=128

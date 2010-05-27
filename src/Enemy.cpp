@@ -204,7 +204,7 @@ void Enemy::logic() {
 		pursue_pos.y = stats.last_seen.y;
 	}
 
-	if (stats.cooldown > 0) stats.cooldown--;
+	if (stats.cooldown_ticks > 0) stats.cooldown_ticks--;
 	
 	switch(stats.cur_state) {
 		case ENEMY_STANCE:
@@ -233,6 +233,7 @@ void Enemy::logic() {
 				if (dist > stats.melee_range) {
 				
 					// CHECK: flee!
+					
 					// CHECK: pursue!
 					if (move()) { // no collision
 						newState(ENEMY_MOVE);
@@ -249,7 +250,7 @@ void Enemy::logic() {
 					
 				}
 				// perform melee actions
-				else if (dist <= stats.melee_range && stats.cooldown == 0) {
+				else if (dist <= stats.melee_range && stats.cooldown_ticks == 0) {
 				
 					// CHECK: melee attack!
 					if ((rand() % 100) < stats.chance_melee_phys) {
@@ -328,7 +329,7 @@ void Enemy::logic() {
 
 			if (stats.cur_frame == max_frame-1) {
 				newState(ENEMY_STANCE);
-				stats.cooldown = 30;
+				stats.cooldown_ticks = stats.cooldown;
 			}
 			break;
 		
@@ -358,7 +359,7 @@ void Enemy::logic() {
 			
 			if (stats.cur_frame == max_frame-1) {
 				newState(ENEMY_STANCE);
-				stats.cooldown = 30;
+				stats.cooldown_ticks = stats.cooldown;
 			}
 			break;
 		

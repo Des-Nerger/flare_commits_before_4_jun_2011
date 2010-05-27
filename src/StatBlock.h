@@ -103,6 +103,7 @@ public:
 	int chance_melee_mag;
 	int chance_ranged_phys;
 	int chance_ranged_mag;
+	
 	int melee_range;
 	int threat_range;
 	Point hero_pos;
@@ -111,12 +112,14 @@ public:
 	int dir_ticks;
 	int patrol_ticks;
 	bool in_combat;
-	int cooldown;
+	int cooldown_ticks;
+	int cooldown; // min. # of frames between abilities
 	
 	// rendering info
 	int cur_state;
 	int cur_frame;
 	int disp_frame;
+	
 	
 	Point render_size;
 	Point render_offset;
