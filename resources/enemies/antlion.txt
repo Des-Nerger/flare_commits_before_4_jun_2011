@@ -1,5 +1,5 @@
 name=Antlion
-sfx_prefix=skeleton
+sfx_prefix=antlion
 gfx_prefix=antlion
 
 # combat stats
