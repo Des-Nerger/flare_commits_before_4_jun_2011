@@ -51,7 +51,10 @@ class MapIso {
 private:
 	SDL_Surface *screen;
 	Mix_Music *music;
+	
+	// map events can play random soundfx
 	Mix_Chunk *sfx;
+	string sfx_filename;
 	
 	void executeEvent(int eid);
 	void removeEvent(int eid);

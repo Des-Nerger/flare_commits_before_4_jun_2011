@@ -24,6 +24,7 @@ Enemy::Enemy(MapIso *_map) {
 	haz = NULL;
 	
 	sfx_phys_melee = false;
+	sfx_mag_melee = false;
 	sfx_hit = false;
 	sfx_die = false;
 	sfx_critdie = false;
@@ -342,7 +343,7 @@ void Enemy::logic() {
 
 			if (stats.cur_frame == 1) {
 				// TODO: update
-				sfx_phys_melee = true;
+				sfx_mag_melee = true;
 			}
 			
 			// the attack hazard is alive for a single frame

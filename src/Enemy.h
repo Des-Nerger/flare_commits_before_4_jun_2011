@@ -58,6 +58,7 @@ public:
 	StatBlock stats;
 
 	bool sfx_phys_melee;
+	bool sfx_mag_melee;
 	bool sfx_hit;
 	bool sfx_die;
 	bool sfx_critdie;

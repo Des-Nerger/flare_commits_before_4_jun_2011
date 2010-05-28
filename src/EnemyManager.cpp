@@ -54,10 +54,13 @@ void EnemyManager::loadSounds(string type_id) {
 	}
 	
 	sound_phys_melee[sfx_count] = Mix_LoadWAV(("soundfx/enemies/" + type_id + "_phys_melee.ogg").c_str());
+	sound_mag_melee[sfx_count] = Mix_LoadWAV(("soundfx/enemies/" + type_id + "_mag_melee.ogg").c_str());
 	sound_hit[sfx_count] = Mix_LoadWAV(("soundfx/enemies/" + type_id + "_hit.ogg").c_str());
 	sound_die[sfx_count] = Mix_LoadWAV(("soundfx/enemies/" + type_id + "_die.ogg").c_str());
 	sound_critdie[sfx_count] = Mix_LoadWAV(("soundfx/enemies/" + type_id + "_critdie.ogg").c_str());
-		
+	
+	/* it's ok if creatures don't use some sounds
+	
 	if (!sound_phys_melee[sfx_count] 
 	 || !sound_hit[sfx_count]
 	 || !sound_die[sfx_count] 
@@ -65,6 +68,7 @@ void EnemyManager::loadSounds(string type_id) {
 		printf("Mix_LoadWAV: %s\n", Mix_GetError());
 		SDL_Quit();
 	}
+	*/
 
 	sfx_prefixes[sfx_count] = type_id;
 	sfx_count++;
@@ -125,14 +129,17 @@ void EnemyManager::logic() {
 		}
 		
 		// check sound effects
-		if (enemies[i]->sfx_hit) Mix_PlayChannel(-1, sound_hit[pref_id], 0);
 		if (enemies[i]->sfx_phys_melee) Mix_PlayChannel(-1, sound_phys_melee[pref_id], 0);
+		if (enemies[i]->sfx_mag_melee) Mix_PlayChannel(-1, sound_mag_melee[pref_id], 0);
+
+		if (enemies[i]->sfx_hit) Mix_PlayChannel(-1, sound_hit[pref_id], 0);
 		if (enemies[i]->sfx_die) Mix_PlayChannel(-1, sound_die[pref_id], 0);		
 		if (enemies[i]->sfx_critdie) Mix_PlayChannel(-1, sound_critdie[pref_id], 0);		
 		
 		// clear sound flags
 		enemies[i]->sfx_hit = false;
 		enemies[i]->sfx_phys_melee = false;
+		enemies[i]->sfx_mag_melee = false;
 		enemies[i]->sfx_die = false;
 		enemies[i]->sfx_critdie = false;
 	}
@@ -162,6 +169,7 @@ EnemyManager::~EnemyManager() {
 	}
 	for (int i=0; i<sfx_count; i++) {
 		Mix_FreeChunk(sound_phys_melee[i]);
+		Mix_FreeChunk(sound_mag_melee[i]);
 		Mix_FreeChunk(sound_hit[i]);
 		Mix_FreeChunk(sound_die[i]);
 		Mix_FreeChunk(sound_critdie[i]);

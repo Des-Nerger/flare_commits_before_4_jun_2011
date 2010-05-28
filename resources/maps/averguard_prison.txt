@@ -387,7 +387,7 @@ type=zombie
 spawnpoint=20,52,7
 
 [enemy]
-type=rotting_zombie
+type=goblin_charger
 spawnpoint=23,52,7
 
 [enemy]

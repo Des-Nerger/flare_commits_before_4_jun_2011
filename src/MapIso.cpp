@@ -25,6 +25,7 @@ MapIso::MapIso(SDL_Surface *_screen) {
 	enemy_awaiting_queue = false;
 	
 	sfx = NULL;
+	sfx_filename = "";
 	
 	// spawn is a special map that defines where the campaign begins
 	load("spawn.txt");
@@ -68,8 +69,12 @@ void MapIso::clear_enemy(Map_Enemy e) {
 }
 
 void MapIso::playSFX(string filename) {
-	if (sfx) Mix_FreeChunk(sfx);
-	sfx = Mix_LoadWAV(filename.c_str());
+	// only load from file if the requested soundfx isn't already loaded
+	if (filename != sfx_filename) {
+		if (sfx) Mix_FreeChunk(sfx);
+		sfx = Mix_LoadWAV(filename.c_str());
+		sfx_filename = filename;
+	}
 	if (sfx) Mix_PlayChannel(-1, sfx, 0);	
 }
 
