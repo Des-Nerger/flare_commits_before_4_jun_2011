@@ -15,6 +15,7 @@
 #include "SDL.h"
 #include "SDL_image.h"
 #include "Utils.h"
+#include "UtilsParsing.h"
 
 using namespace std;
 
@@ -27,18 +28,24 @@ private:
 	SDL_Surface *sprites;
 	int font_width;
 	int font_height;
-	int line_height;
 	int kerning;
 	int width[256]; // width of each ASCII character
 	SDL_Rect src;
 	SDL_Rect dest;
 
-	int calc_length(string text);
 public:
 	FontEngine();
 	~FontEngine();
 	void load(string filename);
-	void render(string text, int x, int y, int justify, SDL_Surface *target);	
+	void render(string text, int x, int y, int justify, SDL_Surface *target);
+	void render(string text, int x, int y, int justify, SDL_Surface *target, int width);
+
+
+	int calc_length(string text);
+	Point calc_size(string text, int width);
+	
+	int cursor_y;
+	int line_height;
 };
 
 #endif

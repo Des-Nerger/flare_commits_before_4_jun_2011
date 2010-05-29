@@ -85,6 +85,19 @@ void MenuActionBar::render() {
 	
 }
 
+string MenuActionBar::checkTooltip(Point mouse) {
+	if (mouse.x >= 448 && mouse.x <= 512 && mouse.y >= 448 && mouse.y <= 480)
+		return "Character Menu (C)";
+	if (mouse.x >= 512 && mouse.x <= 544 && mouse.y >= 448 && mouse.y <= 480)
+		return "Inventory Menu (I)";
+	if (mouse.x >= 544 && mouse.x <= 576 && mouse.y >= 448 && mouse.y <= 480)
+		return "Powers Menu (P)";
+	if (mouse.x >= 576 && mouse.x <= 608 && mouse.y >= 448 && mouse.y <= 480)
+		return "Log Menu (L)";
+
+	return "";
+}
+
 MenuActionBar::~MenuActionBar() {
 	SDL_FreeSurface(background);
 	SDL_FreeSurface(trim);

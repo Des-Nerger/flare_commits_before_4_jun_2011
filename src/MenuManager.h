@@ -21,6 +21,7 @@
 #include "StatBlock.h"
 #include "MenuActionBar.h"
 #include "MenuHealthMana.h"
+#include "MenuTooltip.h"
 
 class MenuManager {
 private:
@@ -30,6 +31,7 @@ private:
 	MenuLog *log;
 	MenuActionBar *act;
 	MenuHealthMana *hpmp;
+	MenuTooltip *tip;
 	Mix_Chunk *sfx_open;
 	Mix_Chunk *sfx_close;
 	

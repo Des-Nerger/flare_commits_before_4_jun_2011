@@ -36,6 +36,7 @@ public:
 	~MenuPowers();
 	void logic();
 	void render();
+	string checkTooltip(Point mouse);
 	
 	bool visible;
 

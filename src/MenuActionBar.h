@@ -34,6 +34,7 @@ public:
 	void loadGraphics();
 	void logic();
 	void render();
+	string checkTooltip(Point mouse);
 };
 
 #endif

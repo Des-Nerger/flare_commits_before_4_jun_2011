@@ -18,9 +18,7 @@ FontEngine::FontEngine() {
 	load("fonts/font.txt");
 }
 
-FontEngine::~FontEngine() {
-	SDL_FreeSurface(sprites);
-}
+
 
 void FontEngine::load(string filename) {
 
@@ -85,12 +83,71 @@ int FontEngine::calc_length(string text) {
 }
 
 /**
+ * Using the given wrap width, calculate the width and height necessary to display this text
+ */
+Point FontEngine::calc_size(string text, int width) {
+	char newline = 10;
+
+	// if this contains newlines, recurse
+	int check_newline = text.find_first_of(newline);
+	if (check_newline > -1) {
+		Point p1 = calc_size(text.substr(0, check_newline), width);
+		Point p2 = calc_size(text.substr(check_newline+1, text.length()), width);
+		Point p3;
+		
+		if (p1.x > p2.x) p3.x = p1.x;
+		else p3.x = p2.x;
+		
+		p3.y = p1.y + p2.y;
+		return p3;
+	}
+
+	int height = 0;
+	int max_width = 0;
+	//bool written;
+	string segment;
+	string fulltext;
+	string builder = "";
+	string builder_prev = "";
+	char space = 32;
+	
+	fulltext = text + " ";
+	segment = eatFirstString(fulltext, space);
+	
+	while(segment != "") {
+		builder = builder + segment;
+		
+		if (calc_length(builder) > width) {
+			height = height + line_height;
+			if (calc_length(builder_prev) > max_width) max_width = calc_length(builder_prev);
+			builder_prev = "";
+			builder = segment + " ";
+		}
+		else {
+			builder = builder + " ";
+			builder_prev = builder;
+		}
+		
+		segment = eatFirstString(fulltext, space);
+	}
+	
+	height = height + line_height;
+	if (calc_length(builder) > max_width) max_width = calc_length(builder);
+				
+	Point size;
+	size.x = max_width;
+	size.y = height;
+	return size;
+
+}
+
+/**
  * Render the given text at (x,y) on the target image.
  * Justify is left, right, or center
  */
 void FontEngine::render(string text, int x, int y, int justify, SDL_Surface *target) {
 
-	char c;
+	unsigned char c;
 	char str[256];
 	
 	strcpy(str, text.c_str());
@@ -112,16 +169,72 @@ void FontEngine::render(string text, int x, int y, int justify, SDL_Surface *tar
 	for (int i=0; i<text.length(); i++) {
 		// set the bounding rect of the char to render
 		c = str[i];
-		src.x = ((c-32) % 16) * font_width;
-		src.y = ((c-32) / 16) * font_height;
-		src.w = width[c];
+		if (c >= 32 && c <= 127) {
+			src.x = ((c-32) % 16) * font_width;
+			src.y = ((c-32) / 16) * font_height;
+			src.w = width[c];
 		
-		// draw the font
-		SDL_BlitSurface(sprites, &src, target, &dest);
+			// draw the font
+			SDL_BlitSurface(sprites, &src, target, &dest);
 		
-		// move dest
-		dest.x = dest.x + width[c] + kerning;
+			// move dest
+			dest.x = dest.x + width[c] + kerning;
+		}
 	}
 }
 
+/**
+ * If width is passed as a parameter, word wrap to that width
+ * This version handles newlines
+ */
+void FontEngine::render(string text, int x, int y, int justify, SDL_Surface *target, int width) {
+	// start with an empty string
+	// add the next token
+	// check length
+	// when the length is greater than width, output that line and move to the next token
+	
+	cursor_y = y;
+	string segment;
+	string fulltext;
+	string builder = "";
+	string builder_prev = "";
+	char space = 32;
+	char newline = 10;
+
+	// if this contains newlines, recurse
+	int check_newline = text.find_first_of(newline);
+	if (check_newline > -1) {
+		render(text.substr(0, check_newline), x, cursor_y, justify, target, width);
+		render(text.substr(check_newline+1, text.length()), x, cursor_y, justify, target, width);
+		return;
+	}
+	
+	fulltext = text + " ";
+	segment = eatFirstString(fulltext, space);
+	
+	while(segment != "") {
+		builder = builder + segment;
+		
+		if (calc_length(builder) > width) {
+			render(builder_prev, x, cursor_y, justify, target);
+			cursor_y += line_height;
+			builder_prev = "";
+			builder = segment + " ";
+		}
+		else {
+			builder = builder + " ";
+			builder_prev = builder;
+		}
+		
+		segment = eatFirstString(fulltext, space);
+	}
+
+	render(builder, x, cursor_y, justify, target);
+	cursor_y += line_height;
+
+}
+
+FontEngine::~FontEngine() {
+	SDL_FreeSurface(sprites);
+}
 

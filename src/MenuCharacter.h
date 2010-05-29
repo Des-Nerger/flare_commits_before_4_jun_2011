@@ -22,6 +22,7 @@ private:
 	SDL_Surface *screen;
 	FontEngine *font;
 	StatBlock *stats;
+
 	
 	SDL_Surface *background;
 	SDL_Surface *proficiency;
@@ -34,6 +35,7 @@ public:
 	~MenuCharacter();
 	void logic();
 	void render();
+	string checkTooltip(Point mouse);
 
 	bool visible;
 

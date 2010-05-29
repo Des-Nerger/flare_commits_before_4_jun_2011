@@ -19,6 +19,7 @@ MenuManager::MenuManager(SDL_Surface *_screen, InputState *_inp, FontEngine *_fo
 	log = new MenuLog(screen, font);
 	act = new MenuActionBar(screen, inp);
 	hpmp = new MenuHealthMana(screen, font);
+	tip = new MenuTooltip(font, screen);
 	
 	pause = false;
 	loadSounds();
@@ -99,6 +100,26 @@ void MenuManager::render() {
 	pow->render();
 	chr->render();
 	log->render();
+	
+	string tooltip = "";
+	
+	if (inp->mouse.x < 320 && inp->mouse.y >= 32 && inp->mouse.y <= 448) {
+		if (chr->visible) {
+			tooltip = chr->checkTooltip(inp->mouse);
+		}
+	}
+	else if (inp->mouse.x >= 320 && inp->mouse.y >= 32 && inp->mouse.y <= 448) {
+		if (pow->visible) {
+			tooltip = pow->checkTooltip(inp->mouse);
+		}
+	}
+	else if (inp->mouse.y >= 448) {
+		tooltip = act->checkTooltip(inp->mouse);
+	}
+	
+	if (tooltip != "") {
+		tip->render(tooltip, inp->mouse);
+	}
 }
 
 void MenuManager::closeAll() {
@@ -116,6 +137,7 @@ MenuManager::~MenuManager() {
 	delete(chr);
 	delete(log);
 	delete(act);
+	delete(tip);
 	Mix_FreeChunk(sfx_open);
 	Mix_FreeChunk(sfx_close);
 	

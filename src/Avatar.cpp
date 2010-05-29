@@ -42,8 +42,8 @@ Avatar::Avatar(InputState *_inp, MapIso *_map) {
 	stats.dmg_ranged_max = 0;
 	stats.recalc();
 	
-	stats.hp_per_minute = 5;
-	stats.mp_per_minute = 5;
+	stats.hp_per_minute = 4 + stats.physical;
+	stats.mp_per_minute = 4 + stats.magical;
 	cooldown_melee = 0;
 	
 	// when aiming attacks (not ground spells) adjust for players aiming at

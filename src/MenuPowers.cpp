@@ -106,6 +106,69 @@ void MenuPowers::displayBuild(int value, int x) {
 	}
 }
 
+string MenuPowers::checkTooltip(Point mouse) {
+	if (mouse.x >= 368 && mouse.x <= 400 && mouse.y >= 64 && mouse.y <= 112)
+		return "Physical + Offense grants melee and ranged attacks";
+	if (mouse.x >= 432 && mouse.x <= 464 && mouse.y >= 64 && mouse.y <= 112)
+		return "Physical + Defense grants melee protection";
+	if (mouse.x >= 496 && mouse.x <= 528 && mouse.y >= 64 && mouse.y <= 112)
+		return "Magical + Offense grants elemental spell attacks";
+	if (mouse.x >= 560 && mouse.x <= 592 && mouse.y >= 64 && mouse.y <= 112)
+		return "Magical + Defense grants healing and magic protection";
+			
+	// tier 1 powers
+	if (mouse.x >= 368 && mouse.x <= 400 && mouse.y >= 112 && mouse.y <= 144)
+		return "Shoot\nBasic Ranged Attack";
+	if (mouse.x >= 432 && mouse.x <= 464 && mouse.y >= 112 && mouse.y <= 144)
+		return "Swing\nBasic Melee Attack";
+	if (mouse.x >= 496 && mouse.x <= 528 && mouse.y >= 112 && mouse.y <= 144)
+		return "Lore\nIdentify magic items";
+	if (mouse.x >= 560 && mouse.x <= 592 && mouse.y >= 112 && mouse.y <= 144)
+		return "Return\nWarp to your chosen Sanctuary";	
+	
+	// tier 3 powers
+	if (mouse.x >= 368 && mouse.x <= 400 && mouse.y >= 176 && mouse.y <= 208)
+		return "Blood Strike\nCause target to Bleed for a few seconds\nRequires Physical Offense 3";
+	if (mouse.x >= 432 && mouse.x <= 464 && mouse.y >= 176 && mouse.y <= 208)
+		return "Block\nIncrease avoidance and absorption\nRequires Physical Defense 3";
+	if (mouse.x >= 496 && mouse.x <= 528 && mouse.y >= 176 && mouse.y <= 208)
+		return "Bolt\nConjure electricity that arcs between targets\nRequires Magical Offense 3";
+	if (mouse.x >= 560 && mouse.x <= 592 && mouse.y >= 176 && mouse.y <= 208)
+		return "Heal\nRestore health\nRequires Magical Defense 3";	
+	
+	// tier 5 powers
+	if (mouse.x >= 368 && mouse.x <= 400 && mouse.y >= 240 && mouse.y <= 272)
+		return "Multishot\nFire three projectiles in one shot\nRequires Physical Offense 5";
+	if (mouse.x >= 432 && mouse.x <= 464 && mouse.y >= 240 && mouse.y <= 272)
+		return "Warcry\nBecome immune to debuffs for a short time and scare nearby enemies\nRequires Physical Defense 5";
+	if (mouse.x >= 496 && mouse.x <= 528 && mouse.y >= 240 && mouse.y <= 272)
+		return "Quake\nShatter the earth and stun nearby enemies\nRequires Magical Offense 5";
+	if (mouse.x >= 560 && mouse.x <= 592 && mouse.y >= 240 && mouse.y <= 272)
+		return "Shield\nAbsorbs damage\nRequires Magical Defense 5";		
+
+	// tier 7 powers
+	if (mouse.x >= 368 && mouse.x <= 400 && mouse.y >= 304 && mouse.y <= 336)
+		return "Cleave\nStrike all enemies in a wide arc\nRequires Physical Offense 7";
+	if (mouse.x >= 432 && mouse.x <= 464 && mouse.y >= 304 && mouse.y <= 336)
+		return "Charge\nBull rush the target and knock it back\nRequires Physical Defense 7";
+	if (mouse.x >= 496 && mouse.x <= 528 && mouse.y >= 304 && mouse.y <= 336)
+		return "Freeze\nSlow enemies in a straight line\nRequires Magical Offense 7";
+	if (mouse.x >= 560 && mouse.x <= 592 && mouse.y >= 304 && mouse.y <= 336)
+		return "Teleport\nWarp instantly to the target location\nRequires Magical Defense 7";	
+	
+	// tier 9 powers
+	if (mouse.x >= 368 && mouse.x <= 400 && mouse.y >= 368 && mouse.y <= 400)
+		return "Piercing Shot\nIgnore armor and shoot straight through enemies\nRequires Physical Offense 9";
+	if (mouse.x >= 432 && mouse.x <= 464 && mouse.y >= 368 && mouse.y <= 400)
+		return "Vengeance\nAfter blocking, launch a heavy accurate attack\nRequires Physical Defense 9";
+	if (mouse.x >= 496 && mouse.x <= 528 && mouse.y >= 368 && mouse.y <= 400)
+		return "Burn\nEvoke devastating flames in a distant area\nRequires Magical Offense 9";
+	if (mouse.x >= 560 && mouse.x <= 592 && mouse.y >= 368 && mouse.y <= 400)
+		return "Time Stop\nPause the flow of time for a few moments\nRequires Magical Defense 9";		
+	
+	return "";
+}
+
 MenuPowers::~MenuPowers() {
 	SDL_FreeSurface(background);
 	SDL_FreeSurface(powers_step);
