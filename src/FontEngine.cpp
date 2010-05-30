@@ -104,7 +104,7 @@ Point FontEngine::calc_size(string text, int width) {
 
 	int height = 0;
 	int max_width = 0;
-	//bool written;
+
 	string segment;
 	string fulltext;
 	string builder = "";
@@ -135,7 +135,7 @@ Point FontEngine::calc_size(string text, int width) {
 	if (calc_length(builder) > max_width) max_width = calc_length(builder);
 				
 	Point size;
-	size.x = max_width;
+	size.x = max_width - this->width[32] - kerning; // remove the extra blankspace at the end
 	size.y = height;
 	return size;
 

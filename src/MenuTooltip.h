@@ -22,6 +22,7 @@ private:
 	int offset;
 	int width;
 	int margin;
+	int margin_bottom;
 public:
 	MenuTooltip(FontEngine *_font, SDL_Surface *_screen);
 	void render(string text, Point pos);	
