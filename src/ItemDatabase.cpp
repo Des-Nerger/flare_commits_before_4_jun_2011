@@ -192,8 +192,9 @@ void ItemDatabase::renderIcon(int item, int x, int y, int size) {
 }
 
 void ItemDatabase::playSound(int item) {
-	if (sfx[items[item].sfx])
-		Mix_PlayChannel(-1, sfx[items[item].sfx], 0);
+	if (items[item].sfx != SFX_NONE)
+		if (sfx[items[item].sfx])
+			Mix_PlayChannel(-1, sfx[items[item].sfx], 0);
 }
 
 string ItemDatabase::getTooltip(int item) {

@@ -73,7 +73,7 @@ bool MapCollision::line_check(int x1, int y1, int x2, int y2, int checktype) {
 	float dy = abs(y2 - y1);
 	float step_x;
 	float step_y;
-	int steps = max(dx, dy);
+	int steps = (int)max(dx, dy);
 	int mapx;
 	int mapy;
 
