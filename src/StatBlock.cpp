@@ -144,6 +144,7 @@ void StatBlock::load(string filename) {
 			}
 		}
 	}
+	infile.close();
 }
 
 /**

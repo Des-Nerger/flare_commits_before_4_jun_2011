@@ -12,29 +12,35 @@ MenuManager::MenuManager(SDL_Surface *_screen, InputState *_inp, FontEngine *_fo
 	inp = _inp;
 	font = _font;
 	stats = _stats;
-	
-	inv = new MenuInventory(screen, font);
+
+	items = new ItemDatabase(screen);
+	inv = new MenuInventory(screen, font, items);
 	pow = new MenuPowers(screen, font, stats);
 	chr = new MenuCharacter(screen, font, stats);
 	log = new MenuLog(screen, font);
 	act = new MenuActionBar(screen, inp);
 	hpmp = new MenuHealthMana(screen, font);
 	tip = new MenuTooltip(font, screen);
+
 	
 	pause = false;
+	dragging = false;
+	drag_item = 0;
+	drag_src = 0;
+	
 	loadSounds();
+
 }
 
 void MenuManager::loadSounds() {
 	sfx_open = Mix_LoadWAV("soundfx/inventory/inventory_page.ogg");
-	sfx_close = Mix_LoadWAV("soundfx/inventory/inventory_close.ogg");
+	sfx_close = Mix_LoadWAV("soundfx/inventory/inventory_book.ogg");
 	
 	if (!sfx_open) {
 		printf("Mix_LoadWAV: %s\n", Mix_GetError());
 		SDL_Quit();
 	}	
 }
-
 
 void MenuManager::logic() {
 
@@ -91,6 +97,39 @@ void MenuManager::logic() {
 	}
 	
 	pause = (inv->visible || pow->visible || chr->visible || log->visible);
+	
+	// handle left-click drag
+	if (!dragging && inp->pressing[MAIN1]) {
+		if (inp->mouse.x >= 320 && inp->mouse.y >= 32 && inp->mouse.y <= 448) {
+			if (inv->visible) {
+				drag_item = inv->click(inp->mouse);
+				if (drag_item > 0) {
+					dragging = true;
+					drag_src = DRAG_SRC_INVENTORY;
+				}
+			}
+		}
+	}
+	
+	// handle dropping
+	if (dragging && !inp->pressing[MAIN1]) {
+		if (inp->mouse.x >= 320 && inp->mouse.y >= 32 && inp->mouse.y <= 448) {
+			if (inv->visible) {
+				inv->drop(inp->mouse, drag_item);
+				dragging = false;
+			}
+		}
+		
+		// if dragging and the source was inventory, return the item to its previous spot
+		if (dragging && drag_src == DRAG_SRC_INVENTORY) {
+			inv->drop(inp->mouse, drag_item);
+			dragging = false;
+		}
+		else if (dragging) {
+			dragging = false;
+		}
+	
+	}
 }
 
 void MenuManager::render() {
@@ -112,6 +151,9 @@ void MenuManager::render() {
 		if (pow->visible) {
 			tooltip = pow->checkTooltip(inp->mouse);
 		}
+		else if (inv->visible && !dragging) {
+			tooltip = inv->checkTooltip(inp->mouse);
+		}
 	}
 	else if (inp->mouse.y >= 448) {
 		tooltip = act->checkTooltip(inp->mouse);
@@ -119,6 +161,10 @@ void MenuManager::render() {
 	
 	if (tooltip != "") {
 		tip->render(tooltip, inp->mouse);
+	}
+	
+	if (dragging) {
+		items->renderIcon(drag_item, inp->mouse.x - 16, inp->mouse.y - 16, ICON_SIZE_32);
 	}
 }
 
@@ -132,6 +178,7 @@ void MenuManager::closeAll() {
 }
 
 MenuManager::~MenuManager() {
+	delete(items);
 	delete(inv);
 	delete(pow);
 	delete(chr);
@@ -140,5 +187,4 @@ MenuManager::~MenuManager() {
 	delete(tip);
 	Mix_FreeChunk(sfx_open);
 	Mix_FreeChunk(sfx_close);
-	
 }

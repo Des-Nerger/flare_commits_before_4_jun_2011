@@ -29,10 +29,10 @@ Avatar::Avatar(InputState *_inp, MapIso *_map) {
 	dspeed = 6; // try to keep this number even; probably a rounding error causing jittering
 	
 	stats.name = "Unknown";
-	stats.level = 9;
+	stats.level = 17;
 	stats.physical = 5;
-	stats.magical = 1;
-	stats.offense = 1;
+	stats.magical = 5;
+	stats.offense = 5;
 	stats.defense = 5;
 	stats.dmg_melee_min = 1;
 	stats.dmg_melee_max = 4;

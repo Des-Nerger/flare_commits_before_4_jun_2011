@@ -22,6 +22,10 @@
 #include "MenuActionBar.h"
 #include "MenuHealthMana.h"
 #include "MenuTooltip.h"
+#include "ItemDatabase.h"
+
+const int DRAG_SRC_POWERS = 1;
+const int DRAG_SRC_INVENTORY = 2;
 
 class MenuManager {
 private:
@@ -32,17 +36,23 @@ private:
 	MenuActionBar *act;
 	MenuHealthMana *hpmp;
 	MenuTooltip *tip;
+	ItemDatabase *items;
+	
 	Mix_Chunk *sfx_open;
 	Mix_Chunk *sfx_close;
-	
-	
+
 	StatBlock *stats;
 	InputState *inp;
 	FontEngine *font;
 	SDL_Surface *screen;
-	
+		
 	bool key_lock;
 	void loadSounds();
+	void loadIcons();
+	
+	bool dragging;
+	int drag_item;
+	int drag_src;
 	
 public:
 	MenuManager(SDL_Surface *screen, InputState *inp, FontEngine *font, StatBlock *stats);
