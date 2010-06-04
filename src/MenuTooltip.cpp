@@ -32,28 +32,28 @@ void MenuTooltip::render(string text, Point pos) {
 	background.h = size.y + margin + margin_bottom;
 	
 	// upper left
-	if (pos.x < 320 && pos.y < 240) {
+	if (pos.x < VIEW_W_HALF && pos.y < VIEW_H_HALF) {
 		background.x = pos.x + offset;
 		background.y = pos.y + offset;
 		SDL_FillRect(screen, &background, 0);
 		font->render(text, pos.x + offset + margin, pos.y + offset + margin, JUSTIFY_LEFT, screen, size.x);
 	}
 	// upper right
-	else if (pos.x >= 320 && pos.y < 240) {
+	else if (pos.x >= VIEW_W_HALF && pos.y < VIEW_H_HALF) {
 		background.x = pos.x - offset - size.x - margin - margin;
 		background.y = pos.y + offset;
 		SDL_FillRect(screen, &background, 0);
 		font->render(text, pos.x - offset - size.x - margin, pos.y + offset + margin, JUSTIFY_LEFT, screen, size.x);	
 	}
 	// lower left
-	else if (pos.x < 320 && pos.y >= 240) {
+	else if (pos.x < VIEW_W_HALF && pos.y >= VIEW_H_HALF) {
 		background.x = pos.x + offset;
 		background.y = pos.y - offset - size.y - margin - margin;
 		SDL_FillRect(screen, &background, 0);
 		font->render(text, pos.x + offset + margin, pos.y - offset - size.y - margin, JUSTIFY_LEFT, screen, size.x);	
 	}
 	// lower right
-	else if (pos.x >= 320 && pos.y >= 240) {
+	else if (pos.x >= VIEW_W_HALF && pos.y >= VIEW_H_HALF) {
 		background.x = pos.x - offset - size.x - margin - margin;		
 		background.y = pos.y - offset - size.y - margin - margin;
 		SDL_FillRect(screen, &background, 0);

@@ -47,8 +47,10 @@ void MenuActionBar::render() {
 	// just a hardcoded demo for now
 	SDL_Rect trimsrc;
 	
-	dest.x = 0;
-	dest.y = 445;
+	int offset_x = (VIEW_W - 640)/2;
+	
+	dest.x = offset_x;
+	dest.y = VIEW_H-35;
 	dest.w = 640;
 	dest.h = 35;
 	trimsrc.x = 0;
@@ -58,27 +60,27 @@ void MenuActionBar::render() {
 	
 	SDL_BlitSurface(trim, &trimsrc, screen, &dest);	
 	
-	dest.y = 448;
+	dest.y = VIEW_H-32;
 	dest.w = 32;
 	dest.h = 32;	
 	
 	
 	// attack power
-	dest.x = 32;
+	dest.x = offset_x + 32;
 	SDL_BlitSurface(attack, &src, screen, &dest);
 	
 	for (int i=1; i<=9; i++) {
-		dest.x = (i * 32) + 32;
+		dest.x = offset_x + (i * 32) + 32;
 		SDL_BlitSurface(background, &src, screen, &dest);
 	}
 	
-	dest.x = 384;
+	dest.x = offset_x + 384;
 	SDL_BlitSurface(attack, &src, screen, &dest);
-	dest.x = 416;
+	dest.x = offset_x + 416;
 	SDL_BlitSurface(background, &src, screen, &dest);
 	
-	dest.x = 0;
-	dest.y = 470;
+	dest.x = offset_x;
+	dest.y = VIEW_H-10;
 	dest.w = 640;
 	dest.h = 10;
 	SDL_BlitSurface(labels, &label_src, screen, &dest);
@@ -86,13 +88,14 @@ void MenuActionBar::render() {
 }
 
 string MenuActionBar::checkTooltip(Point mouse) {
-	if (mouse.x >= 448 && mouse.x <= 512 && mouse.y >= 448 && mouse.y <= 480)
+	int offset_x = (VIEW_W - 640)/2;
+	if (mouse.x >= offset_x+448 && mouse.x <= offset_x+512 && mouse.y >= VIEW_H-32 && mouse.y <= VIEW_H)
 		return "Character Menu (C)";
-	if (mouse.x >= 512 && mouse.x <= 544 && mouse.y >= 448 && mouse.y <= 480)
+	if (mouse.x >= offset_x+512 && mouse.x <= offset_x+544 && mouse.y >= VIEW_H-32 && mouse.y <= VIEW_H)
 		return "Inventory Menu (I)";
-	if (mouse.x >= 544 && mouse.x <= 576 && mouse.y >= 448 && mouse.y <= 480)
+	if (mouse.x >= offset_x+544 && mouse.x <= offset_x+576 && mouse.y >= VIEW_H-32 && mouse.y <= VIEW_H)
 		return "Powers Menu (P)";
-	if (mouse.x >= 576 && mouse.x <= 608 && mouse.y >= 448 && mouse.y <= 480)
+	if (mouse.x >= offset_x+576 && mouse.x <= offset_x+608 && mouse.y >= VIEW_H-32 && mouse.y <= VIEW_H)
 		return "Log Menu (L)";
 
 	return "";

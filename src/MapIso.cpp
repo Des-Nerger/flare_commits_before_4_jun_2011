@@ -321,8 +321,8 @@ void MapIso::render(Renderable r[], int rnum) {
 			
 			if (current_tile > 0) {			
 			
-				dest.x = 320 + (i * TILE_W_HALF - xcam.x) - (j * TILE_W_HALF - xcam.y);
-				dest.y = 240 + (i * TILE_H_HALF - ycam.x) + (j * TILE_H_HALF - ycam.y) + TILE_H_HALF;
+				dest.x = VIEW_W_HALF + (i * TILE_W_HALF - xcam.x) - (j * TILE_W_HALF - xcam.y);
+				dest.y = VIEW_H_HALF + (i * TILE_H_HALF - ycam.x) + (j * TILE_H_HALF - ycam.y) + TILE_H_HALF;
 				// adding TILE_H_HALF gets us to the tile center instead of top corner
 				dest.x -= tset.tiles[current_tile].offset.x;
 				dest.y -= tset.tiles[current_tile].offset.y;
@@ -344,8 +344,8 @@ void MapIso::render(Renderable r[], int rnum) {
 			
 			if (current_tile > 0) {			
 			
-				dest.x = 320 + (i * TILE_W_HALF - xcam.x) - (j * TILE_W_HALF - xcam.y);
-				dest.y = 240 + (i * TILE_H_HALF - ycam.x) + (j * TILE_H_HALF - ycam.y) + TILE_H_HALF;
+				dest.x = VIEW_W_HALF + (i * TILE_W_HALF - xcam.x) - (j * TILE_W_HALF - xcam.y);
+				dest.y = VIEW_H_HALF + (i * TILE_H_HALF - ycam.x) + (j * TILE_H_HALF - ycam.y) + TILE_H_HALF;
 				// adding TILE_H_HALF gets us to the tile center instead of top corner
 				dest.x -= tset.tiles[current_tile].offset.x;
 				dest.y -= tset.tiles[current_tile].offset.y;
@@ -363,8 +363,8 @@ void MapIso::render(Renderable r[], int rnum) {
 					// draw renderable
 					dest.w = r[ri].src->w;
 					dest.h = r[ri].src->h;
-					dest.x = 320 + (r[ri].map_pos.x/UNITS_PER_PIXEL_X - xcam.x) - (r[ri].map_pos.y/UNITS_PER_PIXEL_X - xcam.y) - r[ri].offset.x;
-					dest.y = 240 + (r[ri].map_pos.x/UNITS_PER_PIXEL_Y - ycam.x) + (r[ri].map_pos.y/UNITS_PER_PIXEL_Y - ycam.y) - r[ri].offset.y;
+					dest.x = VIEW_W_HALF + (r[ri].map_pos.x/UNITS_PER_PIXEL_X - xcam.x) - (r[ri].map_pos.y/UNITS_PER_PIXEL_X - xcam.y) - r[ri].offset.x;
+					dest.y = VIEW_H_HALF + (r[ri].map_pos.x/UNITS_PER_PIXEL_Y - ycam.x) + (r[ri].map_pos.y/UNITS_PER_PIXEL_Y - ycam.y) - r[ri].offset.y;
 
 					SDL_BlitSurface(r[ri].sprite, r[ri].src, screen, &dest);
 				} 

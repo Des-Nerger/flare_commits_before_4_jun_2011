@@ -20,7 +20,7 @@ SDL_Surface *screen;
 InputState *inp;
 GameEngine *eng;
 
-static void init(bool fullscreen) {
+static void init() {
 	/* SDL Inits */
 	if ( SDL_Init (SDL_INIT_VIDEO | SDL_INIT_AUDIO) < 0 ) {		
         fprintf(stderr, "Couldn't initialize SDL: %s\n", SDL_GetError());
@@ -30,14 +30,14 @@ static void init(bool fullscreen) {
 	Uint32 flags = 0;
     
 	flags = SDL_HWSURFACE | SDL_DOUBLEBUF;
-    if (fullscreen) flags = flags | SDL_FULLSCREEN;
+    if (FULLSCREEN) flags = flags | SDL_FULLSCREEN;
 	
 	
 	// Create window
-	screen = SDL_SetVideoMode (640, 480, 0, flags);
+	screen = SDL_SetVideoMode (VIEW_W, VIEW_H, 0, flags);
 	if (screen == NULL) {
 		
-        fprintf (stderr, "Couldn't set 640x480 OpenGL video mode: %s\n", SDL_GetError());
+        fprintf (stderr, "Couldn't set OpenGL video mode: %s\n", SDL_GetError());
 		SDL_Quit();
 		exit(2);
 	}
@@ -87,15 +87,14 @@ static void mainLoop () {
 
 int main(int argc, char *argv[])
 {
-	bool fullscreen = false;
 
 	for (int i=0; i<argc; i++) {
 		if (strcmp(argv[i], "-f") == 0 || strcmp(argv[i], "--fullscreen") == 0) {
-			fullscreen = true;
+			FULLSCREEN = true;
 		}
 	}
 
-	init(fullscreen);
+	init();
 	mainLoop ();
 	
 	// cleanup

@@ -14,6 +14,7 @@
 #include "SDL.h"
 #include "SDL_image.h"
 #include "math.h"
+#include "Settings.h"
 
 using namespace std;
 
@@ -45,8 +46,8 @@ struct Renderable {
 
 static Point screen_to_map(int x, int y, int camx, int camy) {
 	Point r;
-	int scrx = x - 320;
-	int scry = y - 240;
+	int scrx = x - VIEW_W_HALF;
+	int scry = y - VIEW_H_HALF;
 	r.x = scrx/2 + scry + camx;
 	r.y = scry - scrx/2 + camy;
 	return r;

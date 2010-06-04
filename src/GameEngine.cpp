@@ -92,7 +92,7 @@ void GameEngine::render() {
 	map->render(r, renderableCount);
 	
 	// display the name of the map in the upper-right hand corner
-	font->render(map->title, 638, 2, JUSTIFY_RIGHT, screen);
+	font->render(map->title, VIEW_W-2, 2, JUSTIFY_RIGHT, screen);
 	
 	//font->render("This is a test of the word wrap and newline system, overly long so we really get a good test in.\nsingle line\n\nTest again\n\nfinally.", 256, 32, JUSTIFY_RIGHT, screen, 256);
 	
