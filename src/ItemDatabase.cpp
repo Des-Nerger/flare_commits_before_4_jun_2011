@@ -23,6 +23,7 @@ ItemDatabase::ItemDatabase(SDL_Surface *_screen) {
 		items[i].req_stat = 0;
 		items[i].req_val = 0;
 		items[i].sfx = SFX_NONE;
+		items[i].gfx = "";
 	}
 	load();
 	loadIcons();
@@ -141,6 +142,8 @@ void ItemDatabase::load() {
 						else if (val == "potion")
 							items[id].sfx = SFX_POTION;
 					}
+					else if (key == "gfx")
+						items[id].gfx = val;
 				}
 			}
 		}
@@ -215,6 +218,8 @@ string ItemDatabase::getTooltip(int item) {
 			ss << "\nArtifact";
 		else if (items[item].type == ITEM_TYPE_CONSUMABLE)
 			ss << "\nConsumable";
+		else if (items[item].type == ITEM_TYPE_GEM)
+			ss << "\nGem";
 	}
 	
 	// damage

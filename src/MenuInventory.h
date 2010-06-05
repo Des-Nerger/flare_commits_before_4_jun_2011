@@ -52,6 +52,8 @@ public:
 	int drag_prev_slot;
 	int drag_prev_src;
 
+	bool changed_equipment;
+
 };
 
 #endif

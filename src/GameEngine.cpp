@@ -27,6 +27,7 @@ GameEngine::GameEngine(SDL_Surface *_screen, InputState *_inp) {
 
 /**
  * Process all actions for a single frame
+ * This includes some message passing between child object
  */
 void GameEngine::logic() {
 	
@@ -71,6 +72,14 @@ void GameEngine::logic() {
 	
 	menu->logic();
 	
+	// check change equipment
+	if (menu->inv->changed_equipment) {
+		pc->loadGraphics(menu->items->items[menu->inv->equipped[0]].gfx, 
+		                 menu->items->items[menu->inv->equipped[1]].gfx, 
+						 menu->items->items[menu->inv->equipped[2]].gfx);
+	
+		menu->inv->changed_equipment = false;
+	}
 	
 }
 

@@ -22,6 +22,7 @@ MenuInventory::MenuInventory(SDL_Surface *_screen, FontEngine *_font, ItemDataba
 		carried[i] = 0;
 		
 	drag_prev_slot = -1;
+	changed_equipment = true;
 	
 	// testing
 	// TEMP: right now equipped[] and carrying[] refer to icons.  They should refer
@@ -169,6 +170,7 @@ void MenuInventory::drop(Point mouse, int item) {
 			if (index == items->items[item].type) {
 				carried[drag_prev_slot] = equipped[index];
 				equipped[index] = item;
+				if (index < 3) changed_equipment = true;
 			}
 			else {
 				carried[drag_prev_slot] = item; // cancel
@@ -199,6 +201,7 @@ void MenuInventory::drop(Point mouse, int item) {
 			if (carried[index] == 0 || items->items[carried[index]].type == drag_prev_slot) {
 				equipped[drag_prev_slot] = carried[index];
 				carried[index] = item;
+				if (drag_prev_slot < 3) changed_equipment = true;
 			}
 			else {
 				equipped[drag_prev_slot] = item; // cancel

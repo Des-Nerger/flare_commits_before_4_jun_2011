@@ -30,8 +30,6 @@ const int AVATAR_SHOOT = 7;
 
 class Avatar {
 private:
-	void loadGraphics();
-	void loadSounds();
 	
 	SDL_Surface *sprites;
 	InputState *inp;
@@ -57,6 +55,9 @@ private:
 public:
 	Avatar(InputState *_inp, MapIso *_map);
 	~Avatar();
+	void loadGraphics(string img_main, string img_body, string img_off);
+	void loadSounds();
+	
 	void logic();
 	bool pressing_move();	
 	bool move();

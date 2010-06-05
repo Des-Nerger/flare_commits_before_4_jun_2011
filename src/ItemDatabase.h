@@ -62,6 +62,7 @@ struct Item {
 	int req_stat;
 	int req_val;
 	int sfx;
+	string gfx;
 };
 
 class ItemDatabase {

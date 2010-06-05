@@ -29,14 +29,6 @@ const int DRAG_SRC_INVENTORY = 2;
 
 class MenuManager {
 private:
-	MenuInventory *inv;
-	MenuPowers *pow;
-	MenuCharacter *chr;
-	MenuLog *log;
-	MenuActionBar *act;
-	MenuHealthMana *hpmp;
-	MenuTooltip *tip;
-	ItemDatabase *items;
 	
 	Mix_Chunk *sfx_open;
 	Mix_Chunk *sfx_close;
@@ -60,6 +52,15 @@ public:
 	void logic();
 	void render();
 	void closeAll();
+
+	MenuInventory *inv;
+	MenuPowers *pow;
+	MenuCharacter *chr;
+	MenuLog *log;
+	MenuActionBar *act;
+	MenuHealthMana *hpmp;
+	MenuTooltip *tip;
+	ItemDatabase *items;
 	
 	bool pause;
 	
