@@ -78,11 +78,14 @@ void MenuInventory::render() {
 	SDL_Rect src;
 	SDL_Rect dest;
 	
+	int offset_x = (VIEW_W - 320);
+	int offset_y = (VIEW_H - 416)/2;
+	
 	// background
 	src.x = 0;
 	src.y = 0;
-	dest.x = 320;
-	dest.y = 32;
+	dest.x = offset_x;
+	dest.y = offset_y;
 	src.w = dest.w = 320;
 	src.h = dest.h = 416;
 	SDL_BlitSurface(background, &src, screen, &dest);
@@ -90,18 +93,18 @@ void MenuInventory::render() {
 	
 	// text overlay
 	// TODO: translate()
-	font->render("Inventory", 480, 40, JUSTIFY_CENTER, screen);
-	font->render("Main Hand", 384, 66, JUSTIFY_CENTER, screen);
-	font->render("Body", 448, 66, JUSTIFY_CENTER, screen);
-	font->render("Off Hand", 512, 66, JUSTIFY_CENTER, screen);
-	font->render("Artifact", 576, 66, JUSTIFY_CENTER, screen);
+	font->render("Inventory", offset_x+160, offset_y+8, JUSTIFY_CENTER, screen);
+	font->render("Main Hand", offset_x+64, offset_y+34, JUSTIFY_CENTER, screen);
+	font->render("Body", offset_x+128, offset_y+34, JUSTIFY_CENTER, screen);
+	font->render("Off Hand", offset_x+192, offset_y+34, JUSTIFY_CENTER, screen);
+	font->render("Artifact", offset_x+256, offset_y+34, JUSTIFY_CENTER, screen);
 	
 	
 	// equipped items
 	for (int i=0; i<4; i++) {
 		if (equipped[i] > 0) {
-			dest.x = 352 + i * 64;
-			dest.y = 80;
+			dest.x = offset_x+32 + i * 64;
+			dest.y = offset_y+48;
 			items->renderIcon(equipped[i], dest.x, dest.y, ICON_SIZE_64);
 		}
 	}
@@ -109,8 +112,8 @@ void MenuInventory::render() {
 	// carried items
 	for (int i=0; i<64; i++) {
 		if (carried[i] > 0) {
-			dest.x = 352 + (i % 8 * 32);
-			dest.y = 160 + (i / 8 * 32);
+			dest.x = offset_x+32 + (i % 8 * 32);
+			dest.y = offset_y+128 + (i / 8 * 32);
 			items->renderIcon(carried[i], dest.x, dest.y, ICON_SIZE_32);
 		}	
 	}
@@ -119,10 +122,12 @@ void MenuInventory::render() {
 int MenuInventory::click(Point mouse) {
 
 	int item;
+	int offset_x = (VIEW_W - 320);
+	int offset_y = (VIEW_H - 416)/2;
 	
-	if (mouse.x >= 352 && mouse.y >= 80 && mouse.x < 608 && mouse.y < 144) {
+	if (mouse.x >= offset_x+32 && mouse.y >= offset_y+48 && mouse.x < offset_x+576 && mouse.y < offset_y+112) {
 		// clicked an equipped item
-		drag_prev_slot = (mouse.x - 352) / 64;
+		drag_prev_slot = (mouse.x - (offset_x+32)) / 64;
 		drag_prev_src = SRC_EQUIPPED;
 		
 		item = equipped[drag_prev_slot];
@@ -130,9 +135,9 @@ int MenuInventory::click(Point mouse) {
 
 		return item;
 	}
-	else if (mouse.x >= 352 && mouse.y >= 160 && mouse.x < 608 && mouse.y < 416) {
+	else if (mouse.x >= offset_x+32 && mouse.y >= offset_y+128 && mouse.x < offset_x+576 && mouse.y < offset_y+384) {
 		// clicked a carried item
-		drag_prev_slot = (mouse.x - 352) / 32 + ((mouse.y - 160) / 32) * 8;
+		drag_prev_slot = (mouse.x - (offset_x+32)) / 32 + ((mouse.y - (offset_y+128)) / 32) * 8;
 		drag_prev_src = SRC_CARRIED;
 		
 		item = carried[drag_prev_slot];
@@ -148,11 +153,13 @@ void MenuInventory::drop(Point mouse, int item) {
 	items->playSound(item);
 
 	int index;
+	int offset_x = (VIEW_W - 320);
+	int offset_y = (VIEW_H - 416)/2;
 
-	if (mouse.x >= 352 && mouse.y >= 80 && mouse.x < 608 && mouse.y < 144) {
+	if (mouse.x >= offset_x+32 && mouse.y >= offset_y+48 && mouse.x < offset_x+576 && mouse.y < offset_y+112) {
 	
 		// dropped onto equipped item
-		index = (mouse.x - 352) / 64;		
+		index = (mouse.x - (offset_x+32)) / 64;	
 
 		if (drag_prev_src == SRC_CARRIED) {
 			
@@ -172,10 +179,10 @@ void MenuInventory::drop(Point mouse, int item) {
 			equipped[drag_prev_slot] = item; // cancel
 		}
 	}
-	else if (mouse.x >= 352 && mouse.y >= 160 && mouse.x < 608 && mouse.y < 416) {
+	else if (mouse.x >= offset_x+32 && mouse.y >= offset_y+128 && mouse.x < offset_x+576 && mouse.y < offset_y+384) {
 	
 		// dropped onto carried item
-		index = (mouse.x - 352) / 32 + ((mouse.y - 160) / 32) * 8;
+		index = (mouse.x - (offset_x+32)) / 32 + ((mouse.y - (offset_y+128)) / 32) * 8;
 		
 		if (drag_prev_src == SRC_CARRIED) {
 			if (index != drag_prev_slot) {
@@ -211,17 +218,20 @@ void MenuInventory::drop(Point mouse, int item) {
 
 string MenuInventory::checkTooltip(Point mouse) {
 	int index;
-	if (mouse.x >= 352 && mouse.y >= 80 && mouse.x < 608 && mouse.y < 144) {
+	int offset_x = (VIEW_W - 320);
+	int offset_y = (VIEW_H - 416)/2;
+	
+	if (mouse.x >= offset_x+32 && mouse.y >= offset_y+48 && mouse.x < offset_x+576 && mouse.y < offset_y+112) {
 		
 		// equipped item
-		index = (mouse.x - 352) / 64;
+		index = (mouse.x - (offset_x+32)) / 64;	
 		return items->getTooltip(equipped[index]);
 		
 	}
-	else if (mouse.x >= 352 && mouse.y >= 160 && mouse.x < 608 && mouse.y < 416) {
+	else if (mouse.x >= offset_x+32 && mouse.y >= offset_y+128 && mouse.x < offset_x+576 && mouse.y < offset_y+384) {
 	
 		// carried item
-		index = (mouse.x - 352) / 32 + ((mouse.y - 160) / 32) * 8;
+		index = (mouse.x - (offset_x+32)) / 32 + ((mouse.y - (offset_y+128)) / 32) * 8;
 		return items->getTooltip(carried[index]);
 		
 	}

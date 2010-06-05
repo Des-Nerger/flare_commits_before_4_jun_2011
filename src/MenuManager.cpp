@@ -98,9 +98,12 @@ void MenuManager::logic() {
 	
 	pause = (inv->visible || pow->visible || chr->visible || log->visible);
 	
+	int offset_x = (VIEW_W - 320);
+	int offset_y = (VIEW_H - 416)/2;
+	
 	// handle left-click drag
 	if (!dragging && inp->pressing[MAIN1]) {
-		if (inp->mouse.x >= 320 && inp->mouse.y >= 32 && inp->mouse.y <= 448) {
+		if (inp->mouse.x >= offset_x && inp->mouse.y >= offset_y && inp->mouse.y <= offset_y+416) {
 			if (inv->visible) {
 				drag_item = inv->click(inp->mouse);
 				if (drag_item > 0) {
@@ -113,7 +116,7 @@ void MenuManager::logic() {
 	
 	// handle dropping
 	if (dragging && !inp->pressing[MAIN1]) {
-		if (inp->mouse.x >= 320 && inp->mouse.y >= 32 && inp->mouse.y <= 448) {
+		if (inp->mouse.x >= offset_x && inp->mouse.y >= offset_y && inp->mouse.y <= offset_y+416) {
 			if (inv->visible) {
 				inv->drop(inp->mouse, drag_item);
 				dragging = false;
@@ -141,13 +144,15 @@ void MenuManager::render() {
 	log->render();
 	
 	string tooltip = "";
+	int offset_x = (VIEW_W - 320);
+	int offset_y = (VIEW_H - 416)/2;
 	
-	if (inp->mouse.x < 320 && inp->mouse.y >= 32 && inp->mouse.y <= 448) {
+	if (inp->mouse.x < 320 && inp->mouse.y >= offset_y && inp->mouse.y <= offset_y+416) {
 		if (chr->visible) {
 			tooltip = chr->checkTooltip(inp->mouse);
 		}
 	}
-	else if (inp->mouse.x >= 320 && inp->mouse.y >= 32 && inp->mouse.y <= 448) {
+	else if (inp->mouse.x >= offset_x && inp->mouse.y >= offset_y && inp->mouse.y <= offset_y+416) {
 		if (pow->visible) {
 			tooltip = pow->checkTooltip(inp->mouse);
 		}
@@ -155,7 +160,7 @@ void MenuManager::render() {
 			tooltip = inv->checkTooltip(inp->mouse);
 		}
 	}
-	else if (inp->mouse.y >= 448) {
+	else if (inp->mouse.y >= VIEW_H-32) {
 		tooltip = act->checkTooltip(inp->mouse);
 	}
 	

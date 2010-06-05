@@ -34,49 +34,52 @@ void MenuPowers::render() {
 	SDL_Rect src;
 	SDL_Rect dest;
 	
+	int offset_x = (VIEW_W - 320);
+	int offset_y = (VIEW_H - 416)/2;
+	
 	// background
 	src.x = 0;
 	src.y = 0;
-	dest.x = 320;
-	dest.y = 32;
+	dest.x = offset_x;
+	dest.y = offset_y;
 	src.w = dest.w = 320;
 	src.h = dest.h = 416;
 	SDL_BlitSurface(background, &src, screen, &dest);
 	
 	// text overlay
 	// TODO: translate()
-	font->render("Powers", 480, 40, JUSTIFY_CENTER, screen);
-	font->render("Physical", 384, 82, JUSTIFY_CENTER, screen);
-	font->render("Physical", 448, 82, JUSTIFY_CENTER, screen);
-	font->render("Magical", 512, 82, JUSTIFY_CENTER, screen);
-	font->render("Magical", 576, 82, JUSTIFY_CENTER, screen);
-	font->render("Offense", 384, 98, JUSTIFY_CENTER, screen);
-	font->render("Defense", 448, 98, JUSTIFY_CENTER, screen);
-	font->render("Offense", 512, 98, JUSTIFY_CENTER, screen);
-	font->render("Defense", 576, 98, JUSTIFY_CENTER, screen);
+	font->render("Powers", offset_x+160, offset_y+8, JUSTIFY_CENTER, screen);
+	font->render("Physical", offset_x+64, offset_y+50, JUSTIFY_CENTER, screen);
+	font->render("Physical", offset_x+128, offset_y+50, JUSTIFY_CENTER, screen);
+	font->render("Magical", offset_x+192, offset_y+50, JUSTIFY_CENTER, screen);
+	font->render("Magical", offset_x+256, offset_y+50, JUSTIFY_CENTER, screen);
+	font->render("Offense", offset_x+64, offset_y+66, JUSTIFY_CENTER, screen);
+	font->render("Defense", offset_x+128, offset_y+66, JUSTIFY_CENTER, screen);
+	font->render("Offense", offset_x+192, offset_y+66, JUSTIFY_CENTER, screen);
+	font->render("Defense", offset_x+256, offset_y+66, JUSTIFY_CENTER, screen);
 	
 	// stats
 	stringstream ss;
 	ss.str("");
 	ss << stats->physoff;
-	font->render(ss.str(), 384, 66, JUSTIFY_CENTER, screen);
+	font->render(ss.str(), offset_x+64, offset_y+34, JUSTIFY_CENTER, screen);
 	ss.str("");
 	ss << stats->physdef;
-	font->render(ss.str(), 448, 66, JUSTIFY_CENTER, screen);
+	font->render(ss.str(), offset_x+128, offset_y+34, JUSTIFY_CENTER, screen);
 	ss.str("");
 	ss << stats->magoff;
-	font->render(ss.str(), 512, 66, JUSTIFY_CENTER, screen);
+	font->render(ss.str(), offset_x+192, offset_y+34, JUSTIFY_CENTER, screen);
 	ss.str("");
 	ss << stats->magdef;
-	font->render(ss.str(), 576, 66, JUSTIFY_CENTER, screen);
+	font->render(ss.str(), offset_x+256, offset_y+34, JUSTIFY_CENTER, screen);
 	
 	
 	
 	// highlighting
-	displayBuild(stats->physoff, 368);
-	displayBuild(stats->physdef, 432);
-	displayBuild(stats->magoff, 496);
-	displayBuild(stats->magdef, 560);	
+	displayBuild(stats->physoff, offset_x+48);
+	displayBuild(stats->physdef, offset_x+112);
+	displayBuild(stats->magoff, offset_x+176);
+	displayBuild(stats->magdef, offset_x+240);	
 }
 
 void MenuPowers::displayBuild(int value, int x) {
@@ -92,14 +95,15 @@ void MenuPowers::displayBuild(int value, int x) {
 	src_unlock.h = 45;
 
 	dest.x = x;
+	int offset_y = (VIEW_H - 416)/2;
 	
 	for (int i=3; i<= value; i++) {
 		if (i%2 == 0) { // even stat
-			dest.y = i * 32 + 80;
+			dest.y = i * 32 + offset_y + 48;
 			SDL_BlitSurface(powers_step, &src_step, screen, &dest);
 		}
 		else { // odd stat
-			dest.y = i * 32 + 67;
+			dest.y = i * 32 + offset_y + 35;
 			SDL_BlitSurface(powers_unlock, &src_unlock, screen, &dest);
 		
 		}
@@ -107,64 +111,70 @@ void MenuPowers::displayBuild(int value, int x) {
 }
 
 string MenuPowers::checkTooltip(Point mouse) {
-	if (mouse.x >= 368 && mouse.x <= 400 && mouse.y >= 64 && mouse.y <= 112)
-		return "Physical + Offense grants melee and ranged attacks";
-	if (mouse.x >= 432 && mouse.x <= 464 && mouse.y >= 64 && mouse.y <= 112)
-		return "Physical + Defense grants melee protection";
-	if (mouse.x >= 496 && mouse.x <= 528 && mouse.y >= 64 && mouse.y <= 112)
-		return "Magical + Offense grants elemental spell attacks";
-	if (mouse.x >= 560 && mouse.x <= 592 && mouse.y >= 64 && mouse.y <= 112)
-		return "Magical + Defense grants healing and magic protection";
-			
-	// tier 1 powers
-	if (mouse.x >= 368 && mouse.x <= 400 && mouse.y >= 112 && mouse.y <= 144)
-		return "Shoot\nBasic Ranged Attack";
-	if (mouse.x >= 432 && mouse.x <= 464 && mouse.y >= 112 && mouse.y <= 144)
-		return "Swing\nBasic Melee Attack";
-	if (mouse.x >= 496 && mouse.x <= 528 && mouse.y >= 112 && mouse.y <= 144)
-		return "Lore\nIdentify magic items";
-	if (mouse.x >= 560 && mouse.x <= 592 && mouse.y >= 112 && mouse.y <= 144)
-		return "Return\nWarp to your chosen Sanctuary";	
-	
-	// tier 3 powers
-	if (mouse.x >= 368 && mouse.x <= 400 && mouse.y >= 176 && mouse.y <= 208)
-		return "Blood Strike\nCause target to Bleed for a few seconds\nRequires Physical Offense 3";
-	if (mouse.x >= 432 && mouse.x <= 464 && mouse.y >= 176 && mouse.y <= 208)
-		return "Block\nIncrease avoidance and absorption\nRequires Physical Defense 3";
-	if (mouse.x >= 496 && mouse.x <= 528 && mouse.y >= 176 && mouse.y <= 208)
-		return "Bolt\nConjure electricity that arcs between targets\nRequires Magical Offense 3";
-	if (mouse.x >= 560 && mouse.x <= 592 && mouse.y >= 176 && mouse.y <= 208)
-		return "Heal\nRestore health\nRequires Magical Defense 3";	
-	
-	// tier 5 powers
-	if (mouse.x >= 368 && mouse.x <= 400 && mouse.y >= 240 && mouse.y <= 272)
-		return "Multishot\nFire three projectiles in one shot\nRequires Physical Offense 5";
-	if (mouse.x >= 432 && mouse.x <= 464 && mouse.y >= 240 && mouse.y <= 272)
-		return "Warcry\nBecome immune to debuffs for a short time and scare nearby enemies\nRequires Physical Defense 5";
-	if (mouse.x >= 496 && mouse.x <= 528 && mouse.y >= 240 && mouse.y <= 272)
-		return "Quake\nShatter the earth and stun nearby enemies\nRequires Magical Offense 5";
-	if (mouse.x >= 560 && mouse.x <= 592 && mouse.y >= 240 && mouse.y <= 272)
-		return "Shield\nAbsorbs damage\nRequires Magical Defense 5";		
 
-	// tier 7 powers
-	if (mouse.x >= 368 && mouse.x <= 400 && mouse.y >= 304 && mouse.y <= 336)
-		return "Cleave\nStrike all enemies in a wide arc\nRequires Physical Offense 7";
-	if (mouse.x >= 432 && mouse.x <= 464 && mouse.y >= 304 && mouse.y <= 336)
-		return "Charge\nBull rush the target and knock it back\nRequires Physical Defense 7";
-	if (mouse.x >= 496 && mouse.x <= 528 && mouse.y >= 304 && mouse.y <= 336)
-		return "Freeze\nSlow enemies in a straight line\nRequires Magical Offense 7";
-	if (mouse.x >= 560 && mouse.x <= 592 && mouse.y >= 304 && mouse.y <= 336)
-		return "Teleport\nWarp instantly to the target location\nRequires Magical Defense 7";	
+	int offset_x = (VIEW_W - 320);
+	int offset_y = (VIEW_H - 416)/2;
 	
-	// tier 9 powers
-	if (mouse.x >= 368 && mouse.x <= 400 && mouse.y >= 368 && mouse.y <= 400)
-		return "Piercing Shot\nIgnore armor and shoot straight through enemies\nRequires Physical Offense 9";
-	if (mouse.x >= 432 && mouse.x <= 464 && mouse.y >= 368 && mouse.y <= 400)
-		return "Vengeance\nAfter blocking, launch a heavy accurate attack\nRequires Physical Defense 9";
-	if (mouse.x >= 496 && mouse.x <= 528 && mouse.y >= 368 && mouse.y <= 400)
-		return "Burn\nEvoke devastating flames in a distant area\nRequires Magical Offense 9";
-	if (mouse.x >= 560 && mouse.x <= 592 && mouse.y >= 368 && mouse.y <= 400)
-		return "Time Stop\nPause the flow of time for a few moments\nRequires Magical Defense 9";		
+	if (mouse.y >= offset_y+32 && mouse.y <= offset_y+80) {
+		if (mouse.x >= offset_x+48 && mouse.x <= offset_x+80)
+			return "Physical + Offense grants melee and ranged attacks";
+		if (mouse.x >= offset_x+112 && mouse.x <= offset_x+144)
+			return "Physical + Defense grants melee protection";
+		if (mouse.x >= offset_x+176 && mouse.x <= offset_x+208)
+			return "Magical + Offense grants elemental spell attacks";
+		if (mouse.x >= offset_x+240 && mouse.x <= offset_x+272)
+			return "Magical + Defense grants healing and magic protection";
+	}
+	else if (mouse.y >= offset_y+80 && mouse.y <= offset_y+112) {
+		if (mouse.x >= offset_x+48 && mouse.x <= offset_x+80)
+			return "Shoot\nBasic Ranged Attack";
+		if (mouse.x >= offset_x+112 && mouse.x <= offset_x+144)
+			return "Swing\nBasic Melee Attack";
+		if (mouse.x >= offset_x+176 && mouse.x <= offset_x+208)
+			return "Lore\nIdentify magic items";
+		if (mouse.x >= offset_x+240 && mouse.x <= offset_x+272)
+			return "Return\nWarp to your chosen Sanctuary";	
+	}
+	else if (mouse.y >= offset_y+144 && mouse.y <= offset_y+176) {
+		if (mouse.x >= offset_x+48 && mouse.x <= offset_x+80)
+			return "Blood Strike\nCause target to Bleed for a few seconds\nRequires Physical Offense 3";
+		if (mouse.x >= offset_x+112 && mouse.x <= offset_x+144)
+			return "Block\nIncrease avoidance and absorption\nRequires Physical Defense 3";
+		if (mouse.x >= offset_x+176 && mouse.x <= offset_x+208)
+			return "Bolt\nConjure electricity that arcs between targets\nRequires Magical Offense 3";
+		if (mouse.x >= offset_x+240 && mouse.x <= offset_x+272)
+			return "Heal\nRestore health\nRequires Magical Defense 3";	
+	}
+	else if (mouse.y >= offset_y+208 && mouse.y <= offset_y+240) {
+		if (mouse.x >= offset_x+48 && mouse.x <= offset_x+80)
+			return "Multishot\nFire three projectiles in one shot\nRequires Physical Offense 5";
+		if (mouse.x >= offset_x+112 && mouse.x <= offset_x+144)
+			return "Warcry\nBecome immune to debuffs for a short time and scare nearby enemies\nRequires Physical Defense 5";
+		if (mouse.x >= offset_x+176 && mouse.x <= offset_x+208)
+			return "Quake\nShatter the earth and stun nearby enemies\nRequires Magical Offense 5";
+		if (mouse.x >= offset_x+240 && mouse.x <= offset_x+272)
+			return "Shield\nAbsorbs damage\nRequires Magical Defense 5";		
+	}
+	else if (mouse.y >= offset_y+272 && mouse.y <= offset_y+304) {
+		if (mouse.x >= offset_x+48 && mouse.x <= offset_x+80)
+			return "Cleave\nStrike all enemies in a wide arc\nRequires Physical Offense 7";
+		if (mouse.x >= offset_x+112 && mouse.x <= offset_x+144)
+			return "Charge\nBull rush the target and knock it back\nRequires Physical Defense 7";
+		if (mouse.x >= offset_x+176 && mouse.x <= offset_x+208)
+			return "Freeze\nSlow enemies in a straight line\nRequires Magical Offense 7";
+		if (mouse.x >= offset_x+240 && mouse.x <= offset_x+272)
+			return "Teleport\nWarp instantly to the target location\nRequires Magical Defense 7";	
+	}
+	else if (mouse.y >= offset_y+336 && mouse.y <= offset_y+368) {
+		if (mouse.x >= offset_x+48 && mouse.x <= offset_x+80)
+			return "Piercing Shot\nIgnore armor and shoot straight through enemies\nRequires Physical Offense 9";
+		if (mouse.x >= offset_x+112 && mouse.x <= offset_x+144)
+			return "Vengeance\nAfter blocking, launch a heavy accurate attack\nRequires Physical Defense 9";
+		if (mouse.x >= offset_x+176 && mouse.x <= offset_x+208)
+			return "Burn\nEvoke devastating flames in a distant area\nRequires Magical Offense 9";
+		if (mouse.x >= offset_x+240 && mouse.x <= offset_x+272)
+			return "Time Stop\nPause the flow of time for a few moments\nRequires Magical Defense 9";		
+	}
 	
 	return "";
 }

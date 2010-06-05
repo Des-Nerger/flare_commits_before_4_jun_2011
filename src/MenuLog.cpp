@@ -30,19 +30,20 @@ void MenuLog::render() {
 	
 	SDL_Rect src;
 	SDL_Rect dest;
+	int offset_y = (VIEW_H - 416)/2;
 	
 	// background
 	src.x = 0;
 	src.y = 0;
 	dest.x = 0;
-	dest.y = 32;
+	dest.y = offset_y;
 	src.w = dest.w = 320;
 	src.h = dest.h = 416;
 	SDL_BlitSurface(background, &src, screen, &dest);
 	
 	// text overlay
 	// TODO: translate()
-	font->render("Log", 160, 40, JUSTIFY_CENTER, screen);
+	font->render("Log", 160, offset_y+8, JUSTIFY_CENTER, screen);
 
 }
 
