@@ -314,6 +314,7 @@ void Avatar::logic() {
 				haz->dmg_min = stats.dmg_melee_min;
 				haz->dmg_max = stats.dmg_melee_max;
 				haz->crit_chance = stats.crit;
+				haz->accuracy = stats.accuracy;
 			}
 			
 			if (curFrame == 15) {
@@ -365,9 +366,12 @@ void Avatar::logic() {
 	map->checkEvents(pos);
 }
 
-void Avatar::takeHit(int dmg_min, int dmg_max) {
+void Avatar::takeHit(int dmg_min, int dmg_max, int accuracy) {
 
 	if (curState != AVATAR_DEAD) {
+	
+		// check miss
+	    if (rand() % 100 > (accuracy - stats.avoidance + 25)) return; 
 	
 		int dmg;
 		if (dmg_min == dmg_max) dmg = dmg_min;

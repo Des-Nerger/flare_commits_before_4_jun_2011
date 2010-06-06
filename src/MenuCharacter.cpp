@@ -99,16 +99,16 @@ void MenuCharacter::render() {
 	ss << stats->mp_per_minute;
 	font->render(ss.str(), 268, offset_y+170, JUSTIFY_CENTER, screen);
 	ss.str("");
-	ss << (stats->accuracy - 5) << "%";
+	ss << (stats->accuracy) << "%";
 	font->render(ss.str(), 172, offset_y+234, JUSTIFY_CENTER, screen);	
 	ss.str("");
-	ss << (stats->accuracy - 25) << "%";
+	ss << (stats->accuracy - 20) << "%";
 	font->render(ss.str(), 268, offset_y+234, JUSTIFY_CENTER, screen);
 	ss.str("");
-	ss << (stats->avoidance - 5) << "%";
+	ss << (stats->avoidance) << "%";
 	font->render(ss.str(), 172, offset_y+298, JUSTIFY_CENTER, screen);	
 	ss.str("");
-	ss << (stats->avoidance - 25) << "%";
+	ss << (stats->avoidance - 20) << "%";
 	font->render(ss.str(), 268, offset_y+298, JUSTIFY_CENTER, screen);	
 	ss.str("");
 	if (stats->dmg_melee_max >= stats->dmg_magic_max)

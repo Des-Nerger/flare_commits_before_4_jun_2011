@@ -33,6 +33,7 @@ public:
 	int dmg_min;
 	int dmg_max;
 	int crit_chance;
+	int accuracy;
 	
 	FPoint pos;
 	FPoint speed;

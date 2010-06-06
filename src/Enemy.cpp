@@ -326,6 +326,7 @@ void Enemy::logic() {
 				haz->lifespan = 1;
 				haz->dmg_min = stats.dmg_melee_min;
 				haz->dmg_max = stats.dmg_melee_max;
+				haz->accuracy = stats.accuracy;
 			}
 
 			if (stats.cur_frame == max_frame-1) {
@@ -356,6 +357,7 @@ void Enemy::logic() {
 				haz->lifespan = 1;
 				haz->dmg_min = stats.dmg_magic_min;
 				haz->dmg_max = stats.dmg_magic_max;
+				haz->accuracy = stats.accuracy;
 			}
 			
 			if (stats.cur_frame == max_frame-1) {
@@ -409,8 +411,12 @@ void Enemy::logic() {
 
 }
 
-void Enemy::takeHit(int dmg_min, int dmg_max, int crit) {
+void Enemy::takeHit(int dmg_min, int dmg_max, int accuracy, int crit) {
 	if (stats.cur_state != ENEMY_DEAD && stats.cur_state != ENEMY_CRITDEAD) {
+		
+		// check miss
+	    if (rand() % 100 > (accuracy - stats.avoidance + 25)) return; 
+		
 		stats.cur_frame = 0;
 		
 		bool crit = (rand() % 100) < 30;

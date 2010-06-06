@@ -18,7 +18,9 @@ StatBlock::StatBlock() {
 	level = 0;
 	hp = maxhp = hp_per_minute = hp_ticker = 0;
 	mp = maxmp = mp_per_minute = mp_ticker = 0;
-	accuracy = avoidance = crit = 0;
+	accuracy = 75;
+	avoidance = 25;
+	crit = 0;
 
 	// equipment stats	
 	dmg_melee_min = 1;
@@ -181,8 +183,8 @@ void StatBlock::recalc() {
 	maxhp = hp;
 	mp = magical * 4;
 	maxmp = mp;
-	accuracy = 75 + offense * 5;
-	avoidance = 25 + defense * 5;
+	accuracy = 70 + offense * 5;
+	avoidance = 20 + defense * 5;
 	physoff = physical + offense;
 	physdef = physical + defense;
 	magoff = magical + offense;

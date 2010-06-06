@@ -13,6 +13,8 @@ chance_melee_phys=25
 chance_melee_mag=0
 chance_ranged_phys=0
 chance_ranged_mag=0
+accuracy=125
+avoidance=40
 
 dmg_melee_min=4
 dmg_melee_max=10
