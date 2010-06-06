@@ -3,7 +3,7 @@ sfx_prefix=zombie
 gfx_prefix=zombie
 
 # combat stats
-hp=3
+hp=10
 speed=4
 dspeed=3
 melee_range=64
@@ -14,10 +14,10 @@ chance_melee_mag=2
 chance_ranged_phys=0
 chance_ranged_mag=0
 
-dmg_melee_min=1
-dmg_melee_max=4
-dmg_magic_min=2
-dmg_magic_max=4
+dmg_melee_min=2
+dmg_melee_max=6
+dmg_magic_min=3
+dmg_magic_max=7
 cooldown=35
 
 # animation info

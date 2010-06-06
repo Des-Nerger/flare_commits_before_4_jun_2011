@@ -21,8 +21,13 @@ StatBlock::StatBlock() {
 	accuracy = avoidance = crit = 0;
 
 	// equipment stats	
-	dmg_melee_min = 0;
-	dmg_melee_max = 0;
+	dmg_melee_min = 1;
+	dmg_melee_max = 4;
+	dmg_magic_min = 0;
+	dmg_magic_max = 0;
+	dmg_ranged_min = 0;
+	dmg_ranged_max = 0;
+	
 	absorb_min = 0;
 	absorb_max = 0;
 	resist_fire = 0;

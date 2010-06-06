@@ -409,16 +409,25 @@ void Enemy::logic() {
 
 }
 
-void Enemy::takeHit() {
+void Enemy::takeHit(int dmg_min, int dmg_max, int crit) {
 	if (stats.cur_state != ENEMY_DEAD && stats.cur_state != ENEMY_CRITDEAD) {
 		stats.cur_frame = 0;
 		
 		bool crit = (rand() % 100) < 30;
+		int dmg;
+		if (dmg_max > dmg_min) dmg = rand() % (dmg_max - dmg_min + 1) + dmg_min;
+		else dmg = dmg_min;
 		
-		if (crit)
-			stats.hp = stats.hp -2;
-		else
-			stats.hp = stats.hp -1;
+		int absorption;
+		if (stats.absorb_min == stats.absorb_max) absorption = stats.absorb_min;
+		else absorption = stats.absorb_min + (rand() % (stats.absorb_max - stats.absorb_min + 1));
+	
+		dmg = dmg - absorption;
+		if (dmg < 1) dmg = 1; // TODO: when blocking, dmg can be reduced to 0
+		
+		if (crit) dmg = dmg * 2;
+		
+		stats.hp = stats.hp - dmg;
 			
 		if (stats.hp <= 0 && crit) {
 			stats.disp_frame = 28;

@@ -3,7 +3,7 @@ sfx_prefix=antlion
 gfx_prefix=antlion
 
 # combat stats
-hp=2
+hp=7
 speed=7
 dspeed=5
 melee_range=64
@@ -15,7 +15,7 @@ chance_ranged_phys=0
 chance_ranged_mag=0
 
 dmg_melee_min=1
-dmg_melee_max=1
+dmg_melee_max=3
 cooldown=25
 
 # animation info

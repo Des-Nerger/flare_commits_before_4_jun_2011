@@ -311,6 +311,9 @@ void Avatar::logic() {
 				haz->radius = UNITS_PER_TILE;
 				haz->source = SRC_HERO;
 				haz->lifespan = 1;
+				haz->dmg_min = stats.dmg_melee_min;
+				haz->dmg_max = stats.dmg_melee_max;
+				haz->crit_chance = stats.crit;
 			}
 			
 			if (curFrame == 15) {
@@ -363,11 +366,20 @@ void Avatar::logic() {
 }
 
 void Avatar::takeHit(int dmg_min, int dmg_max) {
-	int dmg;
-	if (dmg_min == dmg_max) dmg = dmg_min;
-	else dmg = dmg_min + (rand() % (dmg_max - dmg_min));
 
 	if (curState != AVATAR_DEAD) {
+	
+		int dmg;
+		if (dmg_min == dmg_max) dmg = dmg_min;
+		else dmg = dmg_min + (rand() % (dmg_max - dmg_min + 1));
+	
+		int absorption;
+		if (stats.absorb_min == stats.absorb_max) absorption = stats.absorb_min;
+		else absorption = stats.absorb_min + (rand() % (stats.absorb_max - stats.absorb_min + 1));
+	
+		dmg = dmg - absorption;
+		if (dmg < 1) dmg = 1; // TODO: when blocking, dmg can be reduced to 0
+	
 		curFrame = 0;
 		
 		stats.hp = stats.hp - dmg;

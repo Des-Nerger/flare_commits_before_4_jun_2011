@@ -17,6 +17,7 @@ Hazard::Hazard() {
 	active = true;
 	dmg_min = 0;
 	dmg_max = 0;
+	crit_chance = 0;
 }
 
 void Hazard::setCollision(MapCollision *_collider) {

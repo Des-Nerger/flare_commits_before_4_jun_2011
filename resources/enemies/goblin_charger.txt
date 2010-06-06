@@ -3,7 +3,7 @@ sfx_prefix=goblin
 gfx_prefix=goblin
 
 # combat stats
-hp=3
+hp=14
 speed=6
 dspeed=4
 melee_range=64
@@ -15,9 +15,11 @@ chance_ranged_phys=0
 chance_ranged_mag=0
 
 dmg_melee_min=2
-dmg_melee_max=5
-dmg_magic_min=1
-dmg_magic_max=4
+dmg_melee_max=6
+dmg_magic_min=2
+dmg_magic_max=6
+absorb_min=1
+absorb_max=1
 cooldown=25
 
 # animation info

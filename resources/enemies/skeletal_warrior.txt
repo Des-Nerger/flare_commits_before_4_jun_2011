@@ -3,7 +3,7 @@ sfx_prefix=skeleton
 gfx_prefix=skeleton
 
 # combat stats
-hp=4
+hp=20
 speed=6
 dspeed=4
 melee_range=64
@@ -14,8 +14,10 @@ chance_melee_mag=0
 chance_ranged_phys=0
 chance_ranged_mag=0
 
-dmg_melee_min=2
-dmg_melee_max=6
+dmg_melee_min=3
+dmg_melee_max=8
+absorb_min=1
+absorb_max=2
 cooldown=30
 
 # animation info

@@ -24,12 +24,10 @@ MenuInventory::MenuInventory(SDL_Surface *_screen, FontEngine *_font, ItemDataba
 	drag_prev_slot = -1;
 	changed_equipment = true;
 	
-	// testing
-	// TEMP: right now equipped[] and carrying[] refer to icons.  They should refer
-	// to an item index instead, which has public variables icon and icon_large. 
-	equipped[0] = 4;
-	equipped[1] = 15;
-	equipped[2] = 16;
+	// TODO: carried items should come from a save file
+	equipped[0] = 0;
+	equipped[1] = 17;
+	equipped[2] = 0;
 	
 	carried[0] = 1;
 	carried[1] = 2;
@@ -44,7 +42,7 @@ MenuInventory::MenuInventory(SDL_Surface *_screen, FontEngine *_font, ItemDataba
 	carried[10] = 12;
 	carried[11] = 13;
 	carried[12] = 14;
-	carried[13] = 17;
+	carried[13] = 15;
 	carried[14] = 18;
 	carried[15] = 19;
 	carried[16] = 33;
@@ -60,7 +58,9 @@ MenuInventory::MenuInventory(SDL_Surface *_screen, FontEngine *_font, ItemDataba
 	carried[26] = 41;
 	carried[27] = 42;
 	carried[28] = 41;
-	carried[29] = 42;	
+	carried[29] = 42;
+	carried[30] = 4;
+	carried[31] = 16;	
 
 }
 
