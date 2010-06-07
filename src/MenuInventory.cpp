@@ -23,6 +23,7 @@ MenuInventory::MenuInventory(SDL_Surface *_screen, FontEngine *_font, ItemDataba
 		
 	drag_prev_slot = -1;
 	changed_equipment = true;
+	changed_artifact = true;
 	
 	// TODO: carried items should come from a save file
 	equipped[0] = 0;
@@ -60,8 +61,9 @@ MenuInventory::MenuInventory(SDL_Surface *_screen, FontEngine *_font, ItemDataba
 	carried[28] = 41;
 	carried[29] = 42;
 	carried[30] = 4;
-	carried[31] = 16;	
-
+	carried[31] = 16;
+	carried[32] = 43;
+	carried[63] = 999;
 }
 
 void MenuInventory::loadGraphics() {
@@ -171,6 +173,7 @@ void MenuInventory::drop(Point mouse, int item) {
 				carried[drag_prev_slot] = equipped[index];
 				equipped[index] = item;
 				if (index < 3) changed_equipment = true;
+				else changed_artifact = true;
 			}
 			else {
 				carried[drag_prev_slot] = item; // cancel
@@ -202,6 +205,7 @@ void MenuInventory::drop(Point mouse, int item) {
 				equipped[drag_prev_slot] = carried[index];
 				carried[index] = item;
 				if (drag_prev_slot < 3) changed_equipment = true;
+				else changed_artifact = true;
 			}
 			else {
 				equipped[drag_prev_slot] = item; // cancel

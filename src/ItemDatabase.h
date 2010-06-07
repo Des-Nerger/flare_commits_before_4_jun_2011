@@ -16,6 +16,7 @@
 #include "SDL_image.h"
 #include "SDL_mixer.h"
 #include "UtilsParsing.h"
+#include "StatBlock.h"
 
 using namespace std;
 
@@ -61,6 +62,8 @@ struct Item {
 	int abs_max;
 	int req_stat;
 	int req_val;
+	string bonus_stat;
+	int bonus_val;
 	int sfx;
 	string gfx;
 };
@@ -82,6 +85,7 @@ public:
 	void renderIcon(int item, int x, int y, int size);
 	void playSound(int item);
 	string getTooltip(int item);
+	void applyEquipment(StatBlock *stats, int equipped[4]);
 
 	Item items[1024];
 };

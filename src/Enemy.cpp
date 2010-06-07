@@ -411,18 +411,18 @@ void Enemy::logic() {
 
 }
 
-void Enemy::takeHit(int dmg_min, int dmg_max, int accuracy, int crit) {
+void Enemy::takeHit(Hazard h) {
 	if (stats.cur_state != ENEMY_DEAD && stats.cur_state != ENEMY_CRITDEAD) {
 		
 		// check miss
-	    if (rand() % 100 > (accuracy - stats.avoidance + 25)) return; 
+	    if (rand() % 100 > (h.accuracy - stats.avoidance + 25)) return; 
 		
 		stats.cur_frame = 0;
 		
-		bool crit = (rand() % 100) < 30;
+		bool crit = (rand() % 100) < h.crit_chance;
 		int dmg;
-		if (dmg_max > dmg_min) dmg = rand() % (dmg_max - dmg_min + 1) + dmg_min;
-		else dmg = dmg_min;
+		if (h.dmg_max > h.dmg_min) dmg = rand() % (h.dmg_max - h.dmg_min + 1) + h.dmg_min;
+		else dmg = h.dmg_min;
 		
 		int absorption;
 		if (stats.absorb_min == stats.absorb_max) absorption = stats.absorb_min;

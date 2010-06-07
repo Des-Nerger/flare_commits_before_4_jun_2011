@@ -19,6 +19,7 @@
 
 using namespace std;
 
+// note: if you change these, also change them in ItemDatabase::applyEquipment
 const int SLOT_MAIN = 0;
 const int SLOT_BODY = 1;
 const int SLOT_OFF = 2;
@@ -53,6 +54,7 @@ public:
 	int drag_prev_src;
 
 	bool changed_equipment;
+	bool changed_artifact;
 
 };
 

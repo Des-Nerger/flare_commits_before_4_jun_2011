@@ -42,7 +42,7 @@ void HazardManager::logic() {
 					if (enemies->enemies[eindex]->stats.hp > 0 && h[i]->active) {
 						if (isWithin(round(h[i]->pos), h[i]->radius, enemies->enemies[eindex]->stats.pos)) {
 							// hit!
-							enemies->enemies[eindex]->takeHit(h[i]->dmg_min, h[i]->dmg_max, h[i]->accuracy, h[i]->crit_chance);
+							enemies->enemies[eindex]->takeHit(*h[i]);
 							if (!h[i]->multitarget) {
 								h[i]->active = false;
 								h[i]->lifespan = 0;
@@ -58,7 +58,7 @@ void HazardManager::logic() {
 				if (hero->stats.hp > 0 && h[i]->active) {
 					if (isWithin(round(h[i]->pos), h[i]->radius, hero->pos)) {
 						// hit!
-						hero->takeHit(h[i]->dmg_min, h[i]->dmg_max, h[i]->accuracy);
+						hero->takeHit(*h[i]);
 						if (!h[i]->multitarget) {
 							h[i]->active = false;
 							h[i]->lifespan = 0;

@@ -135,47 +135,9 @@ void MenuManager::logic() {
 	}
 	
 	// handle equipment changes affecting hero stats
-	// TODO: is this the best place for this logic?
-	if (inv->changed_equipment) {
-	
-		// defaults
-		stats->dmg_melee_min = stats->dmg_magic_min = 1;
-		stats->dmg_melee_max = stats->dmg_magic_max = 4;
-		stats->dmg_ranged_min = stats->dmg_ranged_max = 0;
-		stats->absorb_min = stats->absorb_max = 0;
-	
-		// main hand weapon
-		int item_id = inv->equipped[SLOT_MAIN];
-		if (item_id > 0) {
-			if (items->items[item_id].req_stat == REQUIRES_PHYS) {
-				stats->dmg_melee_min = items->items[item_id].dmg_min;
-				stats->dmg_melee_max = items->items[item_id].dmg_max;			
-			}
-			else if (items->items[item_id].req_stat == REQUIRES_MAG) {
-				stats->dmg_magic_min = items->items[item_id].dmg_min;
-				stats->dmg_magic_max = items->items[item_id].dmg_max;						
-			}
-		}
-		// off hand item
-		item_id = inv->equipped[SLOT_OFF];
-		if (item_id > 0) {
-			if (items->items[item_id].req_stat == REQUIRES_OFF) {
-				stats->dmg_ranged_min = items->items[item_id].dmg_min;
-				stats->dmg_ranged_max = items->items[item_id].dmg_max;			
-			}
-			else if (items->items[item_id].req_stat == REQUIRES_DEF) {
-				stats->absorb_min += items->items[item_id].abs_min;
-				stats->absorb_max += items->items[item_id].abs_max;						
-			}
-		}		
-		// body item
-		item_id = inv->equipped[SLOT_BODY];
-		if (item_id > 0) {
-			stats->absorb_min += items->items[item_id].abs_min;
-			stats->absorb_max += items->items[item_id].abs_max;						
-		}
-	
-	
+	if (inv->changed_equipment || inv->changed_artifact) {
+		items->applyEquipment(stats, inv->equipped);
+		inv->changed_artifact = false;
 	}
 }
 

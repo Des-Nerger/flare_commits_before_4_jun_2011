@@ -42,8 +42,6 @@ private:
 	int curFrame;
 	int dispFrame;
 	bool animFwd;
-	int speed;
-	int dspeed;
 	int cooldown_melee;
 	int aim_height;
 	
@@ -64,7 +62,7 @@ public:
 	void set_direction();
 	int face(int mapx, int mapy);
 	Renderable getRender();
-	void takeHit(int dmg_min, int dmg_max, int accuracy);
+	void takeHit(Hazard h);
 	
 	// vars
 	Point pos;

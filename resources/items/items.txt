@@ -168,17 +168,19 @@ gfx=clothes
 
 [item]
 id=18
-name=Boots
+name=Boots of Speed
 icon=113,17
 type=artifact
 sfx=leather
+bonus=speed,2
 
 [item]
 id=19
-name=Ring
+name=Signet of Forgotten Kings
 icon=114,18
 type=artifact
 sfx=gem
+bonus=health,6
 
 [item]
 id=33
@@ -252,3 +254,18 @@ effect=mp_restore
 type=consumable
 sfx=potion
 
+[item]
+id=43
+name=Ring of Wizardry
+icon=114,18
+type=artifact
+sfx=gem
+bonus=mana,6
+
+[item]
+id=999
+name=Boots of Testing Really Large Maps
+icon=113,17
+type=artifact
+sfx=leather
+bonus=speed,10

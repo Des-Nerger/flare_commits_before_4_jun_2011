@@ -22,8 +22,11 @@ ItemDatabase::ItemDatabase(SDL_Surface *_screen) {
 		items[i].abs_max = 0;
 		items[i].req_stat = 0;
 		items[i].req_val = 0;
+		items[i].bonus_stat = "";
+		items[i].bonus_val = 0;
 		items[i].sfx = SFX_NONE;
 		items[i].gfx = "";
+		
 	}
 	load();
 	loadIcons();
@@ -115,6 +118,11 @@ void ItemDatabase::load() {
 							items[id].req_stat = REQUIRES_OFF;
 						else if (s == "d")
 							items[id].req_stat = REQUIRES_DEF;
+					}
+					else if (key == "bonus") {
+						val = val + ",";
+						items[id].bonus_stat = eatFirstString(val, ',');
+						items[id].bonus_val = eatFirstInt(val, ',');
 					}
 					else if (key == "sfx") {
 						if (val == "book")
@@ -242,6 +250,11 @@ string ItemDatabase::getTooltip(int item) {
 		}
 	}
 	
+	// bonus
+	if (items[item].bonus_stat != "") {
+		ss << "\nIncreases " << items[item].bonus_stat << " by " << items[item].bonus_val;
+	}
+	
 	// requirement
 	if (items[item].req_val > 0) {
 		if (items[item].req_stat == REQUIRES_PHYS)
@@ -255,6 +268,89 @@ string ItemDatabase::getTooltip(int item) {
 	}
 	
 	return ss.str();
+}
+
+/**
+ * Given the equipped items, calculate the hero's stats
+ */
+void ItemDatabase::applyEquipment(StatBlock *stats, int equipped[4]) {
+
+	// note: these are also defined in MenuInventory.h
+	int SLOT_MAIN = 0;
+	int SLOT_BODY = 1;
+	int SLOT_OFF = 2;
+	//int SLOT_ARTIFACT = 3;
+
+	// defaults
+	stats->recalc(false); // from base stats, but keep current hp/mp
+	stats->dmg_melee_min = stats->dmg_magic_min = 1;
+	stats->dmg_melee_max = stats->dmg_magic_max = 4;
+	stats->dmg_ranged_min = stats->dmg_ranged_max = 0;
+	stats->absorb_min = stats->absorb_max = 0;
+	stats->speed = 9;
+	stats->dspeed = 6;
+	stats->resist_fire = 0;
+	stats->resist_ice = 0;
+
+	// main hand weapon
+	int item_id = equipped[SLOT_MAIN];
+	if (item_id > 0) {
+		if (items[item_id].req_stat == REQUIRES_PHYS) {
+			stats->dmg_melee_min = items[item_id].dmg_min;
+			stats->dmg_melee_max = items[item_id].dmg_max;			
+		}
+		else if (items[item_id].req_stat == REQUIRES_MAG) {
+			stats->dmg_magic_min = items[item_id].dmg_min;
+			stats->dmg_magic_max = items[item_id].dmg_max;						
+		}
+	}
+	// off hand item
+	item_id = equipped[SLOT_OFF];
+	if (item_id > 0) {
+		if (items[item_id].req_stat == REQUIRES_OFF) {
+			stats->dmg_ranged_min = items[item_id].dmg_min;
+			stats->dmg_ranged_max = items[item_id].dmg_max;			
+		}
+		else if (items[item_id].req_stat == REQUIRES_DEF) {
+			stats->absorb_min += items[item_id].abs_min;
+			stats->absorb_max += items[item_id].abs_max;						
+		}
+	}		
+	// body item
+	item_id = equipped[SLOT_BODY];
+	if (item_id > 0) {
+		stats->absorb_min += items[item_id].abs_min;
+		stats->absorb_max += items[item_id].abs_max;						
+	}
+
+	// apply bonuses from all items
+	for (int i=0; i<4; i++) {
+		item_id = equipped[i];
+		
+		if (items[item_id].bonus_stat == "health")
+			stats->maxhp += items[item_id].bonus_val;
+		else if (items[item_id].bonus_stat == "health regen")
+			stats->hp_per_minute += items[item_id].bonus_val;
+		else if (items[item_id].bonus_stat == "mana")
+			stats->maxmp += items[item_id].bonus_val;
+		else if (items[item_id].bonus_stat == "mana regen")
+			stats->mp_per_minute += items[item_id].bonus_val;
+		else if (items[item_id].bonus_stat == "accuracy")
+			stats->accuracy += items[item_id].bonus_val;
+		else if (items[item_id].bonus_stat == "avoidance")
+			stats->avoidance += items[item_id].bonus_val;
+		else if (items[item_id].bonus_stat == "crit")
+			stats->crit += items[item_id].bonus_val;
+		else if (items[item_id].bonus_stat == "speed") {
+			stats->speed += items[item_id].bonus_val;
+			stats->dspeed += items[item_id].bonus_val;
+		}
+		else if (items[item_id].bonus_stat == "fire resist")
+			stats->resist_fire += items[item_id].bonus_val;
+		else if (items[item_id].bonus_stat == "ice resist")
+			stats->resist_ice += items[item_id].bonus_val;
+	}
+
 }
 
 ItemDatabase::~ItemDatabase() {

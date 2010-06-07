@@ -26,7 +26,7 @@ public:
 	
 	void load(string filename);
 	void takeDamage(int dmg);
-	void recalc();
+	void recalc(bool calc_health_mana);
 	void logic();
 
 	bool alive;

@@ -25,25 +25,14 @@ Avatar::Avatar(InputState *_inp, MapIso *_map) {
 	lockCast = false;
 	lockShoot = false;
 	
-	speed = 9;
-	dspeed = 6; // try to keep this number even; probably a rounding error causing jittering
-	
 	stats.name = "Unknown";
 	stats.level = 17;
 	stats.physical = 5;
 	stats.magical = 5;
 	stats.offense = 5;
 	stats.defense = 5;
-	stats.dmg_melee_min = 1;
-	stats.dmg_melee_max = 4;
-	stats.dmg_magic_min = 0;
-	stats.dmg_magic_max = 0;
-	stats.dmg_ranged_min = 0;
-	stats.dmg_ranged_max = 0;
-	stats.recalc();
-	
-	stats.hp_per_minute = 4 + stats.physical;
-	stats.mp_per_minute = 4 + stats.magical;
+	stats.recalc(true);
+
 	cooldown_melee = 0;
 	
 	// when aiming attacks (not ground spells) adjust for players aiming at
@@ -127,21 +116,21 @@ bool Avatar::pressing_move() {
 bool Avatar::move() {
 	switch (direction) {
 		case 0:
-			return map->collider.move(pos.x, pos.y, -1, 1, dspeed);
+			return map->collider.move(pos.x, pos.y, -1, 1, stats.dspeed);
 		case 1:
-			return map->collider.move(pos.x, pos.y, -1, 0, speed);
+			return map->collider.move(pos.x, pos.y, -1, 0, stats.speed);
 		case 2:
-			return map->collider.move(pos.x, pos.y, -1, -1, dspeed);
+			return map->collider.move(pos.x, pos.y, -1, -1, stats.dspeed);
 		case 3:
-			return map->collider.move(pos.x, pos.y, 0, -1, speed);
+			return map->collider.move(pos.x, pos.y, 0, -1, stats.speed);
 		case 4:
-			return map->collider.move(pos.x, pos.y, 1, -1, dspeed);
+			return map->collider.move(pos.x, pos.y, 1, -1, stats.dspeed);
 		case 5:
-			return map->collider.move(pos.x, pos.y, 1, 0, speed);
+			return map->collider.move(pos.x, pos.y, 1, 0, stats.speed);
 		case 6:
-			return map->collider.move(pos.x, pos.y, 1, 1, dspeed);
+			return map->collider.move(pos.x, pos.y, 1, 1, stats.dspeed);
 		case 7:
-			return map->collider.move(pos.x, pos.y, 0, 1, speed);
+			return map->collider.move(pos.x, pos.y, 0, 1, stats.speed);
 	}
 	return true;
 }
@@ -366,16 +355,16 @@ void Avatar::logic() {
 	map->checkEvents(pos);
 }
 
-void Avatar::takeHit(int dmg_min, int dmg_max, int accuracy) {
+void Avatar::takeHit(Hazard h) {
 
 	if (curState != AVATAR_DEAD) {
 	
 		// check miss
-	    if (rand() % 100 > (accuracy - stats.avoidance + 25)) return; 
+	    if (rand() % 100 > (h.accuracy - stats.avoidance + 25)) return; 
 	
 		int dmg;
-		if (dmg_min == dmg_max) dmg = dmg_min;
-		else dmg = dmg_min + (rand() % (dmg_max - dmg_min + 1));
+		if (h.dmg_min == h.dmg_max) dmg = h.dmg_min;
+		else dmg = h.dmg_min + (rand() % (h.dmg_max - h.dmg_min + 1));
 	
 		int absorption;
 		if (stats.absorb_min == stats.absorb_max) absorption = stats.absorb_min;

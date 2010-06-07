@@ -178,11 +178,19 @@ void StatBlock::takeDamage(int dmg) {
  * Recalc derived stats from base stats
  * Creatures might skip these formulas.
  */
-void StatBlock::recalc() {
-	hp = 12 + physical * 4;
-	maxhp = hp;
-	mp = magical * 4;
-	maxmp = mp;
+void StatBlock::recalc(bool calc_health_mana) {
+
+	maxhp = 12 + physical * 4;
+	maxmp = magical * 4;
+	if (calc_health_mana) {
+		hp = 12 + physical * 4;
+		mp = magical * 4;
+	}
+	else {
+		if (hp > maxhp) hp=maxhp;
+		if (mp > maxmp) mp=maxmp;
+	}
+			
 	accuracy = 70 + offense * 5;
 	avoidance = 20 + defense * 5;
 	physoff = physical + offense;
@@ -190,6 +198,8 @@ void StatBlock::recalc() {
 	magoff = magical + offense;
 	magdef = magical + defense;
 	crit = physical + magical + offense + defense;
+	hp_per_minute = 4 + physical;
+	mp_per_minute = 4 + magical;
 }
 
 /**
