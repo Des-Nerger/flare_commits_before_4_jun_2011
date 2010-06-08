@@ -241,14 +241,14 @@ TooltipData MenuInventory::checkTooltip(Point mouse) {
 	int offset_y = (VIEW_H - 416)/2;
 	TooltipData tip;
 	
-	if (mouse.x >= offset_x+32 && mouse.y >= offset_y+48 && mouse.x < offset_x+576 && mouse.y < offset_y+112) {
+	if (mouse.x >= offset_x+32 && mouse.y >= offset_y+48 && mouse.x < offset_x+288 && mouse.y < offset_y+112) {
 		
 		// equipped item
 		index = (mouse.x - (offset_x+32)) / 64;	
 		return items->getTooltip(equipped[index], stats);
 		
 	}
-	else if (mouse.x >= offset_x+32 && mouse.y >= offset_y+128 && mouse.x < offset_x+576 && mouse.y < offset_y+384) {
+	else if (mouse.x >= offset_x+32 && mouse.y >= offset_y+128 && mouse.x < offset_x+288 && mouse.y < offset_y+384) {
 	
 		// carried item
 		index = (mouse.x - (offset_x+32)) / 32 + ((mouse.y - (offset_y+128)) / 32) * 8;
