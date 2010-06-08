@@ -14,7 +14,7 @@ MenuManager::MenuManager(SDL_Surface *_screen, InputState *_inp, FontEngine *_fo
 	stats = _stats;
 
 	items = new ItemDatabase(screen);
-	inv = new MenuInventory(screen, font, items);
+	inv = new MenuInventory(screen, font, items, stats);
 	pow = new MenuPowers(screen, font, stats);
 	chr = new MenuCharacter(screen, font, stats);
 	log = new MenuLog(screen, font);
@@ -149,7 +149,7 @@ void MenuManager::render() {
 	chr->render();
 	log->render();
 	
-	string tooltip = "";
+	TooltipData tooltip;
 	int offset_x = (VIEW_W - 320);
 	int offset_y = (VIEW_H - 416)/2;
 	
@@ -170,7 +170,7 @@ void MenuManager::render() {
 		tooltip = act->checkTooltip(inp->mouse);
 	}
 	
-	if (tooltip != "") {
+	if (tooltip.num_lines > 0) {
 		tip->render(tooltip, inp->mouse);
 	}
 	

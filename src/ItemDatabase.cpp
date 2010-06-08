@@ -13,6 +13,7 @@ ItemDatabase::ItemDatabase(SDL_Surface *_screen) {
 	
 	for (int i=0; i<1024; i++) {
 		items[i].name = "";
+		items[i].quality = ITEM_QUALITY_NORMAL;
 		items[i].icon32 = 0;
 		items[i].icon64 = 0;
 		items[i].type = -1;
@@ -75,6 +76,12 @@ void ItemDatabase::load() {
 						items[id].icon32 = eatFirstInt(val, ',');
 						if (val.length() > 0)
 							items[id].icon64 = eatFirstInt(val, ',');
+					}
+					else if (key == "quality") {
+						if (val == "low")
+							items[id].quality = ITEM_QUALITY_LOW;
+						else if (val == "high")
+							items[id].quality = ITEM_QUALITY_HIGH;
 					}
 					else if (key == "type") {
 						if (val == "main")
@@ -208,66 +215,95 @@ void ItemDatabase::playSound(int item) {
 			Mix_PlayChannel(-1, sfx[items[item].sfx], 0);
 }
 
-string ItemDatabase::getTooltip(int item) {
+TooltipData ItemDatabase::getTooltip(int item, StatBlock *stats) {
 	stringstream ss;
+	TooltipData tip;
+	
+	if (item == 0) return tip;
 	
 	// name
-	ss << items[item].name;
+	tip.lines[tip.num_lines++] = items[item].name;
+	
+	// color quality
+	if (items[item].quality == ITEM_QUALITY_LOW) {
+		tip.colors[0] = FONT_GRAY;
+	}
+	else if (items[item].quality == ITEM_QUALITY_HIGH) {
+		tip.colors[0] = FONT_BLUE;
+	}
 	
 	// type
 	if (items[item].type != ITEM_TYPE_OTHER) {
 		if (items[item].type == ITEM_TYPE_MAIN)
-			ss << "\nMain Hand";
+			tip.lines[tip.num_lines++] = "Main Hand";
 		else if (items[item].type == ITEM_TYPE_BODY)
-			ss << "\nBody";
+			tip.lines[tip.num_lines++] = "Body";
 		else if (items[item].type == ITEM_TYPE_OFF)
-			ss << "\nOff Hand";
+			tip.lines[tip.num_lines++] = "Off Hand";
 		else if (items[item].type == ITEM_TYPE_ARTIFACT)
-			ss << "\nArtifact";
+			tip.lines[tip.num_lines++] = "Artifact";
 		else if (items[item].type == ITEM_TYPE_CONSUMABLE)
-			ss << "\nConsumable";
+			tip.lines[tip.num_lines++] = "Consumable";
 		else if (items[item].type == ITEM_TYPE_GEM)
-			ss << "\nGem";
+			tip.lines[tip.num_lines++] = "Gem";
 	}
 	
 	// damage
 	if (items[item].dmg_max > 0) {
 		if (items[item].dmg_min < items[item].dmg_max) {
-			ss << "\nDamage: " << items[item].dmg_min << "-" << items[item].dmg_max;
+			ss << "Damage: " << items[item].dmg_min << "-" << items[item].dmg_max;
 		}
 		else {
-			ss << "\nDamage: " << items[item].dmg_max;		
+			ss << "Damage: " << items[item].dmg_max;		
 		}
+		tip.lines[tip.num_lines++] = ss.str();
 	}
+
+	ss.str("");
 
 	// absorb
 	if (items[item].abs_max > 0) {
 		if (items[item].abs_min < items[item].abs_max) {
-			ss << "\nAbsorb: " << items[item].abs_min << "-" << items[item].abs_max;
+			ss << "Absorb: " << items[item].abs_min << "-" << items[item].abs_max;
 		}
 		else {
-			ss << "\nAbsorb: " << items[item].abs_max;		
+			ss << "Absorb: " << items[item].abs_max;		
 		}
+		tip.lines[tip.num_lines++] = ss.str();
 	}
+	
+	ss.str("");
 	
 	// bonus
 	if (items[item].bonus_stat != "") {
-		ss << "\nIncreases " << items[item].bonus_stat << " by " << items[item].bonus_val;
+		ss << "Increases " << items[item].bonus_stat << " by " << items[item].bonus_val;
+		tip.lines[tip.num_lines++] = ss.str();
 	}
+
+	ss.str("");
 	
 	// requirement
 	if (items[item].req_val > 0) {
-		if (items[item].req_stat == REQUIRES_PHYS)
-			ss << "\nRequires Physical " << items[item].req_val;
-		else if (items[item].req_stat == REQUIRES_MAG)
-			ss << "\nRequires Magical " << items[item].req_val;
-		else if (items[item].req_stat == REQUIRES_OFF)
-			ss << "\nRequires Offense " << items[item].req_val;
-		else if (items[item].req_stat == REQUIRES_DEF)
-			ss << "\nRequires Defense " << items[item].req_val;
+		if (items[item].req_stat == REQUIRES_PHYS) {
+			ss << "Requires Physical " << items[item].req_val;
+			if (stats->physical < items[item].req_val) tip.colors[tip.num_lines] = FONT_RED;
+		}
+		else if (items[item].req_stat == REQUIRES_MAG) {
+			ss << "Requires Magical " << items[item].req_val;
+			if (stats->magical < items[item].req_val) tip.colors[tip.num_lines] = FONT_RED;
+		}
+		else if (items[item].req_stat == REQUIRES_OFF) {
+			ss << "Requires Offense " << items[item].req_val;
+			if (stats->offense < items[item].req_val) tip.colors[tip.num_lines] = FONT_RED;
+		}
+		else if (items[item].req_stat == REQUIRES_DEF) {
+			ss << "Requires Defense " << items[item].req_val;
+			if (stats->defense < items[item].req_val) tip.colors[tip.num_lines] = FONT_RED;
+		}
+		tip.lines[tip.num_lines++] = ss.str();
 	}
 	
-	return ss.str();
+	return tip;
 }
 
 /**

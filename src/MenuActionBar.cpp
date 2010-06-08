@@ -87,18 +87,28 @@ void MenuActionBar::render() {
 	
 }
 
-string MenuActionBar::checkTooltip(Point mouse) {
+TooltipData MenuActionBar::checkTooltip(Point mouse) {
+	TooltipData tip;
+	
 	int offset_x = (VIEW_W - 640)/2;
-	if (mouse.x >= offset_x+448 && mouse.x <= offset_x+512 && mouse.y >= VIEW_H-32 && mouse.y <= VIEW_H)
-		return "Character Menu (C)";
-	if (mouse.x >= offset_x+512 && mouse.x <= offset_x+544 && mouse.y >= VIEW_H-32 && mouse.y <= VIEW_H)
-		return "Inventory Menu (I)";
-	if (mouse.x >= offset_x+544 && mouse.x <= offset_x+576 && mouse.y >= VIEW_H-32 && mouse.y <= VIEW_H)
-		return "Powers Menu (P)";
-	if (mouse.x >= offset_x+576 && mouse.x <= offset_x+608 && mouse.y >= VIEW_H-32 && mouse.y <= VIEW_H)
-		return "Log Menu (L)";
+	if (mouse.x >= offset_x+448 && mouse.x <= offset_x+512 && mouse.y >= VIEW_H-32 && mouse.y <= VIEW_H) {
+		tip.lines[tip.num_lines++] = "Character Menu (C)";
+		return tip;
+	}
+	if (mouse.x >= offset_x+512 && mouse.x <= offset_x+544 && mouse.y >= VIEW_H-32 && mouse.y <= VIEW_H) {
+		tip.lines[tip.num_lines++] = "Inventory Menu (I)";
+		return tip;
+	}
+	if (mouse.x >= offset_x+544 && mouse.x <= offset_x+576 && mouse.y >= VIEW_H-32 && mouse.y <= VIEW_H) {
+		tip.lines[tip.num_lines++] = "Powers Menu (P)";
+		return tip;
+	}
+	if (mouse.x >= offset_x+576 && mouse.x <= offset_x+608 && mouse.y >= VIEW_H-32 && mouse.y <= VIEW_H) {
+		tip.lines[tip.num_lines++] = "Log Menu (L)";
+		return tip;
+	}
 
-	return "";
+	return tip;
 }
 
 MenuActionBar::~MenuActionBar() {

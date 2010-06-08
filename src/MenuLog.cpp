@@ -43,7 +43,7 @@ void MenuLog::render() {
 	
 	// text overlay
 	// TODO: translate()
-	font->render("Log", 160, offset_y+8, JUSTIFY_CENTER, screen);
+	font->render("Log", 160, offset_y+8, JUSTIFY_CENTER, screen, FONT_WHITE);
 
 }
 

@@ -13,6 +13,7 @@
 #include "SDL.h"
 #include "SDL_image.h"
 #include "InputState.h"
+#include "MenuTooltip.h"
 
 class MenuActionBar {
 private:
@@ -34,7 +35,7 @@ public:
 	void loadGraphics();
 	void logic();
 	void render();
-	string checkTooltip(Point mouse);
+	TooltipData checkTooltip(Point mouse);
 };
 
 #endif

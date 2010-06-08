@@ -14,6 +14,8 @@
 #include "Utils.h"
 #include "FontEngine.h"
 #include "ItemDatabase.h"
+#include "MenuTooltip.h"
+#include "StatBlock.h"
 #include <string>
 #include <sstream>
 
@@ -33,18 +35,19 @@ private:
 	SDL_Surface *screen;
 	ItemDatabase *items;
 	FontEngine *font;
+	StatBlock *stats;
 
 	void loadGraphics();
 	SDL_Surface *background;
 	
 public:
-	MenuInventory(SDL_Surface *screen, FontEngine *font, ItemDatabase *items);
+	MenuInventory(SDL_Surface *screen, FontEngine *font, ItemDatabase *items, StatBlock *stats);
 	~MenuInventory();
 	void logic();
 	void render();
 	int click(Point mouse);
 	void drop(Point mouse, int src);
-	string checkTooltip(Point mouse);
+	TooltipData checkTooltip(Point mouse);
 	
 	bool visible;
 

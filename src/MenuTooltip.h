@@ -15,6 +15,21 @@
 #include "Utils.h"
 #include "Settings.h"
 
+struct TooltipData {
+	string lines[8];
+	int colors[8];
+	int num_lines;
+	
+	TooltipData() {
+		num_lines = 0;
+		for (int i=0; i<8; i++) {
+			lines[i] = "";
+			colors[i] = FONT_WHITE;
+		}
+	}
+	
+};
+
 class MenuTooltip {
 private:
 	FontEngine *font;
@@ -25,7 +40,7 @@ private:
 	int margin_bottom;
 public:
 	MenuTooltip(FontEngine *_font, SDL_Surface *_screen);
-	void render(string text, Point pos);	
+	void render(TooltipData tip, Point pos);	
 };
 
 #endif

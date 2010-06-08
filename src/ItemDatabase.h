@@ -17,6 +17,7 @@
 #include "SDL_mixer.h"
 #include "UtilsParsing.h"
 #include "StatBlock.h"
+#include "MenuTooltip.h"
 
 using namespace std;
 
@@ -50,9 +51,13 @@ const int SFX_HEAVY = 9;
 const int SFX_WOOD = 10;
 const int SFX_POTION = 11;
 
+const int ITEM_QUALITY_LOW = 0;
+const int ITEM_QUALITY_NORMAL = 1;
+const int ITEM_QUALITY_HIGH = 2;
 
 struct Item {
 	string name;
+	int quality;
 	int type;
 	int icon32;
 	int icon64;
@@ -84,7 +89,7 @@ public:
 	void loadSounds();
 	void renderIcon(int item, int x, int y, int size);
 	void playSound(int item);
-	string getTooltip(int item);
+	TooltipData getTooltip(int item, StatBlock *stats);
 	void applyEquipment(StatBlock *stats, int equipped[4]);
 
 	Item items[1024];

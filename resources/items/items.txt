@@ -161,6 +161,7 @@ gfx=shield
 [item]
 id=17
 name=Clothes
+quality=low
 icon=112,16
 type=body
 sfx=cloth
@@ -168,19 +169,19 @@ gfx=clothes
 
 [item]
 id=18
-name=Boots of Speed
+name=Wanderer Boots
+quality=low
 icon=113,17
 type=artifact
 sfx=leather
-bonus=speed,2
 
 [item]
 id=19
-name=Signet of Forgotten Kings
+name=Signet Ring
+quality=low
 icon=114,18
 type=artifact
 sfx=gem
-bonus=health,6
 
 [item]
 id=33
@@ -213,6 +214,7 @@ sfx=object
 [item]
 id=37
 name=Diamond
+quality=high
 icon=36
 type=gem
 sfx=gem
@@ -220,6 +222,7 @@ sfx=gem
 [item]
 id=38
 name=Emerald
+quality=high
 icon=37
 type=gem
 sfx=gem
@@ -227,6 +230,7 @@ sfx=gem
 [item]
 id=39
 name=Ruby
+quality=high
 icon=38
 type=gem
 sfx=gem
@@ -234,6 +238,7 @@ sfx=gem
 [item]
 id=40
 name=Sapphire
+quality=high
 icon=39
 type=gem
 sfx=gem
@@ -254,18 +259,150 @@ effect=mp_restore
 type=consumable
 sfx=potion
 
+# Temp Items
+
 [item]
-id=43
+id=100
+name=Rusted Dagger
+quality=low
+icon=96,0
+type=main
+dmg=1,5
+req=p,2
+sfx=metal
+gfx=dagger
+
+[item]
+id=101
+name=Cracked Staff
+quality=low
+icon=102,6
+type=main
+dmg=3,9
+req=m,4
+sfx=wood
+gfx=staff
+
+[item]
+id=102
+name=Goblin Carver
+quality=high
+icon=96,0
+type=main
+dmg=3,7
+req=p,2
+sfx=metal
+gfx=dagger
+bonus=accuracy,3
+
+[item]
+id=103
+name=Vorpal Blade
+quality=high
+icon=97,1
+type=main
+dmg=4,9
+req=p,3
+sfx=metal
+gfx=shortsword
+bonus=crit,20
+
+[item]
+id=104
+name=Cracked Leather Armor
+quality=low
+icon=108,12
+type=body
+abs=0,1
+req=d,2
+sfx=leather
+gfx=leather_armor
+
+[item]
+id=105
+name=Paladin's Oath
+quality=high
+icon=110,14
+type=body
+abs=2,3
+req=d,4
+sfx=maille
+gfx=steel_armor
+bonus=mana,3
+
+[item]
+id=106
+name=Summer Clothes
+icon=112,16
+type=body
+sfx=cloth
+gfx=clothes
+bonus=fire resist,5
+
+[item]
+id=107
+name=Winter Clothes
+icon=112,16
+type=body
+sfx=cloth
+gfx=clothes
+bonus=ice resist,5
+
+[item]
+id=108
+name=Ring of Forgotten Kings
+quality=high
+icon=114,18
+type=artifact
+sfx=gem
+bonus=health,6
+
+[item]
+id=109
 name=Ring of Wizardry
+quality=high
 icon=114,18
 type=artifact
 sfx=gem
 bonus=mana,6
 
 [item]
-id=999
+id=110
+name=Boots of Quick Reflexes
+quality=high
+icon=113,17
+type=artifact
+sfx=leather
+bonus=avoidance,7
+
+[item]
+id=111
+name=Cheetah Hide Boots
+quality=high
+icon=113,17
+type=artifact
+sfx=leather
+bonus=speed,2
+
+
+# Dungeon Master's test items
+[item]
+id=1023
 name=Boots of Testing Really Large Maps
+quality=high
 icon=113,17
 type=artifact
 sfx=leather
 bonus=speed,10
+
+[item]
+id=1022
+name=Adamantium Ring of Mutant Healing
+quality=high
+icon=114,18
+type=artifact
+sfx=gem
+bonus=health regen,1000
+
+
+

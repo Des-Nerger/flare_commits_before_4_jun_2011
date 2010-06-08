@@ -81,10 +81,10 @@ void MenuHealthMana::render(StatBlock *stats, Point mouse) {
 
 		stringstream ss;
 		ss << stats->hp << "/" << stats->maxhp;
-		font->render(ss.str(), 5,4,JUSTIFY_LEFT, screen);
+		font->render(ss.str(), 5,4,JUSTIFY_LEFT, screen, FONT_WHITE);
 		ss.str("");
 		ss << stats->mp << "/" << stats->maxmp;
-		font->render(ss.str(), 5,19,JUSTIFY_LEFT, screen);
+		font->render(ss.str(), 5,19,JUSTIFY_LEFT, screen, FONT_WHITE);
 	 
 	}
 }

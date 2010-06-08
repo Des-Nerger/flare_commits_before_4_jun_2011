@@ -26,10 +26,10 @@ Avatar::Avatar(InputState *_inp, MapIso *_map) {
 	lockShoot = false;
 	
 	stats.name = "Unknown";
-	stats.level = 17;
-	stats.physical = 5;
-	stats.magical = 5;
-	stats.offense = 5;
+	stats.level = 9;
+	stats.physical = 4;
+	stats.magical = 1;
+	stats.offense = 2;
 	stats.defense = 5;
 	stats.recalc(true);
 

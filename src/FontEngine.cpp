@@ -15,12 +15,12 @@ FontEngine::FontEngine() {
 	for (int i=0; i<256; i++) {
 		width[i] = 0;
 	}
-	load("fonts/font.txt");
+	load();
 }
 
 
 
-void FontEngine::load(string filename) {
+void FontEngine::load() {
 
 	string imgfile;
 	string line;
@@ -28,13 +28,10 @@ void FontEngine::load(string filename) {
 	char str[8];
 	
 	// load the definition file
-	infile.open(filename.c_str(), ios::in);
+	infile.open("fonts/font.txt", ios::in);
 
 	if (infile.is_open()) {
-	
-		getline(infile, line);
-		imgfile = line;
-		
+			
 		getline(infile, line);
 		font_width = atoi(line.c_str());
 		
@@ -61,14 +58,13 @@ void FontEngine::load(string filename) {
 	}
 	infile.close();
 	
-	// load the font image
-	sprites = IMG_Load(("fonts/" + imgfile).c_str());
-	if(!sprites) {
-		// TODO: if there's an \r in the font.txt file after the filename, this will fail
-		fprintf(stderr, "Couldn't load image: %s\n", IMG_GetError());
-		SDL_Quit();
-		exit(1);
-	}
+	// load the font images
+	sprites[FONT_WHITE] = IMG_Load("fonts/white.png");
+	sprites[FONT_RED] = IMG_Load("fonts/red.png");
+	sprites[FONT_GREEN] = IMG_Load("fonts/green.png");
+	sprites[FONT_BLUE] = IMG_Load("fonts/blue.png");
+	sprites[FONT_GRAY] = IMG_Load("fonts/gray.png");
+	
 }
 
 int FontEngine::calc_length(string text) {
@@ -85,8 +81,10 @@ int FontEngine::calc_length(string text) {
 /**
  * Using the given wrap width, calculate the width and height necessary to display this text
  */
-Point FontEngine::calc_size(string text, int width) {
+Point FontEngine::calc_size(string text_with_newlines, int width) {
 	char newline = 10;
+	
+	string text = text_with_newlines;
 
 	// if this contains newlines, recurse
 	int check_newline = text.find_first_of(newline);
@@ -145,7 +143,7 @@ Point FontEngine::calc_size(string text, int width) {
  * Render the given text at (x,y) on the target image.
  * Justify is left, right, or center
  */
-void FontEngine::render(string text, int x, int y, int justify, SDL_Surface *target) {
+void FontEngine::render(string text, int x, int y, int justify, SDL_Surface *target, int color) {
 
 	unsigned char c;
 	char str[256];
@@ -175,7 +173,7 @@ void FontEngine::render(string text, int x, int y, int justify, SDL_Surface *tar
 			src.w = width[c];
 		
 			// draw the font
-			SDL_BlitSurface(sprites, &src, target, &dest);
+			SDL_BlitSurface(sprites[color], &src, target, &dest);
 		
 			// move dest
 			dest.x = dest.x + width[c] + kerning;
@@ -184,14 +182,9 @@ void FontEngine::render(string text, int x, int y, int justify, SDL_Surface *tar
 }
 
 /**
- * If width is passed as a parameter, word wrap to that width
- * This version handles newlines
+ * Word wrap to width
  */
-void FontEngine::render(string text, int x, int y, int justify, SDL_Surface *target, int width) {
-	// start with an empty string
-	// add the next token
-	// check length
-	// when the length is greater than width, output that line and move to the next token
+void FontEngine::render(string text, int x, int y, int justify, SDL_Surface *target, int width, int color) {
 	
 	cursor_y = y;
 	string segment;
@@ -199,8 +192,9 @@ void FontEngine::render(string text, int x, int y, int justify, SDL_Surface *tar
 	string builder = "";
 	string builder_prev = "";
 	char space = 32;
-	char newline = 10;
+	//char newline = 10;
 
+	/*
 	// if this contains newlines, recurse
 	int check_newline = text.find_first_of(newline);
 	if (check_newline > -1) {
@@ -208,6 +202,7 @@ void FontEngine::render(string text, int x, int y, int justify, SDL_Surface *tar
 		render(text.substr(check_newline+1, text.length()), x, cursor_y, justify, target, width);
 		return;
 	}
+	*/
 	
 	fulltext = text + " ";
 	segment = eatFirstString(fulltext, space);
@@ -216,7 +211,7 @@ void FontEngine::render(string text, int x, int y, int justify, SDL_Surface *tar
 		builder = builder + segment;
 		
 		if (calc_length(builder) > width) {
-			render(builder_prev, x, cursor_y, justify, target);
+			render(builder_prev, x, cursor_y, justify, target, color);
 			cursor_y += line_height;
 			builder_prev = "";
 			builder = segment + " ";
@@ -229,12 +224,14 @@ void FontEngine::render(string text, int x, int y, int justify, SDL_Surface *tar
 		segment = eatFirstString(fulltext, space);
 	}
 
-	render(builder, x, cursor_y, justify, target);
+	render(builder, x, cursor_y, justify, target, color);
 	cursor_y += line_height;
 
 }
 
+
 FontEngine::~FontEngine() {
-	SDL_FreeSurface(sprites);
+	for (int i=0; i<5; i++)
+		SDL_FreeSurface(sprites[i]);
 }
 

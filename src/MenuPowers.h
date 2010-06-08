@@ -14,6 +14,7 @@
 #include "Utils.h"
 #include "FontEngine.h"
 #include "StatBlock.h"
+#include "MenuTooltip.h"
 #include <string>
 #include <sstream>
 
@@ -36,7 +37,7 @@ public:
 	~MenuPowers();
 	void logic();
 	void render();
-	string checkTooltip(Point mouse);
+	TooltipData checkTooltip(Point mouse);
 	
 	bool visible;
 

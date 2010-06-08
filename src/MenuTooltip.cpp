@@ -24,40 +24,59 @@ MenuTooltip::MenuTooltip(FontEngine *_font, SDL_Surface *_screen) {
 /**
  * Tooltip position depends on the screen quadrant of the mouse
  */
-void MenuTooltip::render(string text, Point pos) {
+void MenuTooltip::render(TooltipData tip, Point pos) {
 	SDL_Rect background;
 	
-	Point size = font->calc_size(text, width);
+	string fulltext;
+	
+	fulltext = tip.lines[0];
+	for (int i=1; i<tip.num_lines; i++) {
+		fulltext = fulltext + "\n" + tip.lines[i];
+	}
+	
+	Point size = font->calc_size(fulltext, width);
 	background.w = size.x + margin + margin;
 	background.h = size.y + margin + margin_bottom;
+	
+	int cursor_x;
+	int cursor_y;
 	
 	// upper left
 	if (pos.x < VIEW_W_HALF && pos.y < VIEW_H_HALF) {
 		background.x = pos.x + offset;
 		background.y = pos.y + offset;
 		SDL_FillRect(screen, &background, 0);
-		font->render(text, pos.x + offset + margin, pos.y + offset + margin, JUSTIFY_LEFT, screen, size.x);
+		cursor_x = pos.x + offset + margin;
+		cursor_y = pos.y + offset + margin;
 	}
 	// upper right
 	else if (pos.x >= VIEW_W_HALF && pos.y < VIEW_H_HALF) {
 		background.x = pos.x - offset - size.x - margin - margin;
 		background.y = pos.y + offset;
 		SDL_FillRect(screen, &background, 0);
-		font->render(text, pos.x - offset - size.x - margin, pos.y + offset + margin, JUSTIFY_LEFT, screen, size.x);	
+		cursor_x = pos.x - offset - size.x - margin;
+		cursor_y = pos.y + offset + margin;
 	}
 	// lower left
 	else if (pos.x < VIEW_W_HALF && pos.y >= VIEW_H_HALF) {
 		background.x = pos.x + offset;
 		background.y = pos.y - offset - size.y - margin - margin;
 		SDL_FillRect(screen, &background, 0);
-		font->render(text, pos.x + offset + margin, pos.y - offset - size.y - margin, JUSTIFY_LEFT, screen, size.x);	
+		cursor_x = pos.x + offset + margin;
+		cursor_y = pos.y - offset - size.y - margin;
 	}
 	// lower right
 	else if (pos.x >= VIEW_W_HALF && pos.y >= VIEW_H_HALF) {
 		background.x = pos.x - offset - size.x - margin - margin;		
 		background.y = pos.y - offset - size.y - margin - margin;
 		SDL_FillRect(screen, &background, 0);
-		font->render(text, pos.x - offset - size.x - margin, pos.y - offset - size.y - margin, JUSTIFY_LEFT, screen, size.x);
+		cursor_x = pos.x - offset - size.x - margin;
+		cursor_y = pos.y - offset - size.y - margin;
+	}
+	
+	for (int i=0; i<tip.num_lines; i++) {
+		font->render(tip.lines[i], cursor_x, cursor_y, JUSTIFY_LEFT, screen, size.x, tip.colors[i]);
+		cursor_y = font->cursor_y;
 	}
 			
 }
