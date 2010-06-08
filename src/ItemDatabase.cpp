@@ -250,11 +250,21 @@ TooltipData ItemDatabase::getTooltip(int item, StatBlock *stats) {
 	
 	// damage
 	if (items[item].dmg_max > 0) {
+		if (items[item].req_stat == REQUIRES_PHYS) {
+			ss << "Melee ";
+		}
+		else if (items[item].req_stat == REQUIRES_MAG) {
+			ss << "Magic ";
+		}
+		else if (items[item].req_stat == REQUIRES_OFF) {
+			ss << "Ranged ";
+		}
+		
 		if (items[item].dmg_min < items[item].dmg_max) {
-			ss << "Damage: " << items[item].dmg_min << "-" << items[item].dmg_max;
+			ss << "damage: " << items[item].dmg_min << "-" << items[item].dmg_max;
 		}
 		else {
-			ss << "Damage: " << items[item].dmg_max;		
+			ss << "damage: " << items[item].dmg_max;		
 		}
 		tip.lines[tip.num_lines++] = ss.str();
 	}
