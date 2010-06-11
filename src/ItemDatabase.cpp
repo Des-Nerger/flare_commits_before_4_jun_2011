@@ -401,14 +401,14 @@ void ItemDatabase::applyEquipment(StatBlock *stats, int equipped[4]) {
 	}
 	
 	// apply previous hp/mp
-	if (prev_hp > stats->hp && prev_hp <= stats->maxhp)
+	if (prev_hp < stats->maxhp)
 		stats->hp = prev_hp;
-	else if (prev_hp > stats->maxhp)
-		stats->hp = stats->maxhp;	
+	else
+		stats->hp = stats->maxhp;
 		
-	if (prev_mp > stats->mp && prev_mp <= stats->maxmp)
+	if (prev_mp < stats->maxmp)
 		stats->mp = prev_mp;
-	else if (prev_mp > stats->maxmp)
+	else
 		stats->mp = stats->maxmp;
 
 }
