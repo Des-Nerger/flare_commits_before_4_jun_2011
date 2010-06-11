@@ -73,6 +73,10 @@ MenuInventory::MenuInventory(SDL_Surface *_screen, FontEngine *_font, ItemDataba
 	carried[49] = 109;
 	carried[50] = 110;
 	carried[51] = 111;
+	carried[52] = 112;
+	carried[53] = 113;
+	carried[54] = 114;
+	carried[55] = 115;
 	
 	carried[62] = 1022;
 	carried[63] = 1023;

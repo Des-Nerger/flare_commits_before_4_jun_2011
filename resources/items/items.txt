@@ -384,6 +384,53 @@ type=artifact
 sfx=leather
 bonus=speed,2
 
+[item]
+id=112
+name=Earth Rend
+quality=high
+icon=99,3
+type=main
+dmg=6,13
+req=p,5
+sfx=metal
+gfx=greatsword
+bonus=health regen,3
+
+[item]
+id=113
+name=Absolute Zero
+quality=high
+icon=103,7
+type=main
+dmg=5,12
+req=m,5
+sfx=wood
+gfx=greatstaff
+bonus=ice resist,25
+
+[item]
+id=114
+name=The Rook
+quality=high
+icon=111,15
+type=off
+abs=1,4
+req=d,5
+sfx=heavy
+gfx=shield
+bonus=health,3
+
+[item]
+id=115
+name=Gladys
+quality=high
+icon=107,11
+type=off
+dmg=6,13
+req=o,5
+sfx=wood
+gfx=greatbow
+bonus=accuracy,10
 
 # Dungeon Master's test items
 [item]

@@ -31,7 +31,7 @@ Avatar::Avatar(InputState *_inp, MapIso *_map) {
 	stats.magical = 1;
 	stats.offense = 2;
 	stats.defense = 5;
-	stats.recalc(true);
+	stats.recalc();
 
 	cooldown_melee = 0;
 	
@@ -40,8 +40,7 @@ Avatar::Avatar(InputState *_inp, MapIso *_map) {
 	aim_height = 0;
 	
 	haz = NULL;
-	
-	//loadGraphics("shortsword","clothes","buckler");
+
 	loadSounds();
 }
 

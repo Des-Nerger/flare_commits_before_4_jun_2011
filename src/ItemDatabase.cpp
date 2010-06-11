@@ -327,8 +327,11 @@ void ItemDatabase::applyEquipment(StatBlock *stats, int equipped[4]) {
 	int SLOT_OFF = 2;
 	//int SLOT_ARTIFACT = 3;
 
+	int prev_hp = stats->hp;
+	int prev_mp = stats->mp;
+
 	// defaults
-	stats->recalc(false); // from base stats, but keep current hp/mp
+	stats->recalc();
 	stats->dmg_melee_min = stats->dmg_magic_min = 1;
 	stats->dmg_melee_max = stats->dmg_magic_max = 4;
 	stats->dmg_ranged_min = stats->dmg_ranged_max = 0;
@@ -396,6 +399,12 @@ void ItemDatabase::applyEquipment(StatBlock *stats, int equipped[4]) {
 		else if (items[item_id].bonus_stat == "ice resist")
 			stats->resist_ice += items[item_id].bonus_val;
 	}
+	
+	// apply previous hp/mp
+	if (prev_hp > stats->hp && prev_hp <= stats->maxhp)
+		stats->hp = prev_hp;
+	if (prev_mp > stats->mp && prev_mp <= stats->maxmp)
+		stats->mp = prev_mp;
 
 }
 
