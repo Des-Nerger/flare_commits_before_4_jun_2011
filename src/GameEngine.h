@@ -21,6 +21,7 @@
 #include "EnemyManager.h"
 #include "FontEngine.h"
 #include "MenuManager.h"
+#include "LootManager.h"
 
 class GameEngine {
 private:
@@ -29,12 +30,13 @@ private:
 	InputState *inp;
 	Avatar *pc;
 	MapIso *map;
-	Renderable r[256];
+	Renderable r[1024];
 	int renderableCount;
 	HazardManager *hazards;
 	EnemyManager *enemies;
 	FontEngine *font;
 	MenuManager *menu;
+	LootManager *loot;
 	
 	bool cancel_lock;
 	

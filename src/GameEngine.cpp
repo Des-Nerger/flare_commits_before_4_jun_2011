@@ -20,6 +20,7 @@ GameEngine::GameEngine(SDL_Surface *_screen, InputState *_inp) {
 	enemies = new EnemyManager(map);
 	hazards = new HazardManager(pc, enemies);
 	menu = new MenuManager(_screen, _inp, font, &pc->stats);
+	loot = new LootManager(menu->items);
 	
 	cancel_lock = false;
 
@@ -31,7 +32,7 @@ GameEngine::GameEngine(SDL_Surface *_screen, InputState *_inp) {
  */
 void GameEngine::logic() {
 	
-	
+	// the game action is paused if any menus are opened
 	if (!menu->pause) {
 		pc->logic();
 		enemies->heroPos = pc->pos;
@@ -76,8 +77,7 @@ void GameEngine::logic() {
 	if (menu->inv->changed_equipment) {
 		pc->loadGraphics(menu->items->items[menu->inv->equipped[0]].gfx, 
 		                 menu->items->items[menu->inv->equipped[1]].gfx, 
-						 menu->items->items[menu->inv->equipped[2]].gfx);
-	
+		                 menu->items->items[menu->inv->equipped[2]].gfx);
 		menu->inv->changed_equipment = false;
 	}
 	
@@ -88,22 +88,31 @@ void GameEngine::logic() {
  */
 void GameEngine::render() {
 
-	// The strategy here is to make a list of Renderables from all objects not already on the map.
-	// Pass this list to the map, which will draw them in z-order with the map object layer
-	renderableCount = 1 + enemies->enemy_count;
+	// Create a list of Renderables from all objects not already on the map.
+	renderableCount = 0;
+
+	r[renderableCount++] = pc->getRender(); // Avatar
 	
-	r[0] = pc->getRender();
-	for (int i=1; i<= enemies->enemy_count; i++) {
-		r[i] = enemies->getRender(i-1);
+	for (int i=0; i<enemies->enemy_count; i++) { // Enemies
+		r[renderableCount++] = enemies->getRender(i);
 	}
 	
+	for (int i=0; i<loot->loot_count; i++) { // Loot
+		r[renderableCount++] = loot->getRender(i);
+	}
+	
+	for (int i=0; i<hazards->hazard_count; i++) { // Hazards
+		// TODO: hazard effects renderables
+		// Not all hazards have a renderable component
+	}
+		
 	zsort(r,renderableCount);
+
+	// render the static map layers plus the renderables
 	map->render(r, renderableCount);
 	
 	// display the name of the map in the upper-right hand corner
 	font->render(map->title, VIEW_W-2, 2, JUSTIFY_RIGHT, screen, FONT_WHITE);
-	
-	//font->render("This is a test of the word wrap and newline system, overly long so we really get a good test in.\nsingle line\n\nTest again\n\nfinally.", 256, 32, JUSTIFY_RIGHT, screen, 256);
 	
 	menu->render();
 }
@@ -115,4 +124,5 @@ GameEngine::~GameEngine() {
 	delete(map);
 	delete(font);
 	delete(menu);
+	delete(loot);
 }
