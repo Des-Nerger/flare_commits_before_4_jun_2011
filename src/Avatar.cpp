@@ -404,6 +404,7 @@ Renderable Avatar::getRender() {
 	r.src->h = 128;
 	r.offset.x = 64;
 	r.offset.y = 96; // 112
+	r.object_layer = true;
 	return r;	
 }
 

@@ -11,6 +11,7 @@
 
 StatBlock::StatBlock() {
 	alive = true;
+	corpse = false;
 	
 	// core stats
 	offense = defense = physical = magical = 0;

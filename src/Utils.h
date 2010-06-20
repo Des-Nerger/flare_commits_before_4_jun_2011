@@ -42,6 +42,7 @@ struct Renderable {
 	SDL_Surface *sprite;
 	SDL_Rect *src;
 	Point offset;
+	bool object_layer;
 };
 
 static Point screen_to_map(int x, int y, int camx, int camy) {

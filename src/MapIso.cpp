@@ -335,6 +335,21 @@ void MapIso::render(Renderable r[], int rnum) {
 		}
 	}
 
+	// some renderables are drawn above the background and below the objects
+	for (int ri = 0; ri < rnum; ri++) {			
+		if (!r[ri].object_layer) {
+				
+			// draw renderable
+			dest.w = r[ri].src->w;
+			dest.h = r[ri].src->h;
+			dest.x = VIEW_W_HALF + (r[ri].map_pos.x/UNITS_PER_PIXEL_X - xcam.x) - (r[ri].map_pos.y/UNITS_PER_PIXEL_X - xcam.y) - r[ri].offset.x;
+			dest.y = VIEW_H_HALF + (r[ri].map_pos.x/UNITS_PER_PIXEL_Y - ycam.x) + (r[ri].map_pos.y/UNITS_PER_PIXEL_Y - ycam.y) - r[ri].offset.y;
+
+			SDL_BlitSurface(r[ri].sprite, r[ri].src, screen, &dest);
+		} 
+	}
+			
+
 	// todo: trim by screen rect
 	// object layer
 	for (j=0; j<h; j++) {
@@ -356,9 +371,11 @@ void MapIso::render(Renderable r[], int rnum) {
 	
 			}
 			
-			// renderable entities go in this layer
+			// some renderable entities go in this layer
+			// TODO: horribly inefficient.  If the objects were sorted in the same draw order of tiles,
+			//       it wouldn't be necessary to loop through all renderables each tile
 			for (int ri = 0; ri < rnum; ri++) {			
-				if (r[ri].map_pos.x / UNITS_PER_TILE == i && r[ri].map_pos.y / UNITS_PER_TILE == j) {
+				if (r[ri].object_layer && r[ri].map_pos.x >> TILE_SHIFT == i && r[ri].map_pos.y >> TILE_SHIFT == j) {
 				
 					// draw renderable
 					dest.w = r[ri].src->w;

@@ -160,14 +160,18 @@ void Enemy::logic() {
 	int max_frame;
 	int mid_frame;
 	
-	// general info about this enemy vs. the hero
+	// SECTION 1: Steering and Vision
+	// ------------------------------
+		
+	// check distance and line of sight between enemy and hero
 	dist = getDistance(stats.hero_pos);
 	if (dist < stats.threat_range)
 		los = map->collider.line_of_sight(stats.pos.x, stats.pos.y, stats.hero_pos.x, stats.hero_pos.y);
 	else
 		los = false;
 		
-	// set combat status and lastseen
+	// if the enemy can see the hero, it pursues.
+	// otherwise, it will head towards where it last saw the hero
 	if (los && dist < stats.threat_range) {
 		stats.in_combat = true;
 		stats.last_seen.x = stats.hero_pos.x;
@@ -177,9 +181,11 @@ void Enemy::logic() {
 		if (getDistance(stats.last_seen) <= (stats.speed+stats.speed) && stats.patrol_ticks == 0) {
 			stats.last_seen.x = -1;
 			stats.last_seen.y = -1;
-			stats.patrol_ticks = 8;
+			stats.patrol_ticks = 8; // start patrol; see note on "patrolling" below
 		}		
 	}
+	
+	// if the hero is too far away, abandon combat
 	if (dist > stats.threat_range+stats.threat_range) {
 		stats.in_combat = false;
 		stats.patrol_ticks = 0;
@@ -195,6 +201,12 @@ void Enemy::logic() {
 		stats.patrol_ticks = 0;
 	}
 	else if (stats.in_combat) {
+	
+		// "patrolling" is a simple way to help steering.
+		// When the enemy arrives at where he last saw the hero, it continues
+		// walking a few steps.  This gives a better chance of re-establishing
+		// line of sight around corners.
+		
 		if (stats.patrol_ticks > 0) {
 			stats.patrol_ticks--;
 			if (stats.patrol_ticks == 0) {
@@ -206,6 +218,10 @@ void Enemy::logic() {
 	}
 
 	if (stats.cooldown_ticks > 0) stats.cooldown_ticks--;
+
+	
+	// SECTION 2: States
+	// -----------------
 	
 	switch(stats.cur_state) {
 		case ENEMY_STANCE:
@@ -365,9 +381,10 @@ void Enemy::logic() {
 				stats.cooldown_ticks = stats.cooldown;
 			}
 			break;
-		
+	
 		case ENEMY_HIT:
-			// enemy has taken damage.  cycle through 
+			// enemy has taken damage (but isn't dead)
+
 			stats.cur_frame++;
 
 			// hit is a back/forth animation
@@ -387,23 +404,31 @@ void Enemy::logic() {
 			}
 			
 			break;
+			
 		case ENEMY_DEAD:
-			max_frame = (stats.anim_die_frames-1) * stats.anim_die_duration;
-			if (stats.cur_frame < max_frame) stats.cur_frame++;
-			stats.disp_frame = (stats.cur_frame / stats.anim_die_duration) + stats.anim_die_position;
-			
-			if (stats.cur_frame == 1) sfx_hit = true;
-			if (stats.cur_frame == 1) sfx_die = true;
-			
+		
+			// corpse means the creature is dead and done animating
+			if (!stats.corpse) {
+				max_frame = (stats.anim_die_frames-1) * stats.anim_die_duration;
+				if (stats.cur_frame < max_frame) stats.cur_frame++;
+				if (stats.cur_frame == max_frame) stats.corpse = true;
+				stats.disp_frame = (stats.cur_frame / stats.anim_die_duration) + stats.anim_die_position;
+				if (stats.cur_frame == 1) sfx_hit = true;
+				if (stats.cur_frame == 1) sfx_die = true;
+			}
+
 			break;
-			
+		
 		case ENEMY_CRITDEAD:
-			max_frame = (stats.anim_critdie_frames-1) * stats.anim_critdie_duration;
-			if (stats.cur_frame < max_frame) stats.cur_frame++;
-			stats.disp_frame = (stats.cur_frame / stats.anim_critdie_duration) + stats.anim_critdie_position;
-			
-			if (stats.cur_frame == 1) {
-				sfx_critdie = true;
+			// critdead is an optional, more gruesome death animation
+		
+			// corpse means the creature is dead and done animating
+			if (!stats.corpse) {
+				max_frame = (stats.anim_critdie_frames-1) * stats.anim_critdie_duration;
+				if (stats.cur_frame < max_frame) stats.cur_frame++;
+				if (stats.cur_frame == max_frame) stats.corpse = true;
+				stats.disp_frame = (stats.cur_frame / stats.anim_critdie_duration) + stats.anim_critdie_position;
+				if (stats.cur_frame == 1) sfx_critdie = true;
 			}
 			
 			break;
@@ -411,30 +436,37 @@ void Enemy::logic() {
 
 }
 
+/**
+ * Whenever a hazard collides with an enemy, this function resolves the effect
+ * Called by HazardManager
+ */
 void Enemy::takeHit(Hazard h) {
 	if (stats.cur_state != ENEMY_DEAD && stats.cur_state != ENEMY_CRITDEAD) {
 		
-		// check miss
+		// if it's a miss, do nothing
 	    if (rand() % 100 > (h.accuracy - stats.avoidance + 25)) return; 
 		
-		stats.cur_frame = 0;
-		
-		bool crit = (rand() % 100) < h.crit_chance;
+		// calculate base damage
 		int dmg;
 		if (h.dmg_max > h.dmg_min) dmg = rand() % (h.dmg_max - h.dmg_min + 1) + h.dmg_min;
 		else dmg = h.dmg_min;
 		
+		// subtract absorption from armor
 		int absorption;
 		if (stats.absorb_min == stats.absorb_max) absorption = stats.absorb_min;
 		else absorption = stats.absorb_min + (rand() % (stats.absorb_max - stats.absorb_min + 1));
-	
 		dmg = dmg - absorption;
 		if (dmg < 1) dmg = 1; // TODO: when blocking, dmg can be reduced to 0
-		
+
+		// check for crits
+		bool crit = (rand() % 100) < h.crit_chance;
 		if (crit) dmg = dmg * 2;
 		
+		// apply damage
 		stats.hp = stats.hp - dmg;
-			
+		
+		// interrupted to new state
+		stats.cur_frame = 0;
 		if (stats.hp <= 0 && crit) {
 			stats.disp_frame = 28;
 			stats.cur_state = ENEMY_CRITDEAD;
@@ -466,6 +498,10 @@ Renderable Enemy::getRender() {
 	r.src->h = stats.render_size.y;
 	r.offset.x = stats.render_offset.x;
 	r.offset.y = stats.render_offset.y;
+	
+	// draw corpses below objects so that floor loot is more visible
+	r.object_layer = !stats.corpse;
+	
 	return r;	
 }
 

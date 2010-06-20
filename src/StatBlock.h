@@ -30,6 +30,7 @@ public:
 	void logic();
 
 	bool alive;
+	bool corpse; // creature is dead and done animating
 	
 	string name;
 	string sfx_prefix;
