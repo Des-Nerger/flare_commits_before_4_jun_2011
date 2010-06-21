@@ -48,6 +48,7 @@ public:
 	int click(Point mouse);
 	void drop(Point mouse, int src);
 	TooltipData checkTooltip(Point mouse);
+	bool full();
 	
 	bool visible;
 

@@ -71,6 +71,7 @@ struct Item {
 	int bonus_val;
 	int sfx;
 	string gfx;
+	string loot;
 };
 
 class ItemDatabase {
@@ -90,6 +91,8 @@ public:
 	void renderIcon(int item, int x, int y, int size);
 	void playSound(int item);
 	TooltipData getTooltip(int item, StatBlock *stats);
+	TooltipData getShortTooltip(int item);
+
 	void applyEquipment(StatBlock *stats, int equipped[4]);
 
 	Item items[1024];

@@ -44,6 +44,8 @@ public:
 	bool done;
 	GameEngine(SDL_Surface *screen, InputState *inp);
 	~GameEngine();
+	
+	void assignMouseClick();
 	void logic();
 	void render();
 };

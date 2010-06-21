@@ -263,6 +263,14 @@ TooltipData MenuInventory::checkTooltip(Point mouse) {
 	return tip;
 }
 
+bool MenuInventory::full() {
+	bool result = true;
+	for (int i=0; i<64; i++) {
+		if (carried[i] == 0) result = false;
+	}
+	return result;
+}
+
 MenuInventory::~MenuInventory() {
 	SDL_FreeSurface(background);
 }

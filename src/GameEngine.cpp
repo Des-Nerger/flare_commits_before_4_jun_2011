@@ -20,11 +20,27 @@ GameEngine::GameEngine(SDL_Surface *_screen, InputState *_inp) {
 	enemies = new EnemyManager(map);
 	hazards = new HazardManager(pc, enemies);
 	menu = new MenuManager(_screen, _inp, font, &pc->stats);
-	loot = new LootManager(menu->items);
+	loot = new LootManager(menu->items, menu->tip);
 	
 	cancel_lock = false;
 
 }
+
+/**
+ * Mouse clicks are context sensitive depending on the click location
+ * and current game state.  E.g. clicking on loot should pick up loot
+ * instead of attacking that direction
+ */
+void GameEngine::assignMouseClick() {
+
+	// there should be a click state and mouse lock
+	// e.g. attacking a creature and holding the button should keep
+	// attacking, even if you move the mouse over loot or buttons
+	// so the mouse state is only assigned on a new click
+	// and upon mouse release the lock and state are cleared
+	
+}
+
 
 /**
  * Process all actions for a single frame
@@ -38,6 +54,7 @@ void GameEngine::logic() {
 		enemies->heroPos = pc->pos;
 		enemies->logic();
 		hazards->logic();
+		loot->logic();
 	}
 	
 	// check teleport
@@ -113,6 +130,9 @@ void GameEngine::render() {
 	
 	// display the name of the map in the upper-right hand corner
 	font->render(map->title, VIEW_W-2, 2, JUSTIFY_RIGHT, screen, FONT_WHITE);
+	
+	// mouseover loot tooltips
+	loot->renderTooltips(map->cam);
 	
 	menu->render();
 }

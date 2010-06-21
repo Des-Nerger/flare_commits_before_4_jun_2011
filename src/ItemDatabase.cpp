@@ -27,6 +27,7 @@ ItemDatabase::ItemDatabase(SDL_Surface *_screen) {
 		items[i].bonus_val = 0;
 		items[i].sfx = SFX_NONE;
 		items[i].gfx = "";
+		items[i].loot = "";
 		
 	}
 	load();
@@ -159,6 +160,8 @@ void ItemDatabase::load() {
 					}
 					else if (key == "gfx")
 						items[id].gfx = val;
+					else if (key == "loot")
+						items[id].loot = val;
 				}
 			}
 		}
@@ -213,6 +216,26 @@ void ItemDatabase::playSound(int item) {
 	if (items[item].sfx != SFX_NONE)
 		if (sfx[items[item].sfx])
 			Mix_PlayChannel(-1, sfx[items[item].sfx], 0);
+}
+
+TooltipData ItemDatabase::getShortTooltip(int item) {
+	stringstream ss;
+	TooltipData tip;
+	
+	if (item == 0) return tip;
+	
+	// name
+	tip.lines[tip.num_lines++] = items[item].name;
+	
+	// color quality
+	if (items[item].quality == ITEM_QUALITY_LOW) {
+		tip.colors[0] = FONT_GRAY;
+	}
+	else if (items[item].quality == ITEM_QUALITY_HIGH) {
+		tip.colors[0] = FONT_BLUE;
+	}
+	
+	return tip;
 }
 
 TooltipData ItemDatabase::getTooltip(int item, StatBlock *stats) {
