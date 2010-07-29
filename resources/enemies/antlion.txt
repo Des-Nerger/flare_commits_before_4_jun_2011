@@ -1,4 +1,6 @@
 name=Antlion
+level=2
+
 sfx_prefix=antlion
 gfx_prefix=antlion
 

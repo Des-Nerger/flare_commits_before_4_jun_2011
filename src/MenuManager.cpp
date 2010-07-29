@@ -171,7 +171,7 @@ void MenuManager::render() {
 	}
 	
 	if (tooltip.num_lines > 0) {
-		tip->render(tooltip, inp->mouse);
+		tip->render(tooltip, inp->mouse, STYLE_FLOAT);
 	}
 	
 	if (dragging) {

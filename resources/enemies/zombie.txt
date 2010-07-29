@@ -1,4 +1,6 @@
 name=Zombie
+level=3
+
 sfx_prefix=zombie
 gfx_prefix=zombie
 

@@ -13,6 +13,7 @@ ItemDatabase::ItemDatabase(SDL_Surface *_screen) {
 	
 	for (int i=0; i<1024; i++) {
 		items[i].name = "";
+		items[i].level = 0;
 		items[i].quality = ITEM_QUALITY_NORMAL;
 		items[i].icon32 = 0;
 		items[i].icon64 = 0;
@@ -72,6 +73,8 @@ void ItemDatabase::load() {
 						id = atoi(val.c_str());
 					else if (key == "name")
 						items[id].name = val;
+					else if (key == "level")
+						items[id].level = atoi(val.c_str());
 					else if (key == "icon") {
 						val = val + ",";
 						items[id].icon32 = eatFirstInt(val, ',');
@@ -83,6 +86,8 @@ void ItemDatabase::load() {
 							items[id].quality = ITEM_QUALITY_LOW;
 						else if (val == "high")
 							items[id].quality = ITEM_QUALITY_HIGH;
+						else if (val == "epic")
+							items[id].quality = ITEM_QUALITY_EPIC;
 					}
 					else if (key == "type") {
 						if (val == "main")
@@ -252,6 +257,9 @@ TooltipData ItemDatabase::getTooltip(int item, StatBlock *stats) {
 		tip.colors[0] = FONT_GRAY;
 	}
 	else if (items[item].quality == ITEM_QUALITY_HIGH) {
+		tip.colors[0] = FONT_GREEN;
+	}
+	else if (items[item].quality == ITEM_QUALITY_EPIC) {
 		tip.colors[0] = FONT_BLUE;
 	}
 	
@@ -309,7 +317,10 @@ TooltipData ItemDatabase::getTooltip(int item, StatBlock *stats) {
 	
 	// bonus
 	if (items[item].bonus_stat != "") {
-		ss << "Increases " << items[item].bonus_stat << " by " << items[item].bonus_val;
+		if (items[item].bonus_val > 0)
+			ss << "Increases " << items[item].bonus_stat << " by " << items[item].bonus_val;
+		else
+			ss << "Decreases " << items[item].bonus_stat << " by " << (-1 * items[item].bonus_val);
 		tip.lines[tip.num_lines++] = ss.str();
 	}
 
@@ -435,6 +446,8 @@ void ItemDatabase::applyEquipment(StatBlock *stats, int equipped[4]) {
 		stats->mp = stats->maxmp;
 
 }
+
+
 
 ItemDatabase::~ItemDatabase() {
 	SDL_FreeSurface(icons);

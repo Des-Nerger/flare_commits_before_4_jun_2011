@@ -1,4 +1,6 @@
 name=Zombie Boss
+level=7
+
 sfx_prefix=zombie
 gfx_prefix=zombie
 

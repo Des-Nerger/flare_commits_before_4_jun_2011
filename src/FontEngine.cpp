@@ -147,24 +147,32 @@ void FontEngine::render(string text, int x, int y, int justify, SDL_Surface *tar
 
 	unsigned char c;
 	char str[256];
+	int dest_x;
+	int dest_y;
 	
 	strcpy(str, text.c_str());
 
 	// calculate actual starting x,y based on justify
 	if (justify == JUSTIFY_LEFT) {
-		dest.x = x;
-		dest.y = y;
+		dest_x = x;
+		dest_y = y;
 	}
 	else if (justify == JUSTIFY_RIGHT) {
-		dest.x = x - calc_length(text);
-		dest.y = y;
+		dest_x = x - calc_length(text);
+		dest_y = y;
 	}
 	else if (justify == JUSTIFY_CENTER) {
-		dest.x = x - calc_length(text)/2;
-		dest.y = y;
+		dest_x = x - calc_length(text)/2;
+		dest_y = y;
 	}
 
 	for (int i=0; i<text.length(); i++) {
+	
+		// Note, SDL_BlitSurface rewrites dest to show clipping.
+		// So we have to remember dest locally.  - cpb 2010/07/03
+		dest.x = dest_x;
+		dest.y = dest_y;
+	
 		// set the bounding rect of the char to render
 		c = str[i];
 		if (c >= 32 && c <= 127) {
@@ -176,7 +184,7 @@ void FontEngine::render(string text, int x, int y, int justify, SDL_Surface *tar
 			SDL_BlitSurface(sprites[color], &src, target, &dest);
 		
 			// move dest
-			dest.x = dest.x + width[c] + kerning;
+			dest_x = dest_x + width[c] + kerning;
 		}
 	}
 }
@@ -192,17 +200,6 @@ void FontEngine::render(string text, int x, int y, int justify, SDL_Surface *tar
 	string builder = "";
 	string builder_prev = "";
 	char space = 32;
-	//char newline = 10;
-
-	/*
-	// if this contains newlines, recurse
-	int check_newline = text.find_first_of(newline);
-	if (check_newline > -1) {
-		render(text.substr(0, check_newline), x, cursor_y, justify, target, width);
-		render(text.substr(check_newline+1, text.length()), x, cursor_y, justify, target, width);
-		return;
-	}
-	*/
 	
 	fulltext = text + " ";
 	segment = eatFirstString(fulltext, space);

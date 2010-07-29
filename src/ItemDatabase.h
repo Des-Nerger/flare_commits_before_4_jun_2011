@@ -54,9 +54,11 @@ const int SFX_POTION = 11;
 const int ITEM_QUALITY_LOW = 0;
 const int ITEM_QUALITY_NORMAL = 1;
 const int ITEM_QUALITY_HIGH = 2;
+const int ITEM_QUALITY_EPIC = 3;
 
 struct Item {
 	string name;
+	int level;
 	int quality;
 	int type;
 	int icon32;
@@ -92,8 +94,8 @@ public:
 	void playSound(int item);
 	TooltipData getTooltip(int item, StatBlock *stats);
 	TooltipData getShortTooltip(int item);
-
 	void applyEquipment(StatBlock *stats, int equipped[4]);
+
 
 	Item items[1024];
 };

@@ -51,17 +51,22 @@ public:
 	void newState(int state);
 	int getDistance(Point dest);
 	void takeHit(Hazard h);
+	void doRewards();
 	
 	Renderable getRender();
 
 	Hazard *haz;
 	StatBlock stats;
 
+	// sound effects flags
 	bool sfx_phys_melee;
 	bool sfx_mag_melee;
 	bool sfx_hit;
 	bool sfx_die;
 	bool sfx_critdie;
+	
+	// other flags
+	bool loot_drop;
 };
 
 

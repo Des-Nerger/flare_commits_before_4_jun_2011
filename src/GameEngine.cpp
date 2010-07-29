@@ -20,7 +20,7 @@ GameEngine::GameEngine(SDL_Surface *_screen, InputState *_inp) {
 	enemies = new EnemyManager(map);
 	hazards = new HazardManager(pc, enemies);
 	menu = new MenuManager(_screen, _inp, font, &pc->stats);
-	loot = new LootManager(menu->items, menu->tip);
+	loot = new LootManager(menu->items, menu->tip, enemies);
 	
 	cancel_lock = false;
 
@@ -69,6 +69,7 @@ void GameEngine::logic() {
 			map->load(map->teleport_mapname);
 			enemies->handleNewMap();
 			hazards->handleNewMap();
+			loot->handleNewMap();
 			
 		}
 	}

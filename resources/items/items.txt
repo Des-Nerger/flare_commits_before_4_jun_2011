@@ -1,24 +1,26 @@
 [item]
 id=1
 name=Dagger
+level=2
 icon=96,0
 type=main
 dmg=2,6
 req=p,2
 sfx=metal
 gfx=dagger
-loot=sword
+loot=dagger
 
 [item]
 id=2
 name=Shortsword
+level=4
 icon=97,1
 type=main
 dmg=3,8
 req=p,3
 sfx=metal
 gfx=shortsword
-loot=sword
+loot=shortsword
 
 [item]
 id=3
@@ -29,7 +31,6 @@ dmg=4,10
 req=p,4
 sfx=metal
 gfx=longsword
-loot=sword
 
 [item]
 id=4
@@ -40,7 +41,6 @@ dmg=5,12
 req=p,5
 sfx=metal
 gfx=greatsword
-loot=sword
 
 [item]
 id=5
@@ -51,7 +51,6 @@ dmg=2,6
 req=m,2
 sfx=wood
 gfx=wand
-loot=staff
 
 [item]
 id=6
@@ -62,7 +61,6 @@ dmg=3,8
 req=m,3
 sfx=wood
 gfx=rod
-loot=staff
 
 [item]
 id=7
@@ -73,7 +71,6 @@ dmg=4,10
 req=m,4
 sfx=wood
 gfx=staff
-loot=staff
 
 [item]
 id=8
@@ -84,7 +81,6 @@ dmg=5,12
 req=m,5
 sfx=wood
 gfx=greatstaff
-loot=staff
 
 [item]
 id=9
@@ -95,7 +91,6 @@ dmg=2,6
 req=o,2
 sfx=wood
 gfx=slingshot
-loot=bag
 
 [item]
 id=10
@@ -106,7 +101,6 @@ dmg=3,8
 req=o,3
 sfx=wood
 gfx=shortbow
-loot=bow
 
 [item]
 id=11
@@ -117,7 +111,6 @@ dmg=4,10
 req=o,4
 sfx=wood
 gfx=longbow
-loot=bow
 
 [item]
 id=12
@@ -128,7 +121,6 @@ dmg=5,12
 req=o,5
 sfx=wood
 gfx=greatbow
-loot=bow
 
 [item]
 id=13
@@ -139,7 +131,6 @@ abs=1
 req=d,2
 sfx=leather
 gfx=leather_armor
-loot=armor
 
 [item]
 id=14
@@ -150,7 +141,6 @@ abs=0,2
 req=d,3
 sfx=wood
 gfx=buckler
-loot=shield
 
 [item]
 id=15
@@ -161,7 +151,6 @@ abs=2
 req=d,4
 sfx=maille
 gfx=steel_armor
-loot=armor
 
 [item]
 id=16
@@ -172,7 +161,6 @@ abs=1,3
 req=d,5
 sfx=heavy
 gfx=shield
-loot=shield
 
 [item]
 id=17
@@ -182,7 +170,6 @@ icon=112,16
 type=body
 sfx=cloth
 gfx=clothes
-loot=armor
 
 [item]
 id=18
@@ -191,7 +178,6 @@ quality=low
 icon=113,17
 type=artifact
 sfx=leather
-loot=bag
 
 [item]
 id=19
@@ -200,7 +186,6 @@ quality=low
 icon=114,18
 type=artifact
 sfx=gem
-loot=bag
 
 [item]
 id=33
@@ -208,7 +193,6 @@ name=Bread
 icon=32
 type=consumable
 sfx=object
-loot=bag
 
 [item]
 id=34
@@ -216,7 +200,6 @@ name=Cheese
 icon=33
 type=consumable
 sfx=object
-loot=bag
 
 [item]
 id=35
@@ -224,7 +207,6 @@ name=Fruit
 icon=34
 type=consumable
 sfx=object
-loot=bag
 
 [item]
 id=36
@@ -232,7 +214,6 @@ name=Meat
 icon=35
 type=consumable
 sfx=object
-loot=bag
 
 [item]
 id=37
@@ -241,7 +222,6 @@ quality=high
 icon=36
 type=gem
 sfx=gem
-loot=bag
 
 [item]
 id=38
@@ -250,7 +230,6 @@ quality=high
 icon=37
 type=gem
 sfx=gem
-loot=bag
 
 [item]
 id=39
@@ -259,7 +238,6 @@ quality=high
 icon=38
 type=gem
 sfx=gem
-loot=bag
 
 [item]
 id=40
@@ -268,7 +246,6 @@ quality=high
 icon=39
 type=gem
 sfx=gem
-loot=bag
 
 [item]
 id=41
@@ -277,7 +254,6 @@ icon=40
 effect=hp_restore
 type=consumable
 sfx=potion
-loot=bag
 
 [item]
 id=42
@@ -286,21 +262,20 @@ icon=41
 effect=mp_restore
 type=consumable
 sfx=potion
-loot=bag
 
 # Temp Items
 
 [item]
 id=100
-name=Rusted Dagger
+name=Cursed Dagger
 quality=low
 icon=96,0
 type=main
 dmg=1,5
+bonus=accuracy,-5
 req=p,2
 sfx=metal
 gfx=dagger
-loot=sword
 
 [item]
 id=101
@@ -312,7 +287,6 @@ dmg=3,9
 req=m,4
 sfx=wood
 gfx=staff
-loot=staff
 
 [item]
 id=102
@@ -320,17 +294,16 @@ name=Goblin Carver
 quality=high
 icon=96,0
 type=main
-dmg=3,7
+dmg=2,6
 req=p,2
 sfx=metal
 gfx=dagger
-bonus=accuracy,3
-loot=sword
+bonus=accuracy,5
 
 [item]
 id=103
 name=Vorpal Blade
-quality=high
+quality=epic
 icon=97,1
 type=main
 dmg=4,9
@@ -338,7 +311,6 @@ req=p,3
 sfx=metal
 gfx=shortsword
 bonus=crit,20
-loot=sword
 
 [item]
 id=104
@@ -350,12 +322,11 @@ abs=0,1
 req=d,2
 sfx=leather
 gfx=leather_armor
-loot=armor
 
 [item]
 id=105
 name=Paladin's Oath
-quality=high
+quality=epic
 icon=110,14
 type=body
 abs=2,3
@@ -363,72 +334,67 @@ req=d,4
 sfx=maille
 gfx=steel_armor
 bonus=mana,3
-loot=armor
 
 [item]
 id=106
 name=Summer Clothes
+quality=high
 icon=112,16
 type=body
 sfx=cloth
 gfx=clothes
 bonus=fire resist,5
-loot=armor
 
 [item]
 id=107
 name=Winter Clothes
+quality=high
 icon=112,16
 type=body
 sfx=cloth
 gfx=clothes
 bonus=ice resist,5
-loot=armor
 
 [item]
 id=108
 name=Ring of Forgotten Kings
-quality=high
+quality=epic
 icon=114,18
 type=artifact
 sfx=gem
 bonus=health,6
-loot=bag
 
 [item]
 id=109
 name=Ring of Wizardry
-quality=high
+quality=epic
 icon=114,18
 type=artifact
 sfx=gem
 bonus=mana,6
-loot=bag
 
 [item]
 id=110
 name=Boots of Quick Reflexes
-quality=high
+quality=epic
 icon=113,17
 type=artifact
 sfx=leather
 bonus=avoidance,7
-loot=bag
 
 [item]
 id=111
 name=Cheetah Hide Boots
-quality=high
+quality=epic
 icon=113,17
 type=artifact
 sfx=leather
 bonus=speed,2
-loot=bag
 
 [item]
 id=112
 name=Earth Rend
-quality=high
+quality=epic
 icon=99,3
 type=main
 dmg=6,13
@@ -436,12 +402,11 @@ req=p,5
 sfx=metal
 gfx=greatsword
 bonus=health regen,3
-loot=sword
 
 [item]
 id=113
 name=Absolute Zero
-quality=high
+quality=epic
 icon=103,7
 type=main
 dmg=5,12
@@ -449,12 +414,11 @@ req=m,5
 sfx=wood
 gfx=greatstaff
 bonus=ice resist,25
-loot=staff
 
 [item]
 id=114
 name=The Rook
-quality=high
+quality=epic
 icon=111,15
 type=off
 abs=1,4
@@ -462,12 +426,11 @@ req=d,5
 sfx=heavy
 gfx=shield
 bonus=health,3
-loot=shield
 
 [item]
 id=115
 name=Gladys
-quality=high
+quality=epic
 icon=107,11
 type=off
 dmg=6,13
@@ -475,28 +438,33 @@ req=o,5
 sfx=wood
 gfx=greatbow
 bonus=accuracy,10
-loot=bow
+
+[item]
+id=116
+name=Belt of Might
+quality=epic
+icon=115,19
+type=artifact
+sfx=leather
+bonus=health regen,4
 
 # Dungeon Master's test items
 [item]
 id=1023
 name=Boots of Testing Really Large Maps
-quality=high
+quality=epic
 icon=113,17
 type=artifact
 sfx=leather
 bonus=speed,10
-loot=bag
 
 [item]
 id=1022
 name=Adamantium Ring of Mutant Healing
-quality=high
+quality=epic
 icon=114,18
 type=artifact
 sfx=gem
 bonus=health regen,1000
-loot=bag
-
 
 

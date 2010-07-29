@@ -15,6 +15,9 @@
 #include "Utils.h"
 #include "Settings.h"
 
+const int STYLE_FLOAT = 0;
+const int STYLE_TOPLABEL = 1;
+
 struct TooltipData {
 	string lines[8];
 	int colors[8];
@@ -40,7 +43,8 @@ private:
 	int margin_bottom;
 public:
 	MenuTooltip(FontEngine *_font, SDL_Surface *_screen);
-	void render(TooltipData tip, Point pos);	
+	void calcPosition(int style, Point pos, Point size, Sint16 &bgx, Sint16 &bgy, int &curx, int &cury);
+	void render(TooltipData tip, Point pos, int style);
 };
 
 #endif

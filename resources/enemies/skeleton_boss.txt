@@ -1,4 +1,6 @@
 name=Skeleton Boss
+level=9
+
 sfx_prefix=skeleton
 gfx_prefix=skeleton
 

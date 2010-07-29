@@ -28,6 +28,7 @@ Enemy::Enemy(MapIso *_map) {
 	sfx_hit = false;
 	sfx_die = false;
 	sfx_critdie = false;
+	loot_drop = false;
 }
 
 /**
@@ -468,10 +469,12 @@ void Enemy::takeHit(Hazard h) {
 		// interrupted to new state
 		stats.cur_frame = 0;
 		if (stats.hp <= 0 && crit) {
+			doRewards();
 			stats.disp_frame = 28;
 			stats.cur_state = ENEMY_CRITDEAD;
 		}
 		else if (stats.hp <= 0) {
+			doRewards();
 			stats.disp_frame = 22;
 			stats.cur_state = ENEMY_DEAD;		
 		}
@@ -480,6 +483,13 @@ void Enemy::takeHit(Hazard h) {
 			stats.cur_state = ENEMY_HIT;
 		}
 	}
+}
+
+/**
+ * Upon enemy death, handle rewards (gold, xp, loot)
+ */
+void Enemy::doRewards() {
+	loot_drop = true;
 }
 
 /**

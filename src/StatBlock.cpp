@@ -86,6 +86,8 @@ void StatBlock::load(string filename) {
 					else if (key == "sfx_prefix") sfx_prefix = val;
 					else if (key == "gfx_prefix") gfx_prefix = val;
 					
+					else if (key == "level") level = num;
+					
 					// combat stats
 					else if (key == "hp") hp = num;
 					else if (key == "mp") mp = num;

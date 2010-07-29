@@ -1,4 +1,6 @@
 name=Skeleton
+level=3
+
 sfx_prefix=skeleton
 gfx_prefix=skeleton_weak
 
