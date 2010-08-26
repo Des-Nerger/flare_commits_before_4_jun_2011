@@ -27,57 +27,9 @@ MenuInventory::MenuInventory(SDL_Surface *_screen, FontEngine *_font, ItemDataba
 	changed_artifact = true;
 	
 	// TODO: carried items should come from a save file
-	equipped[0] = 0;
-	equipped[1] = 17;
-	equipped[2] = 0;
-	
-	carried[0] = 1;
-	carried[1] = 2;
-	carried[2] = 3;
-	carried[3] = 4;
-	carried[4] = 5;
-	carried[5] = 6;
-	carried[6] = 7;
-	carried[7] = 8;
-	carried[8] = 9;
-	carried[9] = 10;
-	carried[10] = 11;
-	carried[11] = 12;
-	carried[12] = 13;
-	carried[13] = 14;
-	carried[14] = 15;
-	carried[15] = 16;
-	carried[16] = 17;
-	carried[17] = 18;
-	carried[18] = 19;
-	carried[24] = 33;
-	carried[25] = 34;
-	carried[26] = 35;
-	carried[27] = 36;
-	carried[28] = 37;
-	carried[29] = 38;
-	carried[30] = 39;
-	carried[31] = 40;
-	carried[32] = 41;
-	carried[33] = 42;
-	
-	carried[40] = 100;
-	carried[41] = 101;
-	carried[42] = 102;
-	carried[43] = 103;
-	carried[44] = 104;
-	carried[45] = 105;
-	carried[46] = 106;
-	carried[47] = 107;
-	carried[48] = 108;
-	carried[49] = 109;
-	carried[50] = 110;
-	carried[51] = 111;
-	carried[52] = 112;
-	carried[53] = 113;
-	carried[54] = 114;
-	carried[55] = 115;
-	carried[56] = 116;
+	equipped[0] = 250;
+	equipped[1] = 800;
+	equipped[2] = 850;
 	
 	carried[62] = 1022;
 	carried[63] = 1023;
