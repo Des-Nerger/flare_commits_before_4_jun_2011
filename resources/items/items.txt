@@ -1,7 +1,6 @@
 [item]
 id=1
 name=Dagger
-level=2
 icon=96,0
 type=main
 dmg=2,6
@@ -13,7 +12,6 @@ loot=dagger
 [item]
 id=2
 name=Shortsword
-level=4
 icon=97,1
 type=main
 dmg=3,8
@@ -263,190 +261,666 @@ effect=mp_restore
 type=consumable
 sfx=potion
 
-# Temp Items
+# Daggers
 
 [item]
 id=100
-name=Cursed Dagger
-quality=low
-icon=96,0
-type=main
-dmg=1,5
-bonus=accuracy,-5
-req=p,2
-sfx=metal
-gfx=dagger
-
-[item]
-id=101
-name=Cracked Staff
-quality=low
-icon=102,6
-type=main
-dmg=3,9
-req=m,4
-sfx=wood
-gfx=staff
-
-[item]
-id=102
-name=Goblin Carver
-quality=high
+name=Dagger
+level=2
 icon=96,0
 type=main
 dmg=2,6
 req=p,2
 sfx=metal
 gfx=dagger
-bonus=accuracy,5
+loot=dagger
+
+[item]
+id=101
+name=Rusted Dagger
+level=1
+quality=low
+icon=96,0
+type=main
+dmg=1,5
+req=p,2
+sfx=metal
+gfx=dagger
+loot=dagger
+
+[item]
+id=102
+name=Cursed Dagger
+level=1
+quality=low
+icon=96,0
+type=main
+dmg=2,6
+req=p,2
+bonus=accuracy,-4
+sfx=metal
+gfx=dagger
+loot=dagger
 
 [item]
 id=103
-name=Vorpal Blade
-quality=epic
-icon=97,1
-type=main
-dmg=4,9
-req=p,3
-sfx=metal
-gfx=shortsword
-bonus=crit,20
-
-[item]
-id=104
-name=Cracked Leather Armor
+name=Dull Dagger
+level=1
 quality=low
-icon=108,12
-type=body
-abs=0,1
-req=d,2
-sfx=leather
-gfx=leather_armor
+icon=96,0
+type=main
+dmg=2,6
+req=p,2
+bonus=crit,-1
+sfx=metal
+gfx=dagger
+loot=dagger
 
 [item]
 id=105
-name=Paladin's Oath
-quality=epic
-icon=110,14
-type=body
-abs=2,3
-req=d,4
-sfx=maille
-gfx=steel_armor
-bonus=mana,3
+name=Dwarven Dagger
+level=3
+quality=high
+icon=96,0
+type=main
+dmg=2,6
+req=p,2
+bonus=health,4
+sfx=metal
+gfx=dagger
+loot=dagger
 
 [item]
 id=106
-name=Summer Clothes
+name=Dagger of Regeneration
+level=4
 quality=high
-icon=112,16
-type=body
-sfx=cloth
-gfx=clothes
-bonus=fire resist,5
+icon=96,0
+type=main
+dmg=2,6
+req=p,2
+bonus=health regen,1
+sfx=metal
+gfx=dagger
+loot=dagger
 
 [item]
 id=107
-name=Winter Clothes
+name=Elven Dagger
+level=3
 quality=high
-icon=112,16
-type=body
-sfx=cloth
-gfx=clothes
-bonus=ice resist,5
+icon=96,0
+type=main
+dmg=2,6
+req=p,2
+bonus=mana,2
+sfx=metal
+gfx=dagger
+loot=dagger
 
 [item]
 id=108
-name=Ring of Forgotten Kings
-quality=epic
-icon=114,18
-type=artifact
-sfx=gem
-bonus=health,6
+name=Dagger of Meditation
+level=4
+quality=high
+icon=96,0
+type=main
+dmg=2,6
+req=p,2
+bonus=mana regen,1
+sfx=metal
+gfx=dagger
+loot=dagger
 
 [item]
 id=109
-name=Ring of Wizardry
-quality=epic
-icon=114,18
-type=artifact
-sfx=gem
-bonus=mana,6
+name=Battle Dagger
+level=4
+quality=high
+icon=96,0
+type=main
+dmg=3,7
+req=p,2
+sfx=metal
+gfx=dagger
+loot=dagger
 
 [item]
 id=110
-name=Boots of Quick Reflexes
-quality=epic
-icon=113,17
-type=artifact
-sfx=leather
-bonus=avoidance,7
+name=Dagger of Accuracy
+level=3
+quality=high
+icon=96,0
+type=main
+dmg=2,6
+bonus=accuracy,3
+req=p,2
+sfx=metal
+gfx=dagger
+loot=dagger
 
 [item]
 id=111
-name=Cheetah Hide Boots
-quality=epic
-icon=113,17
-type=artifact
-sfx=leather
-bonus=speed,2
+name=Dagger of Avoidance
+level=3
+quality=high
+icon=96,0
+type=main
+dmg=2,6
+bonus=avoidance,3
+req=p,2
+sfx=metal
+gfx=dagger
+loot=dagger
 
 [item]
 id=112
-name=Earth Rend
-quality=epic
-icon=99,3
+name=Dagger of Slaying
+level=4
+quality=high
+icon=96,0
 type=main
-dmg=6,13
-req=p,5
+dmg=2,6
+bonus=crit,1
+req=p,2
 sfx=metal
-gfx=greatsword
-bonus=health regen,3
+gfx=dagger
+loot=dagger
 
 [item]
-id=113
-name=Absolute Zero
+id=120
+name=Warlord Dagger
+level=5
+quality=high
+icon=96,0
+type=main
+dmg=2,7
+bonus=health,7
+req=p,2
+sfx=metal
+gfx=dagger
+loot=dagger
+
+[item]
+id=121
+name=Dagger of Victory
+level=6
+quality=high
+icon=96,0
+type=main
+dmg=2,7
+bonus=health regen,2
+req=p,2
+sfx=metal
+gfx=dagger
+loot=dagger
+
+[item]
+id=121
+name=Dagger of Victory
+level=6
+quality=high
+icon=96,0
+type=main
+dmg=2,7
+bonus=health regen,2
+req=p,2
+sfx=metal
+gfx=dagger
+loot=dagger
+
+[item]
+id=122
+name=Archmage Dagger
+level=5
+quality=high
+icon=96,0
+type=main
+dmg=2,7
+bonus=mana,5
+req=p,2
+sfx=metal
+gfx=dagger
+loot=dagger
+
+[item]
+id=123
+name=Dagger of Wizardry
+level=6
+quality=high
+icon=96,0
+type=main
+dmg=2,7
+bonus=mana regen,2
+req=p,2
+sfx=metal
+gfx=dagger
+loot=dagger
+
+[item]
+id=124
+name=Master Dagger
+level=5
+quality=high
+icon=96,0
+type=main
+dmg=4,8
+req=p,2
+sfx=metal
+gfx=dagger
+loot=dagger
+
+[item]
+id=125
+name=Dagger of Precision
+level=5
+quality=high
+icon=96,0
+type=main
+dmg=2,7
+bonus=accuracy,6
+req=p,2
+sfx=metal
+gfx=dagger
+loot=dagger
+
+[item]
+id=126
+name=Dagger of Protection
+level=5
+quality=high
+icon=96,0
+type=main
+dmg=2,7
+bonus=avoidance,6
+req=p,2
+sfx=metal
+gfx=dagger
+loot=dagger
+
+[item]
+id=127
+name=Dagger of Destruction
+level=6
+quality=high
+icon=96,0
+type=main
+dmg=2,7
+bonus=crit,2
+req=p,2
+sfx=metal
+gfx=dagger
+loot=dagger
+
+[item]
+id=128
+name=Fiery Dagger
+level=5
+quality=high
+icon=96,0
+type=main
+dmg=2,7
+req=p,2
+sfx=metal
+gfx=dagger
+loot=dagger
+
+[item]
+id=129
+name=Frozen Dagger
+level=5
+quality=high
+icon=96,0
+type=main
+dmg=2,7
+req=p,2
+sfx=metal
+gfx=dagger
+loot=dagger
+
+[item]
+id=135
+name=Sacrificial Knife
+level=7
 quality=epic
+icon=96,0
+type=main
+dmg=4,8
+bonus=health,10
+req=p,2
+sfx=metal
+gfx=dagger
+loot=dagger
+
+[item]
+id=136
+name=Thorn
+level=8
+quality=epic
+icon=96,0
+type=main
+dmg=4,8
+bonus=health regen,3
+req=p,2
+sfx=metal
+gfx=dagger
+loot=dagger
+
+[item]
+id=137
+name=Mind Shard
+level=7
+quality=epic
+icon=96,0
+type=main
+dmg=4,8
+bonus=mana,8
+req=p,2
+sfx=metal
+gfx=dagger
+loot=dagger
+
+[item]
+id=138
+name=Ether Slice
+level=8
+quality=epic
+icon=96,0
+type=main
+dmg=4,8
+bonus=mana regen,3
+req=p,2
+sfx=metal
+gfx=dagger
+loot=dagger
+
+[item]
+id=139
+name=Pinpoint
+level=7
+quality=epic
+icon=96,0
+type=main
+dmg=4,8
+bonus=accuracy,9
+req=p,2
+sfx=metal
+gfx=dagger
+loot=dagger
+
+[item]
+id=140
+name=Dancing Knife
+level=7
+quality=epic
+icon=96,0
+type=main
+dmg=4,8
+bonus=avoidance,9
+req=p,2
+sfx=metal
+gfx=dagger
+loot=dagger
+
+[item]
+id=141
+name=Goblin Carver
+level=8
+quality=epic
+icon=96,0
+type=main
+dmg=4,8
+bonus=crit,3
+req=p,2
+sfx=metal
+gfx=dagger
+loot=dagger
+
+[item]
+id=142
+name=Fire Shard
+level=7
+quality=epic
+icon=96,0
+type=main
+dmg=4,8
+req=p,2
+sfx=metal
+gfx=dagger
+loot=dagger
+
+[item]
+id=143
+name=Ice Shard
+level=7
+quality=epic
+icon=96,0
+type=main
+dmg=4,8
+req=p,2
+sfx=metal
+gfx=dagger
+loot=dagger
+
+
+# Shortswords
+
+[item]
+id=150
+name=Shortsword
+level=4
+icon=97,1
+type=main
+dmg=3,8
+req=p,3
+sfx=metal
+gfx=shortsword
+loot=shortsword
+
+[item]
+id=151
+name=Rusted Shortsword
+level=3
+quality=low
+icon=97,1
+type=main
+dmg=2,7
+req=p,3
+sfx=metal
+gfx=shortsword
+loot=shortsword
+
+[item]
+id=152
+name=Cursed Shortsword
+level=3
+quality=low
+icon=97,1
+type=main
+dmg=3,8
+bonus=accuracy,-4
+req=p,3
+sfx=metal
+gfx=shortsword
+loot=shortsword
+
+[item]
+id=153
+name=Dull Shortsword
+level=3
+quality=low
+icon=97,1
+type=main
+dmg=3,8
+bonus=crit,-1
+req=p,3
+sfx=metal
+gfx=shortsword
+loot=shortsword
+
+# Longswords
+[item]
+id=200
+name=Longsword
+level=6
+icon=98,2
+type=main
+dmg=4,10
+req=p,4
+sfx=metal
+gfx=longsword
+loot=longsword
+
+[item]
+id=201
+name=Rusted Longsword
+level=5
+quality=low
+icon=97,1
+type=main
+dmg=3,9
+req=p,3
+sfx=metal
+gfx=longsword
+loot=longsword
+
+[item]
+id=202
+name=Cursed Longsword
+level=5
+quality=low
+icon=97,1
+type=main
+dmg=4,10
+bonus=accuracy,-4
+req=p,3
+sfx=metal
+gfx=longsword
+loot=longsword
+
+[item]
+id=203
+name=Dull Longsword
+level=5
+quality=low
+icon=97,1
+type=main
+dmg=4,10
+bonus=crit,-1
+req=p,3
+sfx=metal
+gfx=longsword
+loot=longsword
+
+
+# Greatswords
+[item]
+id=250
+name=Greatsword
+level=8
+icon=99,3
+type=main
+dmg=5,12
+req=p,5
+sfx=metal
+gfx=greatswords
+loot=greatsword
+
+[item]
+id=251
+name=Rusted Greatsword
+level=7
+quality=low
+icon=97,1
+type=main
+dmg=4,11
+req=p,3
+sfx=metal
+gfx=greatsword
+loot=greatsword
+
+[item]
+id=252
+name=Cursed Greatsword
+level=7
+quality=low
+icon=97,1
+type=main
+dmg=5,12
+bonus=accuracy,-4
+req=p,3
+sfx=metal
+gfx=greatsword
+loot=greatsword
+
+[item]
+id=253
+name=Dull Greatsword
+level=7
+quality=low
+icon=97,1
+type=main
+dmg=5,12
+bonus=crit,-1
+req=p,3
+sfx=metal
+gfx=greatsword
+loot=greatsword
+
+
+
+# Wands
+[item]
+id=300
+name=Wand
+level=2
+icon=100,4
+type=main
+dmg=2,6
+req=m,2
+sfx=wood
+gfx=wand
+loot=wand
+
+# Rods
+[item]
+id=350
+name=Rod
+level=4
+icon=101,5
+type=main
+dmg=3,8
+req=m,3
+sfx=wood
+gfx=rod
+loot=rod
+
+# Staffs
+[item]
+id=400
+name=Staff
+level=6
+icon=102,6
+type=main
+dmg=4,10
+req=m,4
+sfx=wood
+gfx=staff
+loot=staff
+
+# Greatstaffs
+[item]
+id=450
+name=Greatstaff
+level=8
 icon=103,7
 type=main
 dmg=5,12
 req=m,5
 sfx=wood
 gfx=greatstaff
-bonus=ice resist,25
+loot=greatstaff
 
-[item]
-id=114
-name=The Rook
-quality=epic
-icon=111,15
-type=off
-abs=1,4
-req=d,5
-sfx=heavy
-gfx=shield
-bonus=health,3
-
-[item]
-id=115
-name=Gladys
-quality=epic
-icon=107,11
-type=off
-dmg=6,13
-req=o,5
-sfx=wood
-gfx=greatbow
-bonus=accuracy,10
-
-[item]
-id=116
-name=Belt of Might
-quality=epic
-icon=115,19
-type=artifact
-sfx=leather
-bonus=health regen,4
 
 # Dungeon Master's test items
 [item]

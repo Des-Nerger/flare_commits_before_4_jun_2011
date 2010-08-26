@@ -61,7 +61,7 @@ private:
 	
 	// loot tables multiplied out
 	// currently loot can range from levels 0-14.
-	int loot_table[15][256]; // level, number.  the int is an item id
+	int loot_table[15][1024]; // level, number.  the int is an item id
 	int loot_table_count[15]; // total number per level
 
 public:
