@@ -49,6 +49,7 @@ public:
 	void handle();
 	bool done;
 	Point mouse;
+	bool mouse_lock;
 };
 
 #endif

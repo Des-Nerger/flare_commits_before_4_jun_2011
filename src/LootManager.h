@@ -41,6 +41,7 @@ private:
 	ItemDatabase *items;
 	MenuTooltip *tip;
 	EnemyManager *enemies;
+	MapIso *map;
 
 	// functions
 	void loadGraphics();
@@ -60,18 +61,19 @@ private:
 	LootDef loot[256]; // TODO: change to dynamic list without limits
 	
 	// loot tables multiplied out
-	// currently loot can range from levels 0-14.
-	int loot_table[15][1024]; // level, number.  the int is an item id
-	int loot_table_count[15]; // total number per level
+	// currently loot can range from levels 0-20
+	int loot_table[21][1024]; // level, number.  the int is an item id
+	int loot_table_count[21]; // total number per level
 
 public:
-	LootManager(ItemDatabase *_items, MenuTooltip *_tip, EnemyManager *_enemies);
+	LootManager(ItemDatabase *_items, MenuTooltip *_tip, EnemyManager *_enemies, MapIso *_map);
 	~LootManager();
 
 	void handleNewMap();
 	void logic();
 	void renderTooltips(Point cam);
 	void checkEnemiesForLoot();
+	void checkMapForLoot();
 	void determineLoot(int base_level, Point pos);
 	void addLoot(int item_id, Point pos);
 	

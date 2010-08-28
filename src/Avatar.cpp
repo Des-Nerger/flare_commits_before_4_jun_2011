@@ -223,7 +223,9 @@ void Avatar::logic() {
 				curState = AVATAR_MELEE;
 				break;
 			}
-			if (inp->pressing[MAIN1] && cooldown_melee == 0) {
+			if (inp->pressing[MAIN1] && !inp->mouse_lock && cooldown_melee == 0) {
+				inp->mouse_lock = true;
+				
 				// change direction to mouse pointer direction
 				target.x = inp->mouse.x;
 				target.y = inp->mouse.y + aim_height;
@@ -266,9 +268,11 @@ void Avatar::logic() {
 				curState = AVATAR_MELEE;
 				break;
 			}
-			if (inp->pressing[MAIN1] && cooldown_melee == 0) {
+			if (inp->pressing[MAIN1] && !inp->mouse_lock && cooldown_melee == 0) {
+				inp->mouse_lock = true;
+
 				// change direction to mouse pointer direction
-				// change direction to mouse pointer direction
+				// change direction to mouse pointer direction				
 				target.x = inp->mouse.x;
 				target.y = inp->mouse.y + aim_height; // target helper
 				target = screen_to_map(target.x, target.y, pos.x, pos.y);

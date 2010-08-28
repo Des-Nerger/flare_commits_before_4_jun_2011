@@ -48,6 +48,7 @@ InputState::InputState(void) {
 		pressing[key] = false;	
 	}
 	done = false;
+	mouse_lock = false;
 }
 	
 void InputState::handle() {
@@ -94,6 +95,7 @@ void InputState::handle() {
 				break;
 		}
 	}
+
 		
 }
 

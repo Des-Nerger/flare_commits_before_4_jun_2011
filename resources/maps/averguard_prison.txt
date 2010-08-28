@@ -333,6 +333,7 @@ type=container
 location=2,46,1,1
 mapmod=object,2,47,163
 soundfx=soundfx/wood_open.ogg
+loot=random,2,46,1
 
 [event]
 # torture room chest
@@ -340,6 +341,7 @@ type=container
 location=11,84,2,1
 mapmod=object,12,84,161
 soundfx=soundfx/wood_open.ogg
+loot=random,12,85,5
 
 [event]
 # control room switch to open the cell with the hidden passage
@@ -363,6 +365,7 @@ type=container
 location=21,30,1,1
 mapmod=object,21,30,161
 soundfx=soundfx/wood_open.ogg
+loot=id,21,31,1
 
 [event]
 # hidden room crate

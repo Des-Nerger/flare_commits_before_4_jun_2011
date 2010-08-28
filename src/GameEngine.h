@@ -45,7 +45,6 @@ public:
 	GameEngine(SDL_Surface *screen, InputState *inp);
 	~GameEngine();
 	
-	void assignMouseClick();
 	void logic();
 	void render();
 };

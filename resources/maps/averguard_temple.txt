@@ -447,7 +447,11 @@ type=container
 location=14,1,2,1
 mapmod=object,15,1,161
 soundfx=soundfx/wood_open.ogg
-
+loot=random,14,1,3
+loot=random,14,2,6
+loot=random,15,2,7
+loot=random,16,2,5
+loot=random,16,1,4
 
 [enemy]
 type=skeletal_warrior

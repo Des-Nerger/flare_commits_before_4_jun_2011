@@ -10,5 +10,3 @@ spawnpoint=0,0,0
 type=teleport
 location=0,0,0,0
 intermap=averguard_atrium.txt,16,11
-
-

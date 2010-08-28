@@ -20,25 +20,10 @@ GameEngine::GameEngine(SDL_Surface *_screen, InputState *_inp) {
 	enemies = new EnemyManager(map);
 	hazards = new HazardManager(pc, enemies);
 	menu = new MenuManager(_screen, _inp, font, &pc->stats);
-	loot = new LootManager(menu->items, menu->tip, enemies);
+	loot = new LootManager(menu->items, menu->tip, enemies, map);
 	
 	cancel_lock = false;
 
-}
-
-/**
- * Mouse clicks are context sensitive depending on the click location
- * and current game state.  E.g. clicking on loot should pick up loot
- * instead of attacking that direction
- */
-void GameEngine::assignMouseClick() {
-
-	// there should be a click state and mouse lock
-	// e.g. attacking a creature and holding the button should keep
-	// attacking, even if you move the mouse over loot or buttons
-	// so the mouse state is only assigned on a new click
-	// and upon mouse release the lock and state are cleared
-	
 }
 
 
@@ -47,10 +32,16 @@ void GameEngine::assignMouseClick() {
  * This includes some message passing between child object
  */
 void GameEngine::logic() {
+
+	if (!inp->pressing[MAIN1]) inp->mouse_lock = false;
 	
 	// the game action is paused if any menus are opened
 	if (!menu->pause) {
+			
+		// loot->checkPickup();
+	
 		pc->logic();
+		
 		enemies->heroPos = pc->pos;
 		enemies->logic();
 		hazards->logic();

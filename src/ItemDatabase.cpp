@@ -237,6 +237,9 @@ TooltipData ItemDatabase::getShortTooltip(int item) {
 		tip.colors[0] = FONT_GRAY;
 	}
 	else if (items[item].quality == ITEM_QUALITY_HIGH) {
+		tip.colors[0] = FONT_GREEN;
+	}
+	else if (items[item].quality == ITEM_QUALITY_EPIC) {
 		tip.colors[0] = FONT_BLUE;
 	}
 	

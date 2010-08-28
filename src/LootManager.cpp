@@ -9,10 +9,11 @@
  
 #include "LootManager.h"
  
-LootManager::LootManager(ItemDatabase *_items, MenuTooltip *_tip, EnemyManager *_enemies) {
+LootManager::LootManager(ItemDatabase *_items, MenuTooltip *_tip, EnemyManager *_enemies, MapIso *_map) {
 	items = _items;
 	tip = _tip;
 	enemies = _enemies; // we need to be able to read loot state when creatures die
+	map = _map; // we need to be able to read loot that drops from map containers
 	
 	tooltip_margin = 32; // pixels between loot drop center and label
 	
@@ -144,6 +145,7 @@ void LootManager::logic() {
 	}
 	
 	checkEnemiesForLoot();
+	checkMapForLoot();
 }
 
 
@@ -190,6 +192,29 @@ void LootManager::checkEnemiesForLoot() {
 }
 
 /**
+ * As map events occur, some might have a component named "loot"
+ * Loot is created at component x,y
+ */
+void LootManager::checkMapForLoot() {
+	Point p;
+	Event_Component *ec;
+	
+	while (!map->loot.empty()) {
+		ec = &map->loot.front();
+		p.x = ec->x;
+		p.y = ec->y;
+		
+		if (ec->s == "random") {
+			determineLoot(ec->z, p);
+		}
+		else if (ec->s == "id") {
+			addLoot(ec->z, p);
+		}
+		map->loot.pop();
+	}
+}
+
+/**
  * Monsters don't just drop loot equal to their level
  * The loot level spread is a bell curve
  */
@@ -198,17 +223,14 @@ int LootManager::lootLevel(int base_level) {
 	int x = rand() % 100;
 	int actual;
 	
-	if (x == 0) actual = base_level-5;
-	else if (x <= 2) actual = base_level-4;
-	else if (x <= 7) actual = base_level-3;
-	else if (x <= 17) actual = base_level-2;
-	else if (x <= 37) actual = base_level-1;
-	else if (x <= 61) actual = base_level;
-	else if (x <= 81) actual = base_level+1;
-	else if (x <= 91) actual = base_level+2;
-	else if (x <= 96) actual = base_level+3;
-	else if (x <= 98) actual = base_level+4;
-	else if (x == 99) actual = base_level+5;
+	// this loot bell curve is +/- 3 levels
+	if (x <= 4) actual = base_level-3;
+	else if (x <= 14) actual = base_level-2;
+	else if (x <= 34) actual = base_level-1;
+	else if (x <= 64) actual = base_level;
+	else if (x <= 84) actual = base_level+1;
+	else if (x <= 94) actual = base_level+2;
+	else actual = base_level+3;
 	
 	if (actual < 1 || actual > 14) actual = 0;
 	
@@ -254,7 +276,7 @@ Renderable LootManager::getRender(int index) {
 	r.src->w = 64;
 	r.src->h = 128;
 	r.offset.x = 32;
-	r.offset.y = 96;
+	r.offset.y = 112;
 	r.object_layer = true;
 
 	for (int i=0; i<animation_count; i++) {

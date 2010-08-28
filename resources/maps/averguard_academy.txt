@@ -357,6 +357,7 @@ type=container
 location=20,75,1,0
 mapmod=object,20,75,164
 soundfx=soundfx/inventory/inventory_page.ogg
+loot=id,21,75,2
 
 # next 4 are barrels in the storage area
 [event]
@@ -370,6 +371,7 @@ type=container
 location=10,47,1,2
 mapmod=object,10,48,162
 soundfx=soundfx/wood_open.ogg
+loot=random,11,48,1
 
 [event]
 type=container
@@ -389,6 +391,7 @@ type=container
 location=10,46,2,1
 mapmod=object,11,46,163
 soundfx=soundfx/wood_open.ogg
+loot=random,12,46,1
 
 [event]
 type=container
@@ -396,12 +399,13 @@ location=12,48,2,1
 mapmod=object,13,49,163
 soundfx=soundfx/wood_open.ogg
 
+
 [event]
 type=container
 location=14,48,1,1
 mapmod=object,15,49,163
 soundfx=soundfx/wood_open.ogg
-
+loot=random,14,48,1
 
 [enemy]
 type=skeleton

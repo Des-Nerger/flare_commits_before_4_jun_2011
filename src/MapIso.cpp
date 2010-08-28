@@ -244,6 +244,14 @@ int MapIso::load(string filename) {
 							else if (key == "soundfx") {
 								e->s = val;
 							}
+							else if (key == "loot") {
+								val = val + ",";
+								e->s = eatFirstString(val, ',');
+								e->x = eatFirstInt(val, ',') * UNITS_PER_TILE + UNITS_PER_TILE/2;
+								e->y = eatFirstInt(val, ',') * UNITS_PER_TILE + UNITS_PER_TILE/2;
+								e->z = eatFirstInt(val, ',');
+			
+							}
 							
 							events[event_count-1].comp_num++;
 						}
@@ -431,6 +439,9 @@ void MapIso::executeEvent(int eid) {
 		}
 		else if (ec->type == "soundfx") {
 			playSFX(ec->s);
+		}
+		else if (ec->type == "loot") {
+			loot.push(*ec);
 		}
 	}
 	if (events[eid].type == "container") {

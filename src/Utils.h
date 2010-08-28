@@ -37,12 +37,21 @@ static Point round(FPoint fp) {
 	return result;
 }
 
+// message passing struct for various sprites rendered map inline
 struct Renderable {
 	Point map_pos;
 	SDL_Surface *sprite;
 	SDL_Rect *src;
 	Point offset;
 	bool object_layer;
+};
+
+struct Event_Component {
+	string type;
+	string s;
+	int x;
+	int y;
+	int z;
 };
 
 static Point screen_to_map(int x, int y, int camx, int camy) {

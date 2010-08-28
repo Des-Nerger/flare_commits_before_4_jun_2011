@@ -30,13 +30,7 @@ struct Map_Enemy {
 	int direction;
 };
 
-struct Event_Component {
-	string type;
-	string s;
-	int x;
-	int y;
-	int z;
-};
+
 
 struct Map_Event {
 	string type;
@@ -97,6 +91,9 @@ public:
 	queue<Map_Enemy> enemies;
 	Map_Enemy new_enemy;
 	bool enemy_awaiting_queue;
+	
+	// event-created loot or items
+	queue<Event_Component> loot;
 
 	// teleport handling
 	bool teleportation;
