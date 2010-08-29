@@ -26,11 +26,7 @@ MenuInventory::MenuInventory(SDL_Surface *_screen, FontEngine *_font, ItemDataba
 	changed_equipment = true;
 	changed_artifact = true;
 	
-	// TODO: carried items should come from a save file
-	equipped[0] = 250;
-	equipped[1] = 800;
-	equipped[2] = 850;
-	
+	// dev items
 	carried[62] = 1022;
 	carried[63] = 1023;
 }
@@ -121,6 +117,8 @@ int MenuInventory::click(Point mouse) {
 	return 0;
 }
 
+
+
 void MenuInventory::drop(Point mouse, int item) {
 	items->playSound(item);
 
@@ -192,6 +190,50 @@ void MenuInventory::drop(Point mouse, int item) {
  
 }
 
+/**
+ * Right-clicking on a usable item in the inventory causes it to activate.
+ * e.g. drink a potion
+ * e.g. equip an item
+ */
+void MenuInventory::activate(Point mouse) {
+
+	int offset_x = (VIEW_W - 320);
+	int offset_y = (VIEW_H - 416)/2;
+	int slot;
+	int swap;
+	int equip_slot;
+	
+	if (mouse.x >= offset_x+32 && mouse.y >= offset_y+128 && mouse.x < offset_x+576 && mouse.y < offset_y+384) {
+		// clicked a carried item
+		slot = (mouse.x - (offset_x+32)) / 32 + ((mouse.y - (offset_y+128)) / 32) * 8;
+	
+		// use a consumable item
+		if (items->items[carried[slot]].type == ITEM_TYPE_CONSUMABLE) {
+			items->activate(carried[slot], stats);
+			carried[slot] = 0;
+		}
+		// equip an item
+		else if (items->items[carried[slot]].type == ITEM_TYPE_MAIN ||
+		         items->items[carried[slot]].type == ITEM_TYPE_BODY ||
+				 items->items[carried[slot]].type == ITEM_TYPE_OFF ||
+				 items->items[carried[slot]].type == ITEM_TYPE_ARTIFACT) {
+			equip_slot = items->items[carried[slot]].type;
+			swap = equipped[equip_slot];
+			equipped[equip_slot] = carried[slot];
+			carried[slot] = swap;
+			items->playSound(equipped[equip_slot]);
+			
+			if (equip_slot < 3) changed_equipment = true;
+			else changed_artifact = true;
+		}
+	}
+}
+
+/**
+ * If mousing-over an item with a tooltip, return that tooltip data.
+ *
+ * @param mouse The x,y screen coordinates of the mouse cursor
+ */
 TooltipData MenuInventory::checkTooltip(Point mouse) {
 	int index;
 	int offset_x = (VIEW_W - 320);
@@ -216,12 +258,31 @@ TooltipData MenuInventory::checkTooltip(Point mouse) {
 	return tip;
 }
 
+/**
+ * Cannot pick up new items if the inventory is full.
+ * Full means no more carrying capacity (equipped capacity is ignored)
+ */
 bool MenuInventory::full() {
 	bool result = true;
 	for (int i=0; i<64; i++) {
 		if (carried[i] == 0) result = false;
 	}
 	return result;
+}
+
+/**
+ * Insert item into first available carried slot
+ *
+ * @param item Item ID
+ */
+void MenuInventory::add(int item) {
+	for (int i=0; i<64; i++) {
+		if (carried[i] == 0) {
+			carried[i] = item;
+			items->playSound(item);
+			return;
+		}
+	}
 }
 
 MenuInventory::~MenuInventory() {

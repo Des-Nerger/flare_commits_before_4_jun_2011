@@ -4,6 +4,8 @@ level=1
 sfx_prefix=zombie
 gfx_prefix=zombie
 
+loot_chance=15
+
 # combat stats
 hp=4
 speed=3

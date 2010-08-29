@@ -88,6 +88,8 @@ void StatBlock::load(string filename) {
 					
 					else if (key == "level") level = num;
 					
+					else if (key == "loot_chance") loot_chance = num;
+					
 					// combat stats
 					else if (key == "hp") hp = num;
 					else if (key == "mp") mp = num;

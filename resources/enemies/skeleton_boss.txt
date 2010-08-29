@@ -4,6 +4,8 @@ level=9
 sfx_prefix=skeleton
 gfx_prefix=skeleton
 
+loot_chance=100
+
 # combat stats
 hp=50
 speed=9

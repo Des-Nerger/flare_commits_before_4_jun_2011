@@ -33,12 +33,20 @@ GameEngine::GameEngine(SDL_Surface *_screen, InputState *_inp) {
  */
 void GameEngine::logic() {
 
+	int pickup;
 	if (!inp->pressing[MAIN1]) inp->mouse_lock = false;
 	
 	// the game action is paused if any menus are opened
 	if (!menu->pause) {
-			
-		// loot->checkPickup();
+		
+		// click to pick up loot on the ground
+		if (inp->pressing[MAIN1] && !inp->mouse_lock && !menu->inv->full()) {
+			pickup = loot->checkPickup(inp->mouse, map->cam, pc->pos);
+			if (pickup > 0) {
+				inp->mouse_lock = true;
+				menu->inv->add(pickup);
+			}
+		}
 	
 		pc->logic();
 		
@@ -46,6 +54,12 @@ void GameEngine::logic() {
 		enemies->logic();
 		hazards->logic();
 		loot->logic();
+	}
+	
+	// if the player has dropped an item from the inventory
+	if (menu->drop_item > 0) {
+		loot->addLoot(menu->drop_item, pc->pos);
+		menu->drop_item = 0;
 	}
 	
 	// check teleport

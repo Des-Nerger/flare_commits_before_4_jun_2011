@@ -167,6 +167,8 @@ void ItemDatabase::load() {
 						items[id].gfx = val;
 					else if (key == "loot")
 						items[id].loot = val;
+					else if (key == "effect")
+						items[id].effect = val;
 				}
 			}
 		}
@@ -450,7 +452,22 @@ void ItemDatabase::applyEquipment(StatBlock *stats, int equipped[4]) {
 
 }
 
-
+/**
+ * Handle items that have special powers when activated
+ * e.g. potions that restore health or mana
+ *
+ * @param item The id of the item to activate
+ * @param stats The statblock of the hero
+ */
+void ItemDatabase::activate(int item, StatBlock *stats) {
+	if (items[item].effect == "hp_restore") {
+		stats->hp = stats->maxhp;
+	}
+	else if (items[item].effect == "mp_restore") {
+		stats->mp = stats->maxmp;
+	}
+	playSound(item);
+}
 
 ItemDatabase::~ItemDatabase() {
 	SDL_FreeSurface(icons);

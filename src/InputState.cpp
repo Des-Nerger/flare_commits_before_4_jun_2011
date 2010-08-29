@@ -44,6 +44,9 @@ InputState::InputState(void) {
 	binding[MAIN1] = binding2[MAIN1] = SDL_BUTTON_LEFT;
 	binding[MAIN2] = binding2[MAIN2] = SDL_BUTTON_RIGHT;
 	
+	binding[CTRL] = SDLK_LCTRL;
+	binding2[CTRL] = SDLK_RCTRL;
+	
 	for (int key=0; key<key_count; key++) {
 		pressing[key] = false;	
 	}

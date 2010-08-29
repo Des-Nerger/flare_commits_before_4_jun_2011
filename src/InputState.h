@@ -36,10 +36,11 @@ const int POWERS = 18;
 const int LOG = 19;
 const int MAIN1 = 20;
 const int MAIN2 = 21;
+const int CTRL = 22;
 
 class InputState {
 private:
-	static const int key_count = 22;
+	static const int key_count = 23;
 	int binding[key_count];
 	int binding2[key_count];
 public:

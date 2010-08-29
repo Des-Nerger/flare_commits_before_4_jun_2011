@@ -47,8 +47,10 @@ public:
 	void render();
 	int click(Point mouse);
 	void drop(Point mouse, int src);
+	void activate(Point mouse);
 	TooltipData checkTooltip(Point mouse);
 	bool full();
+	void add(int item);
 	
 	bool visible;
 
@@ -57,6 +59,8 @@ public:
 	int drag_prev_slot;
 	int drag_prev_src;
 
+	// the following two are separate because artifacts don't display on the hero.
+	// so we only update the hero sprites when non-artifact changes occur.
 	bool changed_equipment;
 	bool changed_artifact;
 

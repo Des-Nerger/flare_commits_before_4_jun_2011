@@ -39,12 +39,14 @@ private:
 	SDL_Surface *screen;
 		
 	bool key_lock;
+	bool rightclick_lock;
 	void loadSounds();
 	void loadIcons();
 	
 	bool dragging;
 	int drag_item;
 	int drag_src;
+
 	
 public:
 	MenuManager(SDL_Surface *screen, InputState *inp, FontEngine *font, StatBlock *stats);
@@ -63,7 +65,7 @@ public:
 	ItemDatabase *items;
 	
 	bool pause;
-	
+	int drop_item;	
 
 };
 

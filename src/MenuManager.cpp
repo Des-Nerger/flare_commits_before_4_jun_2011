@@ -27,6 +27,7 @@ MenuManager::MenuManager(SDL_Surface *_screen, InputState *_inp, FontEngine *_fo
 	dragging = false;
 	drag_item = 0;
 	drag_src = 0;
+	drop_item = 0;
 	
 	loadSounds();
 
@@ -36,7 +37,7 @@ void MenuManager::loadSounds() {
 	sfx_open = Mix_LoadWAV("soundfx/inventory/inventory_page.ogg");
 	sfx_close = Mix_LoadWAV("soundfx/inventory/inventory_book.ogg");
 	
-	if (!sfx_open) {
+	if (!sfx_open || !sfx_close) {
 		printf("Mix_LoadWAV: %s\n", Mix_GetError());
 		SDL_Quit();
 	}	
@@ -46,6 +47,9 @@ void MenuManager::logic() {
 
 	if (!inp->pressing[INVENTORY] && !inp->pressing[POWERS] && !inp->pressing[CHARACTER] && !inp->pressing[LOG])
 		key_lock = false;
+
+	if (!inp->pressing[MAIN2])
+		rightclick_lock = false;
 
 	// inventory menu toggle
 	if (inp->pressing[INVENTORY] && !key_lock) {
@@ -101,6 +105,16 @@ void MenuManager::logic() {
 	int offset_x = (VIEW_W - 320);
 	int offset_y = (VIEW_H - 416)/2;
 	
+	// handle right-click activate inventory item
+	if (!dragging && inp->pressing[MAIN2] && !rightclick_lock) {
+		if (inp->mouse.x >= offset_x && inp->mouse.y >= offset_y && inp->mouse.y <= offset_y+416) {
+			if (inv->visible) {
+				inv->activate(inp->mouse);
+				rightclick_lock = true;
+			}
+		}	
+	}
+	
 	// handle left-click drag
 	if (!dragging && inp->pressing[MAIN1]) {
 		if (inp->mouse.x >= offset_x && inp->mouse.y >= offset_y && inp->mouse.y <= offset_y+416) {
@@ -119,19 +133,15 @@ void MenuManager::logic() {
 		if (inp->mouse.x >= offset_x && inp->mouse.y >= offset_y && inp->mouse.y <= offset_y+416) {
 			if (inv->visible) {
 				inv->drop(inp->mouse, drag_item);
-				dragging = false;
 			}
 		}
-		
-		// if dragging and the source was inventory, return the item to its previous spot
-		if (dragging && drag_src == DRAG_SRC_INVENTORY) {
-			inv->drop(inp->mouse, drag_item);
-			dragging = false;
+		else if (drag_src == DRAG_SRC_INVENTORY) {
+			// if dragging and the source was inventory, drop item to the floor
+			drop_item = drag_item;
+			drag_item = 0;
 		}
-		else if (dragging) {
-			dragging = false;
-		}
-	
+
+		dragging = false;
 	}
 	
 	// handle equipment changes affecting hero stats

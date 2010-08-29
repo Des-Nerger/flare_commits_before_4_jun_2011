@@ -116,6 +116,8 @@ public:
 	int cooldown_ticks;
 	int cooldown; // min. # of frames between abilities
 	
+	int loot_chance;
+	
 	// rendering info
 	int cur_state;
 	int cur_frame;

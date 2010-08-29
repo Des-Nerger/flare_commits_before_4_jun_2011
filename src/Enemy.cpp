@@ -489,7 +489,11 @@ void Enemy::takeHit(Hazard h) {
  * Upon enemy death, handle rewards (gold, xp, loot)
  */
 void Enemy::doRewards() {
-	loot_drop = true;
+
+	int roll = rand() % 100;
+	if (roll < stats.loot_chance) {
+		loot_drop = true;
+	}
 }
 
 /**

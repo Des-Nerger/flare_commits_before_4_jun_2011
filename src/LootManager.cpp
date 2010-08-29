@@ -137,9 +137,6 @@ void LootManager::logic() {
 		if (loot[i].frame < 23)
 			loot[i].frame++;
 
-		if (loot[i].frame == 1)
-			if (loot_flip) Mix_PlayChannel(-1, loot_flip, 0);
-
 		if (loot[i].frame == 20)
 			items->playSound(loot[i].item);
 	}
@@ -147,6 +144,7 @@ void LootManager::logic() {
 	checkEnemiesForLoot();
 	checkMapForLoot();
 }
+
 
 
 /**
@@ -224,6 +222,7 @@ int LootManager::lootLevel(int base_level) {
 	int actual;
 	
 	// this loot bell curve is +/- 3 levels
+	// percents: 5,10,20,30,20,10,5
 	if (x <= 4) actual = base_level-3;
 	else if (x <= 14) actual = base_level-2;
 	else if (x <= 34) actual = base_level-1;
@@ -232,7 +231,8 @@ int LootManager::lootLevel(int base_level) {
 	else if (x <= 94) actual = base_level+2;
 	else actual = base_level+3;
 	
-	if (actual < 1 || actual > 14) actual = 0;
+	if (actual < 1) actual = 0;
+	if (actual > 20) actual = base_level;
 	
 	return actual;
 }
@@ -258,8 +258,55 @@ void LootManager::addLoot(int item_id, Point pos) {
 	loot[loot_count].pos.y = pos.y;
 	loot[loot_count].frame = 0;
 	loot_count++;
+	if (loot_flip) Mix_PlayChannel(-1, loot_flip, 0);
 }
 
+/**
+ * Remove one loot from the array, preserving sort order
+ */
+void LootManager::removeLoot(int index) {
+	for (int i=index; i<loot_count-1; i++) {
+		loot[i].item = loot[i+1].item;
+		loot[i].pos.x = loot[i+1].pos.x;
+		loot[i].pos.y = loot[i+1].pos.y;
+		loot[i].frame = loot[i+1].frame;
+	}
+	loot_count--;
+}
+
+/**
+ * Click on the map to pick up loot.  We need the camera position to translate
+ * screen coordinates to map locations.  We need the hero position because
+ * the hero has to be within range to pick up an item.
+ */
+int LootManager::checkPickup(Point mouse, Point cam, Point hero_pos) {
+	Point p;
+	SDL_Rect r;
+	int loot_id;
+
+	for (int i=0; i<loot_count; i++) {
+
+		// loot close enough to pickup?
+		if (abs(hero_pos.x - loot[i].pos.x) < LOOT_RANGE && abs(hero_pos.y - loot[i].pos.y) < LOOT_RANGE) {
+
+			p = map_to_screen(loot[i].pos.x, loot[i].pos.y, cam.x, cam.y);
+				
+			r.w = 32;
+			r.h = 48;
+			r.x = p.x - 16;
+			r.y = p.y - 32;
+		
+			// clicked in pickup hotspot?
+			if (mouse.x > r.x && mouse.x < r.x+r.w &&
+				mouse.y > r.y && mouse.y < r.y+r.h) {
+				loot_id = loot[i].item;
+				removeLoot(i);
+				return loot_id;			
+			}
+		}
+	}
+	return 0;
+}
 
 Renderable LootManager::getRender(int index) {
 	

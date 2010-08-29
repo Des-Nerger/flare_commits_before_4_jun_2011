@@ -54,12 +54,20 @@ struct Event_Component {
 	int z;
 };
 
+// TODO: rewrite using UNITS_PER_PIXEL_X,Y?
 static Point screen_to_map(int x, int y, int camx, int camy) {
 	Point r;
 	int scrx = x - VIEW_W_HALF;
 	int scry = y - VIEW_H_HALF;
 	r.x = scrx/2 + scry + camx;
 	r.y = scry - scrx/2 + camy;
+	return r;
+}
+
+static Point map_to_screen(int x, int y, int camx, int camy) {
+	Point r;
+	r.x = VIEW_W_HALF + (x/UNITS_PER_PIXEL_X - camx/UNITS_PER_PIXEL_X) - (y/UNITS_PER_PIXEL_X - camy/UNITS_PER_PIXEL_X);
+	r.y = VIEW_H_HALF + (x/UNITS_PER_PIXEL_Y - camx/UNITS_PER_PIXEL_Y) + (y/UNITS_PER_PIXEL_Y - camy/UNITS_PER_PIXEL_Y);
 	return r;
 }
 
