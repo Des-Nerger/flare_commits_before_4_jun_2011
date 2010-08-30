@@ -105,7 +105,7 @@ void MenuManager::logic() {
 	int offset_x = (VIEW_W - 320);
 	int offset_y = (VIEW_H - 416)/2;
 	
-	// handle right-click activate inventory item
+	// handle right-click activate inventory item (must be alive)
 	if (!dragging && inp->pressing[MAIN2] && !rightclick_lock) {
 		if (inp->mouse.x >= offset_x && inp->mouse.y >= offset_y && inp->mouse.y <= offset_y+416) {
 			if (inv->visible) {
@@ -130,15 +130,18 @@ void MenuManager::logic() {
 	
 	// handle dropping
 	if (dragging && !inp->pressing[MAIN1]) {
-		if (inp->mouse.x >= offset_x && inp->mouse.y >= offset_y && inp->mouse.y <= offset_y+416) {
-			if (inv->visible) {
-				inv->drop(inp->mouse, drag_item);
-			}
+		if (inv->visible && inp->mouse.x >= offset_x && inp->mouse.y >= offset_y && inp->mouse.y <= offset_y+416) {
+			inv->drop(inp->mouse, drag_item);
+			drag_item = 0;
 		}
-		else if (drag_src == DRAG_SRC_INVENTORY) {
+		else if (drag_src == DRAG_SRC_INVENTORY && stats->hp > 0) {
 			// if dragging and the source was inventory, drop item to the floor
 			drop_item = drag_item;
 			drag_item = 0;
+		}
+		else if (drag_src == DRAG_SRC_INVENTORY) {
+			// prevent dropping items while dead
+			inv->itemReturn(drag_item);
 		}
 
 		dragging = false;

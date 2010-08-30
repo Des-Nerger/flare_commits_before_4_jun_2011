@@ -87,13 +87,16 @@ void MenuInventory::render() {
 	}
 }
 
+/**
+ * Click-start dragging in the inventory
+ */
 int MenuInventory::click(Point mouse) {
 
 	int item;
 	int offset_x = (VIEW_W - 320);
 	int offset_y = (VIEW_H - 416)/2;
 	
-	if (mouse.x >= offset_x+32 && mouse.y >= offset_y+48 && mouse.x < offset_x+576 && mouse.y < offset_y+112) {
+	if (mouse.x >= offset_x+32 && mouse.y >= offset_y+48 && mouse.x < offset_x+288 && mouse.y < offset_y+112) {
 		// clicked an equipped item
 		drag_prev_slot = (mouse.x - (offset_x+32)) / 64;
 		drag_prev_src = SRC_EQUIPPED;
@@ -103,7 +106,7 @@ int MenuInventory::click(Point mouse) {
 
 		return item;
 	}
-	else if (mouse.x >= offset_x+32 && mouse.y >= offset_y+128 && mouse.x < offset_x+576 && mouse.y < offset_y+384) {
+	else if (mouse.x >= offset_x+32 && mouse.y >= offset_y+128 && mouse.x < offset_x+288 && mouse.y < offset_y+384) {
 		// clicked a carried item
 		drag_prev_slot = (mouse.x - (offset_x+32)) / 32 + ((mouse.y - (offset_y+128)) / 32) * 8;
 		drag_prev_src = SRC_CARRIED;
@@ -117,8 +120,20 @@ int MenuInventory::click(Point mouse) {
 	return 0;
 }
 
+/**
+ * Return dragged item to previous slot
+ */
+void MenuInventory::itemReturn(int item) {
+	if (drag_prev_src == SRC_CARRIED)
+		carried[drag_prev_slot] = item;
+	else if (drag_prev_src == SRC_EQUIPPED)
+		equipped[drag_prev_slot] = item;
+}
 
-
+/**
+ * Dragging and dropping an item can be used to rearrange the inventory
+ * and equip items
+ */
 void MenuInventory::drop(Point mouse, int item) {
 	items->playSound(item);
 
@@ -126,7 +141,7 @@ void MenuInventory::drop(Point mouse, int item) {
 	int offset_x = (VIEW_W - 320);
 	int offset_y = (VIEW_H - 416)/2;
 
-	if (mouse.x >= offset_x+32 && mouse.y >= offset_y+48 && mouse.x < offset_x+576 && mouse.y < offset_y+112) {
+	if (mouse.x >= offset_x+32 && mouse.y >= offset_y+48 && mouse.x < offset_x+288 && mouse.y < offset_y+112) {
 	
 		// dropped onto equipped item
 		index = (mouse.x - (offset_x+32)) / 64;	
@@ -151,7 +166,7 @@ void MenuInventory::drop(Point mouse, int item) {
 			equipped[drag_prev_slot] = item; // cancel
 		}
 	}
-	else if (mouse.x >= offset_x+32 && mouse.y >= offset_y+128 && mouse.x < offset_x+576 && mouse.y < offset_y+384) {
+	else if (mouse.x >= offset_x+32 && mouse.y >= offset_y+128 && mouse.x < offset_x+288 && mouse.y < offset_y+384) {
 	
 		// dropped onto carried item
 		index = (mouse.x - (offset_x+32)) / 32 + ((mouse.y - (offset_y+128)) / 32) * 8;
@@ -182,10 +197,7 @@ void MenuInventory::drop(Point mouse, int item) {
 	else {
 	
 		// not dropped in a slot.  Just return it to the previous slot
-		if (drag_prev_src == SRC_CARRIED)
-			carried[drag_prev_slot] = item; // cancel
-		else if (drag_prev_src == SRC_EQUIPPED)
-			equipped[drag_prev_slot] = item; // cancel
+		itemReturn(item);
 	}
  
 }
@@ -207,8 +219,8 @@ void MenuInventory::activate(Point mouse) {
 		// clicked a carried item
 		slot = (mouse.x - (offset_x+32)) / 32 + ((mouse.y - (offset_y+128)) / 32) * 8;
 	
-		// use a consumable item
-		if (items->items[carried[slot]].type == ITEM_TYPE_CONSUMABLE) {
+		// use a consumable item, but only if alive
+		if (items->items[carried[slot]].type == ITEM_TYPE_CONSUMABLE && stats->hp > 0) {
 			items->activate(carried[slot], stats);
 			carried[slot] = 0;
 		}

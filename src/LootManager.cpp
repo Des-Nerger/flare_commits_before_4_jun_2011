@@ -145,7 +145,14 @@ void LootManager::logic() {
 	checkMapForLoot();
 }
 
-
+/**
+ * If an item is flying, it hasn't completed its "flying loot" animation.
+ * Only allow loot to be picked up if it is grounded.
+ */
+bool LootManager::isFlying(int loot_index) {
+	if (loot[loot_index].frame == 23) return false;
+	return true;
+}
 
 /**
  * Show all tooltips for loot on the floor
@@ -178,7 +185,8 @@ void LootManager::renderTooltips(Point cam) {
 }
 
 /**
- * Check the enemies for loot
+ * Enemies that drop loot raise a "loot_drop" flag to notify this loot
+ * manager to create loot based on that creature's level and position.
  */
 void LootManager::checkEnemiesForLoot() {
 	for (int i=0; i<enemies->enemy_count; i++) {
@@ -284,10 +292,13 @@ int LootManager::checkPickup(Point mouse, Point cam, Point hero_pos) {
 	SDL_Rect r;
 	int loot_id;
 
-	for (int i=0; i<loot_count; i++) {
+	// I'm starting at the end of the loot list so that more recently-dropped
+	// loot is picked up first.  If a player drops several loot in the same
+	// location, picking it back up will work like a stack.
+	for (int i=loot_count-1; i>=0; i--) {
 
 		// loot close enough to pickup?
-		if (abs(hero_pos.x - loot[i].pos.x) < LOOT_RANGE && abs(hero_pos.y - loot[i].pos.y) < LOOT_RANGE) {
+		if (abs(hero_pos.x - loot[i].pos.x) < LOOT_RANGE && abs(hero_pos.y - loot[i].pos.y) < LOOT_RANGE && !isFlying(i)) {
 
 			p = map_to_screen(loot[i].pos.x, loot[i].pos.y, cam.x, cam.y);
 				

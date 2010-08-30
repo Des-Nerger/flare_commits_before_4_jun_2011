@@ -76,6 +76,7 @@ public:
 	void renderTooltips(Point cam);
 	void checkEnemiesForLoot();
 	void checkMapForLoot();
+	bool isFlying(int loot_index);
 	void determineLoot(int base_level, Point pos);
 	void addLoot(int item_id, Point pos);
 	void removeLoot(int index);

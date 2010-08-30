@@ -46,6 +46,7 @@ public:
 	void logic();
 	void render();
 	int click(Point mouse);
+	void itemReturn(int item);
 	void drop(Point mouse, int src);
 	void activate(Point mouse);
 	TooltipData checkTooltip(Point mouse);
