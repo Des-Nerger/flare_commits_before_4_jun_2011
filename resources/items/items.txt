@@ -59,25 +59,401 @@ sfx=gem
 loot=gem
 
 
-# Clothes
 [item]
 id=50
 name=Clothes
 level=1
-icon=112,16
+quality=normal
 type=body
+icon=112,16
 sfx=cloth
 gfx=clothes
 loot=clothes
 
-# Daggers
+[item]
+id=51
+name=Tattered Clothes
+level=1
+quality=low
+type=body
+icon=112,16
+sfx=cloth
+gfx=clothes
+loot=clothes
+
+[item]
+id=55
+name=Dwarven Clothes
+level=2
+quality=high
+type=body
+icon=112,16
+bonus=health,3
+sfx=cloth
+gfx=clothes
+loot=clothes
+
+[item]
+id=56
+name=Clothes of Restoration
+level=3
+quality=high
+type=body
+icon=112,16
+bonus=health regen,1
+sfx=cloth
+gfx=clothes
+loot=clothes
+
+[item]
+id=57
+name=Elven Clothes
+level=2
+quality=high
+type=body
+icon=112,16
+bonus=mana,3
+sfx=cloth
+gfx=clothes
+loot=clothes
+
+[item]
+id=58
+name=Clothes of Meditation
+level=3
+quality=high
+type=body
+icon=112,16
+bonus=mana regen,1
+sfx=cloth
+gfx=clothes
+loot=clothes
+
+[item]
+id=59
+name=Battle Clothes
+level=3
+quality=high
+type=body
+icon=112,16
+abs=0,1
+sfx=cloth
+gfx=clothes
+loot=clothes
+
+[item]
+id=60
+name=Clothes of Accuracy
+level=2
+quality=high
+type=body
+icon=112,16
+bonus=accuracy,2
+sfx=cloth
+gfx=clothes
+loot=clothes
+
+[item]
+id=61
+name=Clothes of Avoidance
+level=2
+quality=high
+type=body
+icon=112,16
+bonus=avoidance,4
+sfx=cloth
+gfx=clothes
+loot=clothes
+
+[item]
+id=62
+name=Summer Clothes
+level=2
+quality=high
+type=body
+icon=112,16
+bonus=fire resist,10
+sfx=cloth
+gfx=clothes
+loot=clothes
+
+[item]
+id=63
+name=Winter Clothes
+level=2
+quality=high
+type=body
+icon=112,16
+bonus=ice resist,10
+sfx=cloth
+gfx=clothes
+loot=clothes
+
+[item]
+id=64
+name=Clothes of Slaying
+level=3
+quality=high
+type=body
+icon=112,16
+bonus=crit,1
+sfx=cloth
+gfx=clothes
+loot=clothes
+
+[item]
+id=70
+name=Warlord Clothes
+level=4
+quality=high
+type=body
+icon=112,16
+abs=0,1
+bonus=health,6
+sfx=cloth
+gfx=clothes
+loot=clothes
+
+[item]
+id=71
+name=Clothes of Victory
+level=5
+quality=high
+type=body
+icon=112,16
+abs=0,1
+bonus=health regen,2
+sfx=cloth
+gfx=clothes
+loot=clothes
+
+[item]
+id=72
+name=Archmage Clothes
+level=4
+quality=high
+type=body
+icon=112,16
+abs=0,1
+bonus=mana,6
+sfx=cloth
+gfx=clothes
+loot=clothes
+
+[item]
+id=73
+name=Clothes of Wizardry
+level=5
+quality=high
+type=body
+icon=112,16
+abs=0,1
+bonus=mana regen,2
+sfx=cloth
+gfx=clothes
+loot=clothes
+
+[item]
+id=74
+name=Ancient Clothes
+level=5
+quality=high
+type=body
+icon=112,16
+abs=1
+sfx=cloth
+gfx=clothes
+loot=clothes
+
+[item]
+id=75
+name=Clothes of Precision
+level=4
+quality=high
+type=body
+icon=112,16
+abs=0,1
+bonus=accuracy,5
+sfx=cloth
+gfx=clothes
+loot=clothes
+
+[item]
+id=76
+name=Clothes of Protection
+level=4
+quality=high
+type=body
+icon=112,16
+abs=0,1
+bonus=avoidance,7
+sfx=cloth
+gfx=clothes
+loot=clothes
+
+[item]
+id=77
+name=Fiery Clothes
+level=4
+quality=high
+type=body
+icon=112,16
+abs=0,1
+bonus=fire resist,15
+sfx=cloth
+gfx=clothes
+loot=clothes
+
+[item]
+id=78
+name=Frozen Clothes
+level=4
+quality=high
+type=body
+icon=112,16
+abs=0,1
+bonus=ice resist,15
+sfx=cloth
+gfx=clothes
+loot=clothes
+
+[item]
+id=79
+name=Clothes of Destruction
+level=5
+quality=high
+type=body
+icon=112,16
+abs=0,1
+bonus=crit,2
+sfx=cloth
+gfx=clothes
+loot=clothes
+
+[item]
+id=85
+name=Butcher's Apron
+level=6
+quality=epic
+type=body
+icon=112,16
+abs=1
+bonus=health,9
+sfx=cloth
+gfx=clothes
+loot=clothes
+
+[item]
+id=86
+name=Medic Wrap
+level=7
+quality=epic
+type=body
+icon=112,16
+abs=1
+bonus=health regen,3
+sfx=cloth
+gfx=clothes
+loot=clothes
+
+[item]
+id=87
+name=Wizard Tunic
+level=6
+quality=epic
+type=body
+icon=112,16
+abs=1
+bonus=mana,9
+sfx=cloth
+gfx=clothes
+loot=clothes
+
+[item]
+id=88
+name=Spellwoven Clothes
+level=7
+quality=epic
+type=body
+icon=112,16
+abs=1
+bonus=mana regen,3
+sfx=cloth
+gfx=clothes
+loot=clothes
+
+[item]
+id=89
+name=Hunter's Garb
+level=6
+quality=epic
+type=body
+icon=112,16
+abs=1
+bonus=accuracy,8
+sfx=cloth
+gfx=clothes
+loot=clothes
+
+[item]
+id=90
+name=Night Watch
+level=6
+quality=epic
+type=body
+icon=112,16
+abs=1
+bonus=avoidance,10
+sfx=cloth
+gfx=clothes
+loot=clothes
+
+[item]
+id=91
+name=Nomad Rags
+level=6
+quality=epic
+type=body
+icon=112,16
+abs=1
+bonus=fire resist,20
+sfx=cloth
+gfx=clothes
+loot=clothes
+
+[item]
+id=92
+name=Fur-Lined Tunic
+level=6
+quality=epic
+type=body
+icon=112,16
+abs=1
+bonus=ice resist,20
+sfx=cloth
+gfx=clothes
+loot=clothes
+
+[item]
+id=93
+name=Vigilante
+level=7
+quality=epic
+type=body
+icon=112,16
+abs=1
+bonus=crit,3
+sfx=cloth
+gfx=clothes
+loot=clothes
 
 [item]
 id=100
 name=Dagger
 level=2
-icon=96,0
+quality=normal
 type=main
+icon=96,0
 dmg=2,6
 req=p,2
 sfx=metal
@@ -89,8 +465,8 @@ id=101
 name=Rusted Dagger
 level=1
 quality=low
-icon=96,0
 type=main
+icon=96,0
 dmg=1,5
 req=p,2
 sfx=metal
@@ -102,11 +478,11 @@ id=102
 name=Cursed Dagger
 level=1
 quality=low
-icon=96,0
 type=main
+icon=96,0
 dmg=2,6
+bonus=accuracy,-3
 req=p,2
-bonus=accuracy,-4
 sfx=metal
 gfx=dagger
 loot=dagger
@@ -116,11 +492,11 @@ id=103
 name=Dull Dagger
 level=1
 quality=low
-icon=96,0
 type=main
+icon=96,0
 dmg=2,6
-req=p,2
 bonus=crit,-1
+req=p,2
 sfx=metal
 gfx=dagger
 loot=dagger
@@ -130,25 +506,25 @@ id=105
 name=Dwarven Dagger
 level=3
 quality=high
-icon=96,0
 type=main
+icon=96,0
 dmg=2,6
-req=p,2
 bonus=health,4
+req=p,2
 sfx=metal
 gfx=dagger
 loot=dagger
 
 [item]
 id=106
-name=Dagger of Regeneration
+name=Dagger of Restoration
 level=4
 quality=high
-icon=96,0
 type=main
+icon=96,0
 dmg=2,6
-req=p,2
 bonus=health regen,1
+req=p,2
 sfx=metal
 gfx=dagger
 loot=dagger
@@ -158,11 +534,11 @@ id=107
 name=Elven Dagger
 level=3
 quality=high
-icon=96,0
 type=main
+icon=96,0
 dmg=2,6
-req=p,2
 bonus=mana,2
+req=p,2
 sfx=metal
 gfx=dagger
 loot=dagger
@@ -172,11 +548,11 @@ id=108
 name=Dagger of Meditation
 level=4
 quality=high
-icon=96,0
 type=main
+icon=96,0
 dmg=2,6
-req=p,2
 bonus=mana regen,1
+req=p,2
 sfx=metal
 gfx=dagger
 loot=dagger
@@ -186,8 +562,8 @@ id=109
 name=Battle Dagger
 level=4
 quality=high
-icon=96,0
 type=main
+icon=96,0
 dmg=3,7
 req=p,2
 sfx=metal
@@ -199,8 +575,8 @@ id=110
 name=Dagger of Accuracy
 level=3
 quality=high
-icon=96,0
 type=main
+icon=96,0
 dmg=2,6
 bonus=accuracy,3
 req=p,2
@@ -213,8 +589,8 @@ id=111
 name=Dagger of Avoidance
 level=3
 quality=high
-icon=96,0
 type=main
+icon=96,0
 dmg=2,6
 bonus=avoidance,3
 req=p,2
@@ -224,11 +600,39 @@ loot=dagger
 
 [item]
 id=112
+name=Summer Dagger
+level=3
+quality=high
+type=main
+icon=96,0
+dmg=2,6
+bonus=fire resist,8
+req=p,2
+sfx=metal
+gfx=dagger
+loot=dagger
+
+[item]
+id=113
+name=Winter Dagger
+level=3
+quality=high
+type=main
+icon=96,0
+dmg=2,6
+bonus=ice resist,8
+req=p,2
+sfx=metal
+gfx=dagger
+loot=dagger
+
+[item]
+id=114
 name=Dagger of Slaying
 level=4
 quality=high
-icon=96,0
 type=main
+icon=96,0
 dmg=2,6
 bonus=crit,1
 req=p,2
@@ -241,8 +645,8 @@ id=120
 name=Warlord Dagger
 level=5
 quality=high
-icon=96,0
 type=main
+icon=96,0
 dmg=2,7
 bonus=health,7
 req=p,2
@@ -255,22 +659,8 @@ id=121
 name=Dagger of Victory
 level=6
 quality=high
-icon=96,0
 type=main
-dmg=2,7
-bonus=health regen,2
-req=p,2
-sfx=metal
-gfx=dagger
-loot=dagger
-
-[item]
-id=121
-name=Dagger of Victory
-level=6
-quality=high
 icon=96,0
-type=main
 dmg=2,7
 bonus=health regen,2
 req=p,2
@@ -283,8 +673,8 @@ id=122
 name=Archmage Dagger
 level=5
 quality=high
-icon=96,0
 type=main
+icon=96,0
 dmg=2,7
 bonus=mana,5
 req=p,2
@@ -297,8 +687,8 @@ id=123
 name=Dagger of Wizardry
 level=6
 quality=high
-icon=96,0
 type=main
+icon=96,0
 dmg=2,7
 bonus=mana regen,2
 req=p,2
@@ -308,11 +698,11 @@ loot=dagger
 
 [item]
 id=124
-name=Master Dagger
-level=5
+name=Ancient Dagger
+level=6
 quality=high
-icon=96,0
 type=main
+icon=96,0
 dmg=4,8
 req=p,2
 sfx=metal
@@ -324,8 +714,8 @@ id=125
 name=Dagger of Precision
 level=5
 quality=high
-icon=96,0
 type=main
+icon=96,0
 dmg=2,7
 bonus=accuracy,6
 req=p,2
@@ -338,8 +728,8 @@ id=126
 name=Dagger of Protection
 level=5
 quality=high
-icon=96,0
 type=main
+icon=96,0
 dmg=2,7
 bonus=avoidance,6
 req=p,2
@@ -349,13 +739,13 @@ loot=dagger
 
 [item]
 id=127
-name=Dagger of Destruction
-level=6
+name=Fiery Dagger
+level=5
 quality=high
-icon=96,0
 type=main
+icon=96,0
 dmg=2,7
-bonus=crit,2
+bonus=fire resist,11
 req=p,2
 sfx=metal
 gfx=dagger
@@ -363,12 +753,13 @@ loot=dagger
 
 [item]
 id=128
-name=Fiery Dagger
+name=Frozen Dagger
 level=5
 quality=high
-icon=96,0
 type=main
+icon=96,0
 dmg=2,7
+bonus=ice resist,11
 req=p,2
 sfx=metal
 gfx=dagger
@@ -376,12 +767,13 @@ loot=dagger
 
 [item]
 id=129
-name=Frozen Dagger
-level=5
+name=Dagger of Destruction
+level=6
 quality=high
-icon=96,0
 type=main
+icon=96,0
 dmg=2,7
+bonus=crit,2
 req=p,2
 sfx=metal
 gfx=dagger
@@ -392,8 +784,8 @@ id=135
 name=Sacrificial Knife
 level=7
 quality=epic
-icon=96,0
 type=main
+icon=96,0
 dmg=4,8
 bonus=health,10
 req=p,2
@@ -406,8 +798,8 @@ id=136
 name=Thorn
 level=8
 quality=epic
-icon=96,0
 type=main
+icon=96,0
 dmg=4,8
 bonus=health regen,3
 req=p,2
@@ -420,8 +812,8 @@ id=137
 name=Mind Shard
 level=7
 quality=epic
-icon=96,0
 type=main
+icon=96,0
 dmg=4,8
 bonus=mana,8
 req=p,2
@@ -434,8 +826,8 @@ id=138
 name=Ether Slice
 level=8
 quality=epic
-icon=96,0
 type=main
+icon=96,0
 dmg=4,8
 bonus=mana regen,3
 req=p,2
@@ -448,8 +840,8 @@ id=139
 name=Pinpoint
 level=7
 quality=epic
-icon=96,0
 type=main
+icon=96,0
 dmg=4,8
 bonus=accuracy,9
 req=p,2
@@ -462,8 +854,8 @@ id=140
 name=Dancing Knife
 level=7
 quality=epic
-icon=96,0
 type=main
+icon=96,0
 dmg=4,8
 bonus=avoidance,9
 req=p,2
@@ -473,11 +865,39 @@ loot=dagger
 
 [item]
 id=141
+name=Fire Shard
+level=7
+quality=epic
+type=main
+icon=96,0
+dmg=4,8
+bonus=fire resist,14
+req=p,2
+sfx=metal
+gfx=dagger
+loot=dagger
+
+[item]
+id=142
+name=Ice Shard
+level=7
+quality=epic
+type=main
+icon=96,0
+dmg=4,8
+bonus=ice resist,14
+req=p,2
+sfx=metal
+gfx=dagger
+loot=dagger
+
+[item]
+id=143
 name=Goblin Carver
 level=8
 quality=epic
-icon=96,0
 type=main
+icon=96,0
 dmg=4,8
 bonus=crit,3
 req=p,2
@@ -486,40 +906,12 @@ gfx=dagger
 loot=dagger
 
 [item]
-id=142
-name=Fire Shard
-level=7
-quality=epic
-icon=96,0
-type=main
-dmg=4,8
-req=p,2
-sfx=metal
-gfx=dagger
-loot=dagger
-
-[item]
-id=143
-name=Ice Shard
-level=7
-quality=epic
-icon=96,0
-type=main
-dmg=4,8
-req=p,2
-sfx=metal
-gfx=dagger
-loot=dagger
-
-
-# Shortswords
-
-[item]
 id=150
 name=Shortsword
 level=4
-icon=97,1
+quality=normal
 type=main
+icon=97,1
 dmg=3,8
 req=p,3
 sfx=metal
@@ -531,8 +923,8 @@ id=151
 name=Rusted Shortsword
 level=3
 quality=low
-icon=97,1
 type=main
+icon=97,1
 dmg=2,7
 req=p,3
 sfx=metal
@@ -544,10 +936,10 @@ id=152
 name=Cursed Shortsword
 level=3
 quality=low
-icon=97,1
 type=main
+icon=97,1
 dmg=3,8
-bonus=accuracy,-4
+bonus=accuracy,-3
 req=p,3
 sfx=metal
 gfx=shortsword
@@ -558,8 +950,8 @@ id=153
 name=Dull Shortsword
 level=3
 quality=low
-icon=97,1
 type=main
+icon=97,1
 dmg=3,8
 bonus=crit,-1
 req=p,3
@@ -567,13 +959,417 @@ sfx=metal
 gfx=shortsword
 loot=shortsword
 
-# Longswords
+[item]
+id=155
+name=Dwarven Shortsword
+level=5
+quality=high
+type=main
+icon=97,1
+dmg=3,8
+bonus=health,4
+req=p,3
+sfx=metal
+gfx=shortsword
+loot=shortsword
+
+[item]
+id=156
+name=Shortsword of Restoration
+level=6
+quality=high
+type=main
+icon=97,1
+dmg=3,8
+bonus=health regen,1
+req=p,3
+sfx=metal
+gfx=shortsword
+loot=shortsword
+
+[item]
+id=157
+name=Elven Shortsword
+level=5
+quality=high
+type=main
+icon=97,1
+dmg=3,8
+bonus=mana,2
+req=p,3
+sfx=metal
+gfx=shortsword
+loot=shortsword
+
+[item]
+id=158
+name=Shortsword of Meditation
+level=6
+quality=high
+type=main
+icon=97,1
+dmg=3,8
+bonus=mana regen,1
+req=p,3
+sfx=metal
+gfx=shortsword
+loot=shortsword
+
+[item]
+id=159
+name=Battle Shortsword
+level=6
+quality=high
+type=main
+icon=97,1
+dmg=4,9
+req=p,3
+sfx=metal
+gfx=shortsword
+loot=shortsword
+
+[item]
+id=160
+name=Shortsword of Accuracy
+level=5
+quality=high
+type=main
+icon=97,1
+dmg=3,8
+bonus=accuracy,3
+req=p,3
+sfx=metal
+gfx=shortsword
+loot=shortsword
+
+[item]
+id=161
+name=Shortsword of Avoidance
+level=5
+quality=high
+type=main
+icon=97,1
+dmg=3,8
+bonus=avoidance,3
+req=p,3
+sfx=metal
+gfx=shortsword
+loot=shortsword
+
+[item]
+id=162
+name=Summer Shortsword
+level=5
+quality=high
+type=main
+icon=97,1
+dmg=3,8
+bonus=fire resist,8
+req=p,3
+sfx=metal
+gfx=shortsword
+loot=shortsword
+
+[item]
+id=163
+name=Winter Shortsword
+level=5
+quality=high
+type=main
+icon=97,1
+dmg=3,8
+bonus=ice resist,8
+req=p,3
+sfx=metal
+gfx=shortsword
+loot=shortsword
+
+[item]
+id=164
+name=Shortsword of Slaying
+level=6
+quality=high
+type=main
+icon=97,1
+dmg=3,8
+bonus=crit,1
+req=p,3
+sfx=metal
+gfx=shortsword
+loot=shortsword
+
+[item]
+id=170
+name=Warlord Shortsword
+level=7
+quality=high
+type=main
+icon=97,1
+dmg=3,9
+bonus=health,7
+req=p,3
+sfx=metal
+gfx=shortsword
+loot=shortsword
+
+[item]
+id=171
+name=Shortsword of Victory
+level=8
+quality=high
+type=main
+icon=97,1
+dmg=3,9
+bonus=health regen,2
+req=p,3
+sfx=metal
+gfx=shortsword
+loot=shortsword
+
+[item]
+id=172
+name=Archmage Shortsword
+level=7
+quality=high
+type=main
+icon=97,1
+dmg=3,9
+bonus=mana,5
+req=p,3
+sfx=metal
+gfx=shortsword
+loot=shortsword
+
+[item]
+id=173
+name=Shortsword of Wizardry
+level=8
+quality=high
+type=main
+icon=97,1
+dmg=3,9
+bonus=mana regen,2
+req=p,3
+sfx=metal
+gfx=shortsword
+loot=shortsword
+
+[item]
+id=174
+name=Ancient Shortsword
+level=8
+quality=high
+type=main
+icon=97,1
+dmg=5,10
+req=p,3
+sfx=metal
+gfx=shortsword
+loot=shortsword
+
+[item]
+id=175
+name=Shortsword of Precision
+level=7
+quality=high
+type=main
+icon=97,1
+dmg=3,9
+bonus=accuracy,6
+req=p,3
+sfx=metal
+gfx=shortsword
+loot=shortsword
+
+[item]
+id=176
+name=Shortsword of Protection
+level=7
+quality=high
+type=main
+icon=97,1
+dmg=3,9
+bonus=avoidance,6
+req=p,3
+sfx=metal
+gfx=shortsword
+loot=shortsword
+
+[item]
+id=177
+name=Fiery Shortsword
+level=7
+quality=high
+type=main
+icon=97,1
+dmg=3,9
+bonus=fire resist,11
+req=p,3
+sfx=metal
+gfx=shortsword
+loot=shortsword
+
+[item]
+id=178
+name=Frozen Shortsword
+level=7
+quality=high
+type=main
+icon=97,1
+dmg=3,9
+bonus=ice resist,11
+req=p,3
+sfx=metal
+gfx=shortsword
+loot=shortsword
+
+[item]
+id=179
+name=Shortsword of Destruction
+level=8
+quality=high
+type=main
+icon=97,1
+dmg=3,9
+bonus=crit,2
+req=p,3
+sfx=metal
+gfx=shortsword
+loot=shortsword
+
+[item]
+id=185
+name=Gladius
+level=9
+quality=epic
+type=main
+icon=97,1
+dmg=5,10
+bonus=health,10
+req=p,3
+sfx=metal
+gfx=shortsword
+loot=shortsword
+
+[item]
+id=186
+name=Mending Blade
+level=10
+quality=epic
+type=main
+icon=97,1
+dmg=5,10
+bonus=health regen,3
+req=p,3
+sfx=metal
+gfx=shortsword
+loot=shortsword
+
+[item]
+id=187
+name=Mana Edge
+level=9
+quality=epic
+type=main
+icon=97,1
+dmg=5,10
+bonus=mana,8
+req=p,3
+sfx=metal
+gfx=shortsword
+loot=shortsword
+
+[item]
+id=188
+name=Demon Pact
+level=10
+quality=epic
+type=main
+icon=97,1
+dmg=5,10
+bonus=mana regen,3
+req=p,3
+sfx=metal
+gfx=shortsword
+loot=shortsword
+
+[item]
+id=189
+name=Watchman's Blade
+level=9
+quality=epic
+type=main
+icon=97,1
+dmg=5,10
+bonus=accuracy,9
+req=p,3
+sfx=metal
+gfx=shortsword
+loot=shortsword
+
+[item]
+id=190
+name=Parry Blade
+level=9
+quality=epic
+type=main
+icon=97,1
+dmg=5,10
+bonus=avoidance,9
+req=p,3
+sfx=metal
+gfx=shortsword
+loot=shortsword
+
+[item]
+id=191
+name=Summersword
+level=9
+quality=epic
+type=main
+icon=97,1
+dmg=5,10
+bonus=fire resist,14
+req=p,3
+sfx=metal
+gfx=shortsword
+loot=shortsword
+
+[item]
+id=192
+name=Wintersword
+level=9
+quality=epic
+type=main
+icon=97,1
+dmg=5,10
+bonus=ice resist,14
+req=p,3
+sfx=metal
+gfx=shortsword
+loot=shortsword
+
+[item]
+id=193
+name=Sting
+level=10
+quality=epic
+type=main
+icon=97,1
+dmg=5,10
+bonus=crit,3
+req=p,3
+sfx=metal
+gfx=shortsword
+loot=shortsword
+
 [item]
 id=200
 name=Longsword
 level=6
-icon=98,2
+quality=normal
 type=main
+icon=98,2
 dmg=4,10
 req=p,4
 sfx=metal
@@ -585,10 +1381,10 @@ id=201
 name=Rusted Longsword
 level=5
 quality=low
-icon=98,2
 type=main
+icon=98,2
 dmg=3,9
-req=p,3
+req=p,4
 sfx=metal
 gfx=longsword
 loot=longsword
@@ -598,11 +1394,11 @@ id=202
 name=Cursed Longsword
 level=5
 quality=low
-icon=98,2
 type=main
+icon=98,2
 dmg=4,10
-bonus=accuracy,-4
-req=p,3
+bonus=accuracy,-3
+req=p,4
 sfx=metal
 gfx=longsword
 loot=longsword
@@ -612,23 +1408,426 @@ id=203
 name=Dull Longsword
 level=5
 quality=low
-icon=98,2
 type=main
+icon=98,2
 dmg=4,10
 bonus=crit,-1
-req=p,3
+req=p,4
 sfx=metal
 gfx=longsword
 loot=longsword
 
+[item]
+id=205
+name=Dwarven Longsword
+level=7
+quality=high
+type=main
+icon=98,2
+dmg=4,10
+bonus=health,4
+req=p,4
+sfx=metal
+gfx=longsword
+loot=longsword
 
-# Greatswords
+[item]
+id=206
+name=Longsword of Restoration
+level=8
+quality=high
+type=main
+icon=98,2
+dmg=4,10
+bonus=health regen,1
+req=p,4
+sfx=metal
+gfx=longsword
+loot=longsword
+
+[item]
+id=207
+name=Elven Longsword
+level=7
+quality=high
+type=main
+icon=98,2
+dmg=4,10
+bonus=mana,2
+req=p,4
+sfx=metal
+gfx=longsword
+loot=longsword
+
+[item]
+id=208
+name=Longsword of Meditation
+level=8
+quality=high
+type=main
+icon=98,2
+dmg=4,10
+bonus=mana regen,1
+req=p,4
+sfx=metal
+gfx=longsword
+loot=longsword
+
+[item]
+id=209
+name=Battle Longsword
+level=8
+quality=high
+type=main
+icon=98,2
+dmg=5,11
+req=p,4
+sfx=metal
+gfx=longsword
+loot=longsword
+
+[item]
+id=210
+name=Longsword of Accuracy
+level=7
+quality=high
+type=main
+icon=98,2
+dmg=4,10
+bonus=accuracy,3
+req=p,4
+sfx=metal
+gfx=longsword
+loot=longsword
+
+[item]
+id=211
+name=Longsword of Avoidance
+level=7
+quality=high
+type=main
+icon=98,2
+dmg=4,10
+bonus=avoidance,3
+req=p,4
+sfx=metal
+gfx=longsword
+loot=longsword
+
+[item]
+id=212
+name=Summer Longsword
+level=7
+quality=high
+type=main
+icon=98,2
+dmg=4,10
+bonus=fire resist,8
+req=p,4
+sfx=metal
+gfx=longsword
+loot=longsword
+
+[item]
+id=213
+name=Winter Longsword
+level=7
+quality=high
+type=main
+icon=98,2
+dmg=4,10
+bonus=ice resist,8
+req=p,4
+sfx=metal
+gfx=longsword
+loot=longsword
+
+[item]
+id=214
+name=Longsword of Slaying
+level=8
+quality=high
+type=main
+icon=98,2
+dmg=4,10
+bonus=crit,1
+req=p,4
+sfx=metal
+gfx=longsword
+loot=longsword
+
+[item]
+id=220
+name=Warlord Longsword
+level=9
+quality=high
+type=main
+icon=98,2
+dmg=4,11
+bonus=health,7
+req=p,4
+sfx=metal
+gfx=longsword
+loot=longsword
+
+[item]
+id=221
+name=Longsword of Victory
+level=10
+quality=high
+type=main
+icon=98,2
+dmg=4,11
+bonus=health regen,2
+req=p,4
+sfx=metal
+gfx=longsword
+loot=longsword
+
+[item]
+id=222
+name=Archmage Longsword
+level=9
+quality=high
+type=main
+icon=98,2
+dmg=4,11
+bonus=mana,5
+req=p,4
+sfx=metal
+gfx=longsword
+loot=longsword
+
+[item]
+id=223
+name=Longsword of Wizardry
+level=10
+quality=high
+type=main
+icon=98,2
+dmg=4,11
+bonus=mana regen,2
+req=p,4
+sfx=metal
+gfx=longsword
+loot=longsword
+
+[item]
+id=224
+name=Ancient Longsword
+level=10
+quality=high
+type=main
+icon=98,2
+dmg=6,12
+req=p,4
+sfx=metal
+gfx=longsword
+loot=longsword
+
+[item]
+id=225
+name=Longsword of Precision
+level=9
+quality=high
+type=main
+icon=98,2
+dmg=4,11
+bonus=accuracy,6
+req=p,4
+sfx=metal
+gfx=longsword
+loot=longsword
+
+[item]
+id=226
+name=Longsword of Protection
+level=9
+quality=high
+type=main
+icon=98,2
+dmg=4,11
+bonus=avoidance,6
+req=p,4
+sfx=metal
+gfx=longsword
+loot=longsword
+
+[item]
+id=227
+name=Fiery Longsword
+level=9
+quality=high
+type=main
+icon=98,2
+dmg=4,11
+bonus=fire resist,11
+req=p,4
+sfx=metal
+gfx=longsword
+loot=longsword
+
+[item]
+id=228
+name=Frozen Longsword
+level=9
+quality=high
+type=main
+icon=98,2
+dmg=4,11
+bonus=ice resist,11
+req=p,4
+sfx=metal
+gfx=longsword
+loot=longsword
+
+[item]
+id=229
+name=Longsword of Destruction
+level=10
+quality=high
+type=main
+icon=98,2
+dmg=4,11
+bonus=crit,2
+req=p,4
+sfx=metal
+gfx=longsword
+loot=longsword
+
+[item]
+id=235
+name=Excalibur
+level=11
+quality=epic
+type=main
+icon=98,2
+dmg=6,12
+bonus=health,10
+req=p,4
+sfx=metal
+gfx=longsword
+loot=longsword
+
+[item]
+id=236
+name=Vampiric Sword
+level=12
+quality=epic
+type=main
+icon=98,2
+dmg=6,12
+bonus=health regen,3
+req=p,4
+sfx=metal
+gfx=longsword
+loot=longsword
+
+[item]
+id=237
+name=Glamdring
+level=11
+quality=epic
+type=main
+icon=98,2
+dmg=6,12
+bonus=mana,8
+req=p,4
+sfx=metal
+gfx=longsword
+loot=longsword
+
+[item]
+id=238
+name=Durendal
+level=12
+quality=epic
+type=main
+icon=98,2
+dmg=6,12
+bonus=mana regen,3
+req=p,4
+sfx=metal
+gfx=longsword
+loot=longsword
+
+[item]
+id=239
+name=Rapier
+level=11
+quality=epic
+type=main
+icon=98,2
+dmg=6,12
+bonus=accuracy,9
+req=p,4
+sfx=metal
+gfx=longsword
+loot=longsword
+
+[item]
+id=240
+name=Dueling Sword
+level=11
+quality=epic
+type=main
+icon=98,2
+dmg=6,12
+bonus=avoidance,9
+req=p,4
+sfx=metal
+gfx=longsword
+loot=longsword
+
+[item]
+id=241
+name=Flame Edge
+level=11
+quality=epic
+type=main
+icon=98,2
+dmg=6,12
+bonus=fire resist,14
+req=p,4
+sfx=metal
+gfx=longsword
+loot=longsword
+
+[item]
+id=242
+name=Frost Edge
+level=11
+quality=epic
+type=main
+icon=98,2
+dmg=6,12
+bonus=ice resist,14
+req=p,4
+sfx=metal
+gfx=longsword
+loot=longsword
+
+[item]
+id=243
+name=Vorpal Sword
+level=12
+quality=epic
+type=main
+icon=98,2
+dmg=6,12
+bonus=crit,3
+req=p,4
+sfx=metal
+gfx=longsword
+loot=longsword
+
 [item]
 id=250
 name=Greatsword
 level=8
-icon=99,3
+quality=normal
 type=main
+icon=99,3
 dmg=5,12
 req=p,5
 sfx=metal
@@ -640,10 +1839,10 @@ id=251
 name=Rusted Greatsword
 level=7
 quality=low
-icon=99,3
 type=main
+icon=99,3
 dmg=4,11
-req=p,3
+req=p,5
 sfx=metal
 gfx=greatsword
 loot=greatsword
@@ -653,11 +1852,11 @@ id=252
 name=Cursed Greatsword
 level=7
 quality=low
-icon=99,3
 type=main
+icon=99,3
 dmg=5,12
-bonus=accuracy,-4
-req=p,3
+bonus=accuracy,-3
+req=p,5
 sfx=metal
 gfx=greatsword
 loot=greatsword
@@ -667,90 +1866,3162 @@ id=253
 name=Dull Greatsword
 level=7
 quality=low
-icon=99,3
 type=main
+icon=99,3
 dmg=5,12
 bonus=crit,-1
-req=p,3
+req=p,5
 sfx=metal
 gfx=greatsword
 loot=greatsword
 
+[item]
+id=255
+name=Dwarven Greatsword
+level=9
+quality=high
+type=main
+icon=99,3
+dmg=5,12
+bonus=health,4
+req=p,5
+sfx=metal
+gfx=greatsword
+loot=greatsword
 
+[item]
+id=256
+name=Greatsword of Restoration
+level=10
+quality=high
+type=main
+icon=99,3
+dmg=5,12
+bonus=health regen,1
+req=p,5
+sfx=metal
+gfx=greatsword
+loot=greatsword
 
-# Wands
+[item]
+id=257
+name=Elven Greatsword
+level=9
+quality=high
+type=main
+icon=99,3
+dmg=5,12
+bonus=mana,2
+req=p,5
+sfx=metal
+gfx=greatsword
+loot=greatsword
+
+[item]
+id=258
+name=Greatsword of Meditation
+level=10
+quality=high
+type=main
+icon=99,3
+dmg=5,12
+bonus=mana regen,1
+req=p,5
+sfx=metal
+gfx=greatsword
+loot=greatsword
+
+[item]
+id=259
+name=Battle Greatsword
+level=10
+quality=high
+type=main
+icon=99,3
+dmg=6,13
+req=p,5
+sfx=metal
+gfx=greatsword
+loot=greatsword
+
+[item]
+id=260
+name=Greatsword of Accuracy
+level=9
+quality=high
+type=main
+icon=99,3
+dmg=5,12
+bonus=accuracy,3
+req=p,5
+sfx=metal
+gfx=greatsword
+loot=greatsword
+
+[item]
+id=261
+name=Greatsword of Avoidance
+level=9
+quality=high
+type=main
+icon=99,3
+dmg=5,12
+bonus=avoidance,3
+req=p,5
+sfx=metal
+gfx=greatsword
+loot=greatsword
+
+[item]
+id=262
+name=Summer Greatsword
+level=9
+quality=high
+type=main
+icon=99,3
+dmg=5,12
+bonus=fire resist,8
+req=p,5
+sfx=metal
+gfx=greatsword
+loot=greatsword
+
+[item]
+id=263
+name=Winter Greatsword
+level=9
+quality=high
+type=main
+icon=99,3
+dmg=5,12
+bonus=ice resist,8
+req=p,5
+sfx=metal
+gfx=greatsword
+loot=greatsword
+
+[item]
+id=264
+name=Greatsword of Slaying
+level=10
+quality=high
+type=main
+icon=99,3
+dmg=5,12
+bonus=crit,1
+req=p,5
+sfx=metal
+gfx=greatsword
+loot=greatsword
+
+[item]
+id=270
+name=Warlord Greatsword
+level=11
+quality=high
+type=main
+icon=99,3
+dmg=5,13
+bonus=health,7
+req=p,5
+sfx=metal
+gfx=greatsword
+loot=greatsword
+
+[item]
+id=271
+name=Greatsword of Victory
+level=12
+quality=high
+type=main
+icon=99,3
+dmg=5,13
+bonus=health regen,2
+req=p,5
+sfx=metal
+gfx=greatsword
+loot=greatsword
+
+[item]
+id=272
+name=Archmage Greatsword
+level=11
+quality=high
+type=main
+icon=99,3
+dmg=5,13
+bonus=mana,5
+req=p,5
+sfx=metal
+gfx=greatsword
+loot=greatsword
+
+[item]
+id=273
+name=Greatsword of Wizardry
+level=12
+quality=high
+type=main
+icon=99,3
+dmg=5,13
+bonus=mana regen,2
+req=p,5
+sfx=metal
+gfx=greatsword
+loot=greatsword
+
+[item]
+id=274
+name=Ancient Greatsword
+level=12
+quality=high
+type=main
+icon=99,3
+dmg=7,14
+req=p,5
+sfx=metal
+gfx=greatsword
+loot=greatsword
+
+[item]
+id=275
+name=Greatsword of Precision
+level=11
+quality=high
+type=main
+icon=99,3
+dmg=5,13
+bonus=accuracy,6
+req=p,5
+sfx=metal
+gfx=greatsword
+loot=greatsword
+
+[item]
+id=276
+name=Greatsword of Protection
+level=11
+quality=high
+type=main
+icon=99,3
+dmg=5,13
+bonus=avoidance,6
+req=p,5
+sfx=metal
+gfx=greatsword
+loot=greatsword
+
+[item]
+id=277
+name=Fiery Greatsword
+level=11
+quality=high
+type=main
+icon=99,3
+dmg=5,13
+bonus=fire resist,11
+req=p,5
+sfx=metal
+gfx=greatsword
+loot=greatsword
+
+[item]
+id=278
+name=Frozen Greatsword
+level=11
+quality=high
+type=main
+icon=99,3
+dmg=5,13
+bonus=ice resist,11
+req=p,5
+sfx=metal
+gfx=greatsword
+loot=greatsword
+
+[item]
+id=279
+name=Greatsword of Destruction
+level=12
+quality=high
+type=main
+icon=99,3
+dmg=5,13
+bonus=crit,2
+req=p,5
+sfx=metal
+gfx=greatsword
+loot=greatsword
+
+[item]
+id=285
+name=Ragnarok
+level=13
+quality=epic
+type=main
+icon=99,3
+dmg=7,14
+bonus=health,10
+req=p,5
+sfx=metal
+gfx=greatsword
+loot=greatsword
+
+[item]
+id=286
+name=Earth Rend
+level=14
+quality=epic
+type=main
+icon=99,3
+dmg=7,14
+bonus=health regen,3
+req=p,5
+sfx=metal
+gfx=greatsword
+loot=greatsword
+
+[item]
+id=287
+name=Joyeuse
+level=13
+quality=epic
+type=main
+icon=99,3
+dmg=7,14
+bonus=mana,8
+req=p,5
+sfx=metal
+gfx=greatsword
+loot=greatsword
+
+[item]
+id=288
+name=Soul Rend
+level=14
+quality=epic
+type=main
+icon=99,3
+dmg=7,14
+bonus=mana regen,3
+req=p,5
+sfx=metal
+gfx=greatsword
+loot=greatsword
+
+[item]
+id=289
+name=Hrunting
+level=13
+quality=epic
+type=main
+icon=99,3
+dmg=7,14
+bonus=accuracy,9
+req=p,5
+sfx=metal
+gfx=greatsword
+loot=greatsword
+
+[item]
+id=290
+name=Naegling
+level=13
+quality=epic
+type=main
+icon=99,3
+dmg=7,14
+bonus=avoidance,9
+req=p,5
+sfx=metal
+gfx=greatsword
+loot=greatsword
+
+[item]
+id=291
+name=Sunblade
+level=13
+quality=epic
+type=main
+icon=99,3
+dmg=7,14
+bonus=fire resist,14
+req=p,5
+sfx=metal
+gfx=greatsword
+loot=greatsword
+
+[item]
+id=292
+name=Moonblade
+level=13
+quality=epic
+type=main
+icon=99,3
+dmg=7,14
+bonus=ice resist,14
+req=p,5
+sfx=metal
+gfx=greatsword
+loot=greatsword
+
+[item]
+id=293
+name=Armageddon
+level=14
+quality=epic
+type=main
+icon=99,3
+dmg=7,14
+bonus=crit,3
+req=p,5
+sfx=metal
+gfx=greatsword
+loot=greatsword
+
 [item]
 id=300
 name=Wand
 level=2
-icon=100,4
+quality=normal
 type=main
+icon=100,4
 dmg=2,6
 req=m,2
 sfx=wood
 gfx=wand
 loot=wand
 
-# Rods
+[item]
+id=301
+name=Cracked Wand
+level=1
+quality=low
+type=main
+icon=100,4
+dmg=1,5
+req=m,2
+sfx=wood
+gfx=wand
+loot=wand
+
+[item]
+id=302
+name=Cursed Wand
+level=1
+quality=low
+type=main
+icon=100,4
+dmg=2,6
+bonus=accuracy,-3
+req=m,2
+sfx=wood
+gfx=wand
+loot=wand
+
+[item]
+id=303
+name=Depleted Wand
+level=1
+quality=low
+type=main
+icon=100,4
+dmg=2,6
+bonus=crit,-1
+req=m,2
+sfx=wood
+gfx=wand
+loot=wand
+
+[item]
+id=305
+name=Dwarven Wand
+level=3
+quality=high
+type=main
+icon=100,4
+dmg=2,6
+bonus=health,2
+req=m,2
+sfx=wood
+gfx=wand
+loot=wand
+
+[item]
+id=306
+name=Wand of Restoration
+level=4
+quality=high
+type=main
+icon=100,4
+dmg=2,6
+bonus=health regen,1
+req=m,2
+sfx=wood
+gfx=wand
+loot=wand
+
+[item]
+id=307
+name=Elven Wand
+level=3
+quality=high
+type=main
+icon=100,4
+dmg=2,6
+bonus=mana,4
+req=m,2
+sfx=wood
+gfx=wand
+loot=wand
+
+[item]
+id=308
+name=Wand of Meditation
+level=4
+quality=high
+type=main
+icon=100,4
+dmg=2,6
+bonus=mana regen,1
+req=m,2
+sfx=wood
+gfx=wand
+loot=wand
+
+[item]
+id=309
+name=Battle Wand
+level=4
+quality=high
+type=main
+icon=100,4
+dmg=3,7
+req=m,2
+sfx=wood
+gfx=wand
+loot=wand
+
+[item]
+id=310
+name=Wand of Accuracy
+level=3
+quality=high
+type=main
+icon=100,4
+dmg=2,6
+bonus=accuracy,3
+req=m,2
+sfx=wood
+gfx=wand
+loot=wand
+
+[item]
+id=311
+name=Wand of Avoidance
+level=3
+quality=high
+type=main
+icon=100,4
+dmg=2,6
+bonus=avoidance,3
+req=m,2
+sfx=wood
+gfx=wand
+loot=wand
+
+[item]
+id=312
+name=Summer Wand
+level=3
+quality=high
+type=main
+icon=100,4
+dmg=2,6
+bonus=fire resist,8
+req=m,2
+sfx=wood
+gfx=wand
+loot=wand
+
+[item]
+id=313
+name=Winter Wand
+level=3
+quality=high
+type=main
+icon=100,4
+dmg=2,6
+bonus=ice resist,8
+req=m,2
+sfx=wood
+gfx=wand
+loot=wand
+
+[item]
+id=314
+name=Wand of Slaying
+level=4
+quality=high
+type=main
+icon=100,4
+dmg=2,6
+bonus=crit,1
+req=m,2
+sfx=wood
+gfx=wand
+loot=wand
+
+[item]
+id=320
+name=Warlord Wand
+level=5
+quality=high
+type=main
+icon=100,4
+dmg=2,7
+bonus=health,5
+req=m,2
+sfx=wood
+gfx=wand
+loot=wand
+
+[item]
+id=321
+name=Wand of Victory
+level=6
+quality=high
+type=main
+icon=100,4
+dmg=2,7
+bonus=health regen,2
+req=m,2
+sfx=wood
+gfx=wand
+loot=wand
+
+[item]
+id=322
+name=Archmage Wand
+level=5
+quality=high
+type=main
+icon=100,4
+dmg=2,7
+bonus=mana,7
+req=m,2
+sfx=wood
+gfx=wand
+loot=wand
+
+[item]
+id=323
+name=Wand of Wizardry
+level=6
+quality=high
+type=main
+icon=100,4
+dmg=2,7
+bonus=mana regen,2
+req=m,2
+sfx=wood
+gfx=wand
+loot=wand
+
+[item]
+id=324
+name=Ancient Wand
+level=6
+quality=high
+type=main
+icon=100,4
+dmg=4,8
+req=m,2
+sfx=wood
+gfx=wand
+loot=wand
+
+[item]
+id=325
+name=Wand of Precision
+level=5
+quality=high
+type=main
+icon=100,4
+dmg=2,7
+bonus=accuracy,6
+req=m,2
+sfx=wood
+gfx=wand
+loot=wand
+
+[item]
+id=326
+name=Wand of Protection
+level=5
+quality=high
+type=main
+icon=100,4
+dmg=2,7
+bonus=avoidance,6
+req=m,2
+sfx=wood
+gfx=wand
+loot=wand
+
+[item]
+id=327
+name=Fiery Wand
+level=5
+quality=high
+type=main
+icon=100,4
+dmg=2,7
+bonus=fire resist,11
+req=m,2
+sfx=wood
+gfx=wand
+loot=wand
+
+[item]
+id=328
+name=Frozen Wand
+level=5
+quality=high
+type=main
+icon=100,4
+dmg=2,7
+bonus=ice resist,11
+req=m,2
+sfx=wood
+gfx=wand
+loot=wand
+
+[item]
+id=329
+name=Wand of Destruction
+level=6
+quality=high
+type=main
+icon=100,4
+dmg=2,7
+bonus=crit,2
+req=m,2
+sfx=wood
+gfx=wand
+loot=wand
+
+[item]
+id=335
+name=Tongue Depressor
+level=7
+quality=epic
+type=main
+icon=100,4
+dmg=4,8
+bonus=health,8
+req=m,2
+sfx=wood
+gfx=wand
+loot=wand
+
+[item]
+id=336
+name=Living Branch
+level=8
+quality=epic
+type=main
+icon=100,4
+dmg=4,8
+bonus=health regen,3
+req=m,2
+sfx=wood
+gfx=wand
+loot=wand
+
+[item]
+id=337
+name=Glow Stick
+level=7
+quality=epic
+type=main
+icon=100,4
+dmg=4,8
+bonus=mana,10
+req=m,2
+sfx=wood
+gfx=wand
+loot=wand
+
+[item]
+id=338
+name=Mana Catcher
+level=8
+quality=epic
+type=main
+icon=100,4
+dmg=4,8
+bonus=mana regen,3
+req=m,2
+sfx=wood
+gfx=wand
+loot=wand
+
+[item]
+id=339
+name=Conductor's Baton
+level=7
+quality=epic
+type=main
+icon=100,4
+dmg=4,8
+bonus=accuracy,9
+req=m,2
+sfx=wood
+gfx=wand
+loot=wand
+
+[item]
+id=340
+name=Blink Wand
+level=7
+quality=epic
+type=main
+icon=100,4
+dmg=4,8
+bonus=avoidance,9
+req=m,2
+sfx=wood
+gfx=wand
+loot=wand
+
+[item]
+id=341
+name=Enchanted Torch
+level=7
+quality=epic
+type=main
+icon=100,4
+dmg=4,8
+bonus=fire resist,14
+req=m,2
+sfx=wood
+gfx=wand
+loot=wand
+
+[item]
+id=342
+name=Snowy Branch
+level=7
+quality=epic
+type=main
+icon=100,4
+dmg=4,8
+bonus=ice resist,14
+req=m,2
+sfx=wood
+gfx=wand
+loot=wand
+
+[item]
+id=343
+name=Lich Finger
+level=8
+quality=epic
+type=main
+icon=100,4
+dmg=4,8
+bonus=crit,3
+req=m,2
+sfx=wood
+gfx=wand
+loot=wand
+
 [item]
 id=350
 name=Rod
 level=4
-icon=101,5
+quality=normal
 type=main
+icon=101,5
 dmg=3,8
 req=m,3
 sfx=wood
 gfx=rod
 loot=rod
 
-# Staffs
+[item]
+id=351
+name=Cracked Rod
+level=3
+quality=low
+type=main
+icon=101,5
+dmg=2,7
+req=m,3
+sfx=wood
+gfx=rod
+loot=rod
+
+[item]
+id=352
+name=Cursed Rod
+level=3
+quality=low
+type=main
+icon=101,5
+dmg=3,8
+bonus=accuracy,-3
+req=m,3
+sfx=wood
+gfx=rod
+loot=rod
+
+[item]
+id=353
+name=Depleted Rod
+level=3
+quality=low
+type=main
+icon=101,5
+dmg=3,8
+bonus=crit,-1
+req=m,3
+sfx=wood
+gfx=rod
+loot=rod
+
+[item]
+id=355
+name=Dwarven Rod
+level=5
+quality=high
+type=main
+icon=101,5
+dmg=3,8
+bonus=health,2
+req=m,3
+sfx=wood
+gfx=rod
+loot=rod
+
+[item]
+id=356
+name=Rod of Restoration
+level=6
+quality=high
+type=main
+icon=101,5
+dmg=3,8
+bonus=health regen,1
+req=m,3
+sfx=wood
+gfx=rod
+loot=rod
+
+[item]
+id=357
+name=Elven Rod
+level=5
+quality=high
+type=main
+icon=101,5
+dmg=3,8
+bonus=mana,4
+req=m,3
+sfx=wood
+gfx=rod
+loot=rod
+
+[item]
+id=358
+name=Rod of Meditation
+level=6
+quality=high
+type=main
+icon=101,5
+dmg=3,8
+bonus=mana regen,1
+req=m,3
+sfx=wood
+gfx=rod
+loot=rod
+
+[item]
+id=359
+name=Battle Rod
+level=6
+quality=high
+type=main
+icon=101,5
+dmg=4,9
+req=m,3
+sfx=wood
+gfx=rod
+loot=rod
+
+[item]
+id=360
+name=Rod of Accuracy
+level=5
+quality=high
+type=main
+icon=101,5
+dmg=3,8
+bonus=accuracy,3
+req=m,3
+sfx=wood
+gfx=rod
+loot=rod
+
+[item]
+id=361
+name=Rod of Avoidance
+level=5
+quality=high
+type=main
+icon=101,5
+dmg=3,8
+bonus=avoidance,3
+req=m,3
+sfx=wood
+gfx=rod
+loot=rod
+
+[item]
+id=362
+name=Summer Rod
+level=5
+quality=high
+type=main
+icon=101,5
+dmg=3,8
+bonus=fire resist,8
+req=m,3
+sfx=wood
+gfx=rod
+loot=rod
+
+[item]
+id=363
+name=Winter Rod
+level=5
+quality=high
+type=main
+icon=101,5
+dmg=3,8
+bonus=ice resist,8
+req=m,3
+sfx=wood
+gfx=rod
+loot=rod
+
+[item]
+id=364
+name=Rod of Slaying
+level=6
+quality=high
+type=main
+icon=101,5
+dmg=3,8
+bonus=crit,1
+req=m,3
+sfx=wood
+gfx=rod
+loot=rod
+
+[item]
+id=370
+name=Warlord Rod
+level=7
+quality=high
+type=main
+icon=101,5
+dmg=3,9
+bonus=health,5
+req=m,3
+sfx=wood
+gfx=rod
+loot=rod
+
+[item]
+id=371
+name=Rod of Victory
+level=8
+quality=high
+type=main
+icon=101,5
+dmg=3,9
+bonus=health regen,2
+req=m,3
+sfx=wood
+gfx=rod
+loot=rod
+
+[item]
+id=372
+name=Archmage Rod
+level=7
+quality=high
+type=main
+icon=101,5
+dmg=3,9
+bonus=mana,7
+req=m,3
+sfx=wood
+gfx=rod
+loot=rod
+
+[item]
+id=373
+name=Rod of Wizardry
+level=8
+quality=high
+type=main
+icon=101,5
+dmg=3,9
+bonus=mana regen,2
+req=m,3
+sfx=wood
+gfx=rod
+loot=rod
+
+[item]
+id=374
+name=Ancient Rod
+level=8
+quality=high
+type=main
+icon=101,5
+dmg=5,10
+req=m,3
+sfx=wood
+gfx=rod
+loot=rod
+
+[item]
+id=375
+name=Rod of Precision
+level=7
+quality=high
+type=main
+icon=101,5
+dmg=3,9
+bonus=accuracy,6
+req=m,3
+sfx=wood
+gfx=rod
+loot=rod
+
+[item]
+id=376
+name=Rod of Protection
+level=7
+quality=high
+type=main
+icon=101,5
+dmg=3,9
+bonus=avoidance,6
+req=m,3
+sfx=wood
+gfx=rod
+loot=rod
+
+[item]
+id=377
+name=Fiery Rod
+level=7
+quality=high
+type=main
+icon=101,5
+dmg=3,9
+bonus=fire resist,11
+req=m,3
+sfx=wood
+gfx=rod
+loot=rod
+
+[item]
+id=378
+name=Frozen Rod
+level=7
+quality=high
+type=main
+icon=101,5
+dmg=3,9
+bonus=ice resist,11
+req=m,3
+sfx=wood
+gfx=rod
+loot=rod
+
+[item]
+id=379
+name=Rod of Destruction
+level=8
+quality=high
+type=main
+icon=101,5
+dmg=3,9
+bonus=crit,2
+req=m,3
+sfx=wood
+gfx=rod
+loot=rod
+
+[item]
+id=385
+name=Scepter of Kings
+level=9
+quality=epic
+type=main
+icon=101,5
+dmg=5,10
+bonus=health,8
+req=m,3
+sfx=wood
+gfx=rod
+loot=rod
+
+[item]
+id=386
+name=Medic Rod
+level=10
+quality=epic
+type=main
+icon=101,5
+dmg=5,10
+bonus=health regen,3
+req=m,3
+sfx=wood
+gfx=rod
+loot=rod
+
+[item]
+id=387
+name=Sage Scepter
+level=9
+quality=epic
+type=main
+icon=101,5
+dmg=5,10
+bonus=mana,10
+req=m,3
+sfx=wood
+gfx=rod
+loot=rod
+
+[item]
+id=388
+name=Oracle Rod
+level=10
+quality=epic
+type=main
+icon=101,5
+dmg=5,10
+bonus=mana regen,3
+req=m,3
+sfx=wood
+gfx=rod
+loot=rod
+
+[item]
+id=389
+name=Rod of Alignment
+level=9
+quality=epic
+type=main
+icon=101,5
+dmg=5,10
+bonus=accuracy,9
+req=m,3
+sfx=wood
+gfx=rod
+loot=rod
+
+[item]
+id=390
+name=Warding Rod
+level=9
+quality=epic
+type=main
+icon=101,5
+dmg=5,10
+bonus=avoidance,9
+req=m,3
+sfx=wood
+gfx=rod
+loot=rod
+
+[item]
+id=391
+name=Ruby-Tipped Cane
+level=9
+quality=epic
+type=main
+icon=101,5
+dmg=5,10
+bonus=fire resist,14
+req=m,3
+sfx=wood
+gfx=rod
+loot=rod
+
+[item]
+id=392
+name=Diamond-Tipped Cane
+level=9
+quality=epic
+type=main
+icon=101,5
+dmg=5,10
+bonus=ice resist,14
+req=m,3
+sfx=wood
+gfx=rod
+loot=rod
+
+[item]
+id=393
+name=Unwraveller
+level=10
+quality=epic
+type=main
+icon=101,5
+dmg=5,10
+bonus=crit,3
+req=m,3
+sfx=wood
+gfx=rod
+loot=rod
+
 [item]
 id=400
 name=Staff
 level=6
-icon=102,6
+quality=normal
 type=main
+icon=102,6
 dmg=4,10
 req=m,4
 sfx=wood
 gfx=staff
 loot=staff
 
-# Greatstaffs
+[item]
+id=401
+name=Cracked Staff
+level=5
+quality=low
+type=main
+icon=102,6
+dmg=3,9
+req=m,4
+sfx=wood
+gfx=staff
+loot=staff
+
+[item]
+id=402
+name=Cursed Staff
+level=5
+quality=low
+type=main
+icon=102,6
+dmg=4,10
+bonus=accuracy,-3
+req=m,4
+sfx=wood
+gfx=staff
+loot=staff
+
+[item]
+id=403
+name=Depleted Staff
+level=5
+quality=low
+type=main
+icon=102,6
+dmg=4,10
+bonus=crit,-1
+req=m,4
+sfx=wood
+gfx=staff
+loot=staff
+
+[item]
+id=405
+name=Dwarven Staff
+level=7
+quality=high
+type=main
+icon=102,6
+dmg=4,10
+bonus=health,2
+req=m,4
+sfx=wood
+gfx=staff
+loot=staff
+
+[item]
+id=406
+name=Staff of Restoration
+level=8
+quality=high
+type=main
+icon=102,6
+dmg=4,10
+bonus=health regen,1
+req=m,4
+sfx=wood
+gfx=staff
+loot=staff
+
+[item]
+id=407
+name=Elven Staff
+level=7
+quality=high
+type=main
+icon=102,6
+dmg=4,10
+bonus=mana,4
+req=m,4
+sfx=wood
+gfx=staff
+loot=staff
+
+[item]
+id=408
+name=Staff of Meditation
+level=8
+quality=high
+type=main
+icon=102,6
+dmg=4,10
+bonus=mana regen,1
+req=m,4
+sfx=wood
+gfx=staff
+loot=staff
+
+[item]
+id=409
+name=Battle Staff
+level=8
+quality=high
+type=main
+icon=102,6
+dmg=5,11
+req=m,4
+sfx=wood
+gfx=staff
+loot=staff
+
+[item]
+id=410
+name=Staff of Accuracy
+level=7
+quality=high
+type=main
+icon=102,6
+dmg=4,10
+bonus=accuracy,3
+req=m,4
+sfx=wood
+gfx=staff
+loot=staff
+
+[item]
+id=411
+name=Staff of Avoidance
+level=7
+quality=high
+type=main
+icon=102,6
+dmg=4,10
+bonus=avoidance,3
+req=m,4
+sfx=wood
+gfx=staff
+loot=staff
+
+[item]
+id=412
+name=Summer Staff
+level=7
+quality=high
+type=main
+icon=102,6
+dmg=4,10
+bonus=fire resist,8
+req=m,4
+sfx=wood
+gfx=staff
+loot=staff
+
+[item]
+id=413
+name=Winter Staff
+level=7
+quality=high
+type=main
+icon=102,6
+dmg=4,10
+bonus=ice resist,8
+req=m,4
+sfx=wood
+gfx=staff
+loot=staff
+
+[item]
+id=414
+name=Staff of Slaying
+level=8
+quality=high
+type=main
+icon=102,6
+dmg=4,10
+bonus=crit,1
+req=m,4
+sfx=wood
+gfx=staff
+loot=staff
+
+[item]
+id=420
+name=Warlord Staff
+level=9
+quality=high
+type=main
+icon=102,6
+dmg=4,11
+bonus=health,5
+req=m,4
+sfx=wood
+gfx=staff
+loot=staff
+
+[item]
+id=421
+name=Staff of Victory
+level=10
+quality=high
+type=main
+icon=102,6
+dmg=4,11
+bonus=health regen,2
+req=m,4
+sfx=wood
+gfx=staff
+loot=staff
+
+[item]
+id=422
+name=Archmage Staff
+level=9
+quality=high
+type=main
+icon=102,6
+dmg=4,11
+bonus=mana,7
+req=m,4
+sfx=wood
+gfx=staff
+loot=staff
+
+[item]
+id=423
+name=Staff of Wizardry
+level=10
+quality=high
+type=main
+icon=102,6
+dmg=4,11
+bonus=mana regen,2
+req=m,4
+sfx=wood
+gfx=staff
+loot=staff
+
+[item]
+id=424
+name=Ancient Staff
+level=10
+quality=high
+type=main
+icon=102,6
+dmg=6,12
+req=m,4
+sfx=wood
+gfx=staff
+loot=staff
+
+[item]
+id=425
+name=Staff of Precision
+level=9
+quality=high
+type=main
+icon=102,6
+dmg=4,11
+bonus=accuracy,6
+req=m,4
+sfx=wood
+gfx=staff
+loot=staff
+
+[item]
+id=426
+name=Staff of Protection
+level=9
+quality=high
+type=main
+icon=102,6
+dmg=4,11
+bonus=avoidance,6
+req=m,4
+sfx=wood
+gfx=staff
+loot=staff
+
+[item]
+id=427
+name=Fiery Staff
+level=9
+quality=high
+type=main
+icon=102,6
+dmg=4,11
+bonus=fire resist,11
+req=m,4
+sfx=wood
+gfx=staff
+loot=staff
+
+[item]
+id=428
+name=Frozen Staff
+level=9
+quality=high
+type=main
+icon=102,6
+dmg=4,11
+bonus=ice resist,11
+req=m,4
+sfx=wood
+gfx=staff
+loot=staff
+
+[item]
+id=429
+name=Staff of Destruction
+level=10
+quality=high
+type=main
+icon=102,6
+dmg=4,11
+bonus=crit,2
+req=m,4
+sfx=wood
+gfx=staff
+loot=staff
+
+[item]
+id=435
+name=Walking Stick
+level=11
+quality=epic
+type=main
+icon=102,6
+dmg=6,12
+bonus=health,8
+req=m,4
+sfx=wood
+gfx=staff
+loot=staff
+
+[item]
+id=436
+name=Totem of Life
+level=12
+quality=epic
+type=main
+icon=102,6
+dmg=6,12
+bonus=health regen,3
+req=m,4
+sfx=wood
+gfx=staff
+loot=staff
+
+[item]
+id=437
+name=Cosmic Staff
+level=11
+quality=epic
+type=main
+icon=102,6
+dmg=6,12
+bonus=mana,10
+req=m,4
+sfx=wood
+gfx=staff
+loot=staff
+
+[item]
+id=438
+name=Totem of Dreams
+level=12
+quality=epic
+type=main
+icon=102,6
+dmg=6,12
+bonus=mana regen,3
+req=m,4
+sfx=wood
+gfx=staff
+loot=staff
+
+[item]
+id=439
+name=Staff of True Sight
+level=11
+quality=epic
+type=main
+icon=102,6
+dmg=6,12
+bonus=accuracy,9
+req=m,4
+sfx=wood
+gfx=staff
+loot=staff
+
+[item]
+id=440
+name=Staff of Trials
+level=11
+quality=epic
+type=main
+icon=102,6
+dmg=6,12
+bonus=avoidance,9
+req=m,4
+sfx=wood
+gfx=staff
+loot=staff
+
+[item]
+id=441
+name=Magma Flow
+level=11
+quality=epic
+type=main
+icon=102,6
+dmg=6,12
+bonus=fire resist,14
+req=m,4
+sfx=wood
+gfx=staff
+loot=staff
+
+[item]
+id=442
+name=Glacial Wind
+level=11
+quality=epic
+type=main
+icon=102,6
+dmg=6,12
+bonus=ice resist,14
+req=m,4
+sfx=wood
+gfx=staff
+loot=staff
+
+[item]
+id=443
+name=Wyvern Spine
+level=12
+quality=epic
+type=main
+icon=102,6
+dmg=6,12
+bonus=crit,3
+req=m,4
+sfx=wood
+gfx=staff
+loot=staff
+
 [item]
 id=450
 name=Greatstaff
 level=8
-icon=103,7
+quality=normal
 type=main
+icon=103,7
 dmg=5,12
 req=m,5
 sfx=wood
 gfx=greatstaff
 loot=greatstaff
 
-# Slingshots
+[item]
+id=451
+name=Cracked Greatstaff
+level=7
+quality=low
+type=main
+icon=103,7
+dmg=4,11
+req=m,5
+sfx=wood
+gfx=greatstaff
+loot=greatstaff
+
+[item]
+id=452
+name=Cursed Greatstaff
+level=7
+quality=low
+type=main
+icon=103,7
+dmg=5,12
+bonus=accuracy,-3
+req=m,5
+sfx=wood
+gfx=greatstaff
+loot=greatstaff
+
+[item]
+id=453
+name=Depleted Greatstaff
+level=7
+quality=low
+type=main
+icon=103,7
+dmg=5,12
+bonus=crit,-1
+req=m,5
+sfx=wood
+gfx=greatstaff
+loot=greatstaff
+
+[item]
+id=455
+name=Dwarven Greatstaff
+level=9
+quality=high
+type=main
+icon=103,7
+dmg=5,12
+bonus=health,2
+req=m,5
+sfx=wood
+gfx=greatstaff
+loot=greatstaff
+
+[item]
+id=456
+name=Greatstaff of Restoration
+level=10
+quality=high
+type=main
+icon=103,7
+dmg=5,12
+bonus=health regen,1
+req=m,5
+sfx=wood
+gfx=greatstaff
+loot=greatstaff
+
+[item]
+id=457
+name=Elven Greatstaff
+level=9
+quality=high
+type=main
+icon=103,7
+dmg=5,12
+bonus=mana,4
+req=m,5
+sfx=wood
+gfx=greatstaff
+loot=greatstaff
+
+[item]
+id=458
+name=Greatstaff of Meditation
+level=10
+quality=high
+type=main
+icon=103,7
+dmg=5,12
+bonus=mana regen,1
+req=m,5
+sfx=wood
+gfx=greatstaff
+loot=greatstaff
+
+[item]
+id=459
+name=Battle Greatstaff
+level=10
+quality=high
+type=main
+icon=103,7
+dmg=6,13
+req=m,5
+sfx=wood
+gfx=greatstaff
+loot=greatstaff
+
+[item]
+id=460
+name=Rod of Accuracy
+level=5
+quality=high
+type=main
+icon=101,5
+dmg=3,8
+bonus=accuracy,3
+req=m,3
+sfx=wood
+gfx=rod
+loot=rod
+
+[item]
+id=461
+name=Greatstaff of Avoidance
+level=9
+quality=high
+type=main
+icon=103,7
+dmg=5,12
+bonus=avoidance,3
+req=m,5
+sfx=wood
+gfx=greatstaff
+loot=greatstaff
+
+[item]
+id=462
+name=Summer Greatstaff
+level=9
+quality=high
+type=main
+icon=103,7
+dmg=5,12
+bonus=fire resist,8
+req=m,5
+sfx=wood
+gfx=greatstaff
+loot=greatstaff
+
+[item]
+id=463
+name=Winter Greatstaff
+level=9
+quality=high
+type=main
+icon=103,7
+dmg=5,12
+bonus=ice resist,8
+req=m,5
+sfx=wood
+gfx=greatstaff
+loot=greatstaff
+
+[item]
+id=464
+name=Greatstaff of Slaying
+level=10
+quality=high
+type=main
+icon=103,7
+dmg=5,12
+bonus=crit,1
+req=m,5
+sfx=wood
+gfx=greatstaff
+loot=greatstaff
+
+[item]
+id=470
+name=Warlord Greatstaff
+level=11
+quality=high
+type=main
+icon=103,7
+dmg=5,13
+bonus=health,5
+req=m,5
+sfx=wood
+gfx=greatstaff
+loot=greatstaff
+
+[item]
+id=471
+name=Greatstaff of Victory
+level=12
+quality=high
+type=main
+icon=103,7
+dmg=5,13
+bonus=health regen,2
+req=m,5
+sfx=wood
+gfx=greatstaff
+loot=greatstaff
+
+[item]
+id=472
+name=Archmage Greatstaff
+level=11
+quality=high
+type=main
+icon=103,7
+dmg=5,13
+bonus=mana,7
+req=m,5
+sfx=wood
+gfx=greatstaff
+loot=greatstaff
+
+[item]
+id=473
+name=Greatstaff of Wizardry
+level=12
+quality=high
+type=main
+icon=103,7
+dmg=5,13
+bonus=mana regen,2
+req=m,5
+sfx=wood
+gfx=greatstaff
+loot=greatstaff
+
+[item]
+id=474
+name=Ancient Greatstaff
+level=12
+quality=high
+type=main
+icon=103,7
+dmg=7,14
+req=m,5
+sfx=wood
+gfx=greatstaff
+loot=greatstaff
+
+[item]
+id=475
+name=Greatstaff of Precision
+level=11
+quality=high
+type=main
+icon=103,7
+dmg=5,13
+bonus=accuracy,6
+req=m,5
+sfx=wood
+gfx=greatstaff
+loot=greatstaff
+
+[item]
+id=476
+name=Greatstaff of Protection
+level=11
+quality=high
+type=main
+icon=103,7
+dmg=5,13
+bonus=avoidance,6
+req=m,5
+sfx=wood
+gfx=greatstaff
+loot=greatstaff
+
+[item]
+id=477
+name=Fiery Greatstaff
+level=11
+quality=high
+type=main
+icon=103,7
+dmg=5,13
+bonus=fire resist,11
+req=m,5
+sfx=wood
+gfx=greatstaff
+loot=greatstaff
+
+[item]
+id=478
+name=Frozen Greatstaff
+level=11
+quality=high
+type=main
+icon=103,7
+dmg=5,13
+bonus=ice resist,11
+req=m,5
+sfx=wood
+gfx=greatstaff
+loot=greatstaff
+
+[item]
+id=479
+name=Greatstaff of Destruction
+level=12
+quality=high
+type=main
+icon=103,7
+dmg=5,13
+bonus=crit,2
+req=m,5
+sfx=wood
+gfx=greatstaff
+loot=greatstaff
+
+[item]
+id=485
+name=Lifegiver
+level=13
+quality=epic
+type=main
+icon=103,7
+dmg=7,14
+bonus=health,8
+req=m,5
+sfx=wood
+gfx=greatstaff
+loot=greatstaff
+
+[item]
+id=486
+name=Preserver
+level=14
+quality=epic
+type=main
+icon=103,7
+dmg=7,14
+bonus=health regen,3
+req=m,5
+sfx=wood
+gfx=greatstaff
+loot=greatstaff
+
+[item]
+id=487
+name=Enlightenment
+level=13
+quality=epic
+type=main
+icon=103,7
+dmg=7,14
+bonus=mana,10
+req=m,5
+sfx=wood
+gfx=greatstaff
+loot=greatstaff
+
+[item]
+id=488
+name=Defiler
+level=14
+quality=epic
+type=main
+icon=103,7
+dmg=7,14
+bonus=mana regen,3
+req=m,5
+sfx=wood
+gfx=greatstaff
+loot=greatstaff
+
+[item]
+id=489
+name=Precognition
+level=13
+quality=epic
+type=main
+icon=103,7
+dmg=7,14
+bonus=accuracy,9
+req=m,5
+sfx=wood
+gfx=greatstaff
+loot=greatstaff
+
+[item]
+id=490
+name=Singularity
+level=13
+quality=epic
+type=main
+icon=103,7
+dmg=7,14
+bonus=avoidance,9
+req=m,5
+sfx=wood
+gfx=greatstaff
+loot=greatstaff
+
+[item]
+id=491
+name=Fission
+level=13
+quality=epic
+type=main
+icon=103,7
+dmg=7,14
+bonus=fire resist,14
+req=m,5
+sfx=wood
+gfx=greatstaff
+loot=greatstaff
+
+[item]
+id=492
+name=Fusion
+level=13
+quality=epic
+type=main
+icon=103,7
+dmg=7,14
+bonus=ice resist,14
+req=m,5
+sfx=wood
+gfx=greatstaff
+loot=greatstaff
+
+[item]
+id=493
+name=Cataclysm
+level=14
+quality=epic
+type=main
+icon=103,7
+dmg=7,14
+bonus=crit,3
+req=m,5
+sfx=wood
+gfx=greatstaff
+loot=greatstaff
+
 [item]
 id=500
 name=Slingshot
 level=2
-icon=104,8
+quality=normal
 type=off
+icon=104,8
 dmg=2,6
 req=o,2
 sfx=wood
 gfx=slingshot
 loot=slingshot
 
-# Shortbows
+[item]
+id=501
+name=Cracked Slingshot
+level=1
+quality=low
+type=off
+icon=104,8
+dmg=1,5
+req=o,2
+sfx=wood
+gfx=slingshot
+loot=slingshot
+
+[item]
+id=502
+name=Cursed Slingshot
+level=1
+quality=low
+type=off
+icon=104,8
+dmg=2,6
+bonus=accuracy,-4
+req=o,2
+sfx=wood
+gfx=slingshot
+loot=slingshot
+
+[item]
+id=503
+name=Warped Slingshot
+level=1
+quality=low
+type=off
+icon=104,8
+dmg=2,6
+bonus=crit,-1
+req=o,2
+sfx=wood
+gfx=slingshot
+loot=slingshot
+
+[item]
+id=505
+name=Dwarven Slingshot
+level=3
+quality=high
+type=off
+icon=104,8
+dmg=2,6
+bonus=health,3
+req=o,2
+sfx=wood
+gfx=slingshot
+loot=slingshot
+
+[item]
+id=506
+name=Slingshot of Restoration
+level=4
+quality=high
+type=off
+icon=104,8
+dmg=2,6
+bonus=health regen,1
+req=o,2
+sfx=wood
+gfx=slingshot
+loot=slingshot
+
+[item]
+id=507
+name=Elven Slingshot
+level=3
+quality=high
+type=off
+icon=104,8
+dmg=2,6
+bonus=mana,3
+req=o,2
+sfx=wood
+gfx=slingshot
+loot=slingshot
+
+[item]
+id=508
+name=Slingshot of Meditation
+level=4
+quality=high
+type=off
+icon=104,8
+dmg=2,6
+bonus=mana regen,1
+req=o,2
+sfx=wood
+gfx=slingshot
+loot=slingshot
+
+[item]
+id=509
+name=Battle Slingshot
+level=4
+quality=high
+type=off
+icon=104,8
+dmg=3,7
+req=o,2
+sfx=wood
+gfx=slingshot
+loot=slingshot
+
+[item]
+id=510
+name=Slingshot of Accuracy
+level=3
+quality=high
+type=off
+icon=104,8
+dmg=2,6
+bonus=accuracy,4
+req=o,2
+sfx=wood
+gfx=slingshot
+loot=slingshot
+
+[item]
+id=511
+name=Slingshot of Avoidance
+level=3
+quality=high
+type=off
+icon=104,8
+dmg=2,6
+bonus=avoidance,2
+req=o,2
+sfx=wood
+gfx=slingshot
+loot=slingshot
+
+[item]
+id=512
+name=Summer Slingshot
+level=3
+quality=high
+type=off
+icon=104,8
+dmg=2,6
+bonus=fire resist,6
+req=o,2
+sfx=wood
+gfx=slingshot
+loot=slingshot
+
+[item]
+id=513
+name=Winter Slingshot
+level=3
+quality=high
+type=off
+icon=104,8
+dmg=2,6
+bonus=ice resist,6
+req=o,2
+sfx=wood
+gfx=slingshot
+loot=slingshot
+
+[item]
+id=514
+name=Slingshot of Slaying
+level=4
+quality=high
+type=off
+icon=104,8
+dmg=2,6
+bonus=crit,1
+req=o,2
+sfx=wood
+gfx=slingshot
+loot=slingshot
+
+[item]
+id=520
+name=Warlord Slingshot
+level=5
+quality=high
+type=off
+icon=104,8
+dmg=2,7
+bonus=health,6
+req=o,2
+sfx=wood
+gfx=slingshot
+loot=slingshot
+
+[item]
+id=521
+name=Slingshot of Victory
+level=6
+quality=high
+type=off
+icon=104,8
+dmg=2,7
+bonus=health regen,2
+req=o,2
+sfx=wood
+gfx=slingshot
+loot=slingshot
+
+[item]
+id=522
+name=Archmage Slingshot
+level=5
+quality=high
+type=off
+icon=104,8
+dmg=2,7
+bonus=mana,6
+req=o,2
+sfx=wood
+gfx=slingshot
+loot=slingshot
+
+[item]
+id=523
+name=Slingshot of Wizardry
+level=6
+quality=high
+type=off
+icon=104,8
+dmg=2,7
+bonus=mana regen,2
+req=o,2
+sfx=wood
+gfx=slingshot
+loot=slingshot
+
+[item]
+id=524
+name=Ancient Slingshot
+level=6
+quality=high
+type=off
+icon=104,8
+dmg=4,8
+req=o,2
+sfx=wood
+gfx=slingshot
+loot=slingshot
+
+[item]
+id=525
+name=Slingshot of Precision
+level=5
+quality=high
+type=off
+icon=104,8
+dmg=2,7
+bonus=accuracy,7
+req=o,2
+sfx=wood
+gfx=slingshot
+loot=slingshot
+
+[item]
+id=526
+name=Slingshot of Protection
+level=5
+quality=high
+type=off
+icon=104,8
+dmg=2,7
+bonus=avoidance,5
+req=o,2
+sfx=wood
+gfx=slingshot
+loot=slingshot
+
+[item]
+id=527
+name=Fiery Slingshot
+level=5
+quality=high
+type=off
+icon=104,8
+dmg=2,7
+bonus=fire resist,9
+req=o,2
+sfx=wood
+gfx=slingshot
+loot=slingshot
+
+[item]
+id=528
+name=Frozen Slingshot
+level=5
+quality=high
+type=off
+icon=104,8
+dmg=2,7
+bonus=ice resist,9
+req=o,2
+sfx=wood
+gfx=slingshot
+loot=slingshot
+
+[item]
+id=529
+name=Slingshot of Destruction
+level=6
+quality=high
+type=off
+icon=104,8
+dmg=2,7
+bonus=crit,2
+req=o,2
+sfx=wood
+gfx=slingshot
+loot=slingshot
+
+[item]
+id=535
+name=Ash Branch
+level=7
+quality=epic
+type=off
+icon=104,8
+dmg=4,8
+bonus=health,9
+req=o,2
+sfx=wood
+gfx=slingshot
+loot=slingshot
+
+[item]
+id=536
+name=Rock Sling
+level=8
+quality=epic
+type=off
+icon=104,8
+dmg=4,8
+bonus=health regen,3
+req=o,2
+sfx=wood
+gfx=slingshot
+loot=slingshot
+
+[item]
+id=537
+name=Willow Branch
+level=7
+quality=epic
+type=off
+icon=104,8
+dmg=4,8
+bonus=mana,9
+req=o,2
+sfx=wood
+gfx=slingshot
+loot=slingshot
+
+[item]
+id=538
+name=Wind Sling
+level=8
+quality=epic
+type=off
+icon=104,8
+dmg=4,8
+bonus=mana regen,3
+req=o,2
+sfx=wood
+gfx=slingshot
+loot=slingshot
+
+[item]
+id=539
+name=Urchin Sling
+level=7
+quality=epic
+type=off
+icon=104,8
+dmg=4,8
+bonus=accuracy,10
+req=o,2
+sfx=wood
+gfx=slingshot
+loot=slingshot
+
+[item]
+id=540
+name=Swift Sling
+level=7
+quality=epic
+type=off
+icon=104,8
+dmg=4,8
+bonus=avoidance,8
+req=o,2
+sfx=wood
+gfx=slingshot
+loot=slingshot
+
+[item]
+id=541
+name=Ember Slinger
+level=7
+quality=epic
+type=off
+icon=104,8
+dmg=4,8
+bonus=fire resist,12
+req=o,2
+sfx=wood
+gfx=slingshot
+loot=slingshot
+
+[item]
+id=542
+name=Snowball Slinger
+level=7
+quality=epic
+type=off
+icon=104,8
+dmg=4,8
+bonus=ice resist,12
+req=o,2
+sfx=wood
+gfx=slingshot
+loot=slingshot
+
+[item]
+id=543
+name=Giant Slayer
+level=8
+quality=epic
+type=off
+icon=104,8
+dmg=4,8
+bonus=crit,3
+req=o,2
+sfx=wood
+gfx=slingshot
+loot=slingshot
+
 [item]
 id=550
 name=Shortbow
 level=4
-icon=105,9
+quality=normal
 type=off
+icon=105,9
 dmg=3,8
+req=o,3
+sfx=wood
+gfx=shortbow
+loot=shortbow
+
+[item]
+id=551
+name=Cracked Shortbow
+level=3
+quality=low
+type=off
+icon=105,9
+dmg=2,7
+req=o,3
+sfx=wood
+gfx=shortbow
+loot=shortbow
+
+[item]
+id=552
+name=Cursed Shortbow
+level=3
+quality=low
+type=off
+icon=105,9
+dmg=3,8
+bonus=accuracy,-4
+req=o,3
+sfx=wood
+gfx=shortbow
+loot=shortbow
+
+[item]
+id=553
+name=Warped Shortbow
+level=3
+quality=low
+type=off
+icon=105,9
+dmg=3,8
+bonus=crit,-1
+req=o,3
+sfx=wood
+gfx=shortbow
+loot=shortbow
+
+[item]
+id=555
+name=Dwarven Shortbow
+level=5
+quality=high
+type=off
+icon=105,9
+dmg=3,8
+bonus=health,3
+req=o,3
+sfx=wood
+gfx=shortbow
+loot=shortbow
+
+[item]
+id=556
+name=Shortbow of Restoration
+level=6
+quality=high
+type=off
+icon=105,9
+dmg=3,8
+bonus=health regen,1
+req=o,3
+sfx=wood
+gfx=shortbow
+loot=shortbow
+
+[item]
+id=557
+name=Elven Shortbow
+level=5
+quality=high
+type=off
+icon=105,9
+dmg=3,8
+bonus=mana,3
+req=o,3
+sfx=wood
+gfx=shortbow
+loot=shortbow
+
+[item]
+id=558
+name=Shortbow of Meditation
+level=6
+quality=high
+type=off
+icon=105,9
+dmg=3,8
+bonus=mana regen,1
+req=o,3
+sfx=wood
+gfx=shortbow
+loot=shortbow
+
+[item]
+id=559
+name=Battle Shortbow
+level=6
+quality=high
+type=off
+icon=105,9
+dmg=4,9
+req=o,3
+sfx=wood
+gfx=shortbow
+loot=shortbow
+
+[item]
+id=560
+name=Shortbow of Accuracy
+level=5
+quality=high
+type=off
+icon=105,9
+dmg=3,8
+bonus=accuracy,4
+req=o,3
+sfx=wood
+gfx=shortbow
+loot=shortbow
+
+[item]
+id=561
+name=Shortbow of Avoidance
+level=5
+quality=high
+type=off
+icon=105,9
+dmg=3,8
+bonus=avoidance,2
+req=o,3
+sfx=wood
+gfx=shortbow
+loot=shortbow
+
+[item]
+id=562
+name=Summer Shortbow
+level=5
+quality=high
+type=off
+icon=105,9
+dmg=3,8
+bonus=fire resist,6
+req=o,3
+sfx=wood
+gfx=shortbow
+loot=shortbow
+
+[item]
+id=563
+name=Winter Shortbow
+level=5
+quality=high
+type=off
+icon=105,9
+dmg=3,8
+bonus=ice resist,6
+req=o,3
+sfx=wood
+gfx=shortbow
+loot=shortbow
+
+[item]
+id=564
+name=Shortbow of Slaying
+level=6
+quality=high
+type=off
+icon=105,9
+dmg=3,8
+bonus=crit,1
+req=o,3
+sfx=wood
+gfx=shortbow
+loot=shortbow
+
+[item]
+id=570
+name=Warlord Shortbow
+level=7
+quality=high
+type=off
+icon=105,9
+dmg=3,9
+bonus=health,6
+req=o,3
+sfx=wood
+gfx=shortbow
+loot=shortbow
+
+[item]
+id=571
+name=Shortbow of Victory
+level=8
+quality=high
+type=off
+icon=105,9
+dmg=3,9
+bonus=health regen,2
+req=o,3
+sfx=wood
+gfx=shortbow
+loot=shortbow
+
+[item]
+id=572
+name=Archmage Shortbow
+level=7
+quality=high
+type=off
+icon=105,9
+dmg=3,9
+bonus=mana,6
+req=o,3
+sfx=wood
+gfx=shortbow
+loot=shortbow
+
+[item]
+id=573
+name=Shortbow of Wizardry
+level=8
+quality=high
+type=off
+icon=105,9
+dmg=3,9
+bonus=mana regen,2
+req=o,3
+sfx=wood
+gfx=shortbow
+loot=shortbow
+
+[item]
+id=574
+name=Ancient Shortbow
+level=8
+quality=high
+type=off
+icon=105,9
+dmg=5,10
+req=o,3
+sfx=wood
+gfx=shortbow
+loot=shortbow
+
+[item]
+id=575
+name=Shortbow of Precision
+level=7
+quality=high
+type=off
+icon=105,9
+dmg=3,9
+bonus=accuracy,7
+req=o,3
+sfx=wood
+gfx=shortbow
+loot=shortbow
+
+[item]
+id=576
+name=Shortbow of Protection
+level=7
+quality=high
+type=off
+icon=105,9
+dmg=3,9
+bonus=avoidance,5
+req=o,3
+sfx=wood
+gfx=shortbow
+loot=shortbow
+
+[item]
+id=577
+name=Fiery Shortbow
+level=7
+quality=high
+type=off
+icon=105,9
+dmg=3,9
+bonus=fire resist,9
+req=o,3
+sfx=wood
+gfx=shortbow
+loot=shortbow
+
+[item]
+id=578
+name=Frozen Shortbow
+level=7
+quality=high
+type=off
+icon=105,9
+dmg=3,9
+bonus=ice resist,9
+req=o,3
+sfx=wood
+gfx=shortbow
+loot=shortbow
+
+[item]
+id=579
+name=Shortbow of Destruction
+level=8
+quality=high
+type=off
+icon=105,9
+dmg=3,9
+bonus=crit,2
+req=o,3
+sfx=wood
+gfx=shortbow
+loot=shortbow
+
+[item]
+id=585
+name=Orc Chieftan
+level=9
+quality=epic
+type=off
+icon=105,9
+dmg=5,10
+bonus=health,9
+req=o,3
+sfx=wood
+gfx=shortbow
+loot=shortbow
+
+[item]
+id=586
+name=Crag Bow
+level=10
+quality=epic
+type=off
+icon=105,9
+dmg=5,10
+bonus=health regen,3
+req=o,3
+sfx=wood
+gfx=shortbow
+loot=shortbow
+
+[item]
+id=587
+name=Witch Doctor
+level=9
+quality=epic
+type=off
+icon=105,9
+dmg=5,10
+bonus=mana,9
+req=o,3
+sfx=wood
+gfx=shortbow
+loot=shortbow
+
+[item]
+id=588
+name=Feywild Bow
+level=10
+quality=epic
+type=off
+icon=105,9
+dmg=5,10
+bonus=mana regen,3
+req=o,3
+sfx=wood
+gfx=shortbow
+loot=shortbow
+
+[item]
+id=589
+name=Bandit
+level=9
+quality=epic
+type=off
+icon=105,9
+dmg=5,10
+bonus=accuracy,10
+req=o,3
+sfx=wood
+gfx=shortbow
+loot=shortbow
+
+[item]
+id=590
+name=Mithril Bow
+level=9
+quality=epic
+type=off
+icon=105,9
+dmg=5,10
+bonus=avoidance,8
+req=o,3
+sfx=wood
+gfx=shortbow
+loot=shortbow
+
+[item]
+id=591
+name=Fire Striker
+level=9
+quality=epic
+type=off
+icon=105,9
+dmg=5,10
+bonus=fire resist,12
+req=o,3
+sfx=wood
+gfx=shortbow
+loot=shortbow
+
+[item]
+id=592
+name=Ice Striker
+level=9
+quality=epic
+type=off
+icon=105,9
+dmg=5,10
+bonus=ice resist,12
+req=o,3
+sfx=wood
+gfx=shortbow
+loot=shortbow
+
+[item]
+id=593
+name=Assassin
+level=10
+quality=epic
+type=off
+icon=105,9
+dmg=5,10
+bonus=crit,3
 req=o,3
 sfx=wood
 gfx=shortbow
@@ -760,9 +5031,455 @@ loot=shortbow
 id=600
 name=Longbow
 level=6
-icon=106,10
+quality=normal
 type=off
+icon=106,10
 dmg=4,10
+req=o,4
+sfx=wood
+gfx=longbow
+loot=longbow
+
+[item]
+id=601
+name=Cracked Longbow
+level=5
+quality=low
+type=off
+icon=106,10
+dmg=3,9
+req=o,4
+sfx=wood
+gfx=longbow
+loot=longbow
+
+[item]
+id=602
+name=Cursed Longbow
+level=5
+quality=low
+type=off
+icon=106,10
+dmg=4,10
+bonus=accuracy,-4
+req=o,4
+sfx=wood
+gfx=longbow
+loot=longbow
+
+[item]
+id=603
+name=Warped Longbow
+level=5
+quality=low
+type=off
+icon=106,10
+dmg=4,10
+bonus=crit,-1
+req=o,4
+sfx=wood
+gfx=longbow
+loot=longbow
+
+[item]
+id=605
+name=Dwarven Longbow
+level=7
+quality=high
+type=off
+icon=106,10
+dmg=4,10
+bonus=health,3
+req=o,4
+sfx=wood
+gfx=longbow
+loot=longbow
+
+[item]
+id=606
+name=Longbow of Restoration
+level=8
+quality=high
+type=off
+icon=106,10
+dmg=4,10
+bonus=health regen,1
+req=o,4
+sfx=wood
+gfx=longbow
+loot=longbow
+
+[item]
+id=607
+name=Elven Longbow
+level=7
+quality=high
+type=off
+icon=106,10
+dmg=4,10
+bonus=mana,3
+req=o,4
+sfx=wood
+gfx=longbow
+loot=longbow
+
+[item]
+id=608
+name=Longbow of Meditation
+level=8
+quality=high
+type=off
+icon=106,10
+dmg=4,10
+bonus=mana regen,1
+req=o,4
+sfx=wood
+gfx=longbow
+loot=longbow
+
+[item]
+id=609
+name=Battle Longbow
+level=8
+quality=high
+type=off
+icon=106,10
+dmg=5,11
+req=o,4
+sfx=wood
+gfx=longbow
+loot=longbow
+
+[item]
+id=610
+name=Longbow of Accuracy
+level=7
+quality=high
+type=off
+icon=106,10
+dmg=4,10
+bonus=accuracy,4
+req=o,4
+sfx=wood
+gfx=longbow
+loot=longbow
+
+[item]
+id=611
+name=Longbow of Avoidance
+level=7
+quality=high
+type=off
+icon=106,10
+dmg=4,10
+bonus=avoidance,2
+req=o,4
+sfx=wood
+gfx=longbow
+loot=longbow
+
+[item]
+id=612
+name=Summer Longbow
+level=7
+quality=high
+type=off
+icon=106,10
+dmg=4,10
+bonus=fire resist,6
+req=o,4
+sfx=wood
+gfx=longbow
+loot=longbow
+
+[item]
+id=613
+name=Winter Longbow
+level=7
+quality=high
+type=off
+icon=106,10
+dmg=4,10
+bonus=ice resist,6
+req=o,4
+sfx=wood
+gfx=longbow
+loot=longbow
+
+[item]
+id=614
+name=Longbow of Slaying
+level=8
+quality=high
+type=off
+icon=106,10
+dmg=4,10
+bonus=crit,1
+req=o,4
+sfx=wood
+gfx=longbow
+loot=longbow
+
+[item]
+id=620
+name=Warlord Longbow
+level=9
+quality=high
+type=off
+icon=106,10
+dmg=4,11
+bonus=health,6
+req=o,4
+sfx=wood
+gfx=longbow
+loot=longbow
+
+[item]
+id=621
+name=Longbow of Victory
+level=10
+quality=high
+type=off
+icon=106,10
+dmg=4,11
+bonus=health regen,2
+req=o,4
+sfx=wood
+gfx=longbow
+loot=longbow
+
+[item]
+id=622
+name=Archmage Longbow
+level=9
+quality=high
+type=off
+icon=106,10
+dmg=4,11
+bonus=mana,6
+req=o,4
+sfx=wood
+gfx=longbow
+loot=longbow
+
+[item]
+id=623
+name=Longbow of Wizardry
+level=10
+quality=high
+type=off
+icon=106,10
+dmg=4,11
+bonus=mana regen,2
+req=o,4
+sfx=wood
+gfx=longbow
+loot=longbow
+
+[item]
+id=624
+name=Ancient Longbow
+level=10
+quality=high
+type=off
+icon=106,10
+dmg=6,12
+req=o,4
+sfx=wood
+gfx=longbow
+loot=longbow
+
+[item]
+id=625
+name=Longbow of Precision
+level=9
+quality=high
+type=off
+icon=106,10
+dmg=4,11
+bonus=accuracy,7
+req=o,4
+sfx=wood
+gfx=longbow
+loot=longbow
+
+[item]
+id=626
+name=Longbow of Protection
+level=9
+quality=high
+type=off
+icon=106,10
+dmg=4,11
+bonus=avoidance,5
+req=o,4
+sfx=wood
+gfx=longbow
+loot=longbow
+
+[item]
+id=627
+name=Fiery Longbow
+level=9
+quality=high
+type=off
+icon=106,10
+dmg=4,11
+bonus=fire resist,9
+req=o,4
+sfx=wood
+gfx=longbow
+loot=longbow
+
+[item]
+id=628
+name=Frozen Longbow
+level=9
+quality=high
+type=off
+icon=106,10
+dmg=4,11
+bonus=ice resist,9
+req=o,4
+sfx=wood
+gfx=longbow
+loot=longbow
+
+[item]
+id=629
+name=Longbow of Destruction
+level=10
+quality=high
+type=off
+icon=106,10
+dmg=4,11
+bonus=crit,2
+req=o,4
+sfx=wood
+gfx=longbow
+loot=longbow
+
+[item]
+id=635
+name=Thunder
+level=11
+quality=epic
+type=off
+icon=106,10
+dmg=6,12
+bonus=health,9
+req=o,4
+sfx=wood
+gfx=longbow
+loot=longbow
+
+[item]
+id=636
+name=Bow of the World Tree
+level=12
+quality=epic
+type=off
+icon=106,10
+dmg=6,12
+bonus=health regen,3
+req=o,4
+sfx=wood
+gfx=longbow
+loot=longbow
+
+[item]
+id=637
+name=Lightning
+level=11
+quality=epic
+type=off
+icon=106,10
+dmg=6,12
+bonus=mana,9
+req=o,4
+sfx=wood
+gfx=longbow
+loot=longbow
+
+[item]
+id=638
+name=Pharaoh
+level=12
+quality=epic
+type=off
+icon=106,10
+dmg=6,12
+bonus=mana regen,3
+req=o,4
+sfx=wood
+gfx=longbow
+loot=longbow
+
+[item]
+id=639
+name=Ranger's Bow
+level=11
+quality=epic
+type=off
+icon=106,10
+dmg=6,12
+bonus=accuracy,10
+req=o,4
+sfx=wood
+gfx=longbow
+loot=longbow
+
+[item]
+id=640
+name=Siege Bow
+level=11
+quality=epic
+type=off
+icon=106,10
+dmg=6,12
+bonus=avoidance,8
+req=o,4
+sfx=wood
+gfx=longbow
+loot=longbow
+
+[item]
+id=641
+name=Ruby Strand
+level=11
+quality=epic
+type=off
+icon=106,10
+dmg=6,12
+bonus=fire resist,12
+req=o,4
+sfx=wood
+gfx=longbow
+loot=longbow
+
+[item]
+id=642
+name=Diamond Strand
+level=11
+quality=epic
+type=off
+icon=106,10
+dmg=6,12
+bonus=ice resist,12
+req=o,4
+sfx=wood
+gfx=longbow
+loot=longbow
+
+[item]
+id=643
+name=Death Mark
+level=12
+quality=epic
+type=off
+icon=106,10
+dmg=6,12
+bonus=crit,3
 req=o,4
 sfx=wood
 gfx=longbow
@@ -772,8 +5489,9 @@ loot=longbow
 id=650
 name=Greatbow
 level=8
-icon=107,11
+quality=normal
 type=off
+icon=107,11
 dmg=5,12
 req=o,5
 sfx=wood
@@ -781,12 +5499,888 @@ gfx=greatbow
 loot=greatbow
 
 [item]
+id=651
+name=Cracked Greatbow
+level=7
+quality=low
+type=off
+icon=107,11
+dmg=4,11
+req=o,5
+sfx=wood
+gfx=greatbow
+loot=greatbow
+
+[item]
+id=652
+name=Cursed Greatbow
+level=7
+quality=low
+type=off
+icon=107,11
+dmg=5,12
+bonus=accuracy,-4
+req=o,5
+sfx=wood
+gfx=greatbow
+loot=greatbow
+
+[item]
+id=653
+name=Warped Greatbow
+level=7
+quality=low
+type=off
+icon=107,11
+dmg=5,12
+bonus=crit,-1
+req=o,5
+sfx=wood
+gfx=greatbow
+loot=greatbow
+
+[item]
+id=655
+name=Dwarven Greatbow
+level=9
+quality=high
+type=off
+icon=107,11
+dmg=5,12
+bonus=health,3
+req=o,5
+sfx=wood
+gfx=greatbow
+loot=greatbow
+
+[item]
+id=656
+name=Greatbow of Restoration
+level=10
+quality=high
+type=off
+icon=107,11
+dmg=5,12
+bonus=health regen,1
+req=o,5
+sfx=wood
+gfx=greatbow
+loot=greatbow
+
+[item]
+id=657
+name=Elven Greatbow
+level=9
+quality=high
+type=off
+icon=107,11
+dmg=5,12
+bonus=mana,3
+req=o,5
+sfx=wood
+gfx=greatbow
+loot=greatbow
+
+[item]
+id=658
+name=Greatbow of Meditation
+level=10
+quality=high
+type=off
+icon=107,11
+dmg=5,12
+bonus=mana regen,1
+req=o,5
+sfx=wood
+gfx=greatbow
+loot=greatbow
+
+[item]
+id=659
+name=Battle Greatbow
+level=10
+quality=high
+type=off
+icon=107,11
+dmg=6,13
+req=o,5
+sfx=wood
+gfx=greatbow
+loot=greatbow
+
+[item]
+id=660
+name=Greatbow of Accuracy
+level=9
+quality=high
+type=off
+icon=107,11
+dmg=5,12
+bonus=accuracy,4
+req=o,5
+sfx=wood
+gfx=greatbow
+loot=greatbow
+
+[item]
+id=661
+name=Greatbow of Avoidance
+level=9
+quality=high
+type=off
+icon=107,11
+dmg=5,12
+bonus=avoidance,2
+req=o,5
+sfx=wood
+gfx=greatbow
+loot=greatbow
+
+[item]
+id=662
+name=Summer Greatbow
+level=9
+quality=high
+type=off
+icon=107,11
+dmg=5,12
+bonus=fire resist,6
+req=o,5
+sfx=wood
+gfx=greatbow
+loot=greatbow
+
+[item]
+id=663
+name=Winter Greatbow
+level=9
+quality=high
+type=off
+icon=107,11
+dmg=5,12
+bonus=ice resist,6
+req=o,5
+sfx=wood
+gfx=greatbow
+loot=greatbow
+
+[item]
+id=664
+name=Greatbow of Slaying
+level=10
+quality=high
+type=off
+icon=107,11
+dmg=5,12
+bonus=crit,1
+req=o,5
+sfx=wood
+gfx=greatbow
+loot=greatbow
+
+[item]
+id=670
+name=Warlord Greatbow
+level=11
+quality=high
+type=off
+icon=107,11
+dmg=5,13
+bonus=health,6
+req=o,5
+sfx=wood
+gfx=greatbow
+loot=greatbow
+
+[item]
+id=671
+name=Greatbow of Victory
+level=12
+quality=high
+type=off
+icon=107,11
+dmg=5,13
+bonus=health regen,2
+req=o,5
+sfx=wood
+gfx=greatbow
+loot=greatbow
+
+[item]
+id=672
+name=Archmage Greatbow
+level=11
+quality=high
+type=off
+icon=107,11
+dmg=5,13
+bonus=mana,6
+req=o,5
+sfx=wood
+gfx=greatbow
+loot=greatbow
+
+[item]
+id=673
+name=Greatbow of Wizardry
+level=12
+quality=high
+type=off
+icon=107,11
+dmg=5,13
+bonus=mana regen,2
+req=o,5
+sfx=wood
+gfx=greatbow
+loot=greatbow
+
+[item]
+id=674
+name=Ancient Greatbow
+level=12
+quality=high
+type=off
+icon=107,11
+dmg=7,14
+req=o,5
+sfx=wood
+gfx=greatbow
+loot=greatbow
+
+[item]
+id=675
+name=Greatbow of Precision
+level=11
+quality=high
+type=off
+icon=107,11
+dmg=5,13
+bonus=accuracy,7
+req=o,5
+sfx=wood
+gfx=greatbow
+loot=greatbow
+
+[item]
+id=676
+name=Greatbow of Protection
+level=11
+quality=high
+type=off
+icon=107,11
+dmg=5,13
+bonus=avoidance,5
+req=o,5
+sfx=wood
+gfx=greatbow
+loot=greatbow
+
+[item]
+id=677
+name=Fiery Greatbow
+level=11
+quality=high
+type=off
+icon=107,11
+dmg=5,13
+bonus=fire resist,9
+req=o,5
+sfx=wood
+gfx=greatbow
+loot=greatbow
+
+[item]
+id=678
+name=Frozen Greatbow
+level=11
+quality=high
+type=off
+icon=107,11
+dmg=5,13
+bonus=ice resist,9
+req=o,5
+sfx=wood
+gfx=greatbow
+loot=greatbow
+
+[item]
+id=679
+name=Greatbow of Destruction
+level=12
+quality=high
+type=off
+icon=107,11
+dmg=5,13
+bonus=crit,2
+req=o,5
+sfx=wood
+gfx=greatbow
+loot=greatbow
+
+[item]
+id=685
+name=Dragonslayer
+level=13
+quality=epic
+type=off
+icon=107,11
+dmg=7,14
+bonus=health,9
+req=o,5
+sfx=wood
+gfx=greatbow
+loot=greatbow
+
+[item]
+id=686
+name=Vampire Hunter
+level=14
+quality=epic
+type=off
+icon=107,11
+dmg=7,14
+bonus=health regen,3
+req=o,5
+sfx=wood
+gfx=greatbow
+loot=greatbow
+
+[item]
+id=687
+name=Dimensional Rift
+level=13
+quality=epic
+type=off
+icon=107,11
+dmg=7,14
+bonus=mana,9
+req=o,5
+sfx=wood
+gfx=greatbow
+loot=greatbow
+
+[item]
+id=688
+name=Vortex
+level=14
+quality=epic
+type=off
+icon=107,11
+dmg=7,14
+bonus=mana regen,3
+req=o,5
+sfx=wood
+gfx=greatbow
+loot=greatbow
+
+[item]
+id=689
+name=Gladys
+level=13
+quality=epic
+type=off
+icon=107,11
+dmg=7,14
+bonus=accuracy,10
+req=o,5
+sfx=wood
+gfx=greatbow
+loot=greatbow
+
+[item]
+id=690
+name=Ballista
+level=13
+quality=epic
+type=off
+icon=107,11
+dmg=7,14
+bonus=avoidance,8
+req=o,5
+sfx=wood
+gfx=greatbow
+loot=greatbow
+
+[item]
+id=691
+name=Starfire
+level=13
+quality=epic
+type=off
+icon=107,11
+dmg=7,14
+bonus=fire resist,12
+req=o,5
+sfx=wood
+gfx=greatbow
+loot=greatbow
+
+[item]
+id=692
+name=Voidfire
+level=13
+quality=epic
+type=off
+icon=107,11
+dmg=7,14
+bonus=ice resist,12
+req=o,5
+sfx=wood
+gfx=greatbow
+loot=greatbow
+
+[item]
+id=693
+name=Chaos
+level=7
+quality=epic
+type=body
+icon=112,16
+abs=1
+bonus=crit,3
+sfx=cloth
+gfx=clothes
+loot=clothes
+
+[item]
 id=700
 name=Leather Armor
 level=2
-icon=108,12
+quality=normal
 type=body
+icon=108,12
 abs=1
+req=d,2
+sfx=leather
+gfx=leather_armor
+loot=leather_armor
+
+[item]
+id=701
+name=Cracked Leather Armor
+level=1
+quality=low
+type=body
+icon=108,12
+abs=0,1
+req=d,2
+sfx=leather
+gfx=leather_armor
+loot=leather_armor
+
+[item]
+id=702
+name=Cursed Leather Armor
+level=1
+quality=low
+type=body
+icon=108,12
+abs=1
+bonus=avoidance,-4
+req=d,2
+sfx=leather
+gfx=leather_armor
+loot=leather_armor
+
+[item]
+id=705
+name=Dwarven Leather Armor
+level=3
+quality=high
+type=body
+icon=108,12
+abs=1
+bonus=health,3
+req=d,2
+sfx=leather
+gfx=leather_armor
+loot=leather_armor
+
+[item]
+id=706
+name=Leather Armor of Restoration
+level=4
+quality=high
+type=body
+icon=108,12
+abs=1
+bonus=health regen,1
+req=d,2
+sfx=leather
+gfx=leather_armor
+loot=leather_armor
+
+[item]
+id=707
+name=Elven Leather Armor
+level=3
+quality=high
+type=body
+icon=108,12
+abs=1
+bonus=mana,3
+req=d,2
+sfx=leather
+gfx=leather_armor
+loot=leather_armor
+
+[item]
+id=708
+name=Leather Armor of Meditation
+level=4
+quality=high
+type=body
+icon=108,12
+abs=1
+bonus=mana regen,1
+req=d,2
+sfx=leather
+gfx=leather_armor
+loot=leather_armor
+
+[item]
+id=709
+name=Battle Leather Armor
+level=4
+quality=high
+type=body
+icon=108,12
+abs=1,2
+req=d,2
+sfx=leather
+gfx=leather_armor
+loot=leather_armor
+
+[item]
+id=710
+name=Leather Armor of Accuracy
+level=3
+quality=high
+type=body
+icon=108,12
+abs=1
+bonus=accuracy,2
+req=d,2
+sfx=leather
+gfx=leather_armor
+loot=leather_armor
+
+[item]
+id=711
+name=Leather Armor of Avoidance
+level=3
+quality=high
+type=body
+icon=108,12
+abs=1
+bonus=avoidance,4
+req=d,2
+sfx=leather
+gfx=leather_armor
+loot=leather_armor
+
+[item]
+id=712
+name=Summer Leather Armor
+level=3
+quality=high
+type=body
+icon=108,12
+abs=1
+bonus=fire resist,10
+req=d,2
+sfx=leather
+gfx=leather_armor
+loot=leather_armor
+
+[item]
+id=713
+name=Winter Leather Armor
+level=3
+quality=high
+type=body
+icon=108,12
+abs=1
+bonus=ice resist,10
+req=d,2
+sfx=leather
+gfx=leather_armor
+loot=leather_armor
+
+[item]
+id=714
+name=Leather Armor of Slaying
+level=4
+quality=high
+type=body
+icon=108,12
+abs=1
+bonus=crit,1
+req=d,2
+sfx=leather
+gfx=leather_armor
+loot=leather_armor
+
+[item]
+id=720
+name=Warlord Leather Armor
+level=5
+quality=high
+type=body
+icon=108,12
+abs=1,2
+bonus=health,6
+req=d,2
+sfx=leather
+gfx=leather_armor
+loot=leather_armor
+
+[item]
+id=721
+name=Leather Armor of Victory
+level=6
+quality=high
+type=body
+icon=108,12
+abs=1,2
+bonus=health regen,2
+req=d,2
+sfx=leather
+gfx=leather_armor
+loot=leather_armor
+
+[item]
+id=722
+name=Archmage Leather Armor
+level=5
+quality=high
+type=body
+icon=108,12
+abs=1,2
+bonus=mana,6
+req=d,2
+sfx=leather
+gfx=leather_armor
+loot=leather_armor
+
+[item]
+id=723
+name=Leather Armor of Wizardry
+level=6
+quality=high
+type=body
+icon=108,12
+abs=1,2
+bonus=mana regen,2
+req=d,2
+sfx=leather
+gfx=leather_armor
+loot=leather_armor
+
+[item]
+id=724
+name=Ancient Leather Armor
+level=6
+quality=high
+type=body
+icon=108,12
+abs=2
+req=d,2
+sfx=leather
+gfx=leather_armor
+loot=leather_armor
+
+[item]
+id=725
+name=Leather Armor of Precision
+level=5
+quality=high
+type=body
+icon=108,12
+abs=1,2
+bonus=accuracy,5
+req=d,2
+sfx=leather
+gfx=leather_armor
+loot=leather_armor
+
+[item]
+id=726
+name=Leather Armor of Protection
+level=5
+quality=high
+type=body
+icon=108,12
+abs=1,2
+bonus=avoidance,7
+req=d,2
+sfx=leather
+gfx=leather_armor
+loot=leather_armor
+
+[item]
+id=727
+name=Fiery Leather Armor
+level=5
+quality=high
+type=body
+icon=108,12
+abs=1,2
+bonus=fire resist,15
+req=d,2
+sfx=leather
+gfx=leather_armor
+loot=leather_armor
+
+[item]
+id=728
+name=Frozen Leather Armor
+level=5
+quality=high
+type=body
+icon=108,12
+abs=1,2
+bonus=ice resist,15
+req=d,2
+sfx=leather
+gfx=leather_armor
+loot=leather_armor
+
+[item]
+id=729
+name=Leather Armor of Destruction
+level=6
+quality=high
+type=body
+icon=108,12
+abs=1,2
+bonus=crit,2
+req=d,2
+sfx=leather
+gfx=leather_armor
+loot=leather_armor
+
+[item]
+id=735
+name=Barbarian Wrap
+level=7
+quality=epic
+type=body
+icon=108,12
+abs=2
+bonus=health,9
+req=d,2
+sfx=leather
+gfx=leather_armor
+loot=leather_armor
+
+[item]
+id=736
+name=Bugbear Tunic
+level=8
+quality=epic
+type=body
+icon=108,12
+abs=2
+bonus=health regen,3
+req=d,2
+sfx=leather
+gfx=leather_armor
+loot=leather_armor
+
+[item]
+id=737
+name=Runic Leather
+level=7
+quality=epic
+type=body
+icon=108,12
+abs=2
+bonus=mana,9
+req=d,2
+sfx=leather
+gfx=leather_armor
+loot=leather_armor
+
+[item]
+id=738
+name=Battlemage Tunic
+level=8
+quality=epic
+type=body
+icon=108,12
+abs=2
+bonus=mana regen,3
+req=d,2
+sfx=leather
+gfx=leather_armor
+loot=leather_armor
+
+[item]
+id=739
+name=Predator Hide
+level=7
+quality=epic
+type=body
+icon=108,12
+abs=2
+bonus=accuracy,8
+req=d,2
+sfx=leather
+gfx=leather_armor
+loot=leather_armor
+
+[item]
+id=740
+name=Chimera Hide
+level=7
+quality=epic
+type=body
+icon=108,12
+abs=2
+bonus=avoidance,10
+req=d,2
+sfx=leather
+gfx=leather_armor
+loot=leather_armor
+
+[item]
+id=741
+name=Red Dragonhide
+level=7
+quality=epic
+type=body
+icon=108,12
+abs=2
+bonus=fire resist,20
+req=d,2
+sfx=leather
+gfx=leather_armor
+loot=leather_armor
+
+[item]
+id=742
+name=White Dragonhide
+level=7
+quality=epic
+type=body
+icon=108,12
+abs=2
+bonus=ice resist,20
+req=d,2
+sfx=leather
+gfx=leather_armor
+loot=leather_armor
+
+[item]
+id=743
+name=Ninja Gi
+level=8
+quality=epic
+type=body
+icon=108,12
+abs=2
+bonus=crit,3
 req=d,2
 sfx=leather
 gfx=leather_armor
@@ -796,9 +6390,441 @@ loot=leather_armor
 id=750
 name=Buckler
 level=4
-icon=109,13
+quality=normal
 type=off
+icon=109,13
 abs=0,2
+req=d,3
+sfx=wood
+gfx=buckler
+loot=buckler
+
+[item]
+id=751
+name=Cracked Buckler
+level=4
+quality=low
+type=off
+icon=109,13
+abs=0,1
+req=d,3
+sfx=wood
+gfx=buckler
+loot=buckler
+
+[item]
+id=752
+name=Cursed Buckler
+level=3
+quality=low
+type=off
+icon=109,13
+abs=0,2
+bonus=avoidance,-4
+req=d,3
+sfx=wood
+gfx=buckler
+loot=buckler
+
+[item]
+id=755
+name=Dwarven Buckler
+level=5
+quality=high
+type=off
+icon=109,13
+abs=0,2
+bonus=health,3
+req=d,3
+sfx=wood
+gfx=buckler
+loot=buckler
+
+[item]
+id=756
+name=Buckler of Restoration
+level=6
+quality=high
+type=off
+icon=109,13
+abs=0,2
+bonus=health regen,1
+req=d,3
+sfx=wood
+gfx=buckler
+loot=buckler
+
+[item]
+id=757
+name=Elven Buckler
+level=5
+quality=high
+type=off
+icon=109,13
+abs=0,2
+bonus=mana,3
+req=d,3
+sfx=wood
+gfx=buckler
+loot=buckler
+
+[item]
+id=758
+name=Buckler of Meditation
+level=6
+quality=high
+type=off
+icon=109,13
+abs=0,2
+bonus=mana regen,1
+req=d,3
+sfx=wood
+gfx=buckler
+loot=buckler
+
+[item]
+id=759
+name=Battle Buckler
+level=6
+quality=high
+type=off
+icon=109,13
+abs=0,3
+req=d,3
+sfx=wood
+gfx=buckler
+loot=buckler
+
+[item]
+id=760
+name=Buckler of Accuracy
+level=5
+quality=high
+type=off
+icon=109,13
+abs=0,2
+bonus=accuracy,2
+req=d,3
+sfx=wood
+gfx=buckler
+loot=buckler
+
+[item]
+id=761
+name=Buckler of Avoidance
+level=5
+quality=high
+type=off
+icon=109,13
+abs=0,2
+bonus=avoidance,4
+req=d,3
+sfx=wood
+gfx=buckler
+loot=buckler
+
+[item]
+id=762
+name=Summer Buckler
+level=5
+quality=high
+type=off
+icon=109,13
+abs=0,2
+bonus=fire resist,10
+req=d,3
+sfx=wood
+gfx=buckler
+loot=buckler
+
+[item]
+id=763
+name=Winter Buckler
+level=5
+quality=high
+type=off
+icon=109,13
+abs=0,2
+bonus=ice resist,10
+req=d,3
+sfx=wood
+gfx=buckler
+loot=buckler
+
+[item]
+id=764
+name=Buckler of Slaying
+level=6
+quality=high
+type=off
+icon=109,13
+abs=0,2
+bonus=crit,1
+req=d,3
+sfx=wood
+gfx=buckler
+loot=buckler
+
+[item]
+id=770
+name=Warlord Buckler
+level=7
+quality=high
+type=off
+icon=109,13
+abs=0,3
+bonus=health,6
+req=d,3
+sfx=wood
+gfx=buckler
+loot=buckler
+
+[item]
+id=771
+name=Buckler of Victory
+level=8
+quality=high
+type=off
+icon=109,13
+abs=0,3
+bonus=health regen,2
+req=d,3
+sfx=wood
+gfx=buckler
+loot=buckler
+
+[item]
+id=772
+name=Archmage Buckler
+level=7
+quality=high
+type=off
+icon=109,13
+abs=0,3
+bonus=mana,6
+req=d,3
+sfx=wood
+gfx=buckler
+loot=buckler
+
+[item]
+id=773
+name=Buckler of Wizardry
+level=8
+quality=high
+type=off
+icon=109,13
+abs=0,3
+bonus=mana regen,2
+req=d,3
+sfx=wood
+gfx=buckler
+loot=buckler
+
+[item]
+id=774
+name=Ancient Buckler
+level=8
+quality=high
+type=off
+icon=109,13
+abs=1,3
+req=d,3
+sfx=wood
+gfx=buckler
+loot=buckler
+
+[item]
+id=775
+name=Buckler of Precision
+level=7
+quality=high
+type=off
+icon=109,13
+abs=0,3
+bonus=accuracy,5
+req=d,3
+sfx=wood
+gfx=buckler
+loot=buckler
+
+[item]
+id=776
+name=Buckler of Protection
+level=7
+quality=high
+type=off
+icon=109,13
+abs=0,3
+bonus=avoidance,7
+req=d,3
+sfx=wood
+gfx=buckler
+loot=buckler
+
+[item]
+id=777
+name=Fiery Buckler
+level=7
+quality=high
+type=off
+icon=109,13
+abs=0,3
+bonus=fire resist,15
+req=d,3
+sfx=wood
+gfx=buckler
+loot=buckler
+
+[item]
+id=778
+name=Frozen Buckler
+level=7
+quality=high
+type=off
+icon=109,13
+abs=0,3
+bonus=ice resist,15
+req=d,3
+sfx=wood
+gfx=buckler
+loot=buckler
+
+[item]
+id=779
+name=Buckler of Destruction
+level=8
+quality=high
+type=off
+icon=109,13
+abs=0,3
+bonus=crit,2
+req=d,3
+sfx=wood
+gfx=buckler
+loot=buckler
+
+[item]
+id=785
+name=Gladiator Buckler
+level=9
+quality=epic
+type=off
+icon=109,13
+abs=1,3
+bonus=health,9
+req=d,3
+sfx=wood
+gfx=buckler
+loot=buckler
+
+[item]
+id=786
+name=Holy Targe
+level=10
+quality=epic
+type=off
+icon=109,13
+abs=1,3
+bonus=health regen,3
+req=d,3
+sfx=wood
+gfx=buckler
+loot=buckler
+
+[item]
+id=787
+name=Averguard Disc
+level=9
+quality=epic
+type=off
+icon=109,13
+abs=1,3
+bonus=mana,9
+req=d,3
+sfx=wood
+gfx=buckler
+loot=buckler
+
+[item]
+id=788
+name=Mage Targe
+level=10
+quality=epic
+type=off
+icon=109,13
+abs=1,3
+bonus=mana regen,3
+req=d,3
+sfx=wood
+gfx=buckler
+loot=buckler
+
+[item]
+id=789
+name=Focus Buckler
+level=9
+quality=epic
+type=off
+icon=109,13
+abs=1,3
+bonus=accuracy,8
+req=d,3
+sfx=wood
+gfx=buckler
+loot=buckler
+
+[item]
+id=790
+name=Guardian Targe
+level=9
+quality=epic
+type=off
+icon=109,13
+abs=1,3
+bonus=avoidance,10
+req=d,3
+sfx=wood
+gfx=buckler
+loot=buckler
+
+[item]
+id=791
+name=Heat Barrier
+level=9
+quality=epic
+type=off
+icon=109,13
+abs=1,3
+bonus=fire resist,20
+req=d,3
+sfx=wood
+gfx=buckler
+loot=buckler
+
+[item]
+id=792
+name=Cold Barrier
+level=9
+quality=epic
+type=off
+icon=109,13
+abs=1,3
+bonus=ice resist,20
+req=d,3
+sfx=wood
+gfx=buckler
+loot=buckler
+
+[item]
+id=793
+name=Spiked Buckler
+level=10
+quality=epic
+type=off
+icon=109,13
+abs=1,3
+bonus=crit,3
 req=d,3
 sfx=wood
 gfx=buckler
@@ -808,9 +6834,441 @@ loot=buckler
 id=800
 name=Steel Armor
 level=6
-icon=110,14
+quality=normal
 type=body
+icon=110,14
 abs=2
+req=d,4
+sfx=maille
+gfx=steel_armor
+loot=steel_armor
+
+[item]
+id=801
+name=Cracked Steel Armor
+level=5
+quality=low
+type=body
+icon=110,14
+abs=1,2
+req=d,4
+sfx=maille
+gfx=steel_armor
+loot=steel_armor
+
+[item]
+id=802
+name=Cursed Steel Armor
+level=5
+quality=low
+type=body
+icon=110,14
+abs=2
+bonus=avoidance,-4
+req=d,4
+sfx=maille
+gfx=steel_armor
+loot=steel_armor
+
+[item]
+id=805
+name=Dwarven Steel Armor
+level=7
+quality=high
+type=body
+icon=110,14
+abs=2
+bonus=health,3
+req=d,4
+sfx=maille
+gfx=steel_armor
+loot=steel_armor
+
+[item]
+id=806
+name=Steel Armor of Restoration
+level=8
+quality=high
+type=body
+icon=110,14
+abs=2
+bonus=health regen,1
+req=d,4
+sfx=maille
+gfx=steel_armor
+loot=steel_armor
+
+[item]
+id=807
+name=Elven Steel Armor
+level=7
+quality=high
+type=body
+icon=110,14
+abs=2
+bonus=mana,3
+req=d,4
+sfx=maille
+gfx=steel_armor
+loot=steel_armor
+
+[item]
+id=808
+name=Steel Armor of Meditation
+level=8
+quality=high
+type=body
+icon=110,14
+abs=2
+bonus=mana regen,1
+req=d,4
+sfx=maille
+gfx=steel_armor
+loot=steel_armor
+
+[item]
+id=809
+name=Battle Steel Armor
+level=8
+quality=high
+type=body
+icon=110,14
+abs=2,3
+req=d,4
+sfx=maille
+gfx=steel_armor
+loot=steel_armor
+
+[item]
+id=810
+name=Steel Armor of Accuracy
+level=7
+quality=high
+type=body
+icon=110,14
+abs=2
+bonus=accuracy,2
+req=d,4
+sfx=maille
+gfx=steel_armor
+loot=steel_armor
+
+[item]
+id=811
+name=Steel Armor of Avoidance
+level=7
+quality=high
+type=body
+icon=110,14
+abs=2
+bonus=avoidance,4
+req=d,4
+sfx=maille
+gfx=steel_armor
+loot=steel_armor
+
+[item]
+id=812
+name=Summer Steel Armor
+level=7
+quality=high
+type=body
+icon=110,14
+abs=2
+bonus=fire resist,10
+req=d,4
+sfx=maille
+gfx=steel_armor
+loot=steel_armor
+
+[item]
+id=813
+name=Winter Steel Armor
+level=7
+quality=high
+type=body
+icon=110,14
+abs=2
+bonus=ice resist,10
+req=d,4
+sfx=maille
+gfx=steel_armor
+loot=steel_armor
+
+[item]
+id=814
+name=Steel Armor of Slaying
+level=8
+quality=high
+type=body
+icon=110,14
+abs=2
+bonus=crit,1
+req=d,4
+sfx=maille
+gfx=steel_armor
+loot=steel_armor
+
+[item]
+id=820
+name=Warlord Steel Armor
+level=9
+quality=high
+type=body
+icon=110,14
+abs=2,3
+bonus=health,6
+req=d,4
+sfx=maille
+gfx=steel_armor
+loot=steel_armor
+
+[item]
+id=821
+name=Steel Armor of Victory
+level=10
+quality=high
+type=body
+icon=110,14
+abs=2,3
+bonus=health regen,2
+req=d,4
+sfx=maille
+gfx=steel_armor
+loot=steel_armor
+
+[item]
+id=822
+name=Archmage Steel Armor
+level=9
+quality=high
+type=body
+icon=110,14
+abs=2,3
+bonus=mana,6
+req=d,4
+sfx=maille
+gfx=steel_armor
+loot=steel_armor
+
+[item]
+id=823
+name=Steel Armor of Wizardry
+level=10
+quality=high
+type=body
+icon=110,14
+abs=2,3
+bonus=mana regen,2
+req=d,4
+sfx=maille
+gfx=steel_armor
+loot=steel_armor
+
+[item]
+id=824
+name=Ancient Steel Armor
+level=10
+quality=high
+type=body
+icon=110,14
+abs=3
+req=d,4
+sfx=maille
+gfx=steel_armor
+loot=steel_armor
+
+[item]
+id=825
+name=Steel Armor of Precision
+level=9
+quality=high
+type=body
+icon=110,14
+abs=2,3
+bonus=accuracy,5
+req=d,4
+sfx=maille
+gfx=steel_armor
+loot=steel_armor
+
+[item]
+id=826
+name=Steel Armor of Protection
+level=9
+quality=high
+type=body
+icon=110,14
+abs=2,3
+bonus=avoidance,7
+req=d,4
+sfx=maille
+gfx=steel_armor
+loot=steel_armor
+
+[item]
+id=827
+name=Fiery Steel Armor
+level=9
+quality=high
+type=body
+icon=110,14
+abs=2,3
+bonus=fire resist,15
+req=d,4
+sfx=maille
+gfx=steel_armor
+loot=steel_armor
+
+[item]
+id=828
+name=Frozen Steel Armor
+level=9
+quality=high
+type=body
+icon=110,14
+abs=2,3
+bonus=ice resist,15
+req=d,4
+sfx=maille
+gfx=steel_armor
+loot=steel_armor
+
+[item]
+id=829
+name=Steel Armor of Destruction
+level=10
+quality=high
+type=body
+icon=110,14
+abs=2,3
+bonus=crit,2
+req=d,4
+sfx=maille
+gfx=steel_armor
+loot=steel_armor
+
+[item]
+id=835
+name=Knight's Cuirass
+level=11
+quality=epic
+type=body
+icon=110,14
+abs=3
+bonus=health,9
+req=d,4
+sfx=maille
+gfx=steel_armor
+loot=steel_armor
+
+[item]
+id=836
+name=Wyrmrider Maille
+level=12
+quality=epic
+type=body
+icon=110,14
+abs=3
+bonus=health regen,3
+req=d,4
+sfx=maille
+gfx=steel_armor
+loot=steel_armor
+
+[item]
+id=837
+name=Paladin's Oath
+level=11
+quality=epic
+type=body
+icon=110,14
+abs=3
+bonus=mana,9
+req=d,4
+sfx=maille
+gfx=steel_armor
+loot=steel_armor
+
+[item]
+id=838
+name=Cleric Maille
+level=12
+quality=epic
+type=body
+icon=110,14
+abs=3
+bonus=mana regen,3
+req=d,4
+sfx=maille
+gfx=steel_armor
+loot=steel_armor
+
+[item]
+id=839
+name=Jousting Armor
+level=11
+quality=epic
+type=body
+icon=110,14
+abs=3
+bonus=accuracy,8
+req=d,4
+sfx=maille
+gfx=steel_armor
+loot=steel_armor
+
+[item]
+id=840
+name=Titan Plate
+level=11
+quality=epic
+type=body
+icon=110,14
+abs=3
+bonus=avoidance,10
+req=d,4
+sfx=maille
+gfx=steel_armor
+loot=steel_armor
+
+[item]
+id=841
+name=Ruby Scale Armor
+level=11
+quality=epic
+type=body
+icon=110,14
+abs=3
+bonus=fire resist,20
+req=d,4
+sfx=maille
+gfx=steel_armor
+loot=steel_armor
+
+[item]
+id=842
+name=Diamond Scale Armor
+level=11
+quality=epic
+type=body
+icon=110,14
+abs=3
+bonus=ice resist,20
+req=d,4
+sfx=maille
+gfx=steel_armor
+loot=steel_armor
+
+[item]
+id=843
+name=Marauder Maille
+level=12
+quality=epic
+type=body
+icon=110,14
+abs=3
+bonus=crit,3
 req=d,4
 sfx=maille
 gfx=steel_armor
@@ -820,9 +7278,441 @@ loot=steel_armor
 id=850
 name=Shield
 level=8
-icon=111,15
+quality=normal
 type=off
+icon=111,15
 abs=1,3
+req=d,5
+sfx=heavy
+gfx=shield
+loot=shield
+
+[item]
+id=851
+name=Cracked Shield
+level=7
+quality=low
+type=off
+icon=111,15
+abs=0,3
+req=d,5
+sfx=heavy
+gfx=shield
+loot=shield
+
+[item]
+id=852
+name=Cursed Shield
+level=7
+quality=low
+type=off
+icon=111,15
+abs=1,3
+bonus=avoidance,-4
+req=d,5
+sfx=heavy
+gfx=shield
+loot=shield
+
+[item]
+id=855
+name=Dwarven Shield
+level=9
+quality=high
+type=off
+icon=111,15
+abs=1,3
+bonus=health,3
+req=d,5
+sfx=heavy
+gfx=shield
+loot=shield
+
+[item]
+id=856
+name=Shield of Restoration
+level=10
+quality=high
+type=off
+icon=111,15
+abs=1,3
+bonus=health regen,1
+req=d,5
+sfx=heavy
+gfx=shield
+loot=shield
+
+[item]
+id=857
+name=Elven Shield
+level=9
+quality=high
+type=off
+icon=111,15
+abs=1,3
+bonus=mana,3
+req=d,5
+sfx=heavy
+gfx=shield
+loot=shield
+
+[item]
+id=858
+name=Shield of Meditation
+level=10
+quality=high
+type=off
+icon=111,15
+abs=1,3
+bonus=mana regen,1
+req=d,5
+sfx=heavy
+gfx=shield
+loot=shield
+
+[item]
+id=859
+name=Battle Shield
+level=10
+quality=high
+type=off
+icon=111,15
+abs=1,4
+req=d,5
+sfx=heavy
+gfx=shield
+loot=shield
+
+[item]
+id=860
+name=Shield of Accuracy
+level=9
+quality=high
+type=off
+icon=111,15
+abs=1,3
+bonus=accuracy,2
+req=d,5
+sfx=heavy
+gfx=shield
+loot=shield
+
+[item]
+id=861
+name=Shield of Avoidance
+level=9
+quality=high
+type=off
+icon=111,15
+abs=1,3
+bonus=avoidance,4
+req=d,5
+sfx=heavy
+gfx=shield
+loot=shield
+
+[item]
+id=862
+name=Summer Shield
+level=9
+quality=high
+type=off
+icon=111,15
+abs=1,3
+bonus=fire resist,10
+req=d,5
+sfx=heavy
+gfx=shield
+loot=shield
+
+[item]
+id=863
+name=Winter Shield
+level=9
+quality=high
+type=off
+icon=111,15
+abs=1,3
+bonus=ice resist,10
+req=d,5
+sfx=heavy
+gfx=shield
+loot=shield
+
+[item]
+id=864
+name=Shield of Slaying
+level=10
+quality=high
+type=off
+icon=111,15
+abs=1,3
+bonus=crit,1
+req=d,5
+sfx=heavy
+gfx=shield
+loot=shield
+
+[item]
+id=870
+name=Warlord Shield
+level=11
+quality=high
+type=off
+icon=111,15
+abs=1,4
+bonus=health,6
+req=d,5
+sfx=heavy
+gfx=shield
+loot=shield
+
+[item]
+id=871
+name=Shield of Victory
+level=12
+quality=high
+type=off
+icon=111,15
+abs=1,4
+bonus=health regen,2
+req=d,5
+sfx=heavy
+gfx=shield
+loot=shield
+
+[item]
+id=872
+name=Archmage Shield
+level=11
+quality=high
+type=off
+icon=111,15
+abs=1,4
+bonus=mana,6
+req=d,5
+sfx=heavy
+gfx=shield
+loot=shield
+
+[item]
+id=873
+name=Shield of Wizardry
+level=12
+quality=high
+type=off
+icon=111,15
+abs=1,4
+bonus=mana regen,2
+req=d,5
+sfx=heavy
+gfx=shield
+loot=shield
+
+[item]
+id=874
+name=Ancient Shield
+level=12
+quality=high
+type=off
+icon=111,15
+abs=2,4
+req=d,5
+sfx=heavy
+gfx=shield
+loot=shield
+
+[item]
+id=875
+name=Shield of Precision
+level=11
+quality=high
+type=off
+icon=111,15
+abs=1,4
+bonus=accuracy,5
+req=d,5
+sfx=heavy
+gfx=shield
+loot=shield
+
+[item]
+id=876
+name=Shield of Protection
+level=11
+quality=high
+type=off
+icon=111,15
+abs=1,4
+bonus=avoidance,7
+req=d,5
+sfx=heavy
+gfx=shield
+loot=shield
+
+[item]
+id=877
+name=Fiery Shield
+level=11
+quality=high
+type=off
+icon=111,15
+abs=1,4
+bonus=fire resist,15
+req=d,5
+sfx=heavy
+gfx=shield
+loot=shield
+
+[item]
+id=878
+name=Frozen Shield
+level=11
+quality=high
+type=off
+icon=111,15
+abs=1,4
+bonus=ice resist,15
+req=d,5
+sfx=heavy
+gfx=shield
+loot=shield
+
+[item]
+id=879
+name=Shield of Destruction
+level=12
+quality=high
+type=off
+icon=111,15
+abs=1,4
+bonus=crit,2
+req=d,5
+sfx=heavy
+gfx=shield
+loot=shield
+
+[item]
+id=885
+name=Knight's Defense
+level=13
+quality=epic
+type=off
+icon=111,15
+abs=2,4
+bonus=health,9
+req=d,5
+sfx=heavy
+gfx=shield
+loot=shield
+
+[item]
+id=886
+name=Aegis of Life
+level=14
+quality=epic
+type=off
+icon=111,15
+abs=2,4
+bonus=health regen,3
+req=d,5
+sfx=heavy
+gfx=shield
+loot=shield
+
+[item]
+id=887
+name=Paladin's Honor
+level=13
+quality=epic
+type=off
+icon=111,15
+abs=2,4
+bonus=mana,9
+req=d,5
+sfx=heavy
+gfx=shield
+loot=shield
+
+[item]
+id=888
+name=Aegis of Ether
+level=14
+quality=epic
+type=off
+icon=111,15
+abs=2,4
+bonus=mana regen,3
+req=d,5
+sfx=heavy
+gfx=shield
+loot=shield
+
+[item]
+id=889
+name=Steel Ward
+level=13
+quality=epic
+type=off
+icon=111,15
+abs=2,4
+bonus=accuracy,8
+req=d,5
+sfx=heavy
+gfx=shield
+loot=shield
+
+[item]
+id=890
+name=The Rook
+level=13
+quality=epic
+type=off
+icon=111,15
+abs=2,4
+bonus=avoidance,10
+req=d,5
+sfx=heavy
+gfx=shield
+loot=shield
+
+[item]
+id=891
+name=Flame Tower
+level=13
+quality=epic
+type=off
+icon=111,15
+abs=2,4
+bonus=fire resist,20
+req=d,5
+sfx=heavy
+gfx=shield
+loot=shield
+
+[item]
+id=892
+name=Frost Tower
+level=13
+quality=epic
+type=off
+icon=111,15
+abs=2,4
+bonus=ice resist,20
+req=d,5
+sfx=heavy
+gfx=shield
+loot=shield
+
+[item]
+id=893
+name=Blood Ward
+level=14
+quality=epic
+type=off
+icon=111,15
+abs=2,4
+bonus=crit,3
 req=d,5
 sfx=heavy
 gfx=shield
@@ -832,8 +7722,85 @@ loot=shield
 id=900
 name=Belt
 level=3
-icon=115,19
+quality=normal
 type=artifact
+icon=115,19
+sfx=leather
+loot=belt
+
+[item]
+id=901
+name=Tattered Belt
+level=3
+quality=low
+type=artifact
+icon=115,19
+sfx=leather
+loot=belt
+
+[item]
+id=902
+name=Dwarven Belt
+level=4
+quality=high
+type=artifact
+icon=115,19
+bonus=health,5
+sfx=leather
+loot=belt
+
+[item]
+id=903
+name=Elven Belt
+level=4
+quality=high
+type=artifact
+icon=115,19
+bonus=mana,5
+sfx=leather
+loot=belt
+
+[item]
+id=904
+name=Warlord Belt
+level=6
+quality=high
+type=artifact
+icon=115,19
+bonus=health,10
+sfx=leather
+loot=belt
+
+[item]
+id=905
+name=Archmage Belt
+level=6
+quality=high
+type=artifact
+icon=115,19
+bonus=mana,10
+sfx=leather
+loot=belt
+
+[item]
+id=906
+name=Trollhair Belt
+level=8
+quality=epic
+type=artifact
+icon=115,19
+bonus=health,15
+sfx=leather
+loot=belt
+
+[item]
+id=907
+name=Spellpouch Belt
+level=8
+quality=epic
+type=artifact
+icon=115,19
+bonus=mana,15
 sfx=leather
 loot=belt
 
@@ -841,8 +7808,85 @@ loot=belt
 id=910
 name=Boots
 level=4
-icon=113,17
+quality=normal
 type=artifact
+icon=113,17
+sfx=leather
+loot=boots
+
+[item]
+id=911
+name=Tattered Boots
+level=4
+quality=low
+type=artifact
+icon=113,17
+sfx=leather
+loot=boots
+
+[item]
+id=912
+name=Boots of Speed
+level=6
+quality=high
+type=artifact
+icon=113,17
+bonus=speed,2
+sfx=leather
+loot=boots
+
+[item]
+id=913
+name=Boots of Avoidance
+level=5
+quality=high
+type=artifact
+icon=113,17
+bonus=avoidance,5
+sfx=leather
+loot=boots
+
+[item]
+id=914
+name=Boots of Travel
+level=8
+quality=high
+type=artifact
+icon=113,17
+bonus=speed,4
+sfx=leather
+loot=boots
+
+[item]
+id=915
+name=Boots of Protection
+level=7
+quality=high
+type=artifact
+icon=113,17
+bonus=avoidance,10
+sfx=leather
+loot=boots
+
+[item]
+id=916
+name=Windwalker Boots
+level=10
+quality=epic
+type=artifact
+icon=113,17
+bonus=speed,6
+sfx=leather
+loot=boots
+
+[item]
+id=917
+name=Phase Step Boots
+level=9
+quality=epic
+type=artifact
+icon=113,17
+bonus=avoidance,15
 sfx=leather
 loot=boots
 
@@ -850,8 +7894,85 @@ loot=boots
 id=940
 name=Ring
 level=7
-icon=114,18
+quality=normal
 type=artifact
+icon=114,18
+sfx=gem
+loot=ring
+
+[item]
+id=941
+name=Tarnished Ring
+level=7
+quality=low
+type=artifact
+icon=114,18
+sfx=gem
+loot=ring
+
+[item]
+id=942
+name=Ring of Restoration
+level=9
+quality=high
+type=artifact
+icon=114,18
+bonus=health regen,2
+sfx=gem
+loot=ring
+
+[item]
+id=943
+name=Ring of Meditation
+level=9
+quality=high
+type=artifact
+icon=114,18
+bonus=mana regen,2
+sfx=gem
+loot=ring
+
+[item]
+id=944
+name=Ring of Victory
+level=11
+quality=high
+type=artifact
+icon=114,18
+bonus=health regen,4
+sfx=gem
+loot=ring
+
+[item]
+id=945
+name=Ring of Wizardry
+level=11
+quality=high
+type=artifact
+icon=114,18
+bonus=mana regen,4
+sfx=gem
+loot=ring
+
+[item]
+id=946
+name=Signet of Forgotten Kings
+level=13
+quality=epic
+type=artifact
+icon=114,18
+bonus=health regen,6
+sfx=gem
+loot=ring
+
+[item]
+id=947
+name=Band of Enlightenment
+level=13
+quality=epic
+type=artifact
+icon=114,18
+bonus=mana regen,6
 sfx=gem
 loot=ring
 
