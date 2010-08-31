@@ -329,31 +329,31 @@ intermap=averguard_atrium.txt,8,58
 
 # next 5 are bookstands throughout the library
 [event]
-type=container
+type=run_once
 location=31,22,0,1
 mapmod=object,31,22,165
 soundfx=soundfx/inventory/inventory_page.ogg
 
 [event]
-type=container
+type=run_once
 location=28,22,0,1
 mapmod=object,28,22,165
 soundfx=soundfx/inventory/inventory_page.ogg
 
 [event]
-type=container
+type=run_once
 location=25,22,0,1
 mapmod=object,25,22,165
 soundfx=soundfx/inventory/inventory_page.ogg
 
 [event]
-type=container
+type=run_once
 location=22,31,1,0
 mapmod=object,22,31,164
 soundfx=soundfx/inventory/inventory_page.ogg
 
 [event]
-type=container
+type=run_once
 location=20,75,1,0
 mapmod=object,20,75,164
 soundfx=soundfx/inventory/inventory_page.ogg
@@ -361,47 +361,47 @@ loot=id,21,75,2
 
 # next 4 are barrels in the storage area
 [event]
-type=container
+type=run_once
 location=10,48,1,1
 mapmod=object,10,49,162
 soundfx=soundfx/wood_open.ogg
 
 [event]
-type=container
+type=run_once
 location=10,47,1,2
 mapmod=object,10,48,162
 soundfx=soundfx/wood_open.ogg
 loot=random,11,48,1
 
 [event]
-type=container
+type=run_once
 location=10,46,1,2
 mapmod=object,10,47,162
 soundfx=soundfx/wood_open.ogg
 
 [event]
-type=container
+type=run_once
 location=11,48,2,1
 mapmod=object,12,49,162
 soundfx=soundfx/wood_open.ogg
 
 # next 3 are crates in the storage area
 [event]
-type=container
+type=run_once
 location=10,46,2,1
 mapmod=object,11,46,163
 soundfx=soundfx/wood_open.ogg
 loot=random,12,46,1
 
 [event]
-type=container
+type=run_once
 location=12,48,2,1
 mapmod=object,13,49,163
 soundfx=soundfx/wood_open.ogg
 
 
 [event]
-type=container
+type=run_once
 location=14,48,1,1
 mapmod=object,15,49,163
 soundfx=soundfx/wood_open.ogg

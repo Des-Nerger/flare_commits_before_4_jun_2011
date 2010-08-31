@@ -444,7 +444,7 @@ void MapIso::executeEvent(int eid) {
 			loot.push(*ec);
 		}
 	}
-	if (events[eid].type == "container") {
+	if (events[eid].type == "run_once") {
 		removeEvent(eid);
 	}
 }

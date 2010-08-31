@@ -412,7 +412,7 @@ intermap=averguard_atrium.txt,7,3
 
 [event]
 # switch to open the temple library room
-type=container
+type=run_once
 location=18,117,1,2
 mapmod=object,19,118,166
 mapmod=object,10,118,112
@@ -421,7 +421,7 @@ soundfx=soundfx/door_open.ogg
 
 [event]
 # throne switch to open the boss area
-type=container
+type=run_once
 location=15,93,2,2
 mapmod=object,16,94,166
 mapmod=object,15,88,113
@@ -430,20 +430,20 @@ soundfx=soundfx/door_open.ogg
 
 # next two are books in the library room
 [event]
-type=container
+type=run_once
 location=2,117,1,0
 mapmod=object,2,117,164
 soundfx=soundfx/inventory/inventory_page.ogg
 
 [event]
-type=container
+type=run_once
 location=2,121,1,0
 mapmod=object,2,121,164
 soundfx=soundfx/inventory/inventory_page.ogg
 
 # chest in the boss room
 [event]
-type=container
+type=run_once
 location=14,1,2,1
 mapmod=object,15,1,161
 soundfx=soundfx/wood_open.ogg
