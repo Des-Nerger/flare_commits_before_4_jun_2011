@@ -132,7 +132,7 @@ static bool isWithin(Point center, int radius, Point target) {
 
 static void zsort(Renderable r[], int rnum) {
 
-	int zpos[rnum];
+	int zpos[1024];
 	int ztemp;
 	Renderable rtemp;
 	

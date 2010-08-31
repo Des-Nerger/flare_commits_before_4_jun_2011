@@ -17,7 +17,7 @@
 #include "GameEngine.h"
 
 SDL_Surface *screen;
-InputState *inp;
+InputState *inps;
 GameEngine *eng;
 
 static void init() {
@@ -49,8 +49,8 @@ static void init() {
 	}
 	
 	/* Shared game units setup */
-	inp = new InputState();
-	eng = new GameEngine(screen, inp);
+	inps = new InputState();
+	eng = new GameEngine(screen, inps);
 }
 
 static void mainLoop () {
@@ -67,13 +67,13 @@ static void mainLoop () {
 		SDL_FillRect(screen, NULL, 0);
 
 		SDL_PumpEvents();
-		inp->handle();
+		inps->handle();
 		eng->logic();
 		eng->render();
 		
 		// Engine done means the user escapes the main game menu.
 		// Input done means the user closes the window.
-		done = eng->done || inp->done;
+		done = eng->done || inps->done;
 		
 		nowTicks = SDL_GetTicks();
 		if (nowTicks - prevTicks < delay) SDL_Delay(delay - (nowTicks - prevTicks));
@@ -100,7 +100,7 @@ int main(int argc, char *argv[])
 	// cleanup
 	// TODO: halt all sounds here before freeing music/chunks
 	delete(eng);
-	delete(inp);
+	delete(inps);
 	SDL_FreeSurface(screen);
 	Mix_CloseAudio();
 	SDL_Quit();
