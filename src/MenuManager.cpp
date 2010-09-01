@@ -45,6 +45,8 @@ void MenuManager::loadSounds() {
 
 void MenuManager::logic() {
 
+	log->logic();
+
 	if (!inp->pressing[INVENTORY] && !inp->pressing[POWERS] && !inp->pressing[CHARACTER] && !inp->pressing[LOG])
 		key_lock = false;
 

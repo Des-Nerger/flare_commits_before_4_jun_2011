@@ -22,6 +22,9 @@ GameEngine::GameEngine(SDL_Surface *_screen, InputState *_inp) {
 	menu = new MenuManager(_screen, _inp, font, &pc->stats);
 	loot = new LootManager(menu->items, menu->tip, enemies, map);
 	
+	menu->log->add("Welcome to OSARE v0.08.");
+	menu->log->add("Use WASD or arrows to move.");
+	
 	cancel_lock = false;
 
 }
@@ -94,6 +97,12 @@ void GameEngine::logic() {
 	// if user closes the window
 	if (inp->done) done = true;
 	
+	// check for log messages from various child objects
+	if (map->log_msg != "") {
+		menu->log->add(map->log_msg);
+		map->log_msg = "";
+	}
+	
 	menu->logic();
 	
 	// check change equipment
@@ -140,6 +149,7 @@ void GameEngine::render() {
 	// mouseover loot tooltips
 	loot->renderTooltips(map->cam);
 	
+	menu->log->renderHUDMessages();
 	menu->render();
 }
 

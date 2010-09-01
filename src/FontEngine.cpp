@@ -112,7 +112,7 @@ Point FontEngine::calc_size(string text_with_newlines, int width) {
 	fulltext = text + " ";
 	segment = eatFirstString(fulltext, space);
 	
-	while(segment != "") {
+	while(segment != "" || fulltext.length() > 0) { // don't exit early on double spaces
 		builder = builder + segment;
 		
 		if (calc_length(builder) > width) {
@@ -204,7 +204,8 @@ void FontEngine::render(string text, int x, int y, int justify, SDL_Surface *tar
 	fulltext = text + " ";
 	segment = eatFirstString(fulltext, space);
 	
-	while(segment != "") {
+	
+	while(segment != "" || fulltext.length() > 0) { // don't exit early on double spaces
 		builder = builder + segment;
 		
 		if (calc_length(builder) > width) {

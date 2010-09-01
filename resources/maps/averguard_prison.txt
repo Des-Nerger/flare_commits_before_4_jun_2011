@@ -358,6 +358,7 @@ type=run_once
 location=23,29,0,1
 mapmod=object,23,29,165
 soundfx=soundfx/inventory/inventory_page.ogg
+msg=The last entry of this well-preserved journal reads: "I feared it would come to this.  I knew the Warden's secrets but they would not be contained forever."
 
 [event]
 # hidden room chest

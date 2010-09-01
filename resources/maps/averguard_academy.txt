@@ -333,30 +333,35 @@ type=run_once
 location=31,22,0,1
 mapmod=object,31,22,165
 soundfx=soundfx/inventory/inventory_page.ogg
+msg="Some say the Averguard Academy is the greatest collection of knowledge within the empire."
 
 [event]
 type=run_once
 location=28,22,0,1
 mapmod=object,28,22,165
 soundfx=soundfx/inventory/inventory_page.ogg
+msg="Professor Langlier is High Sage of the Averguard.  Several volumes kept here are his own writings."
 
 [event]
 type=run_once
 location=25,22,0,1
 mapmod=object,25,22,165
 soundfx=soundfx/inventory/inventory_page.ogg
+msg="The Academy is only open to oathkeeping members of the Averguard.  Few others know of its existence."
 
 [event]
 type=run_once
 location=22,31,1,0
 mapmod=object,22,31,164
 soundfx=soundfx/inventory/inventory_page.ogg
+msg="The peasants could not be trusted with literacy.  Most gave up their books without incident."
 
 [event]
 type=run_once
 location=20,75,1,0
 mapmod=object,20,75,164
 soundfx=soundfx/inventory/inventory_page.ogg
+msg=This false book has a secret compartment.
 loot=id,21,75,2
 
 # next 4 are barrels in the storage area
@@ -399,13 +404,19 @@ location=12,48,2,1
 mapmod=object,13,49,163
 soundfx=soundfx/wood_open.ogg
 
-
 [event]
 type=run_once
 location=14,48,1,1
 mapmod=object,15,49,163
 soundfx=soundfx/wood_open.ogg
 loot=random,14,48,1
+
+[event]
+type=run_once
+location=3,89,2,3
+msg=This tomb glows with magical runes.
+loot=random,5,90,5
+loot=random,5,91,6
 
 [enemy]
 type=skeleton

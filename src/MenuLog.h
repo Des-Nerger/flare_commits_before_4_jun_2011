@@ -14,6 +14,8 @@
 #include "Utils.h"
 #include "FontEngine.h"
 
+const int MAX_LOG_MESSAGES = 100;
+
 class MenuLog {
 private:
 	SDL_Surface *screen;
@@ -21,12 +23,21 @@ private:
 
 	SDL_Surface *background;
 	void loadGraphics();
+	
+	int calcDuration(string s);
+	
+	string log_msg[MAX_LOG_MESSAGES];
+	int msg_age[MAX_LOG_MESSAGES];
+	int log_count;
+	
 public:
 	MenuLog(SDL_Surface *screen, FontEngine *font);
 	~MenuLog();
 
 	void logic();
 	void render();
+	void renderHUDMessages();
+	void add(string s);
 	
 	bool visible;
 

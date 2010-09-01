@@ -26,6 +26,7 @@ MapIso::MapIso(SDL_Surface *_screen) {
 	
 	sfx = NULL;
 	sfx_filename = "";
+	log_msg = "";
 	
 	// spawn is a special map that defines where the campaign begins
 	load("spawn.txt");
@@ -252,6 +253,9 @@ int MapIso::load(string filename) {
 								e->z = eatFirstInt(val, ',');
 			
 							}
+							else if (key == "msg") {
+								e->s = val;
+							}
 							
 							events[event_count-1].comp_num++;
 						}
@@ -414,6 +418,12 @@ void MapIso::checkEvents(Point loc) {
 	}
 }
 
+/**
+ * A particular event has been triggered.
+ * Process all of this event's components.
+ *
+ * @param eid The triggered event id
+ */
 void MapIso::executeEvent(int eid) {
 	Event_Component *ec;
 	for (int i=0; i<events[eid].comp_num; i++) {
@@ -442,6 +452,9 @@ void MapIso::executeEvent(int eid) {
 		}
 		else if (ec->type == "loot") {
 			loot.push(*ec);
+		}
+		else if (ec->type == "msg") {
+			log_msg = ec->s;
 		}
 	}
 	if (events[eid].type == "run_once") {

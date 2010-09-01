@@ -100,6 +100,9 @@ public:
 	Point teleport_desination;
 	string teleport_mapname;
 	
+	// message handling
+	string log_msg;
+	
 };
 
 

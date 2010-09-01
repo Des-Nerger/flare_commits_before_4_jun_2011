@@ -1,28 +1,30 @@
-name=Rotting Zombie
+name=Brittle Skeleton
 level=1
 
-sfx_prefix=zombie
-gfx_prefix=zombie
+sfx_prefix=skeleton
+gfx_prefix=skeleton_weak
 
-loot_chance=15
+loot_chance=20
 
 # combat stats
-hp=4
-speed=3
-dspeed=2
+hp=6
+speed=4
+dspeed=3
 melee_range=64
 threat_range=448
-dir_favor=12
-chance_melee_phys=8
-chance_melee_mag=1
+dir_favor=8
+chance_melee_phys=15
+chance_melee_mag=0
 chance_ranged_phys=0
 chance_ranged_mag=0
+accuracy=75
+avoidance=20
 
 dmg_melee_min=1
-dmg_melee_max=4
-dmg_magic_min=2
-dmg_magic_max=5
-cooldown=40
+dmg_melee_max=5
+absorb_min=0
+absorb_max=0
+cooldown=35
 
 # animation info
 render_size_x=128
@@ -32,17 +34,17 @@ render_offset_x=64
 render_offset_y=96
 anim_stance_position=0
 anim_stance_frames=4
-anim_stance_duration=10
+anim_stance_duration=5
 anim_run_position=4
 anim_run_frames=8
 anim_run_duration=4
 anim_melee_position=12
 anim_melee_frames=4
-anim_melee_duration=5
+anim_melee_duration=4
 anim_magic_position=16
 anim_magic_frames=4
 anim_magic_duration=4
-anim_ranged_position=16
+anim_ranged_position=28
 anim_ranged_frames=4
 anim_ranged_duration=4
 anim_block_position=20
@@ -53,7 +55,7 @@ anim_hit_frames=2
 anim_hit_duration=3
 anim_die_position=22
 anim_die_frames=6
-anim_die_duration=3
-anim_critdie_position=28
-anim_critdie_frames=8
-anim_critdie_duration=4
+anim_die_duration=6
+anim_critdie_position=22
+anim_critdie_frames=6
+anim_critdie_duration=6
