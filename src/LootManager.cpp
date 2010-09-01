@@ -72,9 +72,12 @@ void LootManager::loadGraphics() {
 			}
 			
 			if (new_anim) {
-				animation_id[animation_count] = anim_id;
 				flying_loot[animation_count] = IMG_Load(("images/loot/" + anim_id + ".png").c_str());
-				animation_count++;
+				
+				if (flying_loot[animation_count]) {
+					animation_id[animation_count] = anim_id;
+					animation_count++;
+				}
 			}
 		}
 	}
