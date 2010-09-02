@@ -63,6 +63,7 @@ public:
 	int face(int mapx, int mapy);
 	Renderable getRender();
 	void takeHit(Hazard h);
+	string log_msg;
 	
 	// vars
 	Point pos;

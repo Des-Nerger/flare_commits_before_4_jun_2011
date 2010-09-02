@@ -224,7 +224,7 @@ intermap=averguard_academy.txt,62,3
 
 [enemy]
 type=goblin_charger
-spawnpoint=5,3,1
+spawnpoint=7,23,7
 
 [enemy]
 type=goblin

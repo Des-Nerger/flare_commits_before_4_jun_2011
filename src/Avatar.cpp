@@ -32,6 +32,8 @@ Avatar::Avatar(InputState *_inp, MapIso *_map) {
 	stats.offense = 2;
 	stats.defense = 5;
 	stats.recalc();
+	
+	log_msg = "";
 
 	cooldown_melee = 0;
 	
@@ -339,6 +341,23 @@ void Avatar::logic() {
 
 			if (curFrame == 1) {
 				Mix_PlayChannel(-1, sound_die, 0);
+				log_msg = "You are defeated.  Press Enter to continue.";
+			}
+			
+			// allow respawn with Accept
+			if (inp->pressing[ACCEPT]) {
+				stats.hp = stats.maxhp;
+				stats.mp = stats.maxmp;
+				stats.alive = true;
+				stats.corpse = false;
+				curFrame = 0;
+				curState = AVATAR_STANCE;
+				
+				// set teleportation variables.  GameEngine acts on these.
+				map->teleportation = true;
+				map->teleport_mapname = map->respawn_map;
+				map->teleport_destination.x = map->respawn_point.x;
+				map->teleport_destination.y = map->respawn_point.y;
 			}
 			
 			break;

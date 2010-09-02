@@ -97,8 +97,10 @@ public:
 
 	// teleport handling
 	bool teleportation;
-	Point teleport_desination;
+	Point teleport_destination;
 	string teleport_mapname;
+	string respawn_map;
+	Point respawn_point;
 	
 	// message handling
 	string log_msg;

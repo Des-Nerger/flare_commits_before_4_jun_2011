@@ -69,8 +69,8 @@ void GameEngine::logic() {
 	if (map->teleportation) {
 		map->teleportation = false;
 
-		map->cam.x = pc->pos.x = map->teleport_desination.x;
-		map->cam.y = pc->pos.y = map->teleport_desination.y;
+		map->cam.x = pc->pos.x = map->teleport_destination.x;
+		map->cam.y = pc->pos.y = map->teleport_destination.y;
 		
 		// process intermap teleport
 		if (map->teleport_mapname != "") {
@@ -79,6 +79,10 @@ void GameEngine::logic() {
 			hazards->handleNewMap();
 			loot->handleNewMap();
 			
+			// store this as the new respawn point
+			map->respawn_map = map->teleport_mapname;
+			map->respawn_point.x = pc->pos.x;
+			map->respawn_point.y = pc->pos.y;
 		}
 	}
 	
@@ -101,6 +105,10 @@ void GameEngine::logic() {
 	if (map->log_msg != "") {
 		menu->log->add(map->log_msg);
 		map->log_msg = "";
+	}
+	if (pc->log_msg != "") {
+		menu->log->add(pc->log_msg);
+		pc->log_msg = "";
 	}
 	
 	menu->logic();

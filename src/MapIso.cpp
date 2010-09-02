@@ -432,8 +432,8 @@ void MapIso::executeEvent(int eid) {
 		if (ec->type == "intermap") {
 			teleportation = true;
 			teleport_mapname = ec->s;
-			teleport_desination.x = ec->x * UNITS_PER_TILE + UNITS_PER_TILE/2;
-			teleport_desination.y = ec->y * UNITS_PER_TILE + UNITS_PER_TILE/2;
+			teleport_destination.x = ec->x * UNITS_PER_TILE + UNITS_PER_TILE/2;
+			teleport_destination.y = ec->y * UNITS_PER_TILE + UNITS_PER_TILE/2;
 		}
 		else if (ec->type == "mapmod") {
 			if (ec->s == "collision") {
