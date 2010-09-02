@@ -27,6 +27,7 @@ Avatar::Avatar(InputState *_inp, MapIso *_map) {
 	
 	stats.name = "Unknown";
 	stats.level = 9;
+	stats.xp = 0;
 	stats.physical = 4;
 	stats.magical = 1;
 	stats.offense = 2;

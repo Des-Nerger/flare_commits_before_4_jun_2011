@@ -52,7 +52,6 @@ private:
 	
 	void executeEvent(int eid);
 	void removeEvent(int eid);
-	void clearEvents();
 	void playSFX(string filename);
 		
 	// map events
@@ -68,6 +67,7 @@ public:
 	void loadMusic();
 	void render(Renderable r[], int rnum);
 	void checkEvents(Point loc);
+	void clearEvents();
 
 	// vars
 	string title;

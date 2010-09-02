@@ -87,6 +87,7 @@ void StatBlock::load(string filename) {
 					else if (key == "gfx_prefix") gfx_prefix = val;
 					
 					else if (key == "level") level = num;
+					else if (key == "xp") xp = num;
 					
 					else if (key == "loot_chance") loot_chance = num;
 					

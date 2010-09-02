@@ -26,7 +26,7 @@ GameEngine::GameEngine(SDL_Surface *_screen, InputState *_inp) {
 	menu->log->add("Use WASD or arrows to move.");
 	
 	cancel_lock = false;
-
+	loadGame();
 }
 
 
@@ -94,12 +94,16 @@ void GameEngine::logic() {
 			menu->closeAll();
 		}
 		else {
+			saveGame();
 			done = true;
 		}
 	}
 	
 	// if user closes the window
-	if (inp->done) done = true;
+	if (inp->done) {
+		saveGame();
+		done = true;
+	}
 	
 	// check for log messages from various child objects
 	if (map->log_msg != "") {

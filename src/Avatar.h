@@ -35,7 +35,6 @@ private:
 	InputState *inp;
 	MapIso *map;
 	int curState;
-	int direction;
 	bool lockSwing;
 	bool lockCast;
 	bool lockShoot;
@@ -67,6 +66,7 @@ public:
 	
 	// vars
 	Point pos;
+	int direction;
 	StatBlock stats;
 	Hazard *haz;
 

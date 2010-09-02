@@ -37,6 +37,7 @@ public:
 	string gfx_prefix;
 	
 	int level;
+	int xp;
 	
 	// base stats
 	int offense;

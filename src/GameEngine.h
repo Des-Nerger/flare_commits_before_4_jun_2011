@@ -40,6 +40,9 @@ private:
 	
 	bool cancel_lock;
 	
+	void saveGame();
+	void loadGame();
+	
 public:
 	bool done;
 	GameEngine(SDL_Surface *screen, InputState *inp);
