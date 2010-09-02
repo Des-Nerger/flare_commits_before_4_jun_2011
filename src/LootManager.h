@@ -11,6 +11,7 @@
 #define LOOT_MANAGER_H
 
 #include <string>
+#include <sstream>
 #include "SDL.h"
 #include "SDL_image.h"
 #include "SDL_mixer.h"
@@ -24,6 +25,7 @@ struct LootDef {
 	int item;
 	int frame;
 	Point pos;
+	int gold;
 };
 
 
@@ -51,6 +53,8 @@ private:
 	int lootLevel(int base_level);
 	
 	SDL_Surface *flying_loot[64];
+	SDL_Surface *flying_gold[3];
+	
 	string animation_id[64];
 	int animation_count;
 	
@@ -79,8 +83,9 @@ public:
 	bool isFlying(int loot_index);
 	void determineLoot(int base_level, Point pos);
 	void addLoot(int item_id, Point pos);
+	void addGold(int count, Point pos);
 	void removeLoot(int index);
-	int checkPickup(Point mouse, Point cam, Point hero_pos);
+	int checkPickup(Point mouse, Point cam, Point hero_pos, int &gold);
 	
 	Renderable getRender(int index);
 	

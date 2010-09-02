@@ -33,6 +33,7 @@ LootManager::LootManager(ItemDatabase *_items, MenuTooltip *_tip, EnemyManager *
 		loot[i].pos.y = 0;
 		loot[i].frame = 0;
 		loot[i].item = 0;
+		loot[i].gold = 0;
 	}
 
 	// reset loot table
@@ -82,9 +83,17 @@ void LootManager::loadGraphics() {
 		}
 	}
 	
+	// gold
+	flying_gold[0] = IMG_Load("images/loot/coins5.png");
+	flying_gold[1] = IMG_Load("images/loot/coins25.png");
+	flying_gold[2] = IMG_Load("images/loot/coins100.png");
+	
 	// set magic pink transparency
 	for (int i=0; i<animation_count; i++) {
 		SDL_SetColorKey( flying_loot[i], SDL_SRCCOLORKEY, SDL_MapRGB(flying_loot[i]->format, 255, 0, 255) ); 
+	}
+	for (int i=0; i<3; i++) {
+		SDL_SetColorKey( flying_gold[i], SDL_SRCCOLORKEY, SDL_MapRGB(flying_gold[i]->format, 255, 0, 255) ); 	
 	}
 }
 
@@ -140,8 +149,12 @@ void LootManager::logic() {
 		if (loot[i].frame < 23)
 			loot[i].frame++;
 
-		if (loot[i].frame == 20)
-			items->playSound(loot[i].item);
+		if (loot[i].frame == 20) {
+			if (loot[i].item > 0)
+				items->playSound(loot[i].item);
+			else
+				items->playCoinsSound();
+		}
 	}
 	
 	checkEnemiesForLoot();
@@ -171,6 +184,7 @@ void LootManager::renderTooltips(Point cam) {
 	
 	Point dest;
 	TooltipData td;
+	stringstream ss;
 	
 	for (int i = 0; i < loot_count; i++) {			
 		if (loot[i].frame >= 23) {
@@ -179,7 +193,16 @@ void LootManager::renderTooltips(Point cam) {
 		
 			// adjust dest.y so that the tooltip floats above the item
 			dest.y -= tooltip_margin;
-			td = items->getShortTooltip(loot[i].item);
+			if (loot[i].item > 0)
+				td = items->getShortTooltip(loot[i].item);
+			else {
+				td.num_lines = 1;
+				td.colors[0] = FONT_WHITE;
+				ss << loot[i].gold << " Gold";
+				td.lines[0] = ss.str();
+				ss.str("");
+			}
+			
 			tip->render(td, dest, STYLE_TOPLABEL);
 		}
 	}
@@ -257,8 +280,16 @@ void LootManager::determineLoot(int base_level, Point pos) {
 
 	int level = lootLevel(base_level);
 	if (level > 0 && loot_table_count[level] > 0) {
-		int roll = rand() % loot_table_count[level];
-		addLoot(loot_table[level][roll], pos);
+	
+		// coin flip whether the treasure is cash or items
+		if (rand() % 2 == 0) {
+			int roll = rand() % loot_table_count[level];
+			addLoot(loot_table[level][roll], pos);
+		}
+		else {
+			// gold range is level to 3x level
+			addGold(rand() % (level * 2) + level, pos);
+		}
 	}
 }
 
@@ -268,9 +299,21 @@ void LootManager::addLoot(int item_id, Point pos) {
 	loot[loot_count].pos.x = pos.x;
 	loot[loot_count].pos.y = pos.y;
 	loot[loot_count].frame = 0;
+	loot[loot_count].gold = 0;
 	loot_count++;
 	if (loot_flip) Mix_PlayChannel(-1, loot_flip, 0);
 }
+
+void LootManager::addGold(int count, Point pos) {
+	loot[loot_count].item = 0;
+	loot[loot_count].pos.x = pos.x;
+	loot[loot_count].pos.y = pos.y;
+	loot[loot_count].frame = 0;
+	loot[loot_count].gold = count;
+	loot_count++;
+	if (loot_flip) Mix_PlayChannel(-1, loot_flip, 0);	
+}
+
 
 /**
  * Remove one loot from the array, preserving sort order
@@ -290,11 +333,12 @@ void LootManager::removeLoot(int index) {
  * screen coordinates to map locations.  We need the hero position because
  * the hero has to be within range to pick up an item.
  */
-int LootManager::checkPickup(Point mouse, Point cam, Point hero_pos) {
+int LootManager::checkPickup(Point mouse, Point cam, Point hero_pos, int &gold) {
 	Point p;
 	SDL_Rect r;
 	int loot_id;
-
+	gold = 0;	
+	
 	// I'm starting at the end of the loot list so that more recently-dropped
 	// loot is picked up first.  If a player drops several loot in the same
 	// location, picking it back up will work like a stack.
@@ -313,9 +357,17 @@ int LootManager::checkPickup(Point mouse, Point cam, Point hero_pos) {
 			// clicked in pickup hotspot?
 			if (mouse.x > r.x && mouse.x < r.x+r.w &&
 				mouse.y > r.y && mouse.y < r.y+r.h) {
-				loot_id = loot[i].item;
-				removeLoot(i);
-				return loot_id;			
+				
+				if (loot[i].item > 0) {
+					loot_id = loot[i].item;
+					removeLoot(i);
+					return loot_id;			
+				}
+				else if (loot[i].gold > 0) {
+					gold = loot[i].gold;
+					removeLoot(i);
+					return 0;
+				}
 			}
 		}
 	}
@@ -340,9 +392,21 @@ Renderable LootManager::getRender(int index) {
 	r.offset.y = 112;
 	r.object_layer = true;
 
-	for (int i=0; i<animation_count; i++) {
-		if (items->items[loot[index].item].loot == animation_id[i])
-			r.sprite = flying_loot[i];
+	if (loot[index].item > 0) {
+		// item
+		for (int i=0; i<animation_count; i++) {
+			if (items->items[loot[index].item].loot == animation_id[i])
+				r.sprite = flying_loot[i];
+		}
+	}
+	else if (loot[index].gold > 0) {
+		// gold
+		if (loot[index].gold <= 9)
+			r.sprite = flying_gold[0];
+		else if (loot[index].gold <= 25)
+			r.sprite = flying_gold[1];
+		else 
+			r.sprite = flying_gold[2];
 	}
 
 	return r;	
@@ -352,5 +416,8 @@ LootManager::~LootManager() {
 	for (int i=0; i<64; i++)
 		if (flying_loot[i])
 			SDL_FreeSurface(flying_loot[i]);
+	for (int i=0; i<3; i++)
+		if (flying_gold[i])
+			SDL_FreeSurface(flying_gold[i]);
 	if (loot_flip) Mix_FreeChunk(loot_flip);
 }

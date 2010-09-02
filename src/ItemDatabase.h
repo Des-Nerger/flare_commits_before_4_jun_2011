@@ -93,6 +93,7 @@ public:
 	void loadSounds();
 	void renderIcon(int item, int x, int y, int size);
 	void playSound(int item);
+	void playCoinsSound();	
 	TooltipData getTooltip(int item, StatBlock *stats);
 	TooltipData getShortTooltip(int item);
 	void applyEquipment(StatBlock *stats, int equipped[4]);

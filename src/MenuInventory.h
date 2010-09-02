@@ -52,11 +52,13 @@ public:
 	TooltipData checkTooltip(Point mouse);
 	bool full();
 	void add(int item);
+	void addGold(int count);
 	
 	bool visible;
 
 	int carried[64];
 	int equipped[4];
+	int gold;
 	int drag_prev_slot;
 	int drag_prev_src;
 

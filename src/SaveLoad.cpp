@@ -35,6 +35,9 @@ void GameEngine::saveGame() {
 		// stat spec
 		outfile << "build=" << pc->stats.physical << "," << pc->stats.magical << "," << pc->stats.offense << "," << pc->stats.defense << "\n";
 		
+		// current gold
+		outfile << "gold=" << menu->inv->gold << "\n";
+		
 		// equipped gear
 		outfile << "equipped=";
 		for (int i=0; i<4; i++) {
@@ -90,7 +93,7 @@ void GameEngine::loadGame() {
 					if (key == "name") {
 						pc->stats.name = val;
 					}
-						else if (key == "xp") {
+					else if (key == "xp") {
 						pc->stats.xp = atoi(val.c_str());
 					}
 					else if (key == "build") {
@@ -99,6 +102,9 @@ void GameEngine::loadGame() {
 						pc->stats.magical = eatFirstInt(val, ',');
 						pc->stats.offense = eatFirstInt(val, ',');
 						pc->stats.defense = eatFirstInt(val, ',');
+					}
+					else if (key == "gold") {
+						menu->inv->gold = atoi(val.c_str());
 					}
 					else if (key == "equipped") {
 						val = val + ",";

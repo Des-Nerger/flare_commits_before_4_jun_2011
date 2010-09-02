@@ -225,6 +225,10 @@ void ItemDatabase::playSound(int item) {
 			Mix_PlayChannel(-1, sfx[items[item].sfx], 0);
 }
 
+void ItemDatabase::playCoinsSound() {
+	Mix_PlayChannel(-1, sfx[SFX_COINS], 0);
+}
+
 TooltipData ItemDatabase::getShortTooltip(int item) {
 	stringstream ss;
 	TooltipData tip;

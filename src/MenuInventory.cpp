@@ -21,7 +21,9 @@ MenuInventory::MenuInventory(SDL_Surface *_screen, FontEngine *_font, ItemDataba
 		
 	for (int i=0; i<64; i++)
 		carried[i] = 0;
-		
+	
+	gold = 0;
+	
 	drag_prev_slot = -1;
 	changed_equipment = true;
 	changed_artifact = true;
@@ -67,6 +69,9 @@ void MenuInventory::render() {
 	font->render("Off Hand", offset_x+192, offset_y+34, JUSTIFY_CENTER, screen, FONT_WHITE);
 	font->render("Artifact", offset_x+256, offset_y+34, JUSTIFY_CENTER, screen, FONT_WHITE);
 	
+	stringstream ss;
+	ss << gold << " Gold";
+	font->render(ss.str(), offset_x+288, offset_y+114, JUSTIFY_RIGHT, screen, FONT_WHITE);
 	
 	// equipped items
 	for (int i=0; i<4; i++) {
@@ -296,6 +301,14 @@ void MenuInventory::add(int item) {
 		}
 	}
 }
+
+/**
+ * Add gold to the current total
+ */
+ void MenuInventory::addGold(int count) {
+	gold += count;
+	items->playCoinsSound();
+ }
 
 MenuInventory::~MenuInventory() {
 	SDL_FreeSurface(background);
