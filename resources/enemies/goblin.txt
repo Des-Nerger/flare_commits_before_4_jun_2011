@@ -4,7 +4,7 @@ level=1
 sfx_prefix=goblin
 gfx_prefix=goblin
 
-loot_chance=20
+loot_chance=25
 
 # combat stats
 hp=9

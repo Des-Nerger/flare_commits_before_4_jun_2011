@@ -4,7 +4,7 @@ level=1
 sfx_prefix=skeleton
 gfx_prefix=skeleton_weak
 
-loot_chance=20
+loot_chance=30
 
 # combat stats
 hp=6

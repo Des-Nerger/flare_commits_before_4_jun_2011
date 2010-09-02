@@ -4,7 +4,7 @@ level=2
 sfx_prefix=antlion
 gfx_prefix=antlion
 
-loot_chance=15
+loot_chance=25
 
 # combat stats
 hp=7

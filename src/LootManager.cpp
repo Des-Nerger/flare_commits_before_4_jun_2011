@@ -324,6 +324,7 @@ void LootManager::removeLoot(int index) {
 		loot[i].pos.x = loot[i+1].pos.x;
 		loot[i].pos.y = loot[i+1].pos.y;
 		loot[i].frame = loot[i+1].frame;
+		loot[i].gold = loot[i+1].gold;
 	}
 	loot_count--;
 }
