@@ -26,12 +26,12 @@ Avatar::Avatar(InputState *_inp, MapIso *_map) {
 	lockShoot = false;
 	
 	stats.name = "Unknown";
-	stats.level = 9;
+	stats.level = 1;
 	stats.xp = 0;
-	stats.physical = 4;
+	stats.physical = 1;
 	stats.magical = 1;
-	stats.offense = 2;
-	stats.defense = 5;
+	stats.offense = 1;
+	stats.defense = 1;
 	stats.recalc();
 	
 	log_msg = "";
@@ -92,8 +92,9 @@ void Avatar::loadSounds() {
 	sound_steps[1] = Mix_LoadWAV("soundfx/step_echo2.ogg");
 	sound_steps[2] = Mix_LoadWAV("soundfx/step_echo3.ogg");
 	sound_steps[3] = Mix_LoadWAV("soundfx/step_echo4.ogg");
-			
-	if (!sound_weapon1 || !sound_hit || !sound_die || !sound_steps[0]) {
+	level_up = Mix_LoadWAV("soundfx/level_up.ogg");
+				
+	if (!sound_weapon1 || !sound_hit || !sound_die || !sound_steps[0] || !level_up) {
 	  printf("Mix_LoadWAV: %s\n", Mix_GetError());
 	  SDL_Quit();
 	}
@@ -200,6 +201,15 @@ void Avatar::logic() {
 
 	// handle internal cooldowns
 	if (cooldown_melee > 0) cooldown_melee--;
+	
+	// check level up
+	if (stats.level < 9 && stats.xp >= stats.xp_table[stats.level]) {
+		stats.level++;
+		stringstream ss;
+		ss << "Congratulations, you have reached level " << stats.level << "! You may increase one attribute through the Character Menu.";
+		log_msg = ss.str();
+		Mix_PlayChannel(-1, level_up, 0);
+	}
 	
 	switch(curState) {
 		case AVATAR_STANCE:
@@ -441,6 +451,7 @@ Avatar::~Avatar() {
 	Mix_FreeChunk(sound_steps[1]);
 	Mix_FreeChunk(sound_steps[2]);
 	Mix_FreeChunk(sound_steps[3]);
+	Mix_FreeChunk(level_up);
 			
 	if (haz != NULL) delete(haz);	
 }

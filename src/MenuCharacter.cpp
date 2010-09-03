@@ -21,7 +21,8 @@ void MenuCharacter::loadGraphics() {
 
 	background = IMG_Load("images/menus/character.png");
 	proficiency = IMG_Load("images/menus/character_proficiency.png");
-	if(!background || !proficiency) {
+	upgrade = IMG_Load("images/menus/upgrade.png");
+	if(!background || !proficiency || !upgrade) {
 		fprintf(stderr, "Couldn't load image: %s\n", IMG_GetError());
 		SDL_Quit();
 	}
@@ -144,8 +145,52 @@ void MenuCharacter::render() {
 	displayProficiencies(stats->offense, offset_y+192);
 	displayProficiencies(stats->defense, offset_y+256);	
 	
+	
+	// if points are available, show the upgrade buttons
+	
+	int spent = stats->physical + stats->magical + stats->offense + stats->defense -4;
+	
+	// check to see if there are skill points available
+	if (spent < stats->level-1) {
+
+		src.x = 0;
+		src.y = 0;
+		src.w = dest.w = 32;
+		src.h = dest.h = 16;
+		dest.x = 16;
+
+		// physical
+		if (stats->physical < 5) { // && mouse.x >= 16 && mouse.y >= offset_y+96
+			dest.y = offset_y + 96;
+			SDL_BlitSurface(upgrade, &src, screen, &dest);
+		}
+		// magical
+		if (stats->magical < 5) { // && mouse.x >= 16 && mouse.y >= offset_y+160
+			dest.y = offset_y + 160;
+			SDL_BlitSurface(upgrade, &src, screen, &dest);
+		}
+		// offense
+		if (stats->offense < 5) { // && mouse.x >= 16 && mouse.y >= offset_y+224
+			dest.y = offset_y + 224;
+			SDL_BlitSurface(upgrade, &src, screen, &dest);
+		}
+		// defense
+		if (stats->defense < 5) { // && mouse.x >= 16 && mouse.y >= offset_y+288
+			dest.y = offset_y + 288;
+			SDL_BlitSurface(upgrade, &src, screen, &dest);
+		}
+
+		
+	}
 }
 
+/**
+ * Display an overlay graphic to highlight which weapon/armor proficiencies are unlocked.
+ * Similar routine for each row of attribute
+ *
+ * @param value The current attribute level
+ * @param y The y pixel coordinate of this proficiency row
+ */
 void MenuCharacter::displayProficiencies(int value, int y) {
 	SDL_Rect src;
 	SDL_Rect dest;
@@ -161,15 +206,24 @@ void MenuCharacter::displayProficiencies(int value, int y) {
 	}
 }
 
+/**
+ * Display various mouseovers tooltips depending on cursor location
+ */
 TooltipData MenuCharacter::checkTooltip(Point mouse) {
 
 	TooltipData tip;
 	
 	int offset_y = (VIEW_H - 416)/2;
+	stringstream ss;
 
 	if (mouse.x >= 256 && mouse.x <= 280 && mouse.y >= offset_y+32 && mouse.y <= offset_y+48) {
-		tip.lines[tip.num_lines++] = "Experience to next level:";
-		tip.lines[tip.num_lines++] = "0/1000";
+		ss << "XP: " << stats->xp;
+		tip.lines[tip.num_lines++] = ss.str();
+		ss.str("");
+		if (stats->level < 9) {
+			ss << "Next: " << stats->xp_table[stats->level];
+			tip.lines[tip.num_lines++] = ss.str();
+		}
 		return tip;
 	}
 	if (mouse.x >= 16 && mouse.x <= 80 && mouse.y >= offset_y+72 && mouse.y <= offset_y+88) {
@@ -180,7 +234,7 @@ TooltipData MenuCharacter::checkTooltip(Point mouse) {
 		tip.lines[tip.num_lines++] = "Magical (M) increases magic proficiency and total mana";
 		return tip;
 	}
-	if (mouse.x >= 16 && mouse.x <= 80 && mouse.y >= offset_y+100 && mouse.y <= offset_y+216) {
+	if (mouse.x >= 16 && mouse.x <= 80 && mouse.y >= offset_y+200 && mouse.y <= offset_y+216) {
 		tip.lines[tip.num_lines++] = "Offense (O) increases ranged proficiency and accuracy";
 		return tip;
 	}
@@ -327,7 +381,51 @@ TooltipData MenuCharacter::checkTooltip(Point mouse) {
 	return tip;
 }
 
+/**
+ * User might click this menu to upgrade a stat.  Check for this situation.
+ * Return true if a stat was upgraded.
+ */
+bool MenuCharacter::checkUpgrade(Point mouse) {
+
+	int spent = stats->physical + stats->magical + stats->offense + stats->defense -4;
+	
+	// check to see if there are skill points available
+	if (spent < stats->level-1) {
+		
+		// check mouse hotspots
+		int offset_y = (VIEW_H - 416)/2;
+		
+		// physical
+		if (stats->physical < 5 && mouse.x >= 16 && mouse.x <= 48 && mouse.y >= offset_y+96 && mouse.y <= offset_y+112) {
+			stats->physical++;
+			stats->recalc();
+			return true;
+		}
+		// magical
+		else if (stats->magical < 5 && mouse.x >= 16 && mouse.x <= 48 && mouse.y >= offset_y+160 && mouse.y <= offset_y+176) {
+			stats->magical++;
+			stats->recalc();
+			return true;		
+		}
+		// offense
+		else if (stats->offense < 5 && mouse.x >= 16 && mouse.x <= 48 && mouse.y >= offset_y+224 && mouse.y <= offset_y+240) {
+			stats->offense++;
+			stats->recalc();
+			return true;		
+		}
+		// defense
+		else if (stats->defense < 5 && mouse.x >= 16 && mouse.x <= 48 && mouse.y >= offset_y+288 && mouse.y <= offset_y+304) {
+			stats->defense++;
+			stats->recalc();
+			return true;		
+		}
+	}
+	
+	return false;
+}
+
 MenuCharacter::~MenuCharacter() {
 	SDL_FreeSurface(background);
 	SDL_FreeSurface(proficiency);
+	SDL_FreeSurface(upgrade);
 }

@@ -63,6 +63,8 @@ void GameEngine::logic() {
 		enemies->logic();
 		hazards->logic();
 		loot->logic();
+		enemies->checkEnemiesforXP(&pc->stats);
+		
 	}
 	
 	// if the player has dropped an item from the inventory

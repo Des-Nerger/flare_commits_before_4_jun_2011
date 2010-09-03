@@ -27,6 +27,7 @@ private:
 	
 	SDL_Surface *background;
 	SDL_Surface *proficiency;
+	SDL_Surface *upgrade;
 
 	void displayProficiencies(int value, int y);
 	void loadGraphics();
@@ -37,6 +38,7 @@ public:
 	void logic();
 	void render();
 	TooltipData checkTooltip(Point mouse);
+	bool checkUpgrade(Point mouse);
 
 	bool visible;
 

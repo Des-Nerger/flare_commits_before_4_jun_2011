@@ -136,6 +136,28 @@ void MenuInventory::itemReturn(int item) {
 }
 
 /**
+ * Check requirements on an item
+ */
+bool MenuInventory::requirementsMet(int item) {
+	if (items->items[item].req_stat == REQUIRES_PHYS) {
+		return (stats->physical >= items->items[item].req_val);
+		
+	}
+	else if (items->items[item].req_stat == REQUIRES_MAG) {
+		return (stats->magical >= items->items[item].req_val);
+	}
+	else if (items->items[item].req_stat == REQUIRES_OFF) {
+		return (stats->offense >= items->items[item].req_val);
+	}
+	else if (items->items[item].req_stat == REQUIRES_DEF) {
+		return (stats->defense >= items->items[item].req_val);
+	}
+	// otherwise there is no requirement, so it is usable.
+	return true;
+	
+}
+
+/**
  * Dragging and dropping an item can be used to rearrange the inventory
  * and equip items
  */
@@ -155,8 +177,8 @@ void MenuInventory::drop(Point mouse, int item) {
 			
 			// make sure the item is going to the correct slot
 			// note: equipment slots 0-3 correspond with item types 0-3
-			// TODO: also check to see if the hero meets the requirements
-			if (index == items->items[item].type) {
+			// also check to see if the hero meets the requirements
+			if (index == items->items[item].type && requirementsMet(item)) {
 				carried[drag_prev_slot] = equipped[index];
 				equipped[index] = item;
 				if (index < 3) changed_equipment = true;
@@ -187,8 +209,8 @@ void MenuInventory::drop(Point mouse, int item) {
 		else {
 		
 		    // note: equipment slots 0-3 correspond with item types 0-3
-			// TODO: also check to see if the hero meets the requirements
-			if (carried[index] == 0 || items->items[carried[index]].type == drag_prev_slot) {
+			// also check to see if the hero meets the requirements
+			if (carried[index] == 0 || (items->items[carried[index]].type == drag_prev_slot && requirementsMet(carried[index]))) {
 				equipped[drag_prev_slot] = carried[index];
 				carried[index] = item;
 				if (drag_prev_slot < 3) changed_equipment = true;
@@ -234,14 +256,16 @@ void MenuInventory::activate(Point mouse) {
 		         items->items[carried[slot]].type == ITEM_TYPE_BODY ||
 				 items->items[carried[slot]].type == ITEM_TYPE_OFF ||
 				 items->items[carried[slot]].type == ITEM_TYPE_ARTIFACT) {
-			equip_slot = items->items[carried[slot]].type;
-			swap = equipped[equip_slot];
-			equipped[equip_slot] = carried[slot];
-			carried[slot] = swap;
-			items->playSound(equipped[equip_slot]);
+			if (requirementsMet(carried[slot])) {
+				equip_slot = items->items[carried[slot]].type;
+				swap = equipped[equip_slot];
+				equipped[equip_slot] = carried[slot];
+				carried[slot] = swap;
+				items->playSound(equipped[equip_slot]);
 			
-			if (equip_slot < 3) changed_equipment = true;
-			else changed_artifact = true;
+				if (equip_slot < 3) changed_equipment = true;
+				else changed_artifact = true;
+			}
 		}
 	}
 }

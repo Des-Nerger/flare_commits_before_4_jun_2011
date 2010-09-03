@@ -67,6 +67,7 @@ public:
 	
 	// other flags
 	bool loot_drop;
+	bool reward_xp;
 };
 
 

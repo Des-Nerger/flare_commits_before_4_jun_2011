@@ -38,6 +38,7 @@ public:
 	
 	int level;
 	int xp;
+	int xp_table[10];
 	
 	// base stats
 	int offense;

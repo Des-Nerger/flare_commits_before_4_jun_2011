@@ -117,10 +117,23 @@ void MenuManager::logic() {
 		}	
 	}
 	
-	// handle left-click drag
-	if (!dragging && inp->pressing[MAIN1]) {
+	// handle left-click
+	if (!dragging && inp->pressing[MAIN1] && !inp->mouse_lock) {
+	
+		// left side menu
+		if (inp->mouse.x <= 320 && inp->mouse.y >= offset_y && inp->mouse.y <= offset_y+416) {
+			if (chr->visible) {
+				if (chr->checkUpgrade(inp->mouse)) {
+					inp->mouse_lock = true;
+				}
+			}
+		}
+	
+		// right side menu
 		if (inp->mouse.x >= offset_x && inp->mouse.y >= offset_y && inp->mouse.y <= offset_y+416) {
 			if (inv->visible) {
+			
+				// start dragging an inventory item
 				drag_item = inv->click(inp->mouse);
 				if (drag_item > 0) {
 					dragging = true;

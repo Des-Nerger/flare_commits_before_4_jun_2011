@@ -9,6 +9,7 @@
 #ifndef AVATAR_H
 #define AVATAR_H
 
+#include <sstream>
 #include "SDL.h"
 #include "SDL_image.h"
 #include "SDL_mixer.h"
@@ -48,6 +49,7 @@ private:
 	Mix_Chunk *sound_hit;
 	Mix_Chunk *sound_die;
 	Mix_Chunk *sound_steps[4];
+	Mix_Chunk *level_up;
 			
 public:
 	Avatar(InputState *_inp, MapIso *_map);

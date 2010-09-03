@@ -29,6 +29,7 @@ Enemy::Enemy(MapIso *_map) {
 	sfx_die = false;
 	sfx_critdie = false;
 	loot_drop = false;
+	reward_xp = false;
 }
 
 /**
@@ -494,6 +495,7 @@ void Enemy::doRewards() {
 	if (roll < stats.loot_chance) {
 		loot_drop = true;
 	}
+	reward_xp = true;
 }
 
 /**

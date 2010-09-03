@@ -147,6 +147,18 @@ void EnemyManager::logic() {
 }
 
 /**
+ * If an enemy has died, reward the hero with experience points
+ */
+void EnemyManager::checkEnemiesforXP(StatBlock *stats) {
+	for (int i=0; i<enemy_count; i++) {
+		if (enemies[i]->reward_xp) {
+			stats->xp += enemies[i]->stats.level;
+			enemies[i]->reward_xp = false; // clear flag
+		}
+	}
+}
+
+/**
  * getRender()
  * Map objects need to be drawn in Z order, so we allow a parent object (GameEngine)
  * to collect all mobile sprites each frame.

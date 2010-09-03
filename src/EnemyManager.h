@@ -40,6 +40,7 @@ public:
 	void handleNewMap();
 	void logic();
 	Renderable getRender(int enemyIndex);
+	void checkEnemiesforXP(StatBlock *stats);
 
 	// vars
 	Enemy *enemies[256]; // TODO: change to dynamic list without limits
