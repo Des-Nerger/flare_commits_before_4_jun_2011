@@ -52,12 +52,12 @@ StatBlock::StatBlock() {
 	xp_table[0] = 0;
 	xp_table[1] = 20;
 	xp_table[2] = 120;
-	xp_table[3] = 350;
-	xp_table[4] = 900;
-	xp_table[5] = 2700;
-	xp_table[6] = 6500;
-	xp_table[7] = 15000;
-	xp_table[8] = 42000;
+	xp_table[3] = 420;
+	xp_table[4] = 1220;
+	xp_table[5] = 3720;
+	xp_table[6] = 9720;
+	xp_table[7] = 23720;
+	xp_table[8] = 63720;
 	xp_table[9] = -1;
 	
 }
