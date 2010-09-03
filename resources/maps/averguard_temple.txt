@@ -414,7 +414,7 @@ intermap=averguard_atrium.txt,7,3
 # switch to open the temple library room
 type=run_once
 location=18,117,1,2
-mapmod=object,19,118,166
+mapmod=object,19,118,150
 mapmod=object,10,118,112
 mapmod=collision,10,118,0
 soundfx=soundfx/door_open.ogg
