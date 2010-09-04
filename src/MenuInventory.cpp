@@ -97,6 +97,9 @@ void MenuInventory::render() {
  */
 int MenuInventory::click(Point mouse) {
 
+	// can't use items while dead
+	if (stats->hp <= 0) return 0;
+
 	int item;
 	int offset_x = (VIEW_W - 320);
 	int offset_y = (VIEW_H - 416)/2;
