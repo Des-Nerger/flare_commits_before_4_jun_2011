@@ -136,7 +136,10 @@ void GameEngine::loadGame() {
 		
 		// initialize vars
 		pc->stats.recalc();
-		
+		menu->items->applyEquipment(&pc->stats, menu->inv->equipped);
+		pc->stats.hp = pc->stats.maxhp;
+		pc->stats.mp = pc->stats.maxmp;
+				
 		// just for aesthetics, turn the hero to face the camera
 		pc->direction = 6;
 		
