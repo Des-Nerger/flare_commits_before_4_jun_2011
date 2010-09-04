@@ -462,15 +462,20 @@ void ItemDatabase::applyEquipment(StatBlock *stats, int equipped[4]) {
  *
  * @param item The id of the item to activate
  * @param stats The statblock of the hero
+ * return true if the item was used
  */
-void ItemDatabase::activate(int item, StatBlock *stats) {
-	if (items[item].effect == "hp_restore") {
+bool ItemDatabase::activate(int item, StatBlock *stats) {
+	if (items[item].effect == "hp_restore" && stats->hp < stats->maxhp) {
 		stats->hp = stats->maxhp;
+		playSound(item);
+		return true;
 	}
-	else if (items[item].effect == "mp_restore") {
+	else if (items[item].effect == "mp_restore" && stats->mp < stats->maxmp) {
 		stats->mp = stats->maxmp;
+		playSound(item);
+		return true;
 	}
-	playSound(item);
+	return false;
 }
 
 ItemDatabase::~ItemDatabase() {

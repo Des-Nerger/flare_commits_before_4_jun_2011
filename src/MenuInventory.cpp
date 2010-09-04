@@ -251,8 +251,9 @@ void MenuInventory::activate(Point mouse) {
 	
 		// use a consumable item, but only if alive
 		if (items->items[carried[slot]].type == ITEM_TYPE_CONSUMABLE && stats->hp > 0) {
-			items->activate(carried[slot], stats);
-			carried[slot] = 0;
+			if (items->activate(carried[slot], stats))
+				// items->activate() returns true if the item was used
+				carried[slot] = 0;
 		}
 		// equip an item
 		else if (items->items[carried[slot]].type == ITEM_TYPE_MAIN ||

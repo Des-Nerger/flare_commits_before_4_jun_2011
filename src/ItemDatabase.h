@@ -97,7 +97,7 @@ public:
 	TooltipData getTooltip(int item, StatBlock *stats);
 	TooltipData getShortTooltip(int item);
 	void applyEquipment(StatBlock *stats, int equipped[4]);
-	void activate(int item, StatBlock *stats);
+	bool activate(int item, StatBlock *stats);
 
 	Item items[1024];
 };
