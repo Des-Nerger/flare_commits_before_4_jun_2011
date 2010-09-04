@@ -28,9 +28,6 @@ MenuInventory::MenuInventory(SDL_Surface *_screen, FontEngine *_font, ItemDataba
 	changed_equipment = true;
 	changed_artifact = true;
 	
-	// dev items
-	carried[62] = 1022;
-	carried[63] = 1023;
 }
 
 void MenuInventory::loadGraphics() {
