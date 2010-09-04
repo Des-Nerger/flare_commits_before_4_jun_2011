@@ -153,6 +153,14 @@ void MenuManager::logic() {
 			// if dragging and the source was inventory, drop item to the floor
 			drop_item = drag_item;
 			drag_item = 0;
+			
+			// if dropping equipment, prepare to change stats/sprites
+			if (inv->drag_prev_src == SRC_EQUIPPED) {
+				if (inv->drag_prev_slot < 3)
+					inv->changed_equipment = true;
+				else
+					inv->changed_artifact = true;
+			}
 		}
 		else if (drag_src == DRAG_SRC_INVENTORY) {
 			// prevent dropping items while dead
@@ -166,6 +174,7 @@ void MenuManager::logic() {
 	if (inv->changed_equipment || inv->changed_artifact) {
 		items->applyEquipment(stats, inv->equipped);
 		inv->changed_artifact = false;
+		// the equipment flag is reset after the new sprites are loaded
 	}
 }
 
