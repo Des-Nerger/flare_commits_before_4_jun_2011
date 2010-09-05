@@ -490,7 +490,7 @@ loot=random,51,28,3
 [event]
 type=run_once
 location=50,28,1,1
-mapmod=object,50,19,163
+mapmod=object,50,29,163
 soundfx=soundfx/wood_open.ogg
 loot=random,51,29,3
 [event]
