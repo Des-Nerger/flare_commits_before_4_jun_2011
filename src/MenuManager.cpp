@@ -125,6 +125,10 @@ void MenuManager::logic() {
 			if (chr->visible) {
 				if (chr->checkUpgrade(inp->mouse)) {
 					inp->mouse_lock = true;
+					// apply equipment and max hp/mp
+					items->applyEquipment(stats, inv->equipped);
+					stats->hp = stats->maxhp;
+					stats->mp = stats->maxmp;
 				}
 			}
 		}

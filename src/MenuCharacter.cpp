@@ -398,25 +398,25 @@ bool MenuCharacter::checkUpgrade(Point mouse) {
 		// physical
 		if (stats->physical < 5 && mouse.x >= 16 && mouse.x <= 48 && mouse.y >= offset_y+96 && mouse.y <= offset_y+112) {
 			stats->physical++;
-			stats->recalc();
+			stats->recalc(); // equipment applied by MenuManager
 			return true;
 		}
 		// magical
 		else if (stats->magical < 5 && mouse.x >= 16 && mouse.x <= 48 && mouse.y >= offset_y+160 && mouse.y <= offset_y+176) {
 			stats->magical++;
-			stats->recalc();
+			stats->recalc(); // equipment applied by MenuManager
 			return true;		
 		}
 		// offense
 		else if (stats->offense < 5 && mouse.x >= 16 && mouse.x <= 48 && mouse.y >= offset_y+224 && mouse.y <= offset_y+240) {
 			stats->offense++;
-			stats->recalc();
+			stats->recalc(); // equipment applied by MenuManager
 			return true;		
 		}
 		// defense
 		else if (stats->defense < 5 && mouse.x >= 16 && mouse.x <= 48 && mouse.y >= offset_y+288 && mouse.y <= offset_y+304) {
 			stats->defense++;
-			stats->recalc();
+			stats->recalc(); // equipment applied by MenuManager
 			return true;		
 		}
 	}
