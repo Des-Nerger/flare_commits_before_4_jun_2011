@@ -209,8 +209,8 @@ void StatBlock::recalc() {
 	magoff = magical + offense;
 	magdef = magical + defense;
 	crit = physical + magical + offense + defense;
-	hp_per_minute = 4 + physical;
-	mp_per_minute = 4 + magical;
+	hp_per_minute = 9 + physical;
+	mp_per_minute = 9 + magical;
 	
 	for (int i=1; i<9; i++) {
 		if (xp >= xp_table[i])
