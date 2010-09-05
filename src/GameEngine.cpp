@@ -22,7 +22,7 @@ GameEngine::GameEngine(SDL_Surface *_screen, InputState *_inp) {
 	menu = new MenuManager(_screen, _inp, font, &pc->stats);
 	loot = new LootManager(menu->items, menu->tip, enemies, map);
 	
-	menu->log->add("Welcome to OSARE v0.08.");
+	menu->log->add("Welcome to OSARE v0.09.");
 	menu->log->add("Use WASD or arrows to move.");
 	
 	cancel_lock = false;
