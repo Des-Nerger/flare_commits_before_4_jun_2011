@@ -3778,17 +3778,17 @@ loot=greatstaff
 
 [item]
 id=460
-name=Rod of Accuracy
-level=5
+name=Greatstaff of Accuracy
+level=9
 quality=high
 type=main
-icon=101,5
-dmg=3,8
+icon=103,7
+dmg=5,12
 bonus=accuracy,3
-req=m,3
+req=m,5
 sfx=wood
-gfx=rod
-loot=rod
+gfx=greatstaff
+loot=greatstaff
 
 [item]
 id=461
@@ -5932,15 +5932,16 @@ loot=greatbow
 [item]
 id=693
 name=Chaos
-level=7
+level=14
 quality=epic
-type=body
-icon=112,16
-abs=1
+type=off
+icon=107,11
+dmg=7,14
 bonus=crit,3
-sfx=cloth
-gfx=clothes
-loot=clothes
+req=o,5
+sfx=wood
+gfx=greatbow
+loot=greatbow
 
 [item]
 id=700

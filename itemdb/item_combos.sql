@@ -245,7 +245,7 @@ insert into items (id, base_type, item_mod) values (456,8,9); -- restoration
 insert into items (id, base_type, item_mod) values (457,8,10); -- elven
 insert into items (id, base_type, item_mod) values (458,8,11); -- meditation
 insert into items (id, base_type, item_mod) values (459,8,12); -- battle
-insert into items (id, base_type, item_mod) values (460,6,13); -- accuracy
+insert into items (id, base_type, item_mod) values (460,8,13); -- accuracy
 insert into items (id, base_type, item_mod) values (461,8,14); -- avoidance
 insert into items (id, base_type, item_mod) values (462,8,15); -- summer
 insert into items (id, base_type, item_mod) values (463,8,16); -- winter
@@ -404,7 +404,7 @@ insert into items (id, base_type, item_mod, name) values (689,12,34,"Gladys");
 insert into items (id, base_type, item_mod, name) values (690,12,35,"Ballista");
 insert into items (id, base_type, item_mod, name) values (691,12,36,"Starfire");
 insert into items (id, base_type, item_mod, name) values (692,12,37,"Voidfire");
-insert into items (id, base_type, item_mod, name) values (693,13,38,"Chaos");
+insert into items (id, base_type, item_mod, name) values (692,12,38,"Chaos");
 
 insert into items (id, base_type, item_mod) values (50,13,0); -- clothes
 insert into items (id, base_type, item_mod) values (51,13,41); -- tattered
