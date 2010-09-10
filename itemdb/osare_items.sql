@@ -44,72 +44,72 @@ create table items (
 
 // DATA
 
-insert into base_items(id,name,level,type,icon32,icon64,dmg_min,dmg_max,abs_min,abs_max,req_stat,req_val,sfx,gfx,loot)
+insert into base_items(id,name,level,type,icon64,icon32,dmg_min,dmg_max,abs_min,abs_max,req_stat,req_val,sfx,gfx,loot)
 values (1,"Dagger",2,"main",0,96,2,6,NULL,NULL,"p",2,"metal","dagger","dagger");
 
-insert into base_items(id,name,level,type,icon32,icon64,dmg_min,dmg_max,abs_min,abs_max,req_stat,req_val,sfx,gfx,loot)
+insert into base_items(id,name,level,type,icon64,icon32,dmg_min,dmg_max,abs_min,abs_max,req_stat,req_val,sfx,gfx,loot)
 values (2,"Shortsword",4,"main",1,97,3,8,NULL,NULL,"p",3,"metal","shortsword","shortsword");
 
-insert into base_items(id,name,level,type,icon32,icon64,dmg_min,dmg_max,abs_min,abs_max,req_stat,req_val,sfx,gfx,loot)
+insert into base_items(id,name,level,type,icon64,icon32,dmg_min,dmg_max,abs_min,abs_max,req_stat,req_val,sfx,gfx,loot)
 values (3,"Longsword",6,"main",2,98,4,10,NULL,NULL,"p",4,"metal","longsword","longsword");
 
-insert into base_items(id,name,level,type,icon32,icon64,dmg_min,dmg_max,abs_min,abs_max,req_stat,req_val,sfx,gfx,loot)
+insert into base_items(id,name,level,type,icon64,icon32,dmg_min,dmg_max,abs_min,abs_max,req_stat,req_val,sfx,gfx,loot)
 values (4,"Greatsword",8,"main",3,99,5,12,NULL,NULL,"p",5,"metal","greatsword","greatsword");
 
 --
 
-insert into base_items(id,name,level,type,icon32,icon64,dmg_min,dmg_max,abs_min,abs_max,req_stat,req_val,sfx,gfx,loot)
+insert into base_items(id,name,level,type,icon64,icon32,dmg_min,dmg_max,abs_min,abs_max,req_stat,req_val,sfx,gfx,loot)
 values (5,"Wand",2,"main",4,100,2,6,NULL,NULL,"m",2,"wood","wand","wand");
 
-insert into base_items(id,name,level,type,icon32,icon64,dmg_min,dmg_max,abs_min,abs_max,req_stat,req_val,sfx,gfx,loot)
+insert into base_items(id,name,level,type,icon64,icon32,dmg_min,dmg_max,abs_min,abs_max,req_stat,req_val,sfx,gfx,loot)
 values (6,"Rod",4,"main",5,101,3,8,NULL,NULL,"m",3,"wood","rod","rod");
 
-insert into base_items(id,name,level,type,icon32,icon64,dmg_min,dmg_max,abs_min,abs_max,req_stat,req_val,sfx,gfx,loot)
+insert into base_items(id,name,level,type,icon64,icon32,dmg_min,dmg_max,abs_min,abs_max,req_stat,req_val,sfx,gfx,loot)
 values (7,"Staff",6,"main",6,102,4,10,NULL,NULL,"m",4,"wood","staff","staff");
 
-insert into base_items(id,name,level,type,icon32,icon64,dmg_min,dmg_max,abs_min,abs_max,req_stat,req_val,sfx,gfx,loot)
+insert into base_items(id,name,level,type,icon64,icon32,dmg_min,dmg_max,abs_min,abs_max,req_stat,req_val,sfx,gfx,loot)
 values (8,"Greatstaff",8,"main",7,103,5,12,NULL,NULL,"m",5,"wood","greatstaff","greatstaff");
 
 --
 
-insert into base_items(id,name,level,type,icon32,icon64,dmg_min,dmg_max,abs_min,abs_max,req_stat,req_val,sfx,gfx,loot)
+insert into base_items(id,name,level,type,icon64,icon32,dmg_min,dmg_max,abs_min,abs_max,req_stat,req_val,sfx,gfx,loot)
 values (9,"Slingshot",2,"off",8,104,2,6,NULL,NULL,"o",2,"wood","slingshot","slingshot");
 
-insert into base_items(id,name,level,type,icon32,icon64,dmg_min,dmg_max,abs_min,abs_max,req_stat,req_val,sfx,gfx,loot)
+insert into base_items(id,name,level,type,icon64,icon32,dmg_min,dmg_max,abs_min,abs_max,req_stat,req_val,sfx,gfx,loot)
 values (10,"Shortbow",4,"off",9,105,3,8,NULL,NULL,"o",3,"wood","shortbow","shortbow");
 
-insert into base_items(id,name,level,type,icon32,icon64,dmg_min,dmg_max,abs_min,abs_max,req_stat,req_val,sfx,gfx,loot)
+insert into base_items(id,name,level,type,icon64,icon32,dmg_min,dmg_max,abs_min,abs_max,req_stat,req_val,sfx,gfx,loot)
 values (11,"Longbow",6,"off",10,106,4,10,NULL,NULL,"o",4,"wood","longbow","longbow");
 
-insert into base_items(id,name,level,type,icon32,icon64,dmg_min,dmg_max,abs_min,abs_max,req_stat,req_val,sfx,gfx,loot)
+insert into base_items(id,name,level,type,icon64,icon32,dmg_min,dmg_max,abs_min,abs_max,req_stat,req_val,sfx,gfx,loot)
 values (12,"Greatbow",8,"off",11,107,5,12,NULL,NULL,"o",5,"wood","greatbow","greatbow");
 
 --
 
-insert into base_items(id,name,level,type,icon32,icon64,dmg_min,dmg_max,abs_min,abs_max,req_stat,req_val,sfx,gfx,loot)
+insert into base_items(id,name,level,type,icon64,icon32,dmg_min,dmg_max,abs_min,abs_max,req_stat,req_val,sfx,gfx,loot)
 values (13,"Clothes",1,"body",16,112,NULL,NULL,0,0,"d",1,"cloth","clothes","clothes");
 
-insert into base_items(id,name,level,type,icon32,icon64,dmg_min,dmg_max,abs_min,abs_max,req_stat,req_val,sfx,gfx,loot)
+insert into base_items(id,name,level,type,icon64,icon32,dmg_min,dmg_max,abs_min,abs_max,req_stat,req_val,sfx,gfx,loot)
 values (14,"Leather Armor",2,"body",12,108,NULL,NULL,1,1,"d",2,"leather","leather_armor","leather_armor");
 
-insert into base_items(id,name,level,type,icon32,icon64,dmg_min,dmg_max,abs_min,abs_max,req_stat,req_val,sfx,gfx,loot)
+insert into base_items(id,name,level,type,icon64,icon32,dmg_min,dmg_max,abs_min,abs_max,req_stat,req_val,sfx,gfx,loot)
 values (15,"Buckler",4,"off",13,109,NULL,NULL,0,2,"d",3,"wood","buckler","buckler");
 
-insert into base_items(id,name,level,type,icon32,icon64,dmg_min,dmg_max,abs_min,abs_max,req_stat,req_val,sfx,gfx,loot)
+insert into base_items(id,name,level,type,icon64,icon32,dmg_min,dmg_max,abs_min,abs_max,req_stat,req_val,sfx,gfx,loot)
 values (16,"Steel Armor",6,"body",14,110,NULL,NULL,2,2,"d",4,"maille","steel_armor","steel_armor");
 
-insert into base_items(id,name,level,type,icon32,icon64,dmg_min,dmg_max,abs_min,abs_max,req_stat,req_val,sfx,gfx,loot)
+insert into base_items(id,name,level,type,icon64,icon32,dmg_min,dmg_max,abs_min,abs_max,req_stat,req_val,sfx,gfx,loot)
 values (17,"Shield",8,"off",15,111,NULL,NULL,1,3,"d",5,"heavy","shield","shield");
 
 --
 
-insert into base_items(id,name,level,type,icon32,icon64,dmg_min,dmg_max,abs_min,abs_max,req_stat,req_val,sfx,gfx,loot)
+insert into base_items(id,name,level,type,icon64,icon32,dmg_min,dmg_max,abs_min,abs_max,req_stat,req_val,sfx,gfx,loot)
 values (18,"Belt",3,"artifact",19,115,NULL,NULL,NULL,NULL,NULL,NULL,"leather",NULL,"belt");
 
-insert into base_items(id,name,level,type,icon32,icon64,dmg_min,dmg_max,abs_min,abs_max,req_stat,req_val,sfx,gfx,loot)
+insert into base_items(id,name,level,type,icon64,icon32,dmg_min,dmg_max,abs_min,abs_max,req_stat,req_val,sfx,gfx,loot)
 values (19,"Boots",4,"artifact",17,113,NULL,NULL,NULL,NULL,NULL,NULL,"leather",NULL,"boots");
 
-insert into base_items(id,name,level,type,icon32,icon64,dmg_min,dmg_max,abs_min,abs_max,req_stat,req_val,sfx,gfx,loot)
+insert into base_items(id,name,level,type,icon64,icon32,dmg_min,dmg_max,abs_min,abs_max,req_stat,req_val,sfx,gfx,loot)
 values (20,"Ring",7,"artifact",18,114,NULL,NULL,NULL,NULL,NULL,NULL,"gem",NULL,"ring");
 
 --

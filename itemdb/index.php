@@ -58,7 +58,7 @@ order by items.id
 	echo "<td>" . $row["quality"] . "</td>\n";
 	echo "<td>" . $row["type"] . "</td>\n";
         if ($row["icon64"] != NULL) {
-	  echo "<td>" . $row["icon64"] . "," . $row["icon32"] . "</td>\n";
+	  echo "<td>" . $row["icon32"] . "," . $row["icon64"] . "</td>\n";
 	}
         else {
 	  echo "<td>" . $row["icon32"] . "</td>\n";
