@@ -18,6 +18,7 @@
 #include "MapIso.h"
 #include "StatBlock.h"
 #include "Hazard.h"
+#include "PowerManager.h"
 
 // AVATAR State enum
 const int AVATAR_STANCE = 0;
@@ -32,8 +33,10 @@ const int AVATAR_SHOOT = 7;
 class Avatar {
 private:
 	
+	PowerManager *powers;
 	SDL_Surface *sprites;
 	InputState *inp;
+	
 	MapIso *map;
 	int curState;
 	bool lockSwing;
@@ -42,8 +45,7 @@ private:
 	int curFrame;
 	int dispFrame;
 	bool animFwd;
-	int cooldown_melee;
-	int aim_height;
+	int cooldown_power;
 	
 	Mix_Chunk *sound_weapon1;
 	Mix_Chunk *sound_hit;
@@ -52,25 +54,25 @@ private:
 	Mix_Chunk *level_up;
 			
 public:
-	Avatar(InputState *_inp, MapIso *_map);
+	Avatar(PowerManager *_powers, InputState *_inp, MapIso *_map);
 	~Avatar();
 	void loadGraphics(string img_main, string img_body, string img_off);
 	void loadSounds();
 	
-	void logic();
+	void logic(int actionbar_power);
 	bool pressing_move();	
 	bool move();
 	void set_direction();
 	int face(int mapx, int mapy);
 	Renderable getRender();
-	void takeHit(Hazard h);
+	bool takeHit(Hazard h);
 	string log_msg;
 	
 	// vars
-	Point pos;
-	int direction;
 	StatBlock stats;
 	Hazard *haz;
+	int current_power;
+	Point act_target;
 
 };
 

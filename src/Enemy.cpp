@@ -441,12 +441,14 @@ void Enemy::logic() {
 /**
  * Whenever a hazard collides with an enemy, this function resolves the effect
  * Called by HazardManager
+ *
+ * Returns false on miss
  */
-void Enemy::takeHit(Hazard h) {
+bool Enemy::takeHit(Hazard h) {
 	if (stats.cur_state != ENEMY_DEAD && stats.cur_state != ENEMY_CRITDEAD) {
 		
 		// if it's a miss, do nothing
-	    if (rand() % 100 > (h.accuracy - stats.avoidance + 25)) return; 
+	    if (rand() % 100 > (h.accuracy - stats.avoidance + 25)) return false; 
 		
 		// calculate base damage
 		int dmg;
@@ -483,7 +485,9 @@ void Enemy::takeHit(Hazard h) {
 			stats.disp_frame = 22;
 			stats.cur_state = ENEMY_HIT;
 		}
+		return true;
 	}
+	return false;
 }
 
 /**

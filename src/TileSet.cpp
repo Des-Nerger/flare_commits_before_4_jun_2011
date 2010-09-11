@@ -45,6 +45,7 @@ void TileSet::loadGraphics(string filename) {
 	sprites = IMG_Load(("images/tilesets/" + filename).c_str());
 	if(!sprites) {
 		fprintf(stderr, "Couldn't load image: %s\n", IMG_GetError());
+		SDL_Quit();
 	}
 	SDL_SetColorKey( sprites, SDL_SRCCOLORKEY, SDL_MapRGB(sprites->format, 255, 0, 255) ); 
 }

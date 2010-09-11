@@ -18,6 +18,13 @@ Hazard::Hazard() {
 	dmg_min = 0;
 	dmg_max = 0;
 	crit_chance = 0;
+	power_index = -1;
+	rendered = false;
+	lifespan=1;
+	frame=0;
+	frame_duration=1;
+	frame_loop=1;
+	active_frame=-1;
 }
 
 void Hazard::setCollision(MapCollision *_collider) {
@@ -29,6 +36,7 @@ void Hazard::logic() {
 	// handle tickers
 	if (lifespan > 0) lifespan--;
 	frame++;
+	if (frame == frame_loop) frame=0;
 	
 	// handle movement
 	if (!(round(speed.x) == 0 && round(speed.y) == 0)) {
@@ -37,7 +45,7 @@ void Hazard::logic() {
 		
 		// very simplified collider, could skim around corners
 		// or even pass through thin walls if speed > tilesize
-		if (!collider->is_empty(round(pos.x), round(pos.y))) {
+		if (collider->is_wall(round(pos.x), round(pos.y))) {
 			lifespan = 0;
 		}
 	}

@@ -9,15 +9,17 @@
 
 #include "Avatar.h"
 
-Avatar::Avatar(InputState *_inp, MapIso *_map) {
+Avatar::Avatar(PowerManager *_powers, InputState *_inp, MapIso *_map) {
+	powers = _powers;
 	inp = _inp;
 	map = _map;
 	
 	// other init
 	curState = AVATAR_STANCE;
-	pos.x = map->spawn.x;
-	pos.y = map->spawn.y;
-	direction = map->spawn_dir;
+	stats.pos.x = map->spawn.x;
+	stats.pos.y = map->spawn.y;
+	stats.direction = map->spawn_dir;
+	current_power = -1;
 		
 	curFrame = 1;
 	dispFrame = 0;
@@ -26,6 +28,7 @@ Avatar::Avatar(InputState *_inp, MapIso *_map) {
 	lockShoot = false;
 	
 	stats.name = "Unknown";
+	stats.hero = true;
 	stats.level = 1;
 	stats.xp = 0;
 	stats.physical = 1;
@@ -36,12 +39,8 @@ Avatar::Avatar(InputState *_inp, MapIso *_map) {
 	
 	log_msg = "";
 
-	cooldown_melee = 0;
-	
-	// when aiming attacks (not ground spells) adjust for players aiming at
-	// the creature center of mass instead of at the floor
-	aim_height = 0;
-	
+	cooldown_power = 0;
+		
 	haz = NULL;
 
 	loadSounds();
@@ -117,37 +116,37 @@ bool Avatar::pressing_move() {
  * @return Returns false if wall collision, otherwise true.
  */
 bool Avatar::move() {
-	switch (direction) {
+	switch (stats.direction) {
 		case 0:
-			return map->collider.move(pos.x, pos.y, -1, 1, stats.dspeed);
+			return map->collider.move(stats.pos.x, stats.pos.y, -1, 1, stats.dspeed);
 		case 1:
-			return map->collider.move(pos.x, pos.y, -1, 0, stats.speed);
+			return map->collider.move(stats.pos.x, stats.pos.y, -1, 0, stats.speed);
 		case 2:
-			return map->collider.move(pos.x, pos.y, -1, -1, stats.dspeed);
+			return map->collider.move(stats.pos.x, stats.pos.y, -1, -1, stats.dspeed);
 		case 3:
-			return map->collider.move(pos.x, pos.y, 0, -1, stats.speed);
+			return map->collider.move(stats.pos.x, stats.pos.y, 0, -1, stats.speed);
 		case 4:
-			return map->collider.move(pos.x, pos.y, 1, -1, stats.dspeed);
+			return map->collider.move(stats.pos.x, stats.pos.y, 1, -1, stats.dspeed);
 		case 5:
-			return map->collider.move(pos.x, pos.y, 1, 0, stats.speed);
+			return map->collider.move(stats.pos.x, stats.pos.y, 1, 0, stats.speed);
 		case 6:
-			return map->collider.move(pos.x, pos.y, 1, 1, stats.dspeed);
+			return map->collider.move(stats.pos.x, stats.pos.y, 1, 1, stats.dspeed);
 		case 7:
-			return map->collider.move(pos.x, pos.y, 0, 1, stats.speed);
+			return map->collider.move(stats.pos.x, stats.pos.y, 0, 1, stats.speed);
 	}
 	return true;
 }
 
 void Avatar::set_direction() {
 	// handle direction changes
-	if(inp->pressing[UP] && inp->pressing[LEFT]) direction = 1;
-	else if(inp->pressing[UP] && inp->pressing[RIGHT]) direction = 3;
-	else if(inp->pressing[DOWN] && inp->pressing[RIGHT]) direction = 5;
-	else if(inp->pressing[DOWN] && inp->pressing[LEFT]) direction = 7;
-	else if(inp->pressing[LEFT]) direction = 0;
-	else if(inp->pressing[UP]) direction = 2;
-	else if(inp->pressing[RIGHT]) direction = 4;
-	else if(inp->pressing[DOWN]) direction = 6;
+	if(inp->pressing[UP] && inp->pressing[LEFT]) stats.direction = 1;
+	else if(inp->pressing[UP] && inp->pressing[RIGHT]) stats.direction = 3;
+	else if(inp->pressing[DOWN] && inp->pressing[RIGHT]) stats.direction = 5;
+	else if(inp->pressing[DOWN] && inp->pressing[LEFT]) stats.direction = 7;
+	else if(inp->pressing[LEFT]) stats.direction = 0;
+	else if(inp->pressing[UP]) stats.direction = 2;
+	else if(inp->pressing[RIGHT]) stats.direction = 4;
+	else if(inp->pressing[DOWN]) stats.direction = 6;
 }
 
 
@@ -157,8 +156,8 @@ void Avatar::set_direction() {
 int Avatar::face(int mapx, int mapy) {
 
 	// inverting Y to convert map coordinates to standard cartesian coordinates
-	int dx = mapx - pos.x;
-	int dy = pos.y - mapy;
+	int dx = mapx - stats.pos.x;
+	int dy = stats.pos.y - mapy;
 
 	// avoid div by zero
 	if (dx == 0) {
@@ -183,7 +182,7 @@ int Avatar::face(int mapx, int mapy) {
 		if (dy > 0) return 3;
 		else return 7;
 	}
-	return direction;
+	return stats.direction;
 }
 
 
@@ -193,14 +192,16 @@ int Avatar::face(int mapx, int mapy) {
  * - move the avatar based on buttons pressed
  * - calculate the next frame of animation
  * - calculate camera position based on avatar position
+ *
+ * @param power_index The actionbar power activated.  -1 means no power.
  */
-void Avatar::logic() {
+void Avatar::logic(int actionbar_power) {
 	Point target;
 	int stepfx;
 	stats.logic();
 
 	// handle internal cooldowns
-	if (cooldown_melee > 0) cooldown_melee--;
+	if (cooldown_power > 0) cooldown_power--;
 	
 	// check level up
 	if (stats.level < 9 && stats.xp >= stats.xp_table[stats.level]) {
@@ -231,24 +232,46 @@ void Avatar::logic() {
 					break;
 				}
 			}
-			if (inp->pressing[BAR_1] && cooldown_melee == 0) {
-				curFrame = 0;
-				curState = AVATAR_MELEE;
-				break;
-			}
-			if (inp->pressing[MAIN1] && !inp->mouse_lock && cooldown_melee == 0) {
-				inp->mouse_lock = true;
-				
-				// change direction to mouse pointer direction
-				target.x = inp->mouse.x;
-				target.y = inp->mouse.y + aim_height;
-				target = screen_to_map(target.x, target.y, pos.x, pos.y);
-				direction = face(target.x, target.y);
+			
+			// handle power usage
+			if (actionbar_power != -1 && cooldown_power == 0) {
+
+				// check requirements
+				if (powers->powers[actionbar_power].requires_mana && stats.mp <= 0)
+					break;
+				if (powers->powers[actionbar_power].requires_ammo && !(stats.ammo_arrows || stats.ammo_stones))
+					break;
 								
-				curFrame = 0;
-				curState = AVATAR_MELEE;
-				break;
+				current_power = actionbar_power;
+			
+				// is this a power that requires changing direction?
+				if (powers->powers[current_power].face) {
+					target = screen_to_map(inp->mouse.x, inp->mouse.y, stats.pos.x, stats.pos.y);
+					act_target.x = target.x;
+					act_target.y = target.y;
+					stats.direction = face(target.x, target.y);
+				}
+			
+				// handle melee powers
+				if (powers->powers[current_power].new_state == POWSTATE_SWING) {
+					curFrame = 0;
+					curState = AVATAR_MELEE;
+					break;
+				}
+				// handle ranged powers
+				if (powers->powers[current_power].new_state == POWSTATE_SHOOT) {
+					curFrame = 0;
+					curState = AVATAR_SHOOT;
+					break;
+				}
+				// handle magic powers
+				if (powers->powers[current_power].new_state == POWSTATE_CAST) {
+					curFrame = 0;
+					curState = AVATAR_CAST;
+					break;
+				}
 			}
+			
 			break;
 			
 		case AVATAR_RUN:
@@ -276,24 +299,45 @@ void Avatar::logic() {
 				curState = AVATAR_STANCE;
 				break;
 			}
-			if (inp->pressing[BAR_1] && cooldown_melee == 0) {
-				curFrame = 0;
-				curState = AVATAR_MELEE;
-				break;
-			}
-			if (inp->pressing[MAIN1] && !inp->mouse_lock && cooldown_melee == 0) {
-				inp->mouse_lock = true;
 
-				// change direction to mouse pointer direction
-				// change direction to mouse pointer direction				
-				target.x = inp->mouse.x;
-				target.y = inp->mouse.y + aim_height; // target helper
-				target = screen_to_map(target.x, target.y, pos.x, pos.y);
-				direction = face(target.x, target.y);
+			// handle power usage
+			if (actionbar_power != -1 && cooldown_power == 0) {
+			
+				// check requirements
+				if (powers->powers[actionbar_power].requires_mana && stats.mp <= 0)
+					break;
+				if (powers->powers[actionbar_power].requires_ammo && !(stats.ammo_arrows || stats.ammo_stones))
+					break;
+			
+				current_power = actionbar_power;
+			
+				// is this a power that requires changing direction?
+				if (powers->powers[current_power].face) {
+					target = screen_to_map(inp->mouse.x, inp->mouse.y, stats.pos.x, stats.pos.y);
+					act_target.x = target.x;
+					act_target.y = target.y;
+					stats.direction = face(target.x, target.y);
+				}
+			
+				// handle melee powers
+				if (powers->powers[current_power].new_state == POWSTATE_SWING) {
+					curFrame = 0;
+					curState = AVATAR_MELEE;
+					break;
+				}
+				// handle ranged powers
+				if (powers->powers[current_power].new_state == POWSTATE_SHOOT) {
+					curFrame = 0;
+					curState = AVATAR_SHOOT;
+					break;
+				}
+				// handle magic powers
+				if (powers->powers[current_power].new_state == POWSTATE_CAST) {
+					curFrame = 0;
+					curState = AVATAR_CAST;
+					break;
+				}
 				
-				curFrame = 0;
-				curState = AVATAR_MELEE;
-				break;
 			}
 							
 			break;
@@ -308,27 +352,57 @@ void Avatar::logic() {
 				Mix_PlayChannel(-1, sound_weapon1, 0);
 			}
 			
-			// the attack hazard is alive for a single frame
-			if (curFrame == 8 && haz == NULL) {
-				haz = new Hazard();
-				haz->setCollision(&(map->collider));
-				haz->pos = calcVector(pos, direction, (UNITS_PER_TILE*3)/4);
-				haz->radius = UNITS_PER_TILE;
-				haz->source = SRC_HERO;
-				haz->lifespan = 1;
-				haz->dmg_min = stats.dmg_melee_min;
-				haz->dmg_max = stats.dmg_melee_max;
-				haz->crit_chance = stats.crit;
-				haz->accuracy = stats.accuracy;
+			// do power
+			if (curFrame == 8) {
+				act_target = round(calcVector(stats.pos, stats.direction, 48));
+				powers->activate(current_power, &stats, act_target);
 			}
 			
 			if (curFrame == 15) {
 				curFrame = 0;
 				curState = AVATAR_STANCE;
-				cooldown_melee = 8;
+				cooldown_power = 8;
 			}
 			break;
+
+		case AVATAR_CAST:
+		
+			// handle animation
+			curFrame++;
+			dispFrame = (curFrame / 4) + 24;
+
+			// do power
+			if (curFrame == 8) {
+				powers->activate(current_power, &stats, act_target);
+			}
+
+			if (curFrame == 15) {
+				curFrame = 0;
+				curState = AVATAR_STANCE;
+				cooldown_power = 8;
+			}
+			break;
+
 			
+		case AVATAR_SHOOT:
+		
+			// handle animation
+			curFrame++;
+			dispFrame = (curFrame / 4) + 28;
+
+			// do power
+			if (curFrame == 8) {
+				powers->activate(current_power, &stats, act_target);
+			}
+
+			if (curFrame == 15) {
+				curFrame = 0;
+				curState = AVATAR_STANCE;
+				cooldown_power = 8;
+			}
+			break;
+
+		
 		case AVATAR_HIT:
 			curFrame++;
 			
@@ -379,21 +453,25 @@ void Avatar::logic() {
 	
 	// calc new cam position from player position
 	// cam is focused at player position
-	map->cam.x = pos.x;
-	map->cam.y = pos.y;
-	map->hero_tile.x = pos.x / 32;
-	map->hero_tile.y = pos.y / 32;
+	map->cam.x = stats.pos.x;
+	map->cam.y = stats.pos.y;
+	map->hero_tile.x = stats.pos.x / 32;
+	map->hero_tile.y = stats.pos.y / 32;
 	
 	// check for map events
-	map->checkEvents(pos);
+	map->checkEvents(stats.pos);
 }
 
-void Avatar::takeHit(Hazard h) {
+/**
+ * Called by HazardManager
+ * Return false on a miss
+ */
+bool Avatar::takeHit(Hazard h) {
 
 	if (curState != AVATAR_DEAD) {
 	
 		// check miss
-	    if (rand() % 100 > (h.accuracy - stats.avoidance + 25)) return; 
+	    if (rand() % 100 > (h.accuracy - stats.avoidance + 25)) return false; 
 	
 		int dmg;
 		if (h.dmg_min == h.dmg_max) dmg = h.dmg_min;
@@ -418,7 +496,10 @@ void Avatar::takeHit(Hazard h) {
 			dispFrame = 18;
 			curState = AVATAR_HIT;
 		}
+		
+		return true;
 	}
+	return false;
 }
 
 /**
@@ -428,12 +509,12 @@ void Avatar::takeHit(Hazard h) {
  */
 Renderable Avatar::getRender() {
 	Renderable r;
-	r.map_pos.x = pos.x;
-	r.map_pos.y = pos.y;
+	r.map_pos.x = stats.pos.x;
+	r.map_pos.y = stats.pos.y;
 	r.sprite = sprites;
 	r.src = new SDL_Rect();
 	r.src->x = 128 * dispFrame;
-	r.src->y = 128 * direction;
+	r.src->y = 128 * stats.direction;
 	r.src->w = 128;
 	r.src->h = 128;
 	r.offset.x = 64;

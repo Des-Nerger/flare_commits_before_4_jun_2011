@@ -1,0 +1,218 @@
+/**
+ * class PowerManager
+ *
+ * @author Clint Bellanger
+ * @license GPL
+ */
+
+
+#include "PowerManager.h"
+
+/**
+ * PowerManager constructor
+ */
+PowerManager::PowerManager() {
+
+	powers[POWER_SHOOT].name = "Shoot";
+	powers[POWER_SHOOT].type = POWTYPE_MISSILE;
+	powers[POWER_SHOOT].icon = 0;
+	powers[POWER_SHOOT].description = "Basic ranged attack";
+	powers[POWER_SHOOT].new_state = POWSTATE_SHOOT;
+	powers[POWER_SHOOT].face = true;
+	powers[POWER_SHOOT].requires_ammo = true;
+	
+
+	powers[POWER_SWING].name = "Swing";
+	powers[POWER_SWING].type = POWTYPE_SINGLE;
+	powers[POWER_SWING].icon = 1;
+	powers[POWER_SWING].description = "Basic melee attack";
+	powers[POWER_SWING].new_state = POWSTATE_SWING;
+	powers[POWER_SWING].face = true;
+
+	powers[POWER_SHOCK].name = "Shock";
+	powers[POWER_SHOCK].type = POWTYPE_MISSILE;
+	powers[POWER_SHOCK].icon = 6;
+	powers[POWER_SHOCK].description = "Shoot a bolt of electricity";
+	powers[POWER_SHOCK].new_state = POWSTATE_CAST;
+	powers[POWER_SHOCK].face = true;
+	powers[POWER_SHOCK].requires_mana = true;
+
+	
+	loadGraphics();
+}
+
+void PowerManager::loadGraphics() {
+	
+	arrows = IMG_Load("images/powers/arrows.png");
+	stone = IMG_Load("images/powers/stone.png");
+	lightning = IMG_Load("images/powers/lightning.png");
+	
+	if(!arrows || !stone || !lightning) {
+		fprintf(stderr, "Couldn't load image: %s\n", IMG_GetError());
+		SDL_Quit();
+	}
+}
+
+/**
+ * Change direction to face the target map location
+ */
+int PowerManager::calcDirection(int origin_x, int origin_y, int target_x, int target_y) {
+
+	// inverting Y to convert map coordinates to standard cartesian coordinates
+	int dx = target_x - origin_x;
+	int dy = origin_y - target_y;
+
+	// avoid div by zero
+	if (dx == 0) {
+		if (dy > 0) return 3;
+		else return 7;
+	}
+	
+	float slope = ((float)dy)/((float)dx);
+	if (0.5 <= slope && slope <= 2.0) {
+		if (dy > 0) return 4;
+		else return 0;
+	}
+	if (-0.5 <= slope && slope <= 0.5) {
+		if (dx > 0) return 5;
+		else return 1;
+	}
+	if (-2.0 <= slope && slope <= -0.5) {
+		if (dx > 0) return 6;
+		else return 2;
+	}
+	if (2 <= slope || -2 >= slope) {
+		if (dy > 0) return 3;
+		else return 7;
+	}
+	return 0;
+}
+
+
+
+/**
+ * Basic single-use items
+ */
+bool PowerManager::consume(int power_index, StatBlock *src_stats) {
+	return false;
+}
+
+/**
+ * Basic projectile hazard
+ * Assumes projectile starts at stats.pos and moves towards target
+ */
+bool PowerManager::missile(int power_index, StatBlock *src_stats, Point target) {
+
+	Hazard *haz = new Hazard();
+
+	// common to all missiles
+	haz->pos.x = src_stats->pos.x;
+	haz->pos.y = src_stats->pos.y;
+	haz->crit_chance = src_stats->crit;
+	haz->accuracy = src_stats->accuracy;
+	if (src_stats->hero)
+		haz->source = SRC_HERO;
+	else
+		haz->source = SRC_ENEMY;
+	haz->rendered = true;
+		
+	// specific powers have different stats here
+	int speed;
+	if (power_index == POWER_SHOOT) {
+		haz->lifespan = 7;
+		haz->radius = 40;
+		haz->dmg_min = src_stats->dmg_ranged_min;
+		haz->dmg_max = src_stats->dmg_ranged_max;
+		speed = 64;
+		if (src_stats->ammo_stones) {
+			haz->sprites = stone;
+			haz->direction = 0;
+		}
+		else {
+			haz->sprites = arrows;
+			haz->direction = calcDirection(src_stats->pos.x, src_stats->pos.y, target.x, target.y);
+		}
+	}
+	else if (power_index == POWER_SHOCK) {
+		haz->direction = calcDirection(src_stats->pos.x, src_stats->pos.y, target.x, target.y);\
+		haz->lifespan = 8;
+		haz->radius = 30;
+		haz->dmg_min = src_stats->dmg_magic_min;
+		haz->dmg_max = src_stats->dmg_magic_max;
+		haz->frame_loop = 4;
+		haz->frame_duration = 1;
+		haz->sprites = lightning;
+		src_stats->mp--;
+		speed = 48;
+	}
+	
+	// calculate speed
+	float dx = target.x - src_stats->pos.x;
+	float dy = target.y - src_stats->pos.y;
+	float theta = atan(dy/dx);
+	haz->speed.x = speed * cos(theta);
+	haz->speed.y = speed * sin(theta);
+	if (dx > 0 && haz->speed.x < 0 || dx < 0 && haz->speed.x > 0)
+		haz->speed.x *= -1;
+	if (dy > 0 && haz->speed.y < 0 || dy < 0 && haz->speed.y > 0)
+		haz->speed.y *= -1;
+	
+	hazards.push(haz);
+
+	// Hazard memory is now the responsibility of HazardManager
+	return true;
+}
+
+/**
+ * Basic single-frame area hazard
+ */
+bool PowerManager::single(int power_index, StatBlock *src_stats, Point target) {
+	
+	Hazard *haz = new Hazard();
+	
+	// common to all singles
+	haz->pos.x = target.x;
+	haz->pos.y = target.y;
+	haz->lifespan = 1;
+	haz->crit_chance = src_stats->crit;
+	haz->accuracy = src_stats->accuracy;
+	if (src_stats->hero)
+		haz->source = SRC_HERO;
+	else
+		haz->source = SRC_ENEMY;
+
+	// specific powers have different stats here
+	if (power_index == POWER_SWING) {
+		haz->dmg_min = src_stats->dmg_melee_min;
+		haz->dmg_max = src_stats->dmg_melee_max;
+		haz->radius = 64;
+	}
+
+	hazards.push(haz);
+
+	// Hazard memory is now the responsibility of HazardManager
+	return true;
+}
+
+
+/**
+ * Activate is basically a switch/redirect to the appropriate function
+ */
+bool PowerManager::activate(int power_index, StatBlock *src_stats, Point target) {
+	
+	if (powers[power_index].type == POWTYPE_SINGLE)
+		return single(power_index, src_stats, target);
+	if (powers[power_index].type == POWTYPE_CONSUME)
+		return consume(power_index, src_stats);
+	else if (powers[power_index].type == POWTYPE_MISSILE)
+		return missile(power_index, src_stats, target);
+	else
+		return false;
+}
+
+PowerManager::~PowerManager() {
+	SDL_FreeSurface(arrows);
+	SDL_FreeSurface(stone);
+	SDL_FreeSurface(lightning);
+}
+

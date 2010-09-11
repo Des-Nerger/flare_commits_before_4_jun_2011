@@ -7,18 +7,21 @@
 
 #include "MenuManager.h"
 
-MenuManager::MenuManager(SDL_Surface *_screen, InputState *_inp, FontEngine *_font, StatBlock *_stats) {
+MenuManager::MenuManager(PowerManager *_powers, SDL_Surface *_screen, InputState *_inp, FontEngine *_font, StatBlock *_stats) {
+	powers = _powers;
 	screen = _screen;
 	inp = _inp;
 	font = _font;
 	stats = _stats;
 
-	items = new ItemDatabase(screen);
+	loadIcons();
+
+	items = new ItemDatabase(screen, icons);
 	inv = new MenuInventory(screen, font, items, stats);
 	pow = new MenuPowers(screen, font, stats);
 	chr = new MenuCharacter(screen, font, stats);
 	log = new MenuLog(screen, font);
-	act = new MenuActionBar(screen, inp);
+	act = new MenuActionBar(powers, screen, inp, icons);
 	hpmp = new MenuHealthMana(screen, font);
 	tip = new MenuTooltip(font, screen);
 
@@ -33,12 +36,24 @@ MenuManager::MenuManager(SDL_Surface *_screen, InputState *_inp, FontEngine *_fo
 
 }
 
+/**
+ * Icon set shared throughout the game
+ */
+void MenuManager::loadIcons() {
+	
+	icons = IMG_Load("images/icons/icons.png");
+	if(!icons) {
+		fprintf(stderr, "Couldn't load icons: %s\n", IMG_GetError());
+		SDL_Quit();
+	}
+}
+
 void MenuManager::loadSounds() {
 	sfx_open = Mix_LoadWAV("soundfx/inventory/inventory_page.ogg");
 	sfx_close = Mix_LoadWAV("soundfx/inventory/inventory_book.ogg");
 	
 	if (!sfx_open || !sfx_close) {
-		printf("Mix_LoadWAV: %s\n", Mix_GetError());
+		fprintf(stderr, "Mix_LoadWAV: %s\n", Mix_GetError());
 		SDL_Quit();
 	}	
 }

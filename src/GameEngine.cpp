@@ -14,12 +14,13 @@ GameEngine::GameEngine(SDL_Surface *_screen, InputState *_inp) {
 	inp = _inp;
 	done = false;
 
+	powers = new PowerManager();
 	font = new FontEngine();	
 	map = new MapIso(_screen);
-	pc = new Avatar(_inp, map);
+	pc = new Avatar(powers, _inp, map);
 	enemies = new EnemyManager(map);
-	hazards = new HazardManager(pc, enemies);
-	menu = new MenuManager(_screen, _inp, font, &pc->stats);
+	hazards = new HazardManager(powers, pc, enemies);
+	menu = new MenuManager(powers, _screen, _inp, font, &pc->stats);
 	loot = new LootManager(menu->items, menu->tip, enemies, map);
 	
 	menu->log->add("Welcome to OSARE v0.09.");
@@ -28,6 +29,7 @@ GameEngine::GameEngine(SDL_Surface *_screen, InputState *_inp) {
 	cancel_lock = false;
 	loadGame();
 }
+
 
 
 /**
@@ -46,7 +48,7 @@ void GameEngine::logic() {
 		if (inp->pressing[MAIN1] && !inp->mouse_lock && !menu->inv->full()) {
 			int gold;
 			
-			pickup = loot->checkPickup(inp->mouse, map->cam, pc->pos, gold);
+			pickup = loot->checkPickup(inp->mouse, map->cam, pc->stats.pos, gold);
 			if (pickup > 0) {
 				inp->mouse_lock = true;
 				menu->inv->add(pickup);
@@ -57,9 +59,9 @@ void GameEngine::logic() {
 			}
 		}
 	
-		pc->logic();
 		
-		enemies->heroPos = pc->pos;
+		pc->logic(menu->act->checkAction());
+		enemies->heroPos = pc->stats.pos;
 		enemies->logic();
 		hazards->logic();
 		loot->logic();
@@ -69,7 +71,7 @@ void GameEngine::logic() {
 	
 	// if the player has dropped an item from the inventory
 	if (menu->drop_item > 0) {
-		loot->addLoot(menu->drop_item, pc->pos);
+		loot->addLoot(menu->drop_item, pc->stats.pos);
 		menu->drop_item = 0;
 	}
 	
@@ -77,20 +79,20 @@ void GameEngine::logic() {
 	if (map->teleportation) {
 		map->teleportation = false;
 
-		map->cam.x = pc->pos.x = map->teleport_destination.x;
-		map->cam.y = pc->pos.y = map->teleport_destination.y;
+		map->cam.x = pc->stats.pos.x = map->teleport_destination.x;
+		map->cam.y = pc->stats.pos.y = map->teleport_destination.y;
 		
 		// process intermap teleport
 		if (map->teleport_mapname != "") {
 			map->load(map->teleport_mapname);
 			enemies->handleNewMap();
-			hazards->handleNewMap();
+			hazards->handleNewMap(&map->collider);
 			loot->handleNewMap();
 			
 			// store this as the new respawn point
 			map->respawn_map = map->teleport_mapname;
-			map->respawn_point.x = pc->pos.x;
-			map->respawn_point.y = pc->pos.y;
+			map->respawn_point.x = pc->stats.pos.x;
+			map->respawn_point.y = pc->stats.pos.y;
 		}
 	}
 	
@@ -154,8 +156,9 @@ void GameEngine::render() {
 	}
 	
 	for (int i=0; i<hazards->hazard_count; i++) { // Hazards
-		// TODO: hazard effects renderables
-		// Not all hazards have a renderable component
+		if (hazards->h[i]->rendered) {
+			r[renderableCount++] = hazards->getRender(i);
+		}
 	}
 		
 	zsort(r,renderableCount);
@@ -181,4 +184,5 @@ GameEngine::~GameEngine() {
 	delete(font);
 	delete(menu);
 	delete(loot);
+	delete(powers);
 }

@@ -50,7 +50,7 @@ public:
 	int faceNextBest(int mapx, int mapy);
 	void newState(int state);
 	int getDistance(Point dest);
-	void takeHit(Hazard h);
+	bool takeHit(Hazard h);
 	void doRewards();
 	
 	Renderable getRender();

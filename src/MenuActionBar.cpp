@@ -9,9 +9,11 @@
  
 #include "MenuActionBar.h"
 
-MenuActionBar::MenuActionBar(SDL_Surface *_screen, InputState *_inp) {
+MenuActionBar::MenuActionBar(PowerManager *_powers, SDL_Surface *_screen, InputState *_inp, SDL_Surface *_icons) {
+	powers = _powers;
 	screen = _screen;
 	inp = _inp;
+	icons = _icons;
 	
 	src.x = 0;
 	src.y = 0;
@@ -21,6 +23,13 @@ MenuActionBar::MenuActionBar(SDL_Surface *_screen, InputState *_inp) {
 	label_src.y = 0;
 	label_src.w = 640;
 	label_src.h = 10;
+	
+	for (int i=0; i<12; i++) {
+		hotkeys[i] = -1;
+	}
+	hotkeys[0] = hotkeys[10] = POWER_SWING;
+	hotkeys[1] = hotkeys[11] = POWER_SHOOT;
+	hotkeys[2] = POWER_SHOCK;
 	
 	loadGraphics();
 }
@@ -37,8 +46,19 @@ void MenuActionBar::loadGraphics() {
 	}
 }
 
-void MenuActionBar::logic() {
+void MenuActionBar::renderIcon(int icon_id, int x, int y) {
+	SDL_Rect src;
+	SDL_Rect dest;
+	
+	dest.x = x;
+	dest.y = y;
+	src.w = src.h = dest.w = dest.h = 32;
+	src.x = (icon_id % 16) * 32;
+	src.y = (icon_id / 16) * 32;
+	SDL_BlitSurface(icons, &src, screen, &dest);		
+}
 
+void MenuActionBar::logic() {
 }
 
 void MenuActionBar::render() {
@@ -60,25 +80,25 @@ void MenuActionBar::render() {
 	
 	SDL_BlitSurface(trim, &trimsrc, screen, &dest);	
 	
-	dest.y = VIEW_H-32;
-	dest.w = 32;
-	dest.h = 32;	
-	
-	
-	// attack power
-	dest.x = offset_x + 32;
-	SDL_BlitSurface(attack, &src, screen, &dest);
-	
-	for (int i=1; i<=9; i++) {
-		dest.x = offset_x + (i * 32) + 32;
-		SDL_BlitSurface(background, &src, screen, &dest);
+	// draw hotkeyed icons
+	src.x = src.y = 0;
+	src.w = src.h = dest.w = dest.h = 32;
+	dest.y = VIEW_H-32;	
+	for (int i=0; i<12; i++) {
+
+		if (i<=9)
+			dest.x = offset_x + (i * 32) + 32;
+		else
+			dest.x = offset_x + (i * 32) + 64;
+
+		if (hotkeys[i] != -1)
+			renderIcon(powers->powers[hotkeys[i]].icon, dest.x, dest.y);
+		else
+			SDL_BlitSurface(background, &src, screen, &dest);
 	}
-	
-	dest.x = offset_x + 384;
-	SDL_BlitSurface(attack, &src, screen, &dest);
-	dest.x = offset_x + 416;
-	SDL_BlitSurface(background, &src, screen, &dest);
-	
+		
+	// draw hotkey labels
+	// TODO: keybindings
 	dest.x = offset_x;
 	dest.y = VIEW_H-10;
 	dest.w = 640;
@@ -110,6 +130,29 @@ TooltipData MenuActionBar::checkTooltip(Point mouse) {
 
 	return tip;
 }
+
+/**
+ * If pressing an action key, return 
+ */
+int MenuActionBar::checkAction() {
+	if (inp->pressing[BAR_1]) return hotkeys[0];
+	if (inp->pressing[BAR_2]) return hotkeys[1];
+	if (inp->pressing[BAR_3]) return hotkeys[2];
+	if (inp->pressing[BAR_4]) return hotkeys[3];
+	if (inp->pressing[BAR_5]) return hotkeys[4];
+	if (inp->pressing[BAR_6]) return hotkeys[5];
+	if (inp->pressing[BAR_7]) return hotkeys[6];
+	if (inp->pressing[BAR_8]) return hotkeys[7];
+	if (inp->pressing[BAR_9]) return hotkeys[8];
+	if (inp->pressing[BAR_0]) return hotkeys[9];
+	if (inp->pressing[MAIN1] && !inp->mouse_lock) return hotkeys[10];
+	if (inp->pressing[MAIN2] && !inp->mouse_lock) return hotkeys[11];
+	
+	// also check clicking on stuff
+	
+	return -1;
+}
+
 
 MenuActionBar::~MenuActionBar() {
 	SDL_FreeSurface(background);

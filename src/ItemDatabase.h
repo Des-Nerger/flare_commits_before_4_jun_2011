@@ -86,10 +86,9 @@ private:
 	Mix_Chunk *sfx[12];
 
 public:
-	ItemDatabase(SDL_Surface *_screen);
+	ItemDatabase(SDL_Surface *_screen, SDL_Surface *_icons);
 	~ItemDatabase();
 	void load();
-	void loadIcons();
 	void loadSounds();
 	void renderIcon(int item, int x, int y, int size);
 	void playSound(int item);

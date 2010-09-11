@@ -22,6 +22,7 @@
 #include "FontEngine.h"
 #include "MenuManager.h"
 #include "LootManager.h"
+#include "PowerManager.h"
 
 class GameEngine {
 private:
@@ -37,6 +38,7 @@ private:
 	FontEngine *font;
 	MenuManager *menu;
 	LootManager *loot;
+	PowerManager *powers;
 	
 	bool cancel_lock;
 	
@@ -53,3 +55,7 @@ public:
 };
 
 #endif
+
+
+
+

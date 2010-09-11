@@ -8,8 +8,9 @@
 
 #include "ItemDatabase.h"
 
-ItemDatabase::ItemDatabase(SDL_Surface *_screen) {
+ItemDatabase::ItemDatabase(SDL_Surface *_screen, SDL_Surface *_icons) {
 	screen = _screen;
+	icons = _icons;
 	
 	for (int i=0; i<1024; i++) {
 		items[i].name = "";
@@ -32,7 +33,6 @@ ItemDatabase::ItemDatabase(SDL_Surface *_screen) {
 		
 	}
 	load();
-	loadIcons();
 	loadSounds();
 }
 
@@ -174,15 +174,6 @@ void ItemDatabase::load() {
 		}
 	}
 	infile.close();
-}
-
-
-void ItemDatabase::loadIcons() {
-	
-	icons = IMG_Load("images/icons/icons.png");
-	if(!icons) {
-		fprintf(stderr, "Couldn't load icons: %s\n", IMG_GetError());
-	}
 }
 
 void ItemDatabase::loadSounds() {
@@ -383,6 +374,8 @@ void ItemDatabase::applyEquipment(StatBlock *stats, int equipped[4]) {
 	stats->dspeed = 6;
 	stats->resist_fire = 0;
 	stats->resist_ice = 0;
+	stats->ammo_stones = false;
+	stats->ammo_arrows = false;
 
 	// main hand weapon
 	int item_id = equipped[SLOT_MAIN];
@@ -401,7 +394,14 @@ void ItemDatabase::applyEquipment(StatBlock *stats, int equipped[4]) {
 	if (item_id > 0) {
 		if (items[item_id].req_stat == REQUIRES_OFF) {
 			stats->dmg_ranged_min = items[item_id].dmg_min;
-			stats->dmg_ranged_max = items[item_id].dmg_max;			
+			stats->dmg_ranged_max = items[item_id].dmg_max;
+			
+			// setup ammo so that PowerManager knows what animation to use
+			if (items[item_id].req_val == 2) // slingshot
+				stats->ammo_stones = true;
+			else
+				stats->ammo_arrows = true;
+				
 		}
 		else if (items[item_id].req_stat == REQUIRES_DEF) {
 			stats->absorb_min += items[item_id].abs_min;

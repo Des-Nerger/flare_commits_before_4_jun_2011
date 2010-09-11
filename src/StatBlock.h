@@ -31,6 +31,7 @@ public:
 
 	bool alive;
 	bool corpse; // creature is dead and done animating
+	bool hero; // else, enemy or other
 	
 	string name;
 	string sfx_prefix;
@@ -84,6 +85,8 @@ public:
 	int absorb_max;	
 	int resist_fire;
 	int resist_ice;
+	bool ammo_stones;
+	bool ammo_arrows;
 	
 	// buff and debuff stats
 	bool slowed;

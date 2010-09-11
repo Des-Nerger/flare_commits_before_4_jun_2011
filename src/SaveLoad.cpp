@@ -141,7 +141,7 @@ void GameEngine::loadGame() {
 		pc->stats.mp = pc->stats.maxmp;
 				
 		// just for aesthetics, turn the hero to face the camera
-		pc->direction = 6;
+		pc->stats.direction = 6;
 		
 	}
 }

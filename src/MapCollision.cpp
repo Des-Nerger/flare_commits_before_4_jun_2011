@@ -61,6 +61,14 @@ bool MapCollision::is_empty(int x, int y) {
 	return false;
 }
 
+bool MapCollision::is_wall(int x, int y) {
+	int tile_x = x >> TILE_SHIFT; // fast div
+	int tile_y = y >> TILE_SHIFT; // fast div
+	if (colmap[tile_x][tile_y] == 1)
+		return true;
+	return false;
+}
+
 /**
  * Does not have the "slide" submovement that move() features
  * Line can be arbitrary angles.

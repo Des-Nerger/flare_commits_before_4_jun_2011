@@ -36,6 +36,8 @@ public:
 	void setmap(unsigned short _colmap[256][256]);
 	bool move(int &x, int &y, int step_x, int step_y, int dist);
 	bool is_empty(int x, int y);
+	bool is_wall(int x, int y);
+
 	bool line_of_sight(int x1, int y1, int x2, int y2);
 	bool line_of_movement(int x1, int y1, int x2, int y2);
 

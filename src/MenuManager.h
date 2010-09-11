@@ -23,6 +23,7 @@
 #include "MenuHealthMana.h"
 #include "MenuTooltip.h"
 #include "ItemDatabase.h"
+#include "PowerManager.h"
 
 const int DRAG_SRC_POWERS = 1;
 const int DRAG_SRC_INVENTORY = 2;
@@ -32,11 +33,15 @@ private:
 	
 	Mix_Chunk *sfx_open;
 	Mix_Chunk *sfx_close;
+	SDL_Surface *icons;
 
+	PowerManager *powers;
 	StatBlock *stats;
 	InputState *inp;
 	FontEngine *font;
 	SDL_Surface *screen;
+	
+
 		
 	bool key_lock;
 	bool rightclick_lock;
@@ -49,7 +54,7 @@ private:
 
 	
 public:
-	MenuManager(SDL_Surface *screen, InputState *inp, FontEngine *font, StatBlock *stats);
+	MenuManager(PowerManager *powers, SDL_Surface *screen, InputState *inp, FontEngine *font, StatBlock *stats);
 	~MenuManager();
 	void logic();
 	void render();

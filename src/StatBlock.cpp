@@ -12,6 +12,7 @@
 StatBlock::StatBlock() {
 	alive = true;
 	corpse = false;
+	hero = false;
 	
 	// core stats
 	offense = defense = physical = magical = 0;
@@ -30,11 +31,12 @@ StatBlock::StatBlock() {
 	dmg_magic_max = 0;
 	dmg_ranged_min = 0;
 	dmg_ranged_max = 0;
-	
 	absorb_min = 0;
 	absorb_max = 0;
 	resist_fire = 0;
 	resist_ice = 0;
+	ammo_stones = false;
+	ammo_arrows = false;
 	
 	// buff and debuff stats
 	slowed = false;
