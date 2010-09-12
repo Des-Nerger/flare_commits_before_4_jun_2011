@@ -44,13 +44,18 @@ public:
 	FPoint speed;
 	int lifespan; // ticks down to zero
 	int radius;
+	int power_index;
+
+	// visualization info
+	bool rendered;
+	Point frame_size;
+	Point frame_offset;
 	int frame;
 	int frame_loop;
 	int frame_duration;
 	int active_frame; // some hazards are only dangerous on a single frame of their existence
-	int power_index;
 	int direction; // helps when choosing animations
-	bool rendered;
+	bool floor; // rendererable goes on the floor layer
 	
 	// these work in conjunction
 	// if the attack is not multitarget, set active=false

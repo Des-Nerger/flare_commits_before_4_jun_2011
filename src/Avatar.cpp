@@ -40,7 +40,7 @@ Avatar::Avatar(PowerManager *_powers, InputState *_inp, MapIso *_map) {
 	log_msg = "";
 
 	cooldown_power = 0;
-		
+	
 	haz = NULL;
 
 	loadSounds();
@@ -246,7 +246,7 @@ void Avatar::logic(int actionbar_power) {
 			
 				// is this a power that requires changing direction?
 				if (powers->powers[current_power].face) {
-					target = screen_to_map(inp->mouse.x, inp->mouse.y, stats.pos.x, stats.pos.y);
+					target = screen_to_map(inp->mouse.x, inp->mouse.y + powers->powers[current_power].aim_assist, stats.pos.x, stats.pos.y);
 					act_target.x = target.x;
 					act_target.y = target.y;
 					stats.direction = face(target.x, target.y);
@@ -313,7 +313,7 @@ void Avatar::logic(int actionbar_power) {
 			
 				// is this a power that requires changing direction?
 				if (powers->powers[current_power].face) {
-					target = screen_to_map(inp->mouse.x, inp->mouse.y, stats.pos.x, stats.pos.y);
+					target = screen_to_map(inp->mouse.x,  inp->mouse.y + powers->powers[current_power].aim_assist, stats.pos.x, stats.pos.y);
 					act_target.x = target.x;
 					act_target.y = target.y;
 					stats.direction = face(target.x, target.y);

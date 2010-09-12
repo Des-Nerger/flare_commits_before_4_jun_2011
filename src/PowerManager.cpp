@@ -20,7 +20,7 @@ PowerManager::PowerManager() {
 	powers[POWER_SHOOT].new_state = POWSTATE_SHOOT;
 	powers[POWER_SHOOT].face = true;
 	powers[POWER_SHOOT].requires_ammo = true;
-	
+	powers[POWER_SHOOT].aim_assist = 32;	
 
 	powers[POWER_SWING].name = "Swing";
 	powers[POWER_SWING].type = POWTYPE_SINGLE;
@@ -36,7 +36,23 @@ PowerManager::PowerManager() {
 	powers[POWER_SHOCK].new_state = POWSTATE_CAST;
 	powers[POWER_SHOCK].face = true;
 	powers[POWER_SHOCK].requires_mana = true;
+	powers[POWER_SHOCK].aim_assist = 32;	
 
+	powers[POWER_BURN].name = "Burn";
+	powers[POWER_BURN].type = POWTYPE_SINGLE;
+	powers[POWER_BURN].icon = 18;
+	powers[POWER_BURN].description = "Blast enemies in a distant area with fire";
+	powers[POWER_BURN].new_state = POWSTATE_CAST;
+	powers[POWER_BURN].face = true;
+	powers[POWER_BURN].requires_mana = true;
+	
+	powers[POWER_QUAKE].name = "Quake";
+	powers[POWER_QUAKE].type = POWTYPE_SINGLE;
+	powers[POWER_QUAKE].icon = 10;
+	powers[POWER_QUAKE].description = "Stun nearby enemies";
+	powers[POWER_QUAKE].new_state = POWSTATE_CAST;
+	powers[POWER_QUAKE].face = false;
+	powers[POWER_QUAKE].requires_mana = true;
 	
 	loadGraphics();
 }
@@ -46,8 +62,10 @@ void PowerManager::loadGraphics() {
 	arrows = IMG_Load("images/powers/arrows.png");
 	stone = IMG_Load("images/powers/stone.png");
 	lightning = IMG_Load("images/powers/lightning.png");
-	
-	if(!arrows || !stone || !lightning) {
+	blast = IMG_Load("images/powers/blast.png");
+	quake = IMG_Load("images/powers/quake.png");
+		
+	if(!arrows || !stone || !lightning || !blast || !quake) {
 		fprintf(stderr, "Couldn't load image: %s\n", IMG_GetError());
 		SDL_Quit();
 	}
@@ -115,6 +133,7 @@ bool PowerManager::missile(int power_index, StatBlock *src_stats, Point target) 
 	else
 		haz->source = SRC_ENEMY;
 	haz->rendered = true;
+	haz->frame_offset.y = 64;
 		
 	// specific powers have different stats here
 	int speed;
@@ -145,6 +164,7 @@ bool PowerManager::missile(int power_index, StatBlock *src_stats, Point target) 
 		src_stats->mp--;
 		speed = 48;
 	}
+	
 	
 	// calculate speed
 	float dx = target.x - src_stats->pos.x;
@@ -187,7 +207,47 @@ bool PowerManager::single(int power_index, StatBlock *src_stats, Point target) {
 		haz->dmg_max = src_stats->dmg_melee_max;
 		haz->radius = 64;
 	}
-
+	else if (power_index == POWER_BURN) {
+		haz->rendered = true;
+		haz->dmg_min = src_stats->dmg_magic_min;
+		haz->dmg_max = src_stats->dmg_magic_max;
+		haz->direction = 0;
+		haz->multitarget = true;
+		haz->radius = 128;
+		haz->active_frame = 4;
+		haz->lifespan = 12;
+		haz->frame_duration = 2;
+		haz->frame_loop = 32;
+		haz->sprites = blast;
+		haz->frame_size.x = 256;
+		haz->frame_size.y = 128;
+		haz->frame_offset.x = 128;
+		haz->frame_offset.y = 64;
+		haz->floor = true;
+		src_stats->mp--;
+	}
+	else if (power_index == POWER_QUAKE) {
+		haz->pos.x = src_stats->pos.x;
+		haz->pos.y = src_stats->pos.y;
+		haz->rendered = true;
+		haz->dmg_min = src_stats->dmg_magic_min;
+		haz->dmg_max = src_stats->dmg_magic_max;
+		haz->direction = 0;
+		haz->multitarget = true;
+		haz->radius = 128;
+		haz->active_frame = 4;
+		haz->lifespan = 12;
+		haz->frame_duration = 2;
+		haz->frame_loop = 32;
+		haz->sprites = quake;
+		haz->frame_size.x = 256;
+		haz->frame_size.y = 128;
+		haz->frame_offset.x = 128;
+		haz->frame_offset.y = 64;
+		haz->floor = true;
+		src_stats->mp--;
+	}
+	
 	hazards.push(haz);
 
 	// Hazard memory is now the responsibility of HazardManager
@@ -214,5 +274,7 @@ PowerManager::~PowerManager() {
 	SDL_FreeSurface(arrows);
 	SDL_FreeSurface(stone);
 	SDL_FreeSurface(lightning);
+	SDL_FreeSurface(blast);
+	SDL_FreeSurface(quake);	
 }
 

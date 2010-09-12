@@ -34,6 +34,8 @@ const int POWSTATE_SHOOT = 2;
 const int POWER_SHOOT = 0;
 const int POWER_SWING = 1;
 const int POWER_SHOCK = 6;
+const int POWER_QUAKE = 10;
+const int POWER_BURN = 18;
 
 struct Power {
 	int type; // what kind of activate() this is
@@ -44,6 +46,7 @@ struct Power {
 	string description;
 	bool requires_ammo;
 	bool requires_mana;
+	int aim_assist;
 	
 	Power() {
 		type = -1;
@@ -54,6 +57,7 @@ struct Power {
 		face=false;
 		requires_ammo = false;
 		requires_mana = false;
+		aim_assist = 0;
 	}	
 	
 };
@@ -79,6 +83,9 @@ public:
 	SDL_Surface *arrows;
 	SDL_Surface *stone;
 	SDL_Surface *lightning;
+	SDL_Surface *blast;
+	SDL_Surface *quake;
+	
 };
 
 #endif

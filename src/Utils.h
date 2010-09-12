@@ -59,8 +59,8 @@ static Point screen_to_map(int x, int y, int camx, int camy) {
 	Point r;
 	int scrx = x - VIEW_W_HALF;
 	int scry = y - VIEW_H_HALF;
-	r.x = scrx/2 + scry + camx;
-	r.y = scry - scrx/2 + camy;
+	r.x = scrx + scry*2 + camx;
+	r.y = scry*2 - scrx + camy;
 	return r;
 }
 

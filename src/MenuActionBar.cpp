@@ -28,9 +28,11 @@ MenuActionBar::MenuActionBar(PowerManager *_powers, SDL_Surface *_screen, InputS
 		hotkeys[i] = -1;
 	}
 	hotkeys[0] = hotkeys[10] = POWER_SWING;
-	hotkeys[1] = hotkeys[11] = POWER_SHOOT;
-	hotkeys[2] = POWER_SHOCK;
-	
+	hotkeys[1] = POWER_SHOOT;
+	hotkeys[2] = hotkeys[11] = POWER_SHOCK;
+	hotkeys[3] = POWER_BURN;
+	hotkeys[4] = POWER_QUAKE;
+		
 	loadGraphics();
 }
 

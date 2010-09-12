@@ -25,6 +25,11 @@ Hazard::Hazard() {
 	frame_duration=1;
 	frame_loop=1;
 	active_frame=-1;
+	frame_size.x = 64;
+	frame_size.y = 64;
+	frame_offset.x = 32;
+	frame_offset.y = 32;
+	floor=false;
 }
 
 void Hazard::setCollision(MapCollision *_collider) {
