@@ -470,6 +470,11 @@ bool Avatar::takeHit(Hazard h) {
 
 	if (curState != AVATAR_DEAD) {
 	
+		// auto-miss if recently attacked
+		// this is mainly to prevent slow, wide missiles from getting multiple attack attempts
+		if (stats.targeted > 0) return false;
+		stats.targeted = 5;	
+	
 		// check miss
 	    if (rand() % 100 > (h.accuracy - stats.avoidance + 25)) return false; 
 	

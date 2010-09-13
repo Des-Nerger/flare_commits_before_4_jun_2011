@@ -139,7 +139,7 @@ bool PowerManager::missile(int power_index, StatBlock *src_stats, Point target) 
 	int speed;
 	if (power_index == POWER_SHOOT) {
 		haz->lifespan = 7;
-		haz->radius = 64;
+		haz->radius = 96;
 		haz->dmg_min = src_stats->dmg_ranged_min;
 		haz->dmg_max = src_stats->dmg_ranged_max;
 		speed = 64;
@@ -155,7 +155,7 @@ bool PowerManager::missile(int power_index, StatBlock *src_stats, Point target) 
 	else if (power_index == POWER_SHOCK) {
 		haz->direction = calcDirection(src_stats->pos.x, src_stats->pos.y, target.x, target.y);\
 		haz->lifespan = 5;
-		haz->radius = 64;
+		haz->radius = 96;
 		haz->dmg_min = src_stats->dmg_magic_min;
 		haz->dmg_max = src_stats->dmg_magic_max;
 		haz->frame_loop = 4;

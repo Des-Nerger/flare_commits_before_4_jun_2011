@@ -13,6 +13,7 @@ StatBlock::StatBlock() {
 	alive = true;
 	corpse = false;
 	hero = false;
+	targeted = 0;
 	
 	// core stats
 	offense = defense = physical = magical = 0;
@@ -256,6 +257,10 @@ void StatBlock::logic() {
 		stunned_duration--;
 		if (stunned_duration == 0) stunned = false;
 	}
+	
+	// handle targeted
+	if (targeted > 0)
+		targeted--;
 
 }
 
