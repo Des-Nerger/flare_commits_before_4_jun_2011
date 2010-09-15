@@ -26,16 +26,20 @@ const int POWER_COUNT = 32;
 const int POWTYPE_CONSUME = 0;
 const int POWTYPE_SINGLE = 1;
 const int POWTYPE_MISSILE = 2;
+const int POWTYPE_NONDAMAGE = 3;
 
 const int POWSTATE_SWING = 0;
 const int POWSTATE_CAST = 1;
 const int POWSTATE_SHOOT = 2;
 
+// first 20 powers coincide with power tree
 const int POWER_SHOOT = 0;
 const int POWER_SWING = 1;
 const int POWER_SHOCK = 6;
+const int POWER_HEAL = 7;
 const int POWER_QUAKE = 10;
 const int POWER_BURN = 18;
+const int POWER_TIMESTOP = 19;
 
 struct Power {
 	int type; // what kind of activate() this is
@@ -67,6 +71,7 @@ private:
 	
 	int calcDirection(int origin_x, int origin_y, int target_x, int target_y) ;	
 	bool consume(int powernum, StatBlock *src_stats);
+	bool nonDamage(int powernum, StatBlock *src_stats, Point target);
 	bool missile(int powernum, StatBlock *src_stats, Point target);
 	bool single(int powernum, StatBlock *src_stats, Point target);
 	
@@ -85,6 +90,7 @@ public:
 	SDL_Surface *lightning;
 	SDL_Surface *blast;
 	SDL_Surface *quake;
+	SDL_Surface *heal;
 	
 };
 

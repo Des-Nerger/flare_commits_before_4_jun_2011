@@ -40,12 +40,10 @@ StatBlock::StatBlock() {
 	ammo_arrows = false;
 	
 	// buff and debuff stats
-	slowed = false;
-	slowed_duration = 0;
-	bleeding = false;
-	bleeding_duration = 0;
-	stunned = false;
-	stunned_duration = 0;
+	slow_duration = 0;
+	bleed_duration = 0;
+	stun_duration = 0;
+	immobilize_duration = 0;
 	
 	temphp = 0;
 	cooldown_ticks = 0;
@@ -62,7 +60,8 @@ StatBlock::StatBlock() {
 	xp_table[7] = 23720;
 	xp_table[8] = 63720;
 	xp_table[9] = -1;
-	
+
+	teleportation=false;
 }
 
 /**
@@ -245,19 +244,15 @@ void StatBlock::logic() {
 	}
 	
 	// handle debuff durations
-	if (slowed_duration > 0) {
-		slowed_duration--;
-		if (slowed_duration == 0) slowed = false;
-	}
-	if (bleeding_duration > 0) {
-		bleeding_duration--;
-		if (bleeding_duration == 0) bleeding = false;
-	}
-	if (stunned_duration > 0) {
-		stunned_duration--;
-		if (stunned_duration == 0) stunned = false;
-	}
-	
+	if (slow_duration > 0)
+		slow_duration--;
+	if (bleed_duration > 0)
+		bleed_duration--;
+	if (stun_duration > 0)
+		stun_duration--;
+	if (immobilize_duration > 0)
+		immobilize_duration--;
+		
 	// handle targeted
 	if (targeted > 0)
 		targeted--;

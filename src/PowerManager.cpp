@@ -53,7 +53,23 @@ PowerManager::PowerManager() {
 	powers[POWER_QUAKE].new_state = POWSTATE_CAST;
 	powers[POWER_QUAKE].face = false;
 	powers[POWER_QUAKE].requires_mana = true;
-	
+
+	powers[POWER_HEAL].name = "Heal";
+	powers[POWER_HEAL].type = POWTYPE_NONDAMAGE;
+	powers[POWER_HEAL].icon = 7;
+	powers[POWER_HEAL].description = "Restore Health";
+	powers[POWER_HEAL].new_state = POWSTATE_CAST;
+	powers[POWER_HEAL].face = false;
+	powers[POWER_HEAL].requires_mana = true;
+
+	powers[POWER_TIMESTOP].name = "Time Stop";
+	powers[POWER_TIMESTOP].type = POWTYPE_NONDAMAGE;
+	powers[POWER_TIMESTOP].icon = 19;
+	powers[POWER_TIMESTOP].description = "Stop time for 3 seconds";
+	powers[POWER_TIMESTOP].new_state = POWSTATE_CAST;
+	powers[POWER_TIMESTOP].face = false;
+	powers[POWER_TIMESTOP].requires_mana = true;
+			
 	loadGraphics();
 }
 
@@ -64,8 +80,9 @@ void PowerManager::loadGraphics() {
 	lightning = IMG_Load("images/powers/lightning.png");
 	blast = IMG_Load("images/powers/blast.png");
 	quake = IMG_Load("images/powers/quake.png");
-		
-	if(!arrows || !stone || !lightning || !blast || !quake) {
+	heal = IMG_Load("images/powers/heal.png");		
+	
+	if(!arrows || !stone || !lightning || !blast || !quake || !heal) {
 		fprintf(stderr, "Couldn't load image: %s\n", IMG_GetError());
 		SDL_Quit();
 	}
@@ -116,6 +133,52 @@ bool PowerManager::consume(int power_index, StatBlock *src_stats) {
 }
 
 /**
+ * Hazards that are graphics/sounds only
+ */
+bool PowerManager::nonDamage(int power_index, StatBlock *src_stats, Point target) {
+	Hazard *haz = new Hazard();
+	haz->pos.x = src_stats->pos.x;
+	haz->pos.y = src_stats->pos.y;	
+	if (src_stats->hero)
+		haz->source = SRC_HERO;
+	else
+		haz->source = SRC_ENEMY;
+	haz->rendered = true;
+	haz->active = false;
+	
+	if (power_index == POWER_HEAL) {
+		haz->direction = 0;
+		haz->lifespan = 18;
+		haz->frame_duration = 3;
+		haz->frame_loop = -1;
+		haz->frame_offset.y = 64;
+		src_stats->mp--;
+		haz->sprites = heal;
+		
+		// perform actual healing
+		src_stats->hp += rand() % (src_stats->dmg_magic_max - src_stats->dmg_magic_min) + src_stats->dmg_magic_min;
+		if (src_stats->hp > src_stats->maxhp) src_stats->hp = src_stats->maxhp;
+	}
+	else if (power_index == POWER_TIMESTOP) {
+		haz->active = true;
+		haz->dmg_min = haz->dmg_max = 0;
+		haz->accuracy = src_stats->accuracy;
+		haz->rendered = false;
+		haz->lifespan = 1;
+		haz->radius = 512;
+		haz->stun_duration = 90;
+		haz->multitarget = true;
+		src_stats->mp--;
+	}
+	
+	hazards.push(haz);
+
+	// Hazard memory is now the responsibility of HazardManager
+	return true;			
+}
+
+
+/**
  * Basic projectile hazard
  * Assumes projectile starts at stats.pos and moves towards target
  */
@@ -154,7 +217,7 @@ bool PowerManager::missile(int power_index, StatBlock *src_stats, Point target) 
 	}
 	else if (power_index == POWER_SHOCK) {
 		haz->direction = calcDirection(src_stats->pos.x, src_stats->pos.y, target.x, target.y);\
-		haz->lifespan = 5;
+		haz->lifespan = 10;
 		haz->radius = 96;
 		haz->dmg_min = src_stats->dmg_magic_min;
 		haz->dmg_max = src_stats->dmg_magic_max;
@@ -162,7 +225,7 @@ bool PowerManager::missile(int power_index, StatBlock *src_stats, Point target) 
 		haz->frame_duration = 1;
 		haz->sprites = lightning;
 		src_stats->mp--;
-		speed = 64;
+		speed = 32;
 	}
 	
 	
@@ -245,6 +308,7 @@ bool PowerManager::single(int power_index, StatBlock *src_stats, Point target) {
 		haz->frame_offset.x = 128;
 		haz->frame_offset.y = 64;
 		haz->floor = true;
+		haz->stun_duration = 30;
 		src_stats->mp--;
 	}
 	
@@ -262,7 +326,9 @@ bool PowerManager::activate(int power_index, StatBlock *src_stats, Point target)
 	
 	if (powers[power_index].type == POWTYPE_SINGLE)
 		return single(power_index, src_stats, target);
-	if (powers[power_index].type == POWTYPE_CONSUME)
+	else if (powers[power_index].type == POWTYPE_NONDAMAGE)
+		return nonDamage(power_index, src_stats, target);
+	else if (powers[power_index].type == POWTYPE_CONSUME)
 		return consume(power_index, src_stats);
 	else if (powers[power_index].type == POWTYPE_MISSILE)
 		return missile(power_index, src_stats, target);
@@ -276,5 +342,6 @@ PowerManager::~PowerManager() {
 	SDL_FreeSurface(lightning);
 	SDL_FreeSurface(blast);
 	SDL_FreeSurface(quake);	
+	SDL_FreeSurface(heal);
 }
 

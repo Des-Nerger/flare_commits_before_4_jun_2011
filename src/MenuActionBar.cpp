@@ -32,6 +32,8 @@ MenuActionBar::MenuActionBar(PowerManager *_powers, SDL_Surface *_screen, InputS
 	hotkeys[2] = hotkeys[11] = POWER_SHOCK;
 	hotkeys[3] = POWER_BURN;
 	hotkeys[4] = POWER_QUAKE;
+	hotkeys[5] = POWER_HEAL;
+	hotkeys[6] = POWER_TIMESTOP;
 		
 	loadGraphics();
 }

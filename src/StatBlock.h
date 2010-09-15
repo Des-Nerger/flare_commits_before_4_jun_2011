@@ -90,12 +90,10 @@ public:
 	bool ammo_arrows;
 	
 	// buff and debuff stats
-	bool slowed;
-	int slowed_duration;
-	bool bleeding;
-	int bleeding_duration;
-	bool stunned;
-	int stunned_duration;
+	int slow_duration;
+	int bleed_duration;
+	int stun_duration;
+	int immobilize_duration;
 	
 	// power stats
 	int temphp;
@@ -161,6 +159,9 @@ public:
 	int anim_critdie_frames;
 	int anim_critdie_duration;
 
+	// for the teleport spell
+	bool teleportation;
+	Point teleport_destination;
 };
 
 #endif

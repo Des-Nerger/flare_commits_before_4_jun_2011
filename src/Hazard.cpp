@@ -14,7 +14,6 @@ Hazard::Hazard() {
 	speed.x = 0.0;
 	speed.y = 0.0;
 	multitarget = false;
-	active = true;
 	dmg_min = 0;
 	dmg_max = 0;
 	crit_chance = 0;
@@ -30,6 +29,11 @@ Hazard::Hazard() {
 	frame_offset.x = 32;
 	frame_offset.y = 32;
 	floor=false;
+	active=true;
+	stun_duration=0;
+	immobilize_duration=0;
+	slow_duration=0;
+	bleed_duration=0;
 }
 
 void Hazard::setCollision(MapCollision *_collider) {

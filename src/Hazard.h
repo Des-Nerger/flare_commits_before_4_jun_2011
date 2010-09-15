@@ -62,6 +62,13 @@ public:
 	// only process active hazards for collision
 	bool multitarget;
 	bool active;
+	
+	// after effects of various powers
+	int stun_duration;
+	int immobilize_duration;
+	int slow_duration;
+	int bleed_duration;
+	
 };
 
 #endif

@@ -76,11 +76,16 @@ void GameEngine::logic() {
 	}
 	
 	// check teleport
-	if (map->teleportation) {
-		map->teleportation = false;
-
-		map->cam.x = pc->stats.pos.x = map->teleport_destination.x;
-		map->cam.y = pc->stats.pos.y = map->teleport_destination.y;
+	if (map->teleportation || pc->stats.teleportation) {
+		
+		if (map->teleportation) {
+			map->cam.x = pc->stats.pos.x = map->teleport_destination.x;
+			map->cam.y = pc->stats.pos.y = map->teleport_destination.y;
+		}
+		else {
+			map->cam.x = pc->stats.pos.x = pc->stats.teleport_destination.x;
+			map->cam.y = pc->stats.pos.y = pc->stats.teleport_destination.y;		
+		}
 		
 		// process intermap teleport
 		if (map->teleport_mapname != "") {
@@ -94,6 +99,10 @@ void GameEngine::logic() {
 			map->respawn_point.x = pc->stats.pos.x;
 			map->respawn_point.y = pc->stats.pos.y;
 		}
+
+		map->teleportation = false;
+		pc->stats.teleportation = false; // teleport spell
+		
 	}
 	
 	// handle cancel key

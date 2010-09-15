@@ -121,18 +121,17 @@ void EnemyManager::logic() {
 	int pref_id;
 
 	for (int i=0; i<enemy_count; i++) {
-		enemies[i]->stats.hero_pos = heroPos;
-		enemies[i]->logic();
-		
+	
+		// hazards are processed after Avatar and Enemy[]
+		// so process and clear sound effects from previous frames
+		// check sound effects
 		for (int j=0; j<sfx_count; j++) {
 			if (sfx_prefixes[j] == enemies[i]->stats.sfx_prefix)
 				pref_id = j;
 		}
 		
-		// check sound effects
 		if (enemies[i]->sfx_phys_melee) Mix_PlayChannel(-1, sound_phys_melee[pref_id], 0);
 		if (enemies[i]->sfx_mag_melee) Mix_PlayChannel(-1, sound_mag_melee[pref_id], 0);
-
 		if (enemies[i]->sfx_hit) Mix_PlayChannel(-1, sound_hit[pref_id], 0);
 		if (enemies[i]->sfx_die) Mix_PlayChannel(-1, sound_die[pref_id], 0);		
 		if (enemies[i]->sfx_critdie) Mix_PlayChannel(-1, sound_critdie[pref_id], 0);		
@@ -143,6 +142,11 @@ void EnemyManager::logic() {
 		enemies[i]->sfx_mag_melee = false;
 		enemies[i]->sfx_die = false;
 		enemies[i]->sfx_critdie = false;
+		
+		// new actions this round
+		enemies[i]->stats.hero_pos = heroPos;
+		enemies[i]->logic();
+
 	}
 }
 

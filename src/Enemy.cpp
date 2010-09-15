@@ -155,6 +155,8 @@ void Enemy::newState(int state) {
 void Enemy::logic() {
 
 	stats.logic();
+	if (stats.stun_duration > 0) return;
+	
 	int dist;
 	int prev_direction;
 	bool los = false;
@@ -397,9 +399,7 @@ void Enemy::logic() {
 			else
 				stats.disp_frame = stats.cur_frame / stats.anim_hit_duration + stats.anim_hit_position;
 			
-			if (stats.cur_frame == 1) {
-				sfx_hit = true;
-			}
+
 			
 			if (stats.cur_frame == max_frame-1) {
 				newState(ENEMY_STANCE);
@@ -415,7 +415,6 @@ void Enemy::logic() {
 				if (stats.cur_frame < max_frame) stats.cur_frame++;
 				if (stats.cur_frame == max_frame) stats.corpse = true;
 				stats.disp_frame = (stats.cur_frame / stats.anim_die_duration) + stats.anim_die_position;
-				if (stats.cur_frame == 1) sfx_hit = true;
 				if (stats.cur_frame == 1) sfx_die = true;
 			}
 
@@ -465,7 +464,7 @@ bool Enemy::takeHit(Hazard h) {
 		if (stats.absorb_min == stats.absorb_max) absorption = stats.absorb_min;
 		else absorption = stats.absorb_min + (rand() % (stats.absorb_max - stats.absorb_min + 1));
 		dmg = dmg - absorption;
-		if (dmg < 1) dmg = 1; // TODO: when blocking, dmg can be reduced to 0
+		if (dmg < 1 && h.dmg_min >= 1) dmg = 1; // TODO: when blocking, dmg can be reduced to 0
 
 		// check for crits
 		bool crit = (rand() % 100) < h.crit_chance;
@@ -474,22 +473,39 @@ bool Enemy::takeHit(Hazard h) {
 		// apply damage
 		stats.hp = stats.hp - dmg;
 		
+		// damage always breaks stun
+		if (dmg > 0) stats.stun_duration=0;
+		
+		// after effects
+		if (stats.hp > 0) {
+			if (h.stun_duration > stats.stun_duration) stats.stun_duration += h.stun_duration;
+			if (h.slow_duration > stats.slow_duration) stats.slow_duration += h.slow_duration;
+			if (h.bleed_duration > stats.bleed_duration) stats.bleed_duration += h.bleed_duration;
+			if (h.immobilize_duration > stats.immobilize_duration) stats.immobilize_duration += h.immobilize_duration;
+		}
+		
 		// interrupted to new state
-		stats.cur_frame = 0;
-		if (stats.hp <= 0 && crit) {
-			doRewards();
-			stats.disp_frame = 28;
-			stats.cur_state = ENEMY_CRITDEAD;
+		if (dmg > 0) {
+			sfx_hit = true;
+			stats.cur_frame = 0;
+			
+			if (stats.hp <= 0 && crit) {
+				doRewards();
+				stats.disp_frame = 28;
+				stats.cur_state = ENEMY_CRITDEAD;
+			}
+			else if (stats.hp <= 0) {
+				doRewards();
+				stats.disp_frame = 22;
+				stats.cur_state = ENEMY_DEAD;		
+			}
+			// don't go through a hit animation if stunned
+			else if (h.stun_duration == 0) {
+				stats.disp_frame = 22;
+				stats.cur_state = ENEMY_HIT;
+			}
 		}
-		else if (stats.hp <= 0) {
-			doRewards();
-			stats.disp_frame = 22;
-			stats.cur_state = ENEMY_DEAD;		
-		}
-		else {
-			stats.disp_frame = 22;
-			stats.cur_state = ENEMY_HIT;
-		}
+		
 		return true;
 	}
 	return false;
