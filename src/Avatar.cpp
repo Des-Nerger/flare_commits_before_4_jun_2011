@@ -35,6 +35,8 @@ Avatar::Avatar(PowerManager *_powers, InputState *_inp, MapIso *_map) {
 	stats.magical = 1;
 	stats.offense = 1;
 	stats.defense = 1;
+	stats.speed = 10;
+	stats.dspeed = 7;
 	stats.recalc();
 	
 	log_msg = "";

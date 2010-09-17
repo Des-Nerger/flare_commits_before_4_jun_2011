@@ -370,8 +370,8 @@ void ItemDatabase::applyEquipment(StatBlock *stats, int equipped[4]) {
 	stats->dmg_melee_max = stats->dmg_magic_max = 4;
 	stats->dmg_ranged_min = stats->dmg_ranged_max = 0;
 	stats->absorb_min = stats->absorb_max = 0;
-	stats->speed = 9;
-	stats->dspeed = 6;
+	stats->speed = 10;
+	stats->dspeed = 7;
 	stats->resist_fire = 0;
 	stats->resist_ice = 0;
 	stats->ammo_stones = false;
@@ -435,7 +435,9 @@ void ItemDatabase::applyEquipment(StatBlock *stats, int equipped[4]) {
 			stats->crit += items[item_id].bonus_val;
 		else if (items[item_id].bonus_stat == "speed") {
 			stats->speed += items[item_id].bonus_val;
-			stats->dspeed += items[item_id].bonus_val;
+			// speed bonuses are in multiples of 3
+			// 3 ordinal, 2 diagonal is rounding pythagorus
+			stats->dspeed += ((items[item_id].bonus_val) * 2) /3;
 		}
 		else if (items[item_id].bonus_stat == "fire resist")
 			stats->resist_fire += items[item_id].bonus_val;

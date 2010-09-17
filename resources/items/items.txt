@@ -7832,7 +7832,7 @@ level=6
 quality=high
 type=artifact
 icon=113,17
-bonus=speed,2
+bonus=speed,3
 sfx=leather
 loot=boots
 
@@ -7854,7 +7854,7 @@ level=8
 quality=high
 type=artifact
 icon=113,17
-bonus=speed,4
+bonus=speed,6
 sfx=leather
 loot=boots
 
@@ -7876,7 +7876,7 @@ level=10
 quality=epic
 type=artifact
 icon=113,17
-bonus=speed,6
+bonus=speed,9
 sfx=leather
 loot=boots
 
@@ -7987,7 +7987,7 @@ icon=113,17
 type=artifact
 sfx=leather
 loot=boots
-bonus=speed,10
+bonus=speed,12
 
 [item]
 id=1022
