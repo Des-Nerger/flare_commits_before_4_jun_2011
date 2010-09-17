@@ -24,6 +24,7 @@
 #include "MenuTooltip.h"
 #include "ItemDatabase.h"
 #include "PowerManager.h"
+#include "MenuMiniMap.h"
 
 const int DRAG_SRC_POWERS = 1;
 const int DRAG_SRC_INVENTORY = 2;
@@ -67,6 +68,7 @@ public:
 	MenuActionBar *act;
 	MenuHealthMana *hpmp;
 	MenuTooltip *tip;
+	MenuMiniMap *mini;
 	ItemDatabase *items;
 	
 	bool pause;

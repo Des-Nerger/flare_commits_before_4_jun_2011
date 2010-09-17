@@ -41,9 +41,14 @@ public:
 	void logic();
 	void render();
 	int checkAction();
+	void drop(Point mouse, int power_index);
+
 	TooltipData checkTooltip(Point mouse);
 	
 	int hotkeys[12]; // refer to power_index in PowerManager
+	SDL_Rect slots[12]; // the location of hotkey slots
+	SDL_Rect menus[4]; // the location of the menu buttons
+	
 };
 
 #endif

@@ -45,10 +45,10 @@ void GameEngine::logic() {
 	if (!menu->pause) {
 		
 		// click to pick up loot on the ground
-		if (inp->pressing[MAIN1] && !inp->mouse_lock && !menu->inv->full()) {
+		if (inp->pressing[MAIN1] && !inp->mouse_lock) {
 			int gold;
 			
-			pickup = loot->checkPickup(inp->mouse, map->cam, pc->stats.pos, gold);
+			pickup = loot->checkPickup(inp->mouse, map->cam, pc->stats.pos, gold, menu->inv->full());
 			if (pickup > 0) {
 				inp->mouse_lock = true;
 				menu->inv->add(pickup);
@@ -56,6 +56,11 @@ void GameEngine::logic() {
 			else if (gold > 0) {
 				inp->mouse_lock = true;
 				menu->inv->addGold(gold);
+			}
+			if (loot->full_msg) {
+				inp->mouse_lock = true;
+				menu->log->add("Inventory is full.");
+				loot->full_msg = false;
 			}
 		}
 	
@@ -183,6 +188,8 @@ void GameEngine::render() {
 	
 	menu->log->renderHUDMessages();
 	menu->render();
+	menu->mini->render(&map->collider, pc->stats.pos, map->w, map->h);
+
 }
 
 GameEngine::~GameEngine() {

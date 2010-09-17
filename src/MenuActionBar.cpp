@@ -24,9 +24,29 @@ MenuActionBar::MenuActionBar(PowerManager *_powers, SDL_Surface *_screen, InputS
 	label_src.w = 640;
 	label_src.h = 10;
 	
+	// clear action bar
 	for (int i=0; i<12; i++) {
 		hotkeys[i] = -1;
 	}
+	
+	// TEMP: set action bar positions
+	// TODO: define in a config file so that the menu is customizable
+	int offset_x = (VIEW_W - 640)/2;
+	for (int i=0; i<12; i++) {
+		slots[i].w = slots[i].h = 32;
+		slots[i].y = VIEW_H-32;
+		slots[i].x = offset_x + i*32 + 32;
+	}
+	slots[10].x += 32;
+	slots[11].x += 32;
+	// menu button positions
+	for (int i=0; i<4; i++) {
+		menus[i].w = menus[i].h = 32;
+		menus[i].y = VIEW_H-32;
+		menus[i].x = offset_x + 480 + i*32;
+	}
+	
+	// TEMP: test hotkeys
 	hotkeys[0] = hotkeys[10] = POWER_SWING;
 	hotkeys[1] = POWER_SHOOT;
 	hotkeys[2] = hotkeys[11] = POWER_SHOCK;
@@ -64,6 +84,8 @@ void MenuActionBar::renderIcon(int icon_id, int x, int y) {
 
 void MenuActionBar::logic() {
 }
+
+
 
 void MenuActionBar::render() {
 
@@ -111,28 +133,46 @@ void MenuActionBar::render() {
 	
 }
 
+/**
+ * On mouseover, show tooltip for buttons
+ */
 TooltipData MenuActionBar::checkTooltip(Point mouse) {
 	TooltipData tip;
 	
 	int offset_x = (VIEW_W - 640)/2;
-	if (mouse.x >= offset_x+448 && mouse.x <= offset_x+512 && mouse.y >= VIEW_H-32 && mouse.y <= VIEW_H) {
+	if (isWithin(menus[0], mouse)) {
 		tip.lines[tip.num_lines++] = "Character Menu (C)";
 		return tip;
 	}
-	if (mouse.x >= offset_x+512 && mouse.x <= offset_x+544 && mouse.y >= VIEW_H-32 && mouse.y <= VIEW_H) {
+	if (isWithin(menus[1], mouse)) {
 		tip.lines[tip.num_lines++] = "Inventory Menu (I)";
 		return tip;
 	}
-	if (mouse.x >= offset_x+544 && mouse.x <= offset_x+576 && mouse.y >= VIEW_H-32 && mouse.y <= VIEW_H) {
+	if (isWithin(menus[2], mouse)) {
 		tip.lines[tip.num_lines++] = "Powers Menu (P)";
 		return tip;
 	}
-	if (mouse.x >= offset_x+576 && mouse.x <= offset_x+608 && mouse.y >= VIEW_H-32 && mouse.y <= VIEW_H) {
+	if (isWithin(menus[3], mouse)) {
 		tip.lines[tip.num_lines++] = "Log Menu (L)";
 		return tip;
 	}
+	for (int i=0; i<12; i++) {
+		if (hotkeys[i] != -1) {
+			if (isWithin(slots[i], mouse)) {
+				tip.lines[tip.num_lines++] = powers->powers[hotkeys[i]].name;
+			}
+		}
+	}
 
 	return tip;
+}
+
+/**
+ * After dragging a power or item onto the action bar, set as new hotkey
+ */
+void MenuActionBar::drop(Point mouse, int power_index) {
+
+
 }
 
 /**

@@ -24,6 +24,7 @@ MenuManager::MenuManager(PowerManager *_powers, SDL_Surface *_screen, InputState
 	act = new MenuActionBar(powers, screen, inp, icons);
 	hpmp = new MenuHealthMana(screen, font);
 	tip = new MenuTooltip(font, screen);
+	mini = new MenuMiniMap(screen);
 
 	
 	pause = false;
@@ -164,26 +165,27 @@ void MenuManager::logic() {
 	
 	// handle dropping
 	if (dragging && !inp->pressing[MAIN1]) {
-		if (inv->visible && inp->mouse.x >= offset_x && inp->mouse.y >= offset_y && inp->mouse.y <= offset_y+416) {
-			inv->drop(inp->mouse, drag_item);
-			drag_item = 0;
-		}
-		else if (drag_src == DRAG_SRC_INVENTORY && stats->hp > 0) {
-			// if dragging and the source was inventory, drop item to the floor
-			drop_item = drag_item;
-			drag_item = 0;
-			
-			// if dropping equipment, prepare to change stats/sprites
-			if (inv->drag_prev_src == SRC_EQUIPPED) {
-				if (inv->drag_prev_slot < 3)
-					inv->changed_equipment = true;
-				else
-					inv->changed_artifact = true;
+		if (drag_src == DRAG_SRC_INVENTORY) {
+			if (inv->visible && inp->mouse.x >= offset_x && inp->mouse.y >= offset_y && inp->mouse.y <= offset_y+416) {
+				inv->drop(inp->mouse, drag_item);
+				drag_item = 0;
 			}
-		}
-		else if (drag_src == DRAG_SRC_INVENTORY) {
-			// prevent dropping items while dead
-			inv->itemReturn(drag_item);
+			else if (stats->hp > 0) {
+				// if dragging and the source was inventory, drop item to the floor
+				drop_item = drag_item;
+				drag_item = 0;
+			
+				// if dropping equipment, prepare to change stats/sprites
+				if (inv->drag_prev_src == SRC_EQUIPPED) {
+					if (inv->drag_prev_slot < 3)
+						inv->changed_equipment = true;
+					else
+						inv->changed_artifact = true;
+				}
+			}
+			else { // prevent dropping items while dead
+				inv->itemReturn(drag_item);
+			}
 		}
 
 		dragging = false;
@@ -233,6 +235,7 @@ void MenuManager::render() {
 	if (dragging) {
 		items->renderIcon(drag_item, inp->mouse.x - 16, inp->mouse.y - 16, ICON_SIZE_32);
 	}
+	
 }
 
 void MenuManager::closeAll() {
@@ -245,6 +248,7 @@ void MenuManager::closeAll() {
 }
 
 MenuManager::~MenuManager() {
+	delete(mini);
 	delete(items);
 	delete(inv);
 	delete(pow);

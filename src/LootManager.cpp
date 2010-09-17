@@ -47,6 +47,7 @@ LootManager::LootManager(ItemDatabase *_items, MenuTooltip *_tip, EnemyManager *
 	loadGraphics();
 	calcTables();
 	loot_flip = Mix_LoadWAV("soundfx/flying_loot.ogg");
+	full_msg = false;
 	
 }
 
@@ -334,7 +335,7 @@ void LootManager::removeLoot(int index) {
  * screen coordinates to map locations.  We need the hero position because
  * the hero has to be within range to pick up an item.
  */
-int LootManager::checkPickup(Point mouse, Point cam, Point hero_pos, int &gold) {
+int LootManager::checkPickup(Point mouse, Point cam, Point hero_pos, int &gold, bool inv_full) {
 	Point p;
 	SDL_Rect r;
 	int loot_id;
@@ -359,10 +360,13 @@ int LootManager::checkPickup(Point mouse, Point cam, Point hero_pos, int &gold) 
 			if (mouse.x > r.x && mouse.x < r.x+r.w &&
 				mouse.y > r.y && mouse.y < r.y+r.h) {
 				
-				if (loot[i].item > 0) {
+				if (loot[i].item > 0 && !inv_full) {
 					loot_id = loot[i].item;
 					removeLoot(i);
 					return loot_id;			
+				}
+				else if (loot[i].item > 0) {
+					full_msg = true;
 				}
 				else if (loot[i].gold > 0) {
 					gold = loot[i].gold;

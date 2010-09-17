@@ -129,7 +129,16 @@ static bool isWithin(Point center, int radius, Point target) {
 	return (calcDist(center, target) < radius);
 }
 
+/**
+ * is target within the area defined by rectangle r?
+ */
+static bool isWithin(SDL_Rect r, Point target) {
+	return target.x >= r.x && target.y >= r.y && target.x < r.x+r.w && target.y < r.y+r.h;
+}
 
+/**
+ * Sort back-to-front in isometric view
+ */
 static void zsort(Renderable r[], int rnum) {
 
 	int zpos[1024];
@@ -156,6 +165,15 @@ static void zsort(Renderable r[], int rnum) {
 		}	
 	}
 	
+}
+
+/**
+ * draw pixel to the screen
+ */
+static void drawPixel(SDL_Surface *screen, int x, int y, Uint32 color) {
+	Uint32 *pixmem32;
+	pixmem32 = (Uint32*) screen->pixels + (y * ((screen->pitch)/4)) + x;
+	*pixmem32 = color;
 }
 
 #endif

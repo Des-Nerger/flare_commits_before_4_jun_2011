@@ -85,12 +85,13 @@ public:
 	void addLoot(int item_id, Point pos);
 	void addGold(int count, Point pos);
 	void removeLoot(int index);
-	int checkPickup(Point mouse, Point cam, Point hero_pos, int &gold);
+	int checkPickup(Point mouse, Point cam, Point hero_pos, int &gold, bool inv_full);
 	
 	Renderable getRender(int index);
 	
 	int tooltip_margin;
 	int loot_count;
+	bool full_msg;
 	
 };
 
