@@ -98,13 +98,16 @@ where items.id = ?
 	    else if ($row["req_stat"] == "o")
 	      $val = $row["bonus_oval"];
 	    else if ($row["req_stat"] == "d")
-          $val = $row["bonus_dval"];
+              $val = $row["bonus_dval"];
 	    else
 	      $val = $row["bonus_art"];
 
-		if ($val < 0) echo "Decreases ";
+		if ($val < 0) {
+                  echo "Decreases ";
+                  $val = $val * -1;
+                }
 		else echo "Increases ";
-	    echo $row["bonus_stat"];
+                echo $row["bonus_stat"];
 		echo " by ";
 		echo $val;
 		echo "<br />\n";

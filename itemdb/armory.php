@@ -31,7 +31,9 @@ bonus_dval,
 bonus_art,
 sfx,
 gfx,
-loot
+loot,
+base_price,
+price_mod
 from (items inner join base_items on items.base_type = base_items.id)
 inner join item_mods on items.item_mod = item_mods.id
 order by items.id
@@ -116,6 +118,13 @@ order by items.id
 	  else echo "-";	
       echo "</td>\n";
     
+	
+	  // value
+	  echo "<td>";
+	  $value = floor(($row["base_price"] * $row["price_mod"]) / 100);
+	  echo $value;
+	  echo " <span class=\"low\">(" . max(floor($value/4),1) . ")</span>";
+	  echo "</td>\n";
 
 	  echo "</tr>\n";
     }
@@ -135,6 +144,7 @@ order by items.id
     <th>stats</th>
     <th>bonus</th>
 	<th>requirement</th>
+	<th>price</th>
   </tr>
 <?php list_items(); ?>
 </table>

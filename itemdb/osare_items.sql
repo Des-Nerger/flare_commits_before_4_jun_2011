@@ -170,7 +170,7 @@ insert into item_mods (id, prefix, suffix, quality, level, dmg_min, dmg_max, abs
 values (17,NULL," of Slaying","high",2,0,0,0,0,"crit",1,1,1,1,2);
 
 insert into item_mods (id, prefix, suffix, quality, level, dmg_min, dmg_max, abs_min, abs_max, bonus_stat, bonus_pval, bonus_mval, bonus_oval, bonus_dval, bonus_art)
-values (18,NULL," of Speed","high",2,0,0,0,0,"speed",1,1,1,1,2);
+values (18,NULL," of Speed","high",2,0,0,0,0,"speed",1,1,1,1,3);
 
 ---
 
@@ -205,7 +205,7 @@ insert into item_mods (id, prefix, suffix, quality, level, dmg_min, dmg_max, abs
 values (28,NULL," of Destruction","high",4,0,1,0,1,"crit",2,2,2,2,4);
 
 insert into item_mods (id, prefix, suffix, quality, level, dmg_min, dmg_max, abs_min, abs_max, bonus_stat, bonus_pval, bonus_mval, bonus_oval, bonus_dval, bonus_art)
-values (29,NULL," of Travel","high",4,0,1,0,1,"speed",2,2,2,2,4);
+values (29,NULL," of Travel","high",4,0,1,0,1,"speed",2,2,2,2,6);
 
 ---
 
@@ -237,7 +237,7 @@ insert into item_mods (id, prefix, suffix, quality, level, dmg_min, dmg_max, abs
 values (38,"Epic Crit ",NULL,"epic",6,2,2,1,1,"crit",3,3,3,3,6);
 
 insert into item_mods (id, prefix, suffix, quality, level, dmg_min, dmg_max, abs_min, abs_max, bonus_stat, bonus_pval, bonus_mval, bonus_oval, bonus_dval, bonus_art)
-values (39,"Epic Speed ",NULL,"epic",6,2,2,1,1,"speed",3,3,3,3,6);
+values (39,"Epic Speed ",NULL,"epic",6,2,2,1,1,"speed",3,3,3,3,9);
 
 ---
 
