@@ -64,7 +64,7 @@ bool MapCollision::is_empty(int x, int y) {
 bool MapCollision::is_wall(int x, int y) {
 	int tile_x = x >> TILE_SHIFT; // fast div
 	int tile_y = y >> TILE_SHIFT; // fast div
-	if (colmap[tile_x][tile_y] == 1)
+	if (colmap[tile_x][tile_y] == BLOCKS_ALL || colmap[tile_x][tile_y] == BLOCKS_ALL_HIDDEN)
 		return true;
 	return false;
 }
@@ -72,7 +72,6 @@ bool MapCollision::is_wall(int x, int y) {
 /**
  * Does not have the "slide" submovement that move() features
  * Line can be arbitrary angles.
- * TODO: use Utils.h FPoint
  */
 bool MapCollision::line_check(int x1, int y1, int x2, int y2, int checktype) {
 	float x = x1;
@@ -104,7 +103,7 @@ bool MapCollision::line_check(int x1, int y1, int x2, int y2, int checktype) {
 			y += step_y;
 			mapx = round(x) >> TILE_SHIFT;
 			mapy = round(y) >> TILE_SHIFT;
-			if (colmap[mapx][mapy] == BLOCKS_ALL) {
+			if (colmap[mapx][mapy] == BLOCKS_ALL || colmap[mapx][mapy] == BLOCKS_ALL_HIDDEN) {
 				result_x = round(x -= step_x);
 				result_y = round(y -= step_y);
 				return false;
@@ -117,7 +116,7 @@ bool MapCollision::line_check(int x1, int y1, int x2, int y2, int checktype) {
 			y += step_y;
 			mapx = round(x) >> TILE_SHIFT;
 			mapy = round(y) >> TILE_SHIFT;
-			if (colmap[mapx][mapy] == BLOCKS_ALL || colmap[mapx][mapy] == BLOCKS_MOVEMENT) {
+			if (colmap[mapx][mapy] == BLOCKS_ALL || colmap[mapx][mapy] == BLOCKS_ALL_HIDDEN || colmap[mapx][mapy] == BLOCKS_MOVEMENT) {
 				result_x = round(x -= step_x);
 				result_y = round(y -= step_y);
 				return false;		

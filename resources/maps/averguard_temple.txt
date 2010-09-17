@@ -1,9 +1,9 @@
 [header]
 title=Averguard Temple
 width=28
-height=128
+height=129
 tileset=tileset_dungeon.txt
-music=safe_room_theme.ogg
+music=dungeon_theme.ogg
 
 [layer]
 id=background
@@ -403,12 +403,13 @@ data=
 1,1,1,1,1,1,1,0,0,0,1,0,0,1,0,0,0,1,0,0,1,0,0,0,0,0,0,0,
 0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0,0,0,
 0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0,0,0,
-0,0,0,0,0,0,0,0,0,0,1,1,1,1,0,0,1,1,1,1,1,0,0,0,0,0,0,0
+0,0,0,0,0,0,0,0,0,0,1,1,1,1,0,0,1,1,1,1,1,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,15,15,15,15,0,0,0,0,0,0,0,0,0,0,0
 
 [event]
 type=teleport
 location=14,127,1,0
-intermap=averguard_atrium.txt,7,3
+intermap=averguard_atrium.txt,8,2
 
 [event]
 # switch to open the temple library room
