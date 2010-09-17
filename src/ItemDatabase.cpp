@@ -30,8 +30,11 @@ ItemDatabase::ItemDatabase(SDL_Surface *_screen, SDL_Surface *_icons) {
 		items[i].sfx = SFX_NONE;
 		items[i].gfx = "";
 		items[i].loot = "";
+		items[i].price = 0;
 		
 	}
+	
+	vendor_ratio = 4; // this means scrap/vendor pays 1/4th price to buy items from hero
 	load();
 	loadSounds();
 }
@@ -169,6 +172,8 @@ void ItemDatabase::load() {
 						items[id].loot = val;
 					else if (key == "effect")
 						items[id].effect = val;
+					else if (key == "price")
+						items[id].price = atoi(val.c_str());
 				}
 			}
 		}
@@ -243,6 +248,9 @@ TooltipData ItemDatabase::getShortTooltip(int item) {
 	return tip;
 }
 
+/**
+ * Create detailed tooltip showing all relevant item info
+ */
 TooltipData ItemDatabase::getTooltip(int item, StatBlock *stats) {
 	stringstream ss;
 	TooltipData tip;
@@ -263,6 +271,13 @@ TooltipData ItemDatabase::getTooltip(int item, StatBlock *stats) {
 		tip.colors[0] = FONT_BLUE;
 	}
 	
+	// level
+	ss.str();
+	if (items[item].level != 0) {
+		ss << "Level " << items[item].level;
+		tip.lines[tip.num_lines++] = ss.str();
+	}
+	
 	// type
 	if (items[item].type != ITEM_TYPE_OTHER) {
 		if (items[item].type == ITEM_TYPE_MAIN)
@@ -280,6 +295,7 @@ TooltipData ItemDatabase::getTooltip(int item, StatBlock *stats) {
 	}
 	
 	// damage
+	ss.str("");
 	if (items[item].dmg_max > 0) {
 		if (items[item].req_stat == REQUIRES_PHYS) {
 			ss << "Melee ";
@@ -344,6 +360,14 @@ TooltipData ItemDatabase::getTooltip(int item, StatBlock *stats) {
 			ss << "Requires Defense " << items[item].req_val;
 			if (stats->defense < items[item].req_val) tip.colors[tip.num_lines] = FONT_RED;
 		}
+		tip.lines[tip.num_lines++] = ss.str();
+	}
+	
+	ss.str("");
+	if (items[item].price > 0) {
+		int sell_price = items[item].price/vendor_ratio;
+		if (sell_price == 0) sell_price=1;
+		ss << "Sell price: " << sell_price << " gold";
 		tip.lines[tip.num_lines++] = ss.str();
 	}
 	

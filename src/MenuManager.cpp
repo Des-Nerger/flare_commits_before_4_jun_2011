@@ -139,6 +139,8 @@ void MenuManager::logic() {
 		// left side menu
 		if (inp->mouse.x <= 320 && inp->mouse.y >= offset_y && inp->mouse.y <= offset_y+416) {
 			if (chr->visible) {
+			
+				// applied a level-up
 				if (chr->checkUpgrade(inp->mouse)) {
 					inp->mouse_lock = true;
 					// apply equipment and max hp/mp
@@ -153,11 +155,15 @@ void MenuManager::logic() {
 		if (inp->mouse.x >= offset_x && inp->mouse.y >= offset_y && inp->mouse.y <= offset_y+416) {
 			if (inv->visible) {
 			
-				// start dragging an inventory item
-				drag_item = inv->click(inp->mouse);
-				if (drag_item > 0) {
+				if (inp->pressing[CTRL]) {
+					inv->sell(inp->mouse);
+				}
+				else {
+					drag_item = inv->click(inp->mouse);
+					if (drag_item > 0) {
 					dragging = true;
-					drag_src = DRAG_SRC_INVENTORY;
+						drag_src = DRAG_SRC_INVENTORY;
+					}
 				}
 			}
 		}

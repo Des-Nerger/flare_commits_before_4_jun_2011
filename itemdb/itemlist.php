@@ -33,7 +33,9 @@ bonus_dval,
 bonus_art,
 sfx,
 gfx,
-loot
+loot,
+base_price,
+price_mod
 from (items inner join base_items on items.base_type = base_items.id)
 inner join item_mods on items.item_mod = item_mods.id
 order by items.id
@@ -106,6 +108,10 @@ order by items.id
 		
       if (!is_null($row["loot"]))
         echo "loot=" . $row["loot"] . "\n";
+
+      if (!is_null($row["base_price"]) && !is_null($row["price_mod"]))
+        echo "price=" . floor(($row["base_price"] * $row["price_mod"]) / 100) . "\n";
+
 
       echo "\n";
     }

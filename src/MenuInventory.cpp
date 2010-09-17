@@ -125,6 +125,39 @@ int MenuInventory::click(Point mouse) {
 	return 0;
 }
 
+
+/**
+ * CTRL-click to sell an item
+ */
+void MenuInventory::sell(Point mouse) {
+
+	// can't sell items while dead
+	if (stats->hp <= 0) return;
+
+	int offset_x = (VIEW_W - 320);
+	int offset_y = (VIEW_H - 416)/2;
+	int value;
+	int slot;
+	
+	if (mouse.x >= offset_x+32 && mouse.y >= offset_y+128 && mouse.x < offset_x+288 && mouse.y < offset_y+384) {
+		// clicked a carried item
+		slot = (mouse.x - (offset_x+32)) / 32 + ((mouse.y - (offset_y+128)) / 32) * 8;
+		
+		if (carried[slot] > 0) {
+			if (items->items[carried[slot]].price > 0) {
+				value = items->items[carried[slot]].price / items->vendor_ratio;
+				if (value == 0) value = 1;
+				gold += value;
+				carried[slot] = 0;
+				items->playCoinsSound();
+			}
+		}
+	}
+
+}
+
+
+
 /**
  * Return dragged item to previous slot
  */
@@ -295,6 +328,10 @@ TooltipData MenuInventory::checkTooltip(Point mouse) {
 		index = (mouse.x - (offset_x+32)) / 32 + ((mouse.y - (offset_y+128)) / 32) * 8;
 		return items->getTooltip(carried[index], stats);
 		
+	}
+
+	if (mouse.x >= offset_x + 224 && mouse.y >= offset_y+96 && mouse.x < offset_x+288 && mouse.y < offset_y+128) {
+		tip.lines[tip.num_lines++] = "ctrl-click a carried item to sell it";
 	}
 	
 	return tip;

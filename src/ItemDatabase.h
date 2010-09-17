@@ -75,6 +75,7 @@ struct Item {
 	int sfx;
 	string gfx;
 	string loot;
+	int price;
 };
 
 class ItemDatabase {
@@ -99,6 +100,7 @@ public:
 	bool activate(int item, StatBlock *stats);
 
 	Item items[1024];
+	int vendor_ratio;
 };
 
 #endif
