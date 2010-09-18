@@ -485,11 +485,12 @@ bool Avatar::takeHit(Hazard h) {
 		else dmg = h.dmg_min + (rand() % (h.dmg_max - h.dmg_min + 1));
 	
 		int absorption;
-		if (stats.absorb_min == stats.absorb_max) absorption = stats.absorb_min;
-		else absorption = stats.absorb_min + (rand() % (stats.absorb_max - stats.absorb_min + 1));
-	
-		dmg = dmg - absorption;
-		if (dmg < 1) dmg = 1; // TODO: when blocking, dmg can be reduced to 0
+		if (!h.trait_armor_penetration) { // armor penetration ignores all absorption
+			if (stats.absorb_min == stats.absorb_max) absorption = stats.absorb_min;
+			else absorption = stats.absorb_min + (rand() % (stats.absorb_max - stats.absorb_min + 1));
+			dmg = dmg - absorption;
+			if (dmg < 1) dmg = 1; // TODO: when blocking, dmg can be reduced to 0
+		}
 	
 		curFrame = 0;
 		

@@ -13,6 +13,8 @@
  */
 PowerManager::PowerManager() {
 
+	// TODO: once all the paramters are worked out, move this to a config file
+	
 	powers[POWER_SHOOT].name = "Shoot";
 	powers[POWER_SHOOT].type = POWTYPE_MISSILE;
 	powers[POWER_SHOOT].icon = 0;
@@ -28,6 +30,22 @@ PowerManager::PowerManager() {
 	powers[POWER_SWING].description = "Basic melee attack";
 	powers[POWER_SWING].new_state = POWSTATE_SWING;
 	powers[POWER_SWING].face = true;
+	
+	powers[POWER_LORE].name = "Lore";
+	powers[POWER_LORE].icon = 2;
+	powers[POWER_LORE].description = "Reveal hidden information about an object or area (NYI)";
+
+	powers[POWER_RETURN].name = "Return";
+	powers[POWER_RETURN].icon = 3;
+	powers[POWER_RETURN].description = "Warp to your chosen Sanctuary (NYI)";
+
+	powers[POWER_BLOOD].name = "Blood Strike";
+	powers[POWER_BLOOD].icon = 4;
+	powers[POWER_BLOOD].description = "Inflict a bleeding wound that causes additional damage over 3 seconds (NYI)";
+
+	powers[POWER_BLOCK].name = "Block";
+	powers[POWER_BLOCK].icon = 5;
+	powers[POWER_BLOCK].description = "Raise your shield and increase your defenses (NYI)";
 
 	powers[POWER_SHOCK].name = "Shock";
 	powers[POWER_SHOCK].type = POWTYPE_MISSILE;
@@ -38,13 +56,25 @@ PowerManager::PowerManager() {
 	powers[POWER_SHOCK].requires_mana = true;
 	powers[POWER_SHOCK].aim_assist = 32;	
 
-	powers[POWER_BURN].name = "Burn";
-	powers[POWER_BURN].type = POWTYPE_SINGLE;
-	powers[POWER_BURN].icon = 18;
-	powers[POWER_BURN].description = "Blast enemies in a distant area with fire";
-	powers[POWER_BURN].new_state = POWSTATE_CAST;
-	powers[POWER_BURN].face = true;
-	powers[POWER_BURN].requires_mana = true;
+	powers[POWER_HEAL].name = "Heal";
+	powers[POWER_HEAL].type = POWTYPE_NONDAMAGE;
+	powers[POWER_HEAL].icon = 7;
+	powers[POWER_HEAL].description = "Restore Health";
+	powers[POWER_HEAL].new_state = POWSTATE_CAST;
+	powers[POWER_HEAL].face = false;
+	powers[POWER_HEAL].requires_mana = true;
+	
+	powers[POWER_MULTISHOT].name = "Multishot";
+	powers[POWER_MULTISHOT].type = POWTYPE_MISSILE_X3;
+	powers[POWER_MULTISHOT].icon = 8;
+	powers[POWER_MULTISHOT].description = "Fire three projectiles (NYI)";
+	powers[POWER_MULTISHOT].new_state = POWSTATE_SHOOT;
+	powers[POWER_MULTISHOT].face = true;
+	powers[POWER_MULTISHOT].requires_mana = true;
+	
+	powers[POWER_WARCRY].name = "Warcry";
+	powers[POWER_WARCRY].icon = 9;
+	powers[POWER_WARCRY].description = "Remove debuffs and cause fear in nearby enemies (NYI)";
 	
 	powers[POWER_QUAKE].name = "Quake";
 	powers[POWER_QUAKE].type = POWTYPE_SINGLE;
@@ -54,13 +84,49 @@ PowerManager::PowerManager() {
 	powers[POWER_QUAKE].face = false;
 	powers[POWER_QUAKE].requires_mana = true;
 
-	powers[POWER_HEAL].name = "Heal";
-	powers[POWER_HEAL].type = POWTYPE_NONDAMAGE;
-	powers[POWER_HEAL].icon = 7;
-	powers[POWER_HEAL].description = "Restore Health";
-	powers[POWER_HEAL].new_state = POWSTATE_CAST;
-	powers[POWER_HEAL].face = false;
-	powers[POWER_HEAL].requires_mana = true;
+	powers[POWER_SHIELD].name = "Shield";
+	powers[POWER_SHIELD].icon = 11;
+	powers[POWER_SHIELD].description = "Create a force field that absorbs damage (NYI)";
+
+	powers[POWER_CLEAVE].name = "Cleave";
+	powers[POWER_CLEAVE].type = POWTYPE_SINGLE;
+	powers[POWER_CLEAVE].icon = 12;
+	powers[POWER_CLEAVE].description = "Attack all enemies in a wide arc";
+	powers[POWER_CLEAVE].new_state = POWSTATE_SWING;
+	powers[POWER_CLEAVE].face = true;
+	powers[POWER_CLEAVE].requires_mana = true;
+	
+	powers[POWER_CHARGE].name = "Charge";
+	powers[POWER_CHARGE].icon = 13;
+	powers[POWER_CHARGE].description = "Bull rush and stun an enemy (NYI)";
+	
+	powers[POWER_FREEZE].name = "Freeze";
+	powers[POWER_FREEZE].icon = 14;
+	powers[POWER_FREEZE].description = "Create a ray of piercing cold that slows enemies (NYI)";
+
+	powers[POWER_TELEPORT].name = "Teleport";
+	powers[POWER_TELEPORT].icon = 15;
+	powers[POWER_TELEPORT].description = "Blink to a nearby location (NYI)";
+
+	powers[POWER_PIERCING].name = "Piercing Shot";
+	powers[POWER_PIERCING].type = POWTYPE_MISSILE;	
+	powers[POWER_PIERCING].icon = 16;
+	powers[POWER_PIERCING].description = "Fire a shot that ignores armor and goes through multiple enemies";
+	powers[POWER_PIERCING].new_state = POWSTATE_SHOOT;
+	powers[POWER_PIERCING].face = true;
+	powers[POWER_PIERCING].requires_mana = true;
+	
+	powers[POWER_VENGEANCE].name = "Vengeance";
+	powers[POWER_VENGEANCE].icon = 17;
+	powers[POWER_VENGEANCE].description = "After blocking, unlease a deadly and accurate counter-attack (NYI)";
+		
+	powers[POWER_BURN].name = "Burn";
+	powers[POWER_BURN].type = POWTYPE_SINGLE;
+	powers[POWER_BURN].icon = 18;
+	powers[POWER_BURN].description = "Blast enemies in a distant area with fire";
+	powers[POWER_BURN].new_state = POWSTATE_CAST;
+	powers[POWER_BURN].face = true;
+	powers[POWER_BURN].requires_mana = true;
 
 	powers[POWER_TIMESTOP].name = "Time Stop";
 	powers[POWER_TIMESTOP].type = POWTYPE_NONDAMAGE;
@@ -200,12 +266,12 @@ bool PowerManager::missile(int power_index, StatBlock *src_stats, Point target) 
 		
 	// specific powers have different stats here
 	int speed;
-	if (power_index == POWER_SHOOT) {
-		haz->lifespan = 7;
+	if (power_index == POWER_SHOOT || power_index == POWER_PIERCING) {
+		haz->lifespan = 8;
 		haz->radius = 96;
 		haz->dmg_min = src_stats->dmg_ranged_min;
 		haz->dmg_max = src_stats->dmg_ranged_max;
-		speed = 64;
+		speed = 48;
 		if (src_stats->ammo_stones) {
 			haz->sprites = stone;
 			haz->direction = 0;
@@ -213,6 +279,12 @@ bool PowerManager::missile(int power_index, StatBlock *src_stats, Point target) 
 		else {
 			haz->sprites = arrows;
 			haz->direction = calcDirection(src_stats->pos.x, src_stats->pos.y, target.x, target.y);
+		}
+		
+		if (power_index == POWER_PIERCING) {
+			haz->multitarget = true;
+			haz->trait_armor_penetration = true;
+			src_stats->mp--;
 		}
 	}
 	else if (power_index == POWER_SHOCK) {
@@ -227,7 +299,6 @@ bool PowerManager::missile(int power_index, StatBlock *src_stats, Point target) 
 		src_stats->mp--;
 		speed = 32;
 	}
-	
 	
 	// calculate speed
 	float dx = target.x - src_stats->pos.x;
@@ -245,6 +316,86 @@ bool PowerManager::missile(int power_index, StatBlock *src_stats, Point target) 
 	// Hazard memory is now the responsibility of HazardManager
 	return true;
 }
+
+/**
+ * Triple projectile attack
+ */
+bool PowerManager::missileX3(int power_index, StatBlock *src_stats, Point target) {
+
+	Hazard *haz[3];
+	int speed;
+	double angle = 0.2;
+
+	for (int i=0; i<3; i++) {
+		haz[i] = new Hazard();
+	
+		haz[i]->pos.x = src_stats->pos.x;
+		haz[i]->pos.y = src_stats->pos.y;
+		haz[i]->crit_chance = src_stats->crit;
+		haz[i]->accuracy = src_stats->accuracy;
+		if (src_stats->hero)
+			haz[i]->source = SRC_HERO;
+		else
+			haz[i]->source = SRC_ENEMY;
+		haz[i]->rendered = true;
+		haz[i]->frame_offset.y = 64;
+		
+		// specific powers have different stats here
+		if (power_index == POWER_MULTISHOT) {
+			haz[i]->lifespan = 8;
+			haz[i]->radius = 96;
+			haz[i]->dmg_min = src_stats->dmg_ranged_min;
+			haz[i]->dmg_max = src_stats->dmg_ranged_max;
+			speed = 48;
+			if (src_stats->ammo_stones) {
+				haz[i]->sprites = stone;
+				haz[i]->direction = 0;
+			}
+			else {
+				haz[i]->sprites = arrows;
+				haz[i]->direction = calcDirection(src_stats->pos.x, src_stats->pos.y, target.x, target.y);
+			}
+		}
+	}
+	
+	src_stats->mp--;
+	
+	// calculate speeds
+	float dx = target.x - src_stats->pos.x;
+	float dy = target.y - src_stats->pos.y;
+	float theta = atan(dy/dx);
+	
+	// middle missile
+	haz[0]->speed.x = speed * cos(theta);
+	haz[0]->speed.y = speed * sin(theta);
+	if (dx > 0 && haz[0]->speed.x < 0 || dx < 0 && haz[0]->speed.x > 0)
+		haz[0]->speed.x *= -1;
+	if (dy > 0 && haz[0]->speed.y < 0 || dy < 0 && haz[0]->speed.y > 0)
+		haz[0]->speed.y *= -1;
+	hazards.push(haz[0]);
+	
+	// side missile
+	haz[1]->speed.x = speed * cos(theta + angle);
+	haz[1]->speed.y = speed * sin(theta + angle);
+	if (dx > 0 && haz[1]->speed.x < 0 || dx < 0 && haz[1]->speed.x > 0)
+		haz[1]->speed.x *= -1;
+	if (dy > 0 && haz[1]->speed.y < 0 || dy < 0 && haz[1]->speed.y > 0)
+		haz[1]->speed.y *= -1;
+	hazards.push(haz[1]);	
+
+	// side missile
+	haz[2]->speed.x = speed * cos(theta - angle);
+	haz[2]->speed.y = speed * sin(theta - angle);
+	if (dx > 0 && haz[2]->speed.x < 0 || dx < 0 && haz[2]->speed.x > 0)
+		haz[2]->speed.x *= -1;
+	if (dy > 0 && haz[2]->speed.y < 0 || dy < 0 && haz[2]->speed.y > 0)
+		haz[2]->speed.y *= -1;
+	hazards.push(haz[2]);	
+	
+	// Hazard memory is now the responsibility of HazardManager
+	return true;
+}
+
 
 /**
  * Basic single-frame area hazard
@@ -269,6 +420,13 @@ bool PowerManager::single(int power_index, StatBlock *src_stats, Point target) {
 		haz->dmg_min = src_stats->dmg_melee_min;
 		haz->dmg_max = src_stats->dmg_melee_max;
 		haz->radius = 64;
+	}
+	else if (power_index == POWER_CLEAVE) {
+		haz->dmg_min = src_stats->dmg_melee_min;
+		haz->dmg_max = src_stats->dmg_melee_max;
+		haz->radius = 128;
+		haz->multitarget = true;
+		src_stats->mp--;
 	}
 	else if (power_index == POWER_BURN) {
 		haz->rendered = true;
@@ -332,8 +490,10 @@ bool PowerManager::activate(int power_index, StatBlock *src_stats, Point target)
 		return consume(power_index, src_stats);
 	else if (powers[power_index].type == POWTYPE_MISSILE)
 		return missile(power_index, src_stats, target);
-	else
-		return false;
+	else if (powers[power_index].type == POWTYPE_MISSILE_X3)
+		return missileX3(power_index, src_stats, target);
+	
+	return false;
 }
 
 PowerManager::~PowerManager() {

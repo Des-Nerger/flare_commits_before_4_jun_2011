@@ -69,6 +69,11 @@ public:
 	int slow_duration;
 	int bleed_duration;
 	
+	bool trait_armor_penetration;
+	bool trait_fire;
+	bool trait_ice;
+	
+	
 };
 
 #endif

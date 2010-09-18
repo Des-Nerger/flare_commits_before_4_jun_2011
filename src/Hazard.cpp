@@ -34,6 +34,9 @@ Hazard::Hazard() {
 	immobilize_duration=0;
 	slow_duration=0;
 	bleed_duration=0;
+	trait_armor_penetration = false;
+	trait_fire = false;
+	trait_ice = false;
 }
 
 void Hazard::setCollision(MapCollision *_collider) {

@@ -27,6 +27,7 @@ const int POWTYPE_CONSUME = 0;
 const int POWTYPE_SINGLE = 1;
 const int POWTYPE_MISSILE = 2;
 const int POWTYPE_NONDAMAGE = 3;
+const int POWTYPE_MISSILE_X3 = 4; // used by MultiShot
 
 const int POWSTATE_SWING = 0;
 const int POWSTATE_CAST = 1;
@@ -35,9 +36,22 @@ const int POWSTATE_SHOOT = 2;
 // first 20 powers coincide with power tree
 const int POWER_SHOOT = 0;
 const int POWER_SWING = 1;
+const int POWER_LORE = 2;
+const int POWER_RETURN = 3;
+const int POWER_BLOOD = 4;
+const int POWER_BLOCK = 5;
 const int POWER_SHOCK = 6;
 const int POWER_HEAL = 7;
+const int POWER_MULTISHOT = 8;
+const int POWER_WARCRY = 9;
 const int POWER_QUAKE = 10;
+const int POWER_SHIELD = 11;
+const int POWER_CLEAVE = 12;
+const int POWER_CHARGE = 13;
+const int POWER_FREEZE = 14;
+const int POWER_TELEPORT = 15;
+const int POWER_PIERCING = 16;
+const int POWER_VENGEANCE = 17;
 const int POWER_BURN = 18;
 const int POWER_TIMESTOP = 19;
 
@@ -74,6 +88,7 @@ private:
 	bool nonDamage(int powernum, StatBlock *src_stats, Point target);
 	bool missile(int powernum, StatBlock *src_stats, Point target);
 	bool single(int powernum, StatBlock *src_stats, Point target);
+	bool missileX3(int powernum, StatBlock *src_stats, Point target);
 	
 public:
 	PowerManager();
