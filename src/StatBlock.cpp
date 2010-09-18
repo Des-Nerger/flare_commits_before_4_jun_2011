@@ -44,9 +44,11 @@ StatBlock::StatBlock() {
 	bleed_duration = 0;
 	stun_duration = 0;
 	immobilize_duration = 0;
-	
-	temphp = 0;
+	immunity_duration = 0;	
+	shield_hp = 0;
+	shield_frame = 0;
 	cooldown_ticks = 0;
+	blocking = false;
 	
 	// xp table
 	// what experience do you need to reach the next level
@@ -179,11 +181,11 @@ void StatBlock::load(string filename) {
  * Reduce temphp first, then hp
  */
 void StatBlock::takeDamage(int dmg) {
-	if (temphp > 0) {
-		temphp -= dmg;
-		if (temphp < 0) {
-			hp += temphp;
-			temphp = 0;
+	if (shield_hp > 0) {
+		shield_hp -= dmg;
+		if (shield_hp < 0) {
+			hp += shield_hp;
+			shield_hp = 0;
 		}
 	}
 	else {
@@ -252,11 +254,45 @@ void StatBlock::logic() {
 		stun_duration--;
 	if (immobilize_duration > 0)
 		immobilize_duration--;
-		
+	if (immunity_duration > 0)
+		immunity_duration--;
+	
+	// apply bleed
+	if (bleed_duration % 30 == 1) {
+		takeDamage(1);
+	}
+	
 	// handle targeted
 	if (targeted > 0)
 		targeted--;
+		
+	// handle buff/debuff animations
+	shield_frame++;
+	if (shield_frame == 12) shield_frame = 0;
 
+}
+
+/**
+ * Get the renderable for various effects on the player (buffs/debuffs)
+ *
+ * @param effect_type STAT_EFFECT_* consts defined in StatBlock.h
+ */
+Renderable StatBlock::getEffectRender(int effect_type) {
+	Renderable r;
+	r.map_pos.x = pos.x;
+	r.map_pos.y = pos.y;
+	r.src = new SDL_Rect();
+	
+	if (effect_type == STAT_EFFECT_SHIELD) {
+		r.src->x = (shield_frame/3) * 128;
+		r.src->y = 0;
+		r.src->w = 128;
+		r.src->h = 128;
+		r.offset.x = 64;
+		r.offset.y = 96; 
+		r.object_layer = true;
+	}
+	return r;	
 }
 
 StatBlock::~StatBlock() {

@@ -20,6 +20,7 @@
 #include "StatBlock.h"
 #include "Hazard.h"
 #include "Settings.h"
+#include "PowerManager.h"
 
 // active states
 const int ENEMY_STANCE = 0;
@@ -39,9 +40,10 @@ const int ENEMY_CRITDEAD = 10;
 class Enemy {
 private:
 	MapIso *map;
+	PowerManager *powers;
 	
 public:
-	Enemy(MapIso *_map);
+	Enemy(PowerManager *_powers, MapIso *_map);
 	~Enemy();
 	bool lineOfSight();
 	bool move();

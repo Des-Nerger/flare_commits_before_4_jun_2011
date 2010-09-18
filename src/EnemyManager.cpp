@@ -8,7 +8,8 @@
 
 #include "EnemyManager.h"
 
-EnemyManager::EnemyManager(MapIso *_map) {
+EnemyManager::EnemyManager(PowerManager *_powers, MapIso *_map) {
+	powers = _powers;
 	map = _map;
 	enemy_count = 0;
 	sfx_count = 0;
@@ -103,7 +104,7 @@ void EnemyManager::handleNewMap () {
 		me = map->enemies.front();
 		map->enemies.pop();
 		
-		enemies[enemy_count] = new Enemy(map);
+		enemies[enemy_count] = new Enemy(powers, map);
 		enemies[enemy_count]->stats.pos.x = me.pos.x;
 		enemies[enemy_count]->stats.pos.y = me.pos.y;
 		enemies[enemy_count]->stats.direction = me.direction;

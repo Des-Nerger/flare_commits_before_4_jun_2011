@@ -56,6 +56,8 @@ public:
 	int active_frame; // some hazards are only dangerous on a single frame of their existence
 	int direction; // helps when choosing animations
 	bool floor; // rendererable goes on the floor layer
+	int delay_frames;
+	bool complete_animation; // if not multitarget but hitting a creature, still complete the animation?
 	
 	// these work in conjunction
 	// if the attack is not multitarget, set active=false
@@ -72,6 +74,10 @@ public:
 	bool trait_armor_penetration;
 	bool trait_fire;
 	bool trait_ice;
+	bool trait_air;
+	bool trait_earth;
+	
+	
 	
 	
 };

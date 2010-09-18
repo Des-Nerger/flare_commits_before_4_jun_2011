@@ -8,7 +8,8 @@
 
 #include "Enemy.h"
 
-Enemy::Enemy(MapIso *_map) {
+Enemy::Enemy(PowerManager *_powers, MapIso *_map) {
+	powers = _powers;
 	map = _map;
 
 	stats.cur_state = ENEMY_STANCE;
@@ -39,23 +40,27 @@ Enemy::Enemy(MapIso *_map) {
  * @return Returns false if wall collision, otherwise true.
  */
 bool Enemy::move() {
+
+	int speed_factor = 1;
+	if (stats.slow_duration > 0) speed_factor = 2;
+	
 	switch (stats.direction) {
 		case 0:
-			return map->collider.move(stats.pos.x, stats.pos.y, -1, 1, stats.dspeed);
+			return map->collider.move(stats.pos.x, stats.pos.y, -1, 1, stats.dspeed/speed_factor);
 		case 1:
-			return map->collider.move(stats.pos.x, stats.pos.y, -1, 0, stats.speed);
+			return map->collider.move(stats.pos.x, stats.pos.y, -1, 0, stats.speed/speed_factor);
 		case 2:
-			return map->collider.move(stats.pos.x, stats.pos.y, -1, -1, stats.dspeed);
+			return map->collider.move(stats.pos.x, stats.pos.y, -1, -1, stats.dspeed/speed_factor);
 		case 3:
-			return map->collider.move(stats.pos.x, stats.pos.y, 0, -1, stats.speed);
+			return map->collider.move(stats.pos.x, stats.pos.y, 0, -1, stats.speed/speed_factor);
 		case 4:
-			return map->collider.move(stats.pos.x, stats.pos.y, 1, -1, stats.dspeed);
+			return map->collider.move(stats.pos.x, stats.pos.y, 1, -1, stats.dspeed/speed_factor);
 		case 5:
-			return map->collider.move(stats.pos.x, stats.pos.y, 1, 0, stats.speed);
+			return map->collider.move(stats.pos.x, stats.pos.y, 1, 0, stats.speed/speed_factor);
 		case 6:
-			return map->collider.move(stats.pos.x, stats.pos.y, 1, 1, stats.dspeed);
+			return map->collider.move(stats.pos.x, stats.pos.y, 1, 1, stats.dspeed/speed_factor);
 		case 7:
-			return map->collider.move(stats.pos.x, stats.pos.y, 0, 1, stats.speed);
+			return map->collider.move(stats.pos.x, stats.pos.y, 0, 1, stats.speed/speed_factor);
 	}
 	return true;
 }
@@ -156,6 +161,11 @@ void Enemy::logic() {
 
 	stats.logic();
 	if (stats.stun_duration > 0) return;
+	// check for bleeding to death
+	if (stats.hp == 0 && !(stats.cur_state == ENEMY_DEAD || stats.cur_state == ENEMY_CRITDEAD)) {
+		stats.cur_state = ENEMY_DEAD;
+		stats.cur_frame = 0;
+	}
 	
 	int dist;
 	int prev_direction;
@@ -163,6 +173,7 @@ void Enemy::logic() {
 	Point pursue_pos;
 	int max_frame;
 	int mid_frame;
+	
 	
 	// SECTION 1: Steering and Vision
 	// ------------------------------
@@ -466,6 +477,7 @@ bool Enemy::takeHit(Hazard h) {
 			else absorption = stats.absorb_min + (rand() % (stats.absorb_max - stats.absorb_min + 1));
 			dmg = dmg - absorption;
 			if (dmg < 1 && h.dmg_min >= 1) dmg = 1; // TODO: when blocking, dmg can be reduced to 0
+			if (dmg < 0) dmg = 0;
 		}
 
 		// check for crits
@@ -473,17 +485,28 @@ bool Enemy::takeHit(Hazard h) {
 		if (crit) dmg = dmg * 2;
 		
 		// apply damage
-		stats.hp = stats.hp - dmg;
+		stats.takeDamage(dmg);
 		
 		// damage always breaks stun
 		if (dmg > 0) stats.stun_duration=0;
 		
 		// after effects
 		if (stats.hp > 0) {
-			if (h.stun_duration > stats.stun_duration) stats.stun_duration += h.stun_duration;
-			if (h.slow_duration > stats.slow_duration) stats.slow_duration += h.slow_duration;
-			if (h.bleed_duration > stats.bleed_duration) stats.bleed_duration += h.bleed_duration;
-			if (h.immobilize_duration > stats.immobilize_duration) stats.immobilize_duration += h.immobilize_duration;
+			if (h.stun_duration > stats.stun_duration) stats.stun_duration = h.stun_duration;
+			if (h.slow_duration > stats.slow_duration) stats.slow_duration = h.slow_duration;
+			if (h.bleed_duration > stats.bleed_duration) stats.bleed_duration = h.bleed_duration;
+			if (h.immobilize_duration > stats.immobilize_duration) stats.immobilize_duration = h.immobilize_duration;
+		}
+		
+		// create a blood spark upon crit or bloody attack
+		Point pt;
+		if (crit || h.bleed_duration > 0) {
+			if (h.trait_ice || h.trait_air)
+				powers->activate(POWER_SPARK_ICE, &stats, pt);
+			else if (h.trait_fire)
+				powers->activate(POWER_SPARK_FIRE, &stats, pt);
+			else
+				powers->activate(POWER_SPARK_BLOOD, &stats, pt);
 		}
 		
 		// interrupted to new state

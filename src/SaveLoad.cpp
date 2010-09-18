@@ -161,6 +161,5 @@ void GameEngine::loadGame() {
 				
 		// just for aesthetics, turn the hero to face the camera
 		pc->stats.direction = 6;
-		
 	}
 }

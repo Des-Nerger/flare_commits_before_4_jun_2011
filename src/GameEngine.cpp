@@ -18,7 +18,7 @@ GameEngine::GameEngine(SDL_Surface *_screen, InputState *_inp) {
 	font = new FontEngine();	
 	map = new MapIso(_screen);
 	pc = new Avatar(powers, _inp, map);
-	enemies = new EnemyManager(map);
+	enemies = new EnemyManager(powers, map);
 	hazards = new HazardManager(powers, pc, enemies);
 	menu = new MenuManager(powers, _screen, _inp, font, &pc->stats);
 	loot = new LootManager(menu->items, menu->tip, enemies, map);
@@ -93,7 +93,7 @@ void GameEngine::logic() {
 		}
 		
 		// process intermap teleport
-		if (map->teleport_mapname != "") {
+		if (map->teleportation && map->teleport_mapname != "") {
 			map->load(map->teleport_mapname);
 			enemies->handleNewMap();
 			hazards->handleNewMap(&map->collider);
@@ -170,9 +170,15 @@ void GameEngine::render() {
 	}
 	
 	for (int i=0; i<hazards->hazard_count; i++) { // Hazards
-		if (hazards->h[i]->rendered) {
+		if (hazards->h[i]->rendered && hazards->h[i]->delay_frames == 0) {
 			r[renderableCount++] = hazards->getRender(i);
 		}
+	}
+	
+	// get additional hero overlays
+	if (pc->stats.shield_hp > 0) {
+		r[renderableCount] = pc->stats.getEffectRender(STAT_EFFECT_SHIELD);
+		r[renderableCount++].sprite = powers->shield;
 	}
 		
 	zsort(r,renderableCount);

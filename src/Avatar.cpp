@@ -118,23 +118,27 @@ bool Avatar::pressing_move() {
  * @return Returns false if wall collision, otherwise true.
  */
 bool Avatar::move() {
+
+	int speed_factor = 1;
+	if (stats.slow_duration > 0) speed_factor = 2;
+	
 	switch (stats.direction) {
 		case 0:
-			return map->collider.move(stats.pos.x, stats.pos.y, -1, 1, stats.dspeed);
+			return map->collider.move(stats.pos.x, stats.pos.y, -1, 1, stats.dspeed/speed_factor);
 		case 1:
-			return map->collider.move(stats.pos.x, stats.pos.y, -1, 0, stats.speed);
+			return map->collider.move(stats.pos.x, stats.pos.y, -1, 0, stats.speed/speed_factor);
 		case 2:
-			return map->collider.move(stats.pos.x, stats.pos.y, -1, -1, stats.dspeed);
+			return map->collider.move(stats.pos.x, stats.pos.y, -1, -1, stats.dspeed/speed_factor);
 		case 3:
-			return map->collider.move(stats.pos.x, stats.pos.y, 0, -1, stats.speed);
+			return map->collider.move(stats.pos.x, stats.pos.y, 0, -1, stats.speed/speed_factor);
 		case 4:
-			return map->collider.move(stats.pos.x, stats.pos.y, 1, -1, stats.dspeed);
+			return map->collider.move(stats.pos.x, stats.pos.y, 1, -1, stats.dspeed/speed_factor);
 		case 5:
-			return map->collider.move(stats.pos.x, stats.pos.y, 1, 0, stats.speed);
+			return map->collider.move(stats.pos.x, stats.pos.y, 1, 0, stats.speed/speed_factor);
 		case 6:
-			return map->collider.move(stats.pos.x, stats.pos.y, 1, 1, stats.dspeed);
+			return map->collider.move(stats.pos.x, stats.pos.y, 1, 1, stats.dspeed/speed_factor);
 		case 7:
-			return map->collider.move(stats.pos.x, stats.pos.y, 0, 1, stats.speed);
+			return map->collider.move(stats.pos.x, stats.pos.y, 0, 1, stats.speed/speed_factor);
 	}
 	return true;
 }
@@ -272,6 +276,12 @@ void Avatar::logic(int actionbar_power) {
 					curState = AVATAR_CAST;
 					break;
 				}
+				if (powers->powers[current_power].new_state == POWSTATE_BLOCK) {
+					curFrame = 0;
+					curState = AVATAR_BLOCK;
+					stats.blocking = true;
+					break;
+				}
 			}
 			
 			break;
@@ -339,7 +349,12 @@ void Avatar::logic(int actionbar_power) {
 					curState = AVATAR_CAST;
 					break;
 				}
-				
+				if (powers->powers[current_power].new_state == POWSTATE_BLOCK) {
+					curFrame = 0;
+					curState = AVATAR_BLOCK;
+					stats.blocking = true;
+					break;
+				}				
 			}
 							
 			break;
@@ -404,7 +419,18 @@ void Avatar::logic(int actionbar_power) {
 			}
 			break;
 
-		
+		case AVATAR_BLOCK:
+			if (curFrame < 4) curFrame++;
+			dispFrame = (curFrame / 4) + 16;
+			
+			if (actionbar_power != POWER_BLOCK) {
+				curFrame = 0;
+				curState = AVATAR_STANCE;
+				cooldown_power = 8;
+				stats.blocking = false;
+			}
+			break;
+			
 		case AVATAR_HIT:
 			curFrame++;
 			
@@ -488,19 +514,35 @@ bool Avatar::takeHit(Hazard h) {
 		if (!h.trait_armor_penetration) { // armor penetration ignores all absorption
 			if (stats.absorb_min == stats.absorb_max) absorption = stats.absorb_min;
 			else absorption = stats.absorb_min + (rand() % (stats.absorb_max - stats.absorb_min + 1));
+			
+			if (stats.blocking) absorption += absorption; // blocking doubles your absorb amount
+			
 			dmg = dmg - absorption;
-			if (dmg < 1) dmg = 1; // TODO: when blocking, dmg can be reduced to 0
+			if (dmg < 1 && !stats.blocking) dmg = 1; // when blocking, dmg can be reduced to 0
+			if (dmg < 0) dmg = 0;
 		}
 	
 		curFrame = 0;
 		
-		stats.hp = stats.hp - dmg;
-			
+		int prev_hp = stats.hp;
+		stats.takeDamage(dmg);
+		
+		// Power-specific: Vengeance gains stacks when blocking
+		if (stats.blocking && stats.physdef >= 9) {
+			if (stats.vengeance_stacks < 3)
+				stats.vengeance_stacks++;
+		}
+		
+		
+		if (stats.immunity_duration == 0) {
+			// TODO: apply negative hazard after-effects 
+		}
+		
 		if (stats.hp <= 0) {
 			dispFrame = 18;
 			curState = AVATAR_DEAD;		
 		}
-		else {
+		else if (prev_hp > stats.hp) { // only interrupt if damage was taken
 			dispFrame = 18;
 			curState = AVATAR_HIT;
 		}

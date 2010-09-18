@@ -17,6 +17,8 @@
 #include "UtilsParsing.h"
 using namespace std;
 
+const int STAT_EFFECT_SHIELD = 0;
+
 class StatBlock {
 private:
 
@@ -28,6 +30,7 @@ public:
 	void takeDamage(int dmg);
 	void recalc();
 	void logic();
+	Renderable StatBlock::getEffectRender(int effect_type);
 
 	bool alive;
 	bool corpse; // creature is dead and done animating
@@ -94,9 +97,11 @@ public:
 	int bleed_duration;
 	int stun_duration;
 	int immobilize_duration;
-	
-	// power stats
-	int temphp;
+	int immunity_duration;	
+	int shield_hp; // shield
+	int shield_frame;
+	bool blocking;
+	int vengeance_stacks;
 	
 	int speed;
 	int dspeed;

@@ -12,6 +12,7 @@
 #include "MapIso.h"
 #include "Enemy.h"
 #include "Utils.h"
+#include "PowerManager.h"
 
 const int max_sfx = 8;
 const int max_gfx = 32;
@@ -19,6 +20,7 @@ const int max_gfx = 32;
 class EnemyManager {
 private:
 	MapIso *map;
+	PowerManager *powers;
 	void loadGraphics(string type_id);
 	void loadSounds(string type_id);
 
@@ -35,7 +37,7 @@ private:
 	Mix_Chunk *sound_critdie[max_sfx];
 	
 public:
-	EnemyManager(MapIso *_map);
+	EnemyManager(PowerManager *_powers, MapIso *_map);
 	~EnemyManager();
 	void handleNewMap();
 	void logic();

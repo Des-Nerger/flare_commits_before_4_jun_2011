@@ -35,7 +35,7 @@ void HazardManager::logic() {
 	
 	// handle collisions
 	for (int i=0; i<hazard_count; i++) {
-		if (h[i]->active && (h[i]->active_frame == -1 || h[i]->active_frame == h[i]->frame)) {
+		if (h[i]->active && h[i]->delay_frames==0 && (h[i]->active_frame == -1 || h[i]->active_frame == h[i]->frame)) {
 	
 			// process hazards that can hurt enemies
 			if (h[i]->source == SRC_HERO || h[i]->source == SRC_NEUTRAL) {
@@ -48,7 +48,7 @@ void HazardManager::logic() {
 							hit = enemies->enemies[eindex]->takeHit(*h[i]);
 							if (!h[i]->multitarget && hit) {
 								h[i]->active = false;
-								h[i]->lifespan = 0;
+								if (!h[i]->complete_animation) h[i]->lifespan = 0;
 							}
 						}
 					}
@@ -64,7 +64,7 @@ void HazardManager::logic() {
 						hit = hero->takeHit(*h[i]);
 						if (!h[i]->multitarget && hit) {
 							h[i]->active = false;
-							h[i]->lifespan = 0;
+							if (!h[i]->complete_animation) h[i]->lifespan = 0;
 						}
 					}
 				}

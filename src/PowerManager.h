@@ -28,10 +28,12 @@ const int POWTYPE_SINGLE = 1;
 const int POWTYPE_MISSILE = 2;
 const int POWTYPE_NONDAMAGE = 3;
 const int POWTYPE_MISSILE_X3 = 4; // used by MultiShot
+const int POWTYPE_GROUNDRAY = 5; // used by Freeze
 
 const int POWSTATE_SWING = 0;
 const int POWSTATE_CAST = 1;
 const int POWSTATE_SHOOT = 2;
+const int POWSTATE_BLOCK = 3;
 
 // first 20 powers coincide with power tree
 const int POWER_SHOOT = 0;
@@ -54,6 +56,14 @@ const int POWER_PIERCING = 16;
 const int POWER_VENGEANCE = 17;
 const int POWER_BURN = 18;
 const int POWER_TIMESTOP = 19;
+const int POWER_HEALTH_POTION = 20;
+const int POWER_MANA_POTION = 21;
+const int POWER_HEALTH_FOOD = 22;
+const int POWER_MANA_FOOD = 23;
+const int POWER_SPARK_BLOOD = 24;
+const int POWER_SPARK_FIRE = 25;
+const int POWER_SPARK_ICE = 26;
+
 
 struct Power {
 	int type; // what kind of activate() this is
@@ -89,6 +99,7 @@ private:
 	bool missile(int powernum, StatBlock *src_stats, Point target);
 	bool single(int powernum, StatBlock *src_stats, Point target);
 	bool missileX3(int powernum, StatBlock *src_stats, Point target);
+	bool groundRay(int powernum, StatBlock *src_stats, Point target);
 	
 public:
 	PowerManager();
@@ -106,6 +117,10 @@ public:
 	SDL_Surface *blast;
 	SDL_Surface *quake;
 	SDL_Surface *heal;
+	SDL_Surface *shield;
+	SDL_Surface *sparks;
+	SDL_Surface *freeze;
+	SDL_Surface *runes;
 	
 };
 

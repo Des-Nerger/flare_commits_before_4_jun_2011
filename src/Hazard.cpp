@@ -28,6 +28,8 @@ Hazard::Hazard() {
 	frame_size.y = 64;
 	frame_offset.x = 32;
 	frame_offset.y = 32;
+	delay_frames = 0;
+	complete_animation = false;
 	floor=false;
 	active=true;
 	stun_duration=0;
@@ -37,6 +39,8 @@ Hazard::Hazard() {
 	trait_armor_penetration = false;
 	trait_fire = false;
 	trait_ice = false;
+	trait_air = false;
+	trait_earth = false;
 }
 
 void Hazard::setCollision(MapCollision *_collider) {
@@ -44,6 +48,12 @@ void Hazard::setCollision(MapCollision *_collider) {
 }
 
 void Hazard::logic() {
+	
+	// if the hazard is on delay, take no action
+	if (delay_frames > 0) {
+		delay_frames--;
+		return;
+	}
 	
 	// handle tickers
 	if (lifespan > 0) lifespan--;
