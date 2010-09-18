@@ -30,7 +30,7 @@ public:
 	void takeDamage(int dmg);
 	void recalc();
 	void logic();
-	Renderable StatBlock::getEffectRender(int effect_type);
+	Renderable getEffectRender(int effect_type);
 
 	bool alive;
 	bool corpse; // creature is dead and done animating

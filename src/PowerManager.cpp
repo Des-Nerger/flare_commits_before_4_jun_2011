@@ -54,7 +54,7 @@ PowerManager::PowerManager() {
 	powers[POWER_SHOCK].name = "Shock";
 	powers[POWER_SHOCK].type = POWTYPE_MISSILE;
 	powers[POWER_SHOCK].icon = 6;
-	powers[POWER_SHOCK].description = "Shoot a bolt of electricity";
+	powers[POWER_SHOCK].description = "Channel a bolt of magic through your enchanted weapon";
 	powers[POWER_SHOCK].new_state = POWSTATE_CAST;
 	powers[POWER_SHOCK].face = true;
 	powers[POWER_SHOCK].requires_mana = true;
@@ -123,7 +123,7 @@ PowerManager::PowerManager() {
 	powers[POWER_TELEPORT].name = "Teleport";
 	powers[POWER_TELEPORT].type = POWTYPE_NONDAMAGE;
 	powers[POWER_TELEPORT].icon = 15;
-	powers[POWER_TELEPORT].description = "Blink to a nearby location (NYI)";
+	powers[POWER_TELEPORT].description = "Blink to a nearby location";
 	powers[POWER_TELEPORT].new_state = POWSTATE_CAST;
 	powers[POWER_TELEPORT].face = true;
 	powers[POWER_TELEPORT].requires_mana = true;
@@ -139,7 +139,7 @@ PowerManager::PowerManager() {
 	powers[POWER_VENGEANCE].name = "Vengeance";
 	powers[POWER_VENGEANCE].type = POWTYPE_SINGLE;
 	powers[POWER_VENGEANCE].icon = 17;
-	powers[POWER_VENGEANCE].description = "After blocking, unlease a deadly and accurate counter-attack (NYI)";
+	powers[POWER_VENGEANCE].description = "After blocking, unlease a deadly and accurate counter-attack";
 	powers[POWER_VENGEANCE].new_state = POWSTATE_SWING;
 	powers[POWER_VENGEANCE].face = true;
 	powers[POWER_VENGEANCE].requires_mana = true;
@@ -620,9 +620,9 @@ bool PowerManager::single(int power_index, StatBlock *src_stats, Point target) {
 		haz->multitarget = true;
 		haz->radius = 128;
 		haz->active_frame = 4;
-		haz->lifespan = 12;
-		haz->frame_duration = 2;
-		haz->frame_loop = 32;
+		haz->lifespan = 18;
+		haz->frame_duration = 3;
+		haz->frame_loop = -1;
 		haz->sprites = blast;
 		haz->frame_size.x = 256;
 		haz->frame_size.y = 128;
