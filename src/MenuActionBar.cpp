@@ -32,6 +32,8 @@ MenuActionBar::MenuActionBar(PowerManager *_powers, SDL_Surface *_screen, InputS
 	// TEMP: set action bar positions
 	// TODO: define in a config file so that the menu is customizable
 	int offset_x = (VIEW_W - 640)/2;
+	int offset_y = VIEW_H-32;
+	
 	for (int i=0; i<12; i++) {
 		slots[i].w = slots[i].h = 32;
 		slots[i].y = VIEW_H-32;
@@ -46,15 +48,19 @@ MenuActionBar::MenuActionBar(PowerManager *_powers, SDL_Surface *_screen, InputS
 		menus[i].x = offset_x + 480 + i*32;
 	}
 	
-	// TEMP: test hotkeys
-	hotkeys[0] = hotkeys[10] = POWER_SWING;
-	hotkeys[1] = POWER_SHOOT;
-	hotkeys[2] = hotkeys[11] = POWER_SHOCK;
-	hotkeys[3] = POWER_BURN;
-	hotkeys[4] = POWER_QUAKE;
-	hotkeys[5] = POWER_HEAL;
-	hotkeys[6] = POWER_TIMESTOP;
+	// default: LMB set to basic melee attack
+	hotkeys[10] = POWER_SWING;
 		
+	// screen areas occupied by the three main sections	
+	numberArea.h = mouseArea.h = menuArea.h = 32;
+	numberArea.y = mouseArea.y = menuArea.y = offset_y;
+	numberArea.x = offset_x+32;
+	numberArea.w = 320;
+	mouseArea.x = offset_x+384;
+	mouseArea.w = 64;
+	menuArea.x = offset_x+480;
+	menuArea.w = 128;
+	
 	loadGraphics();
 }
 
@@ -70,6 +76,9 @@ void MenuActionBar::loadGraphics() {
 	}
 }
 
+/**
+ * generic render 32-pixel icon
+ */
 void MenuActionBar::renderIcon(int icon_id, int x, int y) {
 	SDL_Rect src;
 	SDL_Rect dest;
@@ -90,7 +99,6 @@ void MenuActionBar::logic() {
 void MenuActionBar::render() {
 
 	SDL_Rect dest;
-	// just a hardcoded demo for now
 	SDL_Rect trimsrc;
 	
 	int offset_x = (VIEW_W - 640)/2;
@@ -139,7 +147,7 @@ void MenuActionBar::render() {
 TooltipData MenuActionBar::checkTooltip(Point mouse) {
 	TooltipData tip;
 	
-	int offset_x = (VIEW_W - 640)/2;
+	//int offset_x = (VIEW_W - 640)/2;
 	if (isWithin(menus[0], mouse)) {
 		tip.lines[tip.num_lines++] = "Character Menu (C)";
 		return tip;
@@ -171,14 +179,33 @@ TooltipData MenuActionBar::checkTooltip(Point mouse) {
  * After dragging a power or item onto the action bar, set as new hotkey
  */
 void MenuActionBar::drop(Point mouse, int power_index) {
+	for (int i=0; i<12; i++) {
+		if (isWithin(slots[i], mouse)) {
+			hotkeys[i] = power_index;
+			return;
+		}
+	}
+}
 
-
+/**
+ * CTRL-click a hotkey to clear it
+ */
+void MenuActionBar::remove(Point mouse) {
+	for (int i=0; i<12; i++) {
+		if (isWithin(slots[i], mouse)) {
+			hotkeys[i] = -1;
+			return;
+		}
+	}
 }
 
 /**
  * If pressing an action key, return 
  */
 int MenuActionBar::checkAction() {
+
+	// TODO: check clicking on stuff
+	
 	if (inp->pressing[BAR_1]) return hotkeys[0];
 	if (inp->pressing[BAR_2]) return hotkeys[1];
 	if (inp->pressing[BAR_3]) return hotkeys[2];
@@ -192,11 +219,16 @@ int MenuActionBar::checkAction() {
 	if (inp->pressing[MAIN1] && !inp->mouse_lock) return hotkeys[10];
 	if (inp->pressing[MAIN2] && !inp->mouse_lock) return hotkeys[11];
 	
-	// also check clicking on stuff
-	
 	return -1;
 }
 
+/**
+ * Set all hotkeys at once e.g. when loading a game
+ */
+void MenuActionBar::set(int power_id[12]) {
+	for (int i=0; i<12; i++)
+		hotkeys[i] = power_id[i];
+}
 
 MenuActionBar::~MenuActionBar() {
 	SDL_FreeSurface(background);

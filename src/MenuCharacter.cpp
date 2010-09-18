@@ -200,7 +200,11 @@ void MenuCharacter::displayProficiencies(int value, int y) {
 	src.h = dest.h = 32;
 	dest.y = y;
 	
-	for (int i=2; i<= value; i++) {
+	// save-game hackers could set their stats higher than normal.
+	// make sure this display still works.
+	int actual_value = min(value,5);
+	
+	for (int i=2; i<= actual_value; i++) {
 		dest.x = 112 + (i-2) * 48;
 		SDL_BlitSurface(proficiency, &src, screen, &dest);
 	}

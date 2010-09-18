@@ -42,12 +42,20 @@ public:
 	void render();
 	int checkAction();
 	void drop(Point mouse, int power_index);
+	void remove(Point mouse);
+	void set(int power_id[12]);
 
 	TooltipData checkTooltip(Point mouse);
 	
 	int hotkeys[12]; // refer to power_index in PowerManager
 	SDL_Rect slots[12]; // the location of hotkey slots
 	SDL_Rect menus[4]; // the location of the menu buttons
+	
+	// these store the area occupied by these hotslot sections.
+	// useful for detecting mouse interactions on those locations
+	SDL_Rect numberArea;
+	SDL_Rect mouseArea;
+	SDL_Rect menuArea;
 	
 };
 

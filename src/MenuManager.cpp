@@ -18,7 +18,7 @@ MenuManager::MenuManager(PowerManager *_powers, SDL_Surface *_screen, InputState
 
 	items = new ItemDatabase(screen, icons);
 	inv = new MenuInventory(screen, font, items, stats);
-	pow = new MenuPowers(screen, font, stats);
+	pow = new MenuPowers(screen, font, stats, powers);
 	chr = new MenuCharacter(screen, font, stats);
 	log = new MenuLog(screen, font);
 	act = new MenuActionBar(powers, screen, inp, icons);
@@ -30,6 +30,7 @@ MenuManager::MenuManager(PowerManager *_powers, SDL_Surface *_screen, InputState
 	pause = false;
 	dragging = false;
 	drag_item = 0;
+	drag_power = -1;
 	drag_src = 0;
 	drop_item = 0;
 	
@@ -57,6 +58,18 @@ void MenuManager::loadSounds() {
 		fprintf(stderr, "Mix_LoadWAV: %s\n", Mix_GetError());
 		SDL_Quit();
 	}	
+}
+
+
+void MenuManager::renderIcon(int icon_id, int x, int y) {
+	SDL_Rect src;
+	SDL_Rect dest;
+	dest.x = x;
+	dest.y = y;
+	src.w = src.h = dest.w = dest.h = 32;
+	src.x = (icon_id % 16) * 32;
+	src.y = (icon_id / 16) * 32;
+	SDL_BlitSurface(icons, &src, screen, &dest);		
 }
 
 void MenuManager::logic() {
@@ -152,26 +165,60 @@ void MenuManager::logic() {
 		}
 	
 		// right side menu
-		if (inp->mouse.x >= offset_x && inp->mouse.y >= offset_y && inp->mouse.y <= offset_y+416) {
+		else if (inp->mouse.x >= offset_x && inp->mouse.y >= offset_y && inp->mouse.y <= offset_y+416) {
+		
+			// pick up an inventory item
 			if (inv->visible) {
 			
 				if (inp->pressing[CTRL]) {
+					inp->mouse_lock = true;
 					inv->sell(inp->mouse);
 				}
 				else {
 					drag_item = inv->click(inp->mouse);
 					if (drag_item > 0) {
-					dragging = true;
+						dragging = true;
 						drag_src = DRAG_SRC_INVENTORY;
 					}
 				}
 			}
+			// pick up a power
+			else if (pow->visible) {
+				drag_power = pow->click(inp->mouse);
+				if (drag_power > -1) {
+					dragging = true;
+					drag_src = DRAG_SRC_POWERS;
+				}
+			}
+		}
+		// action bar
+		else if (isWithin(act->numberArea,inp->mouse) || isWithin(act->mouseArea,inp->mouse) || isWithin(act->menuArea, inp->mouse)) {
+		
+			// ctrl-click action bar to clear that slot
+			if (inp->pressing[CTRL]) {
+				act->remove(inp->mouse);
+				inp->mouse_lock = true;
+			}
+			// click action bar to use that power
+			else {
+				act->checkAction();
+				inp->mouse_lock = true;
+			}
 		}
 	}
-	
 	// handle dropping
 	if (dragging && !inp->pressing[MAIN1]) {
-		if (drag_src == DRAG_SRC_INVENTORY) {
+		
+		// putting a power on the Action Bar
+		if (drag_src == DRAG_SRC_POWERS) {
+		
+			if (isWithin(act->numberArea,inp->mouse) || isWithin(act->mouseArea,inp->mouse)) {
+				act->drop(inp->mouse, drag_power);
+			}
+		}
+	
+		// rearranging inventory or dropping items
+		else if (drag_src == DRAG_SRC_INVENTORY) {
 			if (inv->visible && inp->mouse.x >= offset_x && inp->mouse.y >= offset_y && inp->mouse.y <= offset_y+416) {
 				inv->drop(inp->mouse, drag_item);
 				drag_item = 0;
@@ -216,7 +263,8 @@ void MenuManager::render() {
 	TooltipData tooltip;
 	int offset_x = (VIEW_W - 320);
 	int offset_y = (VIEW_H - 416)/2;
-	
+
+	// Find tooltips depending on mouse position	
 	if (inp->mouse.x < 320 && inp->mouse.y >= offset_y && inp->mouse.y <= offset_y+416) {
 		if (chr->visible) {
 			tooltip = chr->checkTooltip(inp->mouse);
@@ -238,8 +286,12 @@ void MenuManager::render() {
 		tip->render(tooltip, inp->mouse, STYLE_FLOAT);
 	}
 	
+	// draw icon under cursor if dragging
 	if (dragging) {
-		items->renderIcon(drag_item, inp->mouse.x - 16, inp->mouse.y - 16, ICON_SIZE_32);
+		if (drag_src == DRAG_SRC_INVENTORY)
+			items->renderIcon(drag_item, inp->mouse.x - 16, inp->mouse.y - 16, ICON_SIZE_32);
+		else if (drag_src == DRAG_SRC_POWERS)
+			renderIcon(drag_power, inp->mouse.x-16, inp->mouse.y-16);
 	}
 	
 }

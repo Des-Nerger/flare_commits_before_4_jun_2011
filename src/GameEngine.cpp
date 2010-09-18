@@ -187,8 +187,8 @@ void GameEngine::render() {
 	loot->renderTooltips(map->cam);
 	
 	menu->log->renderHUDMessages();
-	menu->render();
 	menu->mini->render(&map->collider, pc->stats.pos, map->w, map->h);
+	menu->render();
 
 }
 

@@ -56,6 +56,14 @@ void GameEngine::saveGame() {
 		
 		// spawn point
 		outfile << "spawn=" << map->respawn_map << "," << map->respawn_point.x << "," << map->respawn_point.y << "\n";
+		
+		// action bar
+		outfile << "actionbar=";
+		for (int i=0; i<12; i++) {
+			outfile << menu->act->hotkeys[i];
+			if (i<11) outfile << ",";
+		}
+		outfile << "\n";
 		outfile << endl;
 		
 		outfile.close();
@@ -72,6 +80,11 @@ void GameEngine::loadGame() {
 	string key;
 	string val;
 	string starts_with;
+	int hotkeys[12];
+	
+	for (int i=0; i<12; i++) {
+		hotkeys[i] = -1;
+	}
 
 	infile.open("saves/save1.txt", ios::in);
 
@@ -127,6 +140,12 @@ void GameEngine::loadGame() {
 						
 						// prevent spawn.txt from putting us on the starting map
 						map->clearEvents();
+					}
+					else if (key == "actionbar") {
+						val = val + ",";
+						for (int i=0; i<12; i++)
+							hotkeys[i] = eatFirstInt(val, ',');
+						menu->act->set(hotkeys);
 					}
 				}
 			}

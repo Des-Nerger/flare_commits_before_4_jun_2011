@@ -51,6 +51,7 @@ private:
 	
 	bool dragging;
 	int drag_item;
+	int drag_power;
 	int drag_src;
 
 	
@@ -59,6 +60,7 @@ public:
 	~MenuManager();
 	void logic();
 	void render();
+	void renderIcon(int icon_id, int x, int y);
 	void closeAll();
 
 	MenuInventory *inv;
