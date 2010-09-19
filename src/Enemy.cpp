@@ -516,17 +516,17 @@ bool Enemy::takeHit(Hazard h) {
 			
 			if (stats.hp <= 0 && crit) {
 				doRewards();
-				stats.disp_frame = 28;
+				stats.disp_frame = stats.anim_critdie_position;
 				stats.cur_state = ENEMY_CRITDEAD;
 			}
 			else if (stats.hp <= 0) {
 				doRewards();
-				stats.disp_frame = 22;
+				stats.disp_frame = stats.anim_die_position;
 				stats.cur_state = ENEMY_DEAD;		
 			}
 			// don't go through a hit animation if stunned
 			else if (h.stun_duration == 0) {
-				stats.disp_frame = 22;
+				stats.disp_frame = stats.anim_hit_position;
 				stats.cur_state = ENEMY_HIT;
 			}
 		}

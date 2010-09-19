@@ -251,7 +251,7 @@ type=skeleton
 spawnpoint=4,37,5
 
 [enemy]
-type=skeleton
+type=minotaur
 spawnpoint=10,43,1
 
 
