@@ -69,6 +69,7 @@ icon=112,16
 sfx=cloth
 gfx=clothes
 loot=clothes
+price=7
 
 [item]
 id=51
@@ -80,6 +81,7 @@ icon=112,16
 sfx=cloth
 gfx=clothes
 loot=clothes
+price=3
 
 [item]
 id=55
@@ -92,6 +94,7 @@ bonus=health,3
 sfx=cloth
 gfx=clothes
 loot=clothes
+price=14
 
 [item]
 id=56
@@ -104,6 +107,7 @@ bonus=health regen,1
 sfx=cloth
 gfx=clothes
 loot=clothes
+price=16
 
 [item]
 id=57
@@ -116,6 +120,7 @@ bonus=mana,3
 sfx=cloth
 gfx=clothes
 loot=clothes
+price=15
 
 [item]
 id=58
@@ -128,6 +133,7 @@ bonus=mana regen,1
 sfx=cloth
 gfx=clothes
 loot=clothes
+price=18
 
 [item]
 id=59
@@ -140,6 +146,7 @@ abs=0,1
 sfx=cloth
 gfx=clothes
 loot=clothes
+price=19
 
 [item]
 id=60
@@ -152,6 +159,7 @@ bonus=accuracy,2
 sfx=cloth
 gfx=clothes
 loot=clothes
+price=11
 
 [item]
 id=61
@@ -164,6 +172,7 @@ bonus=avoidance,4
 sfx=cloth
 gfx=clothes
 loot=clothes
+price=12
 
 [item]
 id=62
@@ -176,6 +185,7 @@ bonus=fire resist,10
 sfx=cloth
 gfx=clothes
 loot=clothes
+price=9
 
 [item]
 id=63
@@ -188,6 +198,7 @@ bonus=ice resist,10
 sfx=cloth
 gfx=clothes
 loot=clothes
+price=8
 
 [item]
 id=64
@@ -200,6 +211,7 @@ bonus=crit,1
 sfx=cloth
 gfx=clothes
 loot=clothes
+price=21
 
 [item]
 id=70
@@ -213,6 +225,7 @@ bonus=health,6
 sfx=cloth
 gfx=clothes
 loot=clothes
+price=35
 
 [item]
 id=71
@@ -226,6 +239,7 @@ bonus=health regen,2
 sfx=cloth
 gfx=clothes
 loot=clothes
+price=39
 
 [item]
 id=72
@@ -239,6 +253,7 @@ bonus=mana,6
 sfx=cloth
 gfx=clothes
 loot=clothes
+price=37
 
 [item]
 id=73
@@ -252,6 +267,7 @@ bonus=mana regen,2
 sfx=cloth
 gfx=clothes
 loot=clothes
+price=41
 
 [item]
 id=74
@@ -264,6 +280,7 @@ abs=1
 sfx=cloth
 gfx=clothes
 loot=clothes
+price=43
 
 [item]
 id=75
@@ -277,6 +294,7 @@ bonus=accuracy,5
 sfx=cloth
 gfx=clothes
 loot=clothes
+price=30
 
 [item]
 id=76
@@ -290,6 +308,7 @@ bonus=avoidance,7
 sfx=cloth
 gfx=clothes
 loot=clothes
+price=32
 
 [item]
 id=77
@@ -303,6 +322,7 @@ bonus=fire resist,15
 sfx=cloth
 gfx=clothes
 loot=clothes
+price=28
 
 [item]
 id=78
@@ -316,6 +336,7 @@ bonus=ice resist,15
 sfx=cloth
 gfx=clothes
 loot=clothes
+price=26
 
 [item]
 id=79
@@ -329,6 +350,7 @@ bonus=crit,2
 sfx=cloth
 gfx=clothes
 loot=clothes
+price=45
 
 [item]
 id=85
@@ -342,6 +364,7 @@ bonus=health,9
 sfx=cloth
 gfx=clothes
 loot=clothes
+price=70
 
 [item]
 id=86
@@ -355,6 +378,7 @@ bonus=health regen,3
 sfx=cloth
 gfx=clothes
 loot=clothes
+price=77
 
 [item]
 id=87
@@ -368,6 +392,7 @@ bonus=mana,9
 sfx=cloth
 gfx=clothes
 loot=clothes
+price=73
 
 [item]
 id=88
@@ -381,6 +406,7 @@ bonus=mana regen,3
 sfx=cloth
 gfx=clothes
 loot=clothes
+price=80
 
 [item]
 id=89
@@ -394,6 +420,7 @@ bonus=accuracy,8
 sfx=cloth
 gfx=clothes
 loot=clothes
+price=63
 
 [item]
 id=90
@@ -407,6 +434,7 @@ bonus=avoidance,10
 sfx=cloth
 gfx=clothes
 loot=clothes
+price=66
 
 [item]
 id=91
@@ -420,6 +448,7 @@ bonus=fire resist,20
 sfx=cloth
 gfx=clothes
 loot=clothes
+price=59
 
 [item]
 id=92
@@ -433,6 +462,7 @@ bonus=ice resist,20
 sfx=cloth
 gfx=clothes
 loot=clothes
+price=56
 
 [item]
 id=93
@@ -446,6 +476,7 @@ bonus=crit,3
 sfx=cloth
 gfx=clothes
 loot=clothes
+price=84
 
 [item]
 id=100
@@ -459,6 +490,7 @@ req=p,2
 sfx=metal
 gfx=dagger
 loot=dagger
+price=10
 
 [item]
 id=101
@@ -472,6 +504,7 @@ req=p,2
 sfx=metal
 gfx=dagger
 loot=dagger
+price=3
 
 [item]
 id=102
@@ -486,6 +519,7 @@ req=p,2
 sfx=metal
 gfx=dagger
 loot=dagger
+price=7
 
 [item]
 id=103
@@ -500,6 +534,7 @@ req=p,2
 sfx=metal
 gfx=dagger
 loot=dagger
+price=5
 
 [item]
 id=105
@@ -514,6 +549,7 @@ req=p,2
 sfx=metal
 gfx=dagger
 loot=dagger
+price=20
 
 [item]
 id=106
@@ -528,6 +564,7 @@ req=p,2
 sfx=metal
 gfx=dagger
 loot=dagger
+price=24
 
 [item]
 id=107
@@ -542,6 +579,7 @@ req=p,2
 sfx=metal
 gfx=dagger
 loot=dagger
+price=22
 
 [item]
 id=108
@@ -556,6 +594,7 @@ req=p,2
 sfx=metal
 gfx=dagger
 loot=dagger
+price=26
 
 [item]
 id=109
@@ -569,6 +608,7 @@ req=p,2
 sfx=metal
 gfx=dagger
 loot=dagger
+price=28
 
 [item]
 id=110
@@ -583,6 +623,7 @@ req=p,2
 sfx=metal
 gfx=dagger
 loot=dagger
+price=16
 
 [item]
 id=111
@@ -597,6 +638,7 @@ req=p,2
 sfx=metal
 gfx=dagger
 loot=dagger
+price=18
 
 [item]
 id=112
@@ -611,6 +653,7 @@ req=p,2
 sfx=metal
 gfx=dagger
 loot=dagger
+price=14
 
 [item]
 id=113
@@ -625,6 +668,7 @@ req=p,2
 sfx=metal
 gfx=dagger
 loot=dagger
+price=12
 
 [item]
 id=114
@@ -639,6 +683,7 @@ req=p,2
 sfx=metal
 gfx=dagger
 loot=dagger
+price=30
 
 [item]
 id=120
@@ -653,6 +698,7 @@ req=p,2
 sfx=metal
 gfx=dagger
 loot=dagger
+price=50
 
 [item]
 id=121
@@ -667,6 +713,7 @@ req=p,2
 sfx=metal
 gfx=dagger
 loot=dagger
+price=56
 
 [item]
 id=122
@@ -681,6 +728,7 @@ req=p,2
 sfx=metal
 gfx=dagger
 loot=dagger
+price=53
 
 [item]
 id=123
@@ -695,6 +743,7 @@ req=p,2
 sfx=metal
 gfx=dagger
 loot=dagger
+price=59
 
 [item]
 id=124
@@ -708,6 +757,7 @@ req=p,2
 sfx=metal
 gfx=dagger
 loot=dagger
+price=62
 
 [item]
 id=125
@@ -722,6 +772,7 @@ req=p,2
 sfx=metal
 gfx=dagger
 loot=dagger
+price=44
 
 [item]
 id=126
@@ -736,6 +787,7 @@ req=p,2
 sfx=metal
 gfx=dagger
 loot=dagger
+price=47
 
 [item]
 id=127
@@ -750,6 +802,7 @@ req=p,2
 sfx=metal
 gfx=dagger
 loot=dagger
+price=41
 
 [item]
 id=128
@@ -764,6 +817,7 @@ req=p,2
 sfx=metal
 gfx=dagger
 loot=dagger
+price=38
 
 [item]
 id=129
@@ -778,6 +832,7 @@ req=p,2
 sfx=metal
 gfx=dagger
 loot=dagger
+price=65
 
 [item]
 id=135
@@ -792,6 +847,7 @@ req=p,2
 sfx=metal
 gfx=dagger
 loot=dagger
+price=100
 
 [item]
 id=136
@@ -806,6 +862,7 @@ req=p,2
 sfx=metal
 gfx=dagger
 loot=dagger
+price=110
 
 [item]
 id=137
@@ -820,6 +877,7 @@ req=p,2
 sfx=metal
 gfx=dagger
 loot=dagger
+price=105
 
 [item]
 id=138
@@ -834,6 +892,7 @@ req=p,2
 sfx=metal
 gfx=dagger
 loot=dagger
+price=115
 
 [item]
 id=139
@@ -848,6 +907,7 @@ req=p,2
 sfx=metal
 gfx=dagger
 loot=dagger
+price=90
 
 [item]
 id=140
@@ -862,6 +922,7 @@ req=p,2
 sfx=metal
 gfx=dagger
 loot=dagger
+price=95
 
 [item]
 id=141
@@ -876,6 +937,7 @@ req=p,2
 sfx=metal
 gfx=dagger
 loot=dagger
+price=85
 
 [item]
 id=142
@@ -890,6 +952,7 @@ req=p,2
 sfx=metal
 gfx=dagger
 loot=dagger
+price=80
 
 [item]
 id=143
@@ -904,6 +967,7 @@ req=p,2
 sfx=metal
 gfx=dagger
 loot=dagger
+price=120
 
 [item]
 id=150
@@ -917,6 +981,7 @@ req=p,3
 sfx=metal
 gfx=shortsword
 loot=shortsword
+price=20
 
 [item]
 id=151
@@ -930,6 +995,7 @@ req=p,3
 sfx=metal
 gfx=shortsword
 loot=shortsword
+price=6
 
 [item]
 id=152
@@ -944,6 +1010,7 @@ req=p,3
 sfx=metal
 gfx=shortsword
 loot=shortsword
+price=14
 
 [item]
 id=153
@@ -958,6 +1025,7 @@ req=p,3
 sfx=metal
 gfx=shortsword
 loot=shortsword
+price=10
 
 [item]
 id=155
@@ -972,6 +1040,7 @@ req=p,3
 sfx=metal
 gfx=shortsword
 loot=shortsword
+price=40
 
 [item]
 id=156
@@ -986,6 +1055,7 @@ req=p,3
 sfx=metal
 gfx=shortsword
 loot=shortsword
+price=48
 
 [item]
 id=157
@@ -1000,6 +1070,7 @@ req=p,3
 sfx=metal
 gfx=shortsword
 loot=shortsword
+price=44
 
 [item]
 id=158
@@ -1014,6 +1085,7 @@ req=p,3
 sfx=metal
 gfx=shortsword
 loot=shortsword
+price=52
 
 [item]
 id=159
@@ -1027,6 +1099,7 @@ req=p,3
 sfx=metal
 gfx=shortsword
 loot=shortsword
+price=56
 
 [item]
 id=160
@@ -1041,6 +1114,7 @@ req=p,3
 sfx=metal
 gfx=shortsword
 loot=shortsword
+price=32
 
 [item]
 id=161
@@ -1055,6 +1129,7 @@ req=p,3
 sfx=metal
 gfx=shortsword
 loot=shortsword
+price=36
 
 [item]
 id=162
@@ -1069,6 +1144,7 @@ req=p,3
 sfx=metal
 gfx=shortsword
 loot=shortsword
+price=28
 
 [item]
 id=163
@@ -1083,6 +1159,7 @@ req=p,3
 sfx=metal
 gfx=shortsword
 loot=shortsword
+price=24
 
 [item]
 id=164
@@ -1097,6 +1174,7 @@ req=p,3
 sfx=metal
 gfx=shortsword
 loot=shortsword
+price=60
 
 [item]
 id=170
@@ -1111,6 +1189,7 @@ req=p,3
 sfx=metal
 gfx=shortsword
 loot=shortsword
+price=100
 
 [item]
 id=171
@@ -1125,6 +1204,7 @@ req=p,3
 sfx=metal
 gfx=shortsword
 loot=shortsword
+price=112
 
 [item]
 id=172
@@ -1139,6 +1219,7 @@ req=p,3
 sfx=metal
 gfx=shortsword
 loot=shortsword
+price=106
 
 [item]
 id=173
@@ -1153,6 +1234,7 @@ req=p,3
 sfx=metal
 gfx=shortsword
 loot=shortsword
+price=118
 
 [item]
 id=174
@@ -1166,6 +1248,7 @@ req=p,3
 sfx=metal
 gfx=shortsword
 loot=shortsword
+price=124
 
 [item]
 id=175
@@ -1180,6 +1263,7 @@ req=p,3
 sfx=metal
 gfx=shortsword
 loot=shortsword
+price=88
 
 [item]
 id=176
@@ -1194,6 +1278,7 @@ req=p,3
 sfx=metal
 gfx=shortsword
 loot=shortsword
+price=94
 
 [item]
 id=177
@@ -1208,6 +1293,7 @@ req=p,3
 sfx=metal
 gfx=shortsword
 loot=shortsword
+price=82
 
 [item]
 id=178
@@ -1222,6 +1308,7 @@ req=p,3
 sfx=metal
 gfx=shortsword
 loot=shortsword
+price=76
 
 [item]
 id=179
@@ -1236,6 +1323,7 @@ req=p,3
 sfx=metal
 gfx=shortsword
 loot=shortsword
+price=130
 
 [item]
 id=185
@@ -1250,6 +1338,7 @@ req=p,3
 sfx=metal
 gfx=shortsword
 loot=shortsword
+price=200
 
 [item]
 id=186
@@ -1264,6 +1353,7 @@ req=p,3
 sfx=metal
 gfx=shortsword
 loot=shortsword
+price=220
 
 [item]
 id=187
@@ -1278,6 +1368,7 @@ req=p,3
 sfx=metal
 gfx=shortsword
 loot=shortsword
+price=210
 
 [item]
 id=188
@@ -1292,6 +1383,7 @@ req=p,3
 sfx=metal
 gfx=shortsword
 loot=shortsword
+price=230
 
 [item]
 id=189
@@ -1306,6 +1398,7 @@ req=p,3
 sfx=metal
 gfx=shortsword
 loot=shortsword
+price=180
 
 [item]
 id=190
@@ -1320,6 +1413,7 @@ req=p,3
 sfx=metal
 gfx=shortsword
 loot=shortsword
+price=190
 
 [item]
 id=191
@@ -1334,6 +1428,7 @@ req=p,3
 sfx=metal
 gfx=shortsword
 loot=shortsword
+price=170
 
 [item]
 id=192
@@ -1348,6 +1443,7 @@ req=p,3
 sfx=metal
 gfx=shortsword
 loot=shortsword
+price=160
 
 [item]
 id=193
@@ -1362,6 +1458,7 @@ req=p,3
 sfx=metal
 gfx=shortsword
 loot=shortsword
+price=240
 
 [item]
 id=200
@@ -1375,6 +1472,7 @@ req=p,4
 sfx=metal
 gfx=longsword
 loot=longsword
+price=50
 
 [item]
 id=201
@@ -1388,6 +1486,7 @@ req=p,4
 sfx=metal
 gfx=longsword
 loot=longsword
+price=15
 
 [item]
 id=202
@@ -1402,6 +1501,7 @@ req=p,4
 sfx=metal
 gfx=longsword
 loot=longsword
+price=35
 
 [item]
 id=203
@@ -1416,6 +1516,7 @@ req=p,4
 sfx=metal
 gfx=longsword
 loot=longsword
+price=25
 
 [item]
 id=205
@@ -1430,6 +1531,7 @@ req=p,4
 sfx=metal
 gfx=longsword
 loot=longsword
+price=100
 
 [item]
 id=206
@@ -1444,6 +1546,7 @@ req=p,4
 sfx=metal
 gfx=longsword
 loot=longsword
+price=120
 
 [item]
 id=207
@@ -1458,6 +1561,7 @@ req=p,4
 sfx=metal
 gfx=longsword
 loot=longsword
+price=110
 
 [item]
 id=208
@@ -1472,6 +1576,7 @@ req=p,4
 sfx=metal
 gfx=longsword
 loot=longsword
+price=130
 
 [item]
 id=209
@@ -1485,6 +1590,7 @@ req=p,4
 sfx=metal
 gfx=longsword
 loot=longsword
+price=140
 
 [item]
 id=210
@@ -1499,6 +1605,7 @@ req=p,4
 sfx=metal
 gfx=longsword
 loot=longsword
+price=80
 
 [item]
 id=211
@@ -1513,6 +1620,7 @@ req=p,4
 sfx=metal
 gfx=longsword
 loot=longsword
+price=90
 
 [item]
 id=212
@@ -1527,6 +1635,7 @@ req=p,4
 sfx=metal
 gfx=longsword
 loot=longsword
+price=70
 
 [item]
 id=213
@@ -1541,6 +1650,7 @@ req=p,4
 sfx=metal
 gfx=longsword
 loot=longsword
+price=60
 
 [item]
 id=214
@@ -1555,6 +1665,7 @@ req=p,4
 sfx=metal
 gfx=longsword
 loot=longsword
+price=150
 
 [item]
 id=220
@@ -1569,6 +1680,7 @@ req=p,4
 sfx=metal
 gfx=longsword
 loot=longsword
+price=250
 
 [item]
 id=221
@@ -1583,6 +1695,7 @@ req=p,4
 sfx=metal
 gfx=longsword
 loot=longsword
+price=280
 
 [item]
 id=222
@@ -1597,6 +1710,7 @@ req=p,4
 sfx=metal
 gfx=longsword
 loot=longsword
+price=265
 
 [item]
 id=223
@@ -1611,6 +1725,7 @@ req=p,4
 sfx=metal
 gfx=longsword
 loot=longsword
+price=295
 
 [item]
 id=224
@@ -1624,6 +1739,7 @@ req=p,4
 sfx=metal
 gfx=longsword
 loot=longsword
+price=310
 
 [item]
 id=225
@@ -1638,6 +1754,7 @@ req=p,4
 sfx=metal
 gfx=longsword
 loot=longsword
+price=220
 
 [item]
 id=226
@@ -1652,6 +1769,7 @@ req=p,4
 sfx=metal
 gfx=longsword
 loot=longsword
+price=235
 
 [item]
 id=227
@@ -1666,6 +1784,7 @@ req=p,4
 sfx=metal
 gfx=longsword
 loot=longsword
+price=205
 
 [item]
 id=228
@@ -1680,6 +1799,7 @@ req=p,4
 sfx=metal
 gfx=longsword
 loot=longsword
+price=190
 
 [item]
 id=229
@@ -1694,6 +1814,7 @@ req=p,4
 sfx=metal
 gfx=longsword
 loot=longsword
+price=325
 
 [item]
 id=235
@@ -1708,6 +1829,7 @@ req=p,4
 sfx=metal
 gfx=longsword
 loot=longsword
+price=500
 
 [item]
 id=236
@@ -1722,6 +1844,7 @@ req=p,4
 sfx=metal
 gfx=longsword
 loot=longsword
+price=550
 
 [item]
 id=237
@@ -1736,6 +1859,7 @@ req=p,4
 sfx=metal
 gfx=longsword
 loot=longsword
+price=525
 
 [item]
 id=238
@@ -1750,6 +1874,7 @@ req=p,4
 sfx=metal
 gfx=longsword
 loot=longsword
+price=575
 
 [item]
 id=239
@@ -1764,6 +1889,7 @@ req=p,4
 sfx=metal
 gfx=longsword
 loot=longsword
+price=450
 
 [item]
 id=240
@@ -1778,6 +1904,7 @@ req=p,4
 sfx=metal
 gfx=longsword
 loot=longsword
+price=475
 
 [item]
 id=241
@@ -1792,6 +1919,7 @@ req=p,4
 sfx=metal
 gfx=longsword
 loot=longsword
+price=425
 
 [item]
 id=242
@@ -1806,6 +1934,7 @@ req=p,4
 sfx=metal
 gfx=longsword
 loot=longsword
+price=400
 
 [item]
 id=243
@@ -1820,6 +1949,7 @@ req=p,4
 sfx=metal
 gfx=longsword
 loot=longsword
+price=600
 
 [item]
 id=250
@@ -1833,6 +1963,7 @@ req=p,5
 sfx=metal
 gfx=greatsword
 loot=greatsword
+price=100
 
 [item]
 id=251
@@ -1846,6 +1977,7 @@ req=p,5
 sfx=metal
 gfx=greatsword
 loot=greatsword
+price=30
 
 [item]
 id=252
@@ -1860,6 +1992,7 @@ req=p,5
 sfx=metal
 gfx=greatsword
 loot=greatsword
+price=70
 
 [item]
 id=253
@@ -1874,6 +2007,7 @@ req=p,5
 sfx=metal
 gfx=greatsword
 loot=greatsword
+price=50
 
 [item]
 id=255
@@ -1888,6 +2022,7 @@ req=p,5
 sfx=metal
 gfx=greatsword
 loot=greatsword
+price=200
 
 [item]
 id=256
@@ -1902,6 +2037,7 @@ req=p,5
 sfx=metal
 gfx=greatsword
 loot=greatsword
+price=240
 
 [item]
 id=257
@@ -1916,6 +2052,7 @@ req=p,5
 sfx=metal
 gfx=greatsword
 loot=greatsword
+price=220
 
 [item]
 id=258
@@ -1930,6 +2067,7 @@ req=p,5
 sfx=metal
 gfx=greatsword
 loot=greatsword
+price=260
 
 [item]
 id=259
@@ -1943,6 +2081,7 @@ req=p,5
 sfx=metal
 gfx=greatsword
 loot=greatsword
+price=280
 
 [item]
 id=260
@@ -1957,6 +2096,7 @@ req=p,5
 sfx=metal
 gfx=greatsword
 loot=greatsword
+price=160
 
 [item]
 id=261
@@ -1971,6 +2111,7 @@ req=p,5
 sfx=metal
 gfx=greatsword
 loot=greatsword
+price=180
 
 [item]
 id=262
@@ -1985,6 +2126,7 @@ req=p,5
 sfx=metal
 gfx=greatsword
 loot=greatsword
+price=140
 
 [item]
 id=263
@@ -1999,6 +2141,7 @@ req=p,5
 sfx=metal
 gfx=greatsword
 loot=greatsword
+price=120
 
 [item]
 id=264
@@ -2013,6 +2156,7 @@ req=p,5
 sfx=metal
 gfx=greatsword
 loot=greatsword
+price=300
 
 [item]
 id=270
@@ -2027,6 +2171,7 @@ req=p,5
 sfx=metal
 gfx=greatsword
 loot=greatsword
+price=500
 
 [item]
 id=271
@@ -2041,6 +2186,7 @@ req=p,5
 sfx=metal
 gfx=greatsword
 loot=greatsword
+price=560
 
 [item]
 id=272
@@ -2055,6 +2201,7 @@ req=p,5
 sfx=metal
 gfx=greatsword
 loot=greatsword
+price=530
 
 [item]
 id=273
@@ -2069,6 +2216,7 @@ req=p,5
 sfx=metal
 gfx=greatsword
 loot=greatsword
+price=590
 
 [item]
 id=274
@@ -2082,6 +2230,7 @@ req=p,5
 sfx=metal
 gfx=greatsword
 loot=greatsword
+price=620
 
 [item]
 id=275
@@ -2096,6 +2245,7 @@ req=p,5
 sfx=metal
 gfx=greatsword
 loot=greatsword
+price=440
 
 [item]
 id=276
@@ -2110,6 +2260,7 @@ req=p,5
 sfx=metal
 gfx=greatsword
 loot=greatsword
+price=470
 
 [item]
 id=277
@@ -2124,6 +2275,7 @@ req=p,5
 sfx=metal
 gfx=greatsword
 loot=greatsword
+price=410
 
 [item]
 id=278
@@ -2138,6 +2290,7 @@ req=p,5
 sfx=metal
 gfx=greatsword
 loot=greatsword
+price=380
 
 [item]
 id=279
@@ -2152,6 +2305,7 @@ req=p,5
 sfx=metal
 gfx=greatsword
 loot=greatsword
+price=650
 
 [item]
 id=285
@@ -2166,6 +2320,7 @@ req=p,5
 sfx=metal
 gfx=greatsword
 loot=greatsword
+price=1000
 
 [item]
 id=286
@@ -2180,6 +2335,7 @@ req=p,5
 sfx=metal
 gfx=greatsword
 loot=greatsword
+price=1100
 
 [item]
 id=287
@@ -2194,6 +2350,7 @@ req=p,5
 sfx=metal
 gfx=greatsword
 loot=greatsword
+price=1050
 
 [item]
 id=288
@@ -2208,6 +2365,7 @@ req=p,5
 sfx=metal
 gfx=greatsword
 loot=greatsword
+price=1150
 
 [item]
 id=289
@@ -2222,6 +2380,7 @@ req=p,5
 sfx=metal
 gfx=greatsword
 loot=greatsword
+price=900
 
 [item]
 id=290
@@ -2236,6 +2395,7 @@ req=p,5
 sfx=metal
 gfx=greatsword
 loot=greatsword
+price=950
 
 [item]
 id=291
@@ -2250,6 +2410,7 @@ req=p,5
 sfx=metal
 gfx=greatsword
 loot=greatsword
+price=850
 
 [item]
 id=292
@@ -2264,6 +2425,7 @@ req=p,5
 sfx=metal
 gfx=greatsword
 loot=greatsword
+price=800
 
 [item]
 id=293
@@ -2278,6 +2440,7 @@ req=p,5
 sfx=metal
 gfx=greatsword
 loot=greatsword
+price=1200
 
 [item]
 id=300
@@ -2291,6 +2454,7 @@ req=m,2
 sfx=wood
 gfx=wand
 loot=wand
+price=14
 
 [item]
 id=301
@@ -2304,6 +2468,7 @@ req=m,2
 sfx=wood
 gfx=wand
 loot=wand
+price=4
 
 [item]
 id=302
@@ -2318,6 +2483,7 @@ req=m,2
 sfx=wood
 gfx=wand
 loot=wand
+price=9
 
 [item]
 id=303
@@ -2332,6 +2498,7 @@ req=m,2
 sfx=wood
 gfx=wand
 loot=wand
+price=7
 
 [item]
 id=305
@@ -2346,6 +2513,7 @@ req=m,2
 sfx=wood
 gfx=wand
 loot=wand
+price=28
 
 [item]
 id=306
@@ -2360,6 +2528,7 @@ req=m,2
 sfx=wood
 gfx=wand
 loot=wand
+price=33
 
 [item]
 id=307
@@ -2374,6 +2543,7 @@ req=m,2
 sfx=wood
 gfx=wand
 loot=wand
+price=30
 
 [item]
 id=308
@@ -2388,6 +2558,7 @@ req=m,2
 sfx=wood
 gfx=wand
 loot=wand
+price=36
 
 [item]
 id=309
@@ -2401,6 +2572,7 @@ req=m,2
 sfx=wood
 gfx=wand
 loot=wand
+price=39
 
 [item]
 id=310
@@ -2415,6 +2587,7 @@ req=m,2
 sfx=wood
 gfx=wand
 loot=wand
+price=22
 
 [item]
 id=311
@@ -2429,6 +2602,7 @@ req=m,2
 sfx=wood
 gfx=wand
 loot=wand
+price=25
 
 [item]
 id=312
@@ -2443,6 +2617,7 @@ req=m,2
 sfx=wood
 gfx=wand
 loot=wand
+price=19
 
 [item]
 id=313
@@ -2457,6 +2632,7 @@ req=m,2
 sfx=wood
 gfx=wand
 loot=wand
+price=16
 
 [item]
 id=314
@@ -2471,6 +2647,7 @@ req=m,2
 sfx=wood
 gfx=wand
 loot=wand
+price=42
 
 [item]
 id=320
@@ -2485,6 +2662,7 @@ req=m,2
 sfx=wood
 gfx=wand
 loot=wand
+price=70
 
 [item]
 id=321
@@ -2499,6 +2677,7 @@ req=m,2
 sfx=wood
 gfx=wand
 loot=wand
+price=78
 
 [item]
 id=322
@@ -2513,6 +2692,7 @@ req=m,2
 sfx=wood
 gfx=wand
 loot=wand
+price=74
 
 [item]
 id=323
@@ -2527,6 +2707,7 @@ req=m,2
 sfx=wood
 gfx=wand
 loot=wand
+price=82
 
 [item]
 id=324
@@ -2540,6 +2721,7 @@ req=m,2
 sfx=wood
 gfx=wand
 loot=wand
+price=86
 
 [item]
 id=325
@@ -2554,6 +2736,7 @@ req=m,2
 sfx=wood
 gfx=wand
 loot=wand
+price=61
 
 [item]
 id=326
@@ -2568,6 +2751,7 @@ req=m,2
 sfx=wood
 gfx=wand
 loot=wand
+price=65
 
 [item]
 id=327
@@ -2582,6 +2766,7 @@ req=m,2
 sfx=wood
 gfx=wand
 loot=wand
+price=57
 
 [item]
 id=328
@@ -2596,6 +2781,7 @@ req=m,2
 sfx=wood
 gfx=wand
 loot=wand
+price=53
 
 [item]
 id=329
@@ -2610,6 +2796,7 @@ req=m,2
 sfx=wood
 gfx=wand
 loot=wand
+price=91
 
 [item]
 id=335
@@ -2624,6 +2811,7 @@ req=m,2
 sfx=wood
 gfx=wand
 loot=wand
+price=140
 
 [item]
 id=336
@@ -2638,6 +2826,7 @@ req=m,2
 sfx=wood
 gfx=wand
 loot=wand
+price=154
 
 [item]
 id=337
@@ -2652,6 +2841,7 @@ req=m,2
 sfx=wood
 gfx=wand
 loot=wand
+price=147
 
 [item]
 id=338
@@ -2666,6 +2856,7 @@ req=m,2
 sfx=wood
 gfx=wand
 loot=wand
+price=161
 
 [item]
 id=339
@@ -2680,6 +2871,7 @@ req=m,2
 sfx=wood
 gfx=wand
 loot=wand
+price=126
 
 [item]
 id=340
@@ -2694,6 +2886,7 @@ req=m,2
 sfx=wood
 gfx=wand
 loot=wand
+price=133
 
 [item]
 id=341
@@ -2708,6 +2901,7 @@ req=m,2
 sfx=wood
 gfx=wand
 loot=wand
+price=119
 
 [item]
 id=342
@@ -2722,6 +2916,7 @@ req=m,2
 sfx=wood
 gfx=wand
 loot=wand
+price=112
 
 [item]
 id=343
@@ -2736,6 +2931,7 @@ req=m,2
 sfx=wood
 gfx=wand
 loot=wand
+price=168
 
 [item]
 id=350
@@ -2749,6 +2945,7 @@ req=m,3
 sfx=wood
 gfx=rod
 loot=rod
+price=26
 
 [item]
 id=351
@@ -2762,6 +2959,7 @@ req=m,3
 sfx=wood
 gfx=rod
 loot=rod
+price=7
 
 [item]
 id=352
@@ -2776,6 +2974,7 @@ req=m,3
 sfx=wood
 gfx=rod
 loot=rod
+price=18
 
 [item]
 id=353
@@ -2790,6 +2989,7 @@ req=m,3
 sfx=wood
 gfx=rod
 loot=rod
+price=13
 
 [item]
 id=355
@@ -2804,6 +3004,7 @@ req=m,3
 sfx=wood
 gfx=rod
 loot=rod
+price=52
 
 [item]
 id=356
@@ -2818,6 +3019,7 @@ req=m,3
 sfx=wood
 gfx=rod
 loot=rod
+price=62
 
 [item]
 id=357
@@ -2832,6 +3034,7 @@ req=m,3
 sfx=wood
 gfx=rod
 loot=rod
+price=57
 
 [item]
 id=358
@@ -2846,6 +3049,7 @@ req=m,3
 sfx=wood
 gfx=rod
 loot=rod
+price=67
 
 [item]
 id=359
@@ -2859,6 +3063,7 @@ req=m,3
 sfx=wood
 gfx=rod
 loot=rod
+price=72
 
 [item]
 id=360
@@ -2873,6 +3078,7 @@ req=m,3
 sfx=wood
 gfx=rod
 loot=rod
+price=41
 
 [item]
 id=361
@@ -2887,6 +3093,7 @@ req=m,3
 sfx=wood
 gfx=rod
 loot=rod
+price=46
 
 [item]
 id=362
@@ -2901,6 +3108,7 @@ req=m,3
 sfx=wood
 gfx=rod
 loot=rod
+price=36
 
 [item]
 id=363
@@ -2915,6 +3123,7 @@ req=m,3
 sfx=wood
 gfx=rod
 loot=rod
+price=31
 
 [item]
 id=364
@@ -2929,6 +3138,7 @@ req=m,3
 sfx=wood
 gfx=rod
 loot=rod
+price=78
 
 [item]
 id=370
@@ -2943,6 +3153,7 @@ req=m,3
 sfx=wood
 gfx=rod
 loot=rod
+price=130
 
 [item]
 id=371
@@ -2957,6 +3168,7 @@ req=m,3
 sfx=wood
 gfx=rod
 loot=rod
+price=145
 
 [item]
 id=372
@@ -2971,6 +3183,7 @@ req=m,3
 sfx=wood
 gfx=rod
 loot=rod
+price=137
 
 [item]
 id=373
@@ -2985,6 +3198,7 @@ req=m,3
 sfx=wood
 gfx=rod
 loot=rod
+price=153
 
 [item]
 id=374
@@ -2998,6 +3212,7 @@ req=m,3
 sfx=wood
 gfx=rod
 loot=rod
+price=161
 
 [item]
 id=375
@@ -3012,6 +3227,7 @@ req=m,3
 sfx=wood
 gfx=rod
 loot=rod
+price=114
 
 [item]
 id=376
@@ -3026,6 +3242,7 @@ req=m,3
 sfx=wood
 gfx=rod
 loot=rod
+price=122
 
 [item]
 id=377
@@ -3040,6 +3257,7 @@ req=m,3
 sfx=wood
 gfx=rod
 loot=rod
+price=106
 
 [item]
 id=378
@@ -3054,6 +3272,7 @@ req=m,3
 sfx=wood
 gfx=rod
 loot=rod
+price=98
 
 [item]
 id=379
@@ -3068,6 +3287,7 @@ req=m,3
 sfx=wood
 gfx=rod
 loot=rod
+price=169
 
 [item]
 id=385
@@ -3082,6 +3302,7 @@ req=m,3
 sfx=wood
 gfx=rod
 loot=rod
+price=260
 
 [item]
 id=386
@@ -3096,6 +3317,7 @@ req=m,3
 sfx=wood
 gfx=rod
 loot=rod
+price=286
 
 [item]
 id=387
@@ -3110,6 +3332,7 @@ req=m,3
 sfx=wood
 gfx=rod
 loot=rod
+price=273
 
 [item]
 id=388
@@ -3124,6 +3347,7 @@ req=m,3
 sfx=wood
 gfx=rod
 loot=rod
+price=299
 
 [item]
 id=389
@@ -3138,6 +3362,7 @@ req=m,3
 sfx=wood
 gfx=rod
 loot=rod
+price=234
 
 [item]
 id=390
@@ -3152,6 +3377,7 @@ req=m,3
 sfx=wood
 gfx=rod
 loot=rod
+price=247
 
 [item]
 id=391
@@ -3166,6 +3392,7 @@ req=m,3
 sfx=wood
 gfx=rod
 loot=rod
+price=221
 
 [item]
 id=392
@@ -3180,6 +3407,7 @@ req=m,3
 sfx=wood
 gfx=rod
 loot=rod
+price=208
 
 [item]
 id=393
@@ -3194,6 +3422,7 @@ req=m,3
 sfx=wood
 gfx=rod
 loot=rod
+price=312
 
 [item]
 id=400
@@ -3207,6 +3436,7 @@ req=m,4
 sfx=wood
 gfx=staff
 loot=staff
+price=65
 
 [item]
 id=401
@@ -3220,6 +3450,7 @@ req=m,4
 sfx=wood
 gfx=staff
 loot=staff
+price=19
 
 [item]
 id=402
@@ -3234,6 +3465,7 @@ req=m,4
 sfx=wood
 gfx=staff
 loot=staff
+price=45
 
 [item]
 id=403
@@ -3248,6 +3480,7 @@ req=m,4
 sfx=wood
 gfx=staff
 loot=staff
+price=32
 
 [item]
 id=405
@@ -3262,6 +3495,7 @@ req=m,4
 sfx=wood
 gfx=staff
 loot=staff
+price=130
 
 [item]
 id=406
@@ -3276,6 +3510,7 @@ req=m,4
 sfx=wood
 gfx=staff
 loot=staff
+price=156
 
 [item]
 id=407
@@ -3290,6 +3525,7 @@ req=m,4
 sfx=wood
 gfx=staff
 loot=staff
+price=143
 
 [item]
 id=408
@@ -3304,6 +3540,7 @@ req=m,4
 sfx=wood
 gfx=staff
 loot=staff
+price=169
 
 [item]
 id=409
@@ -3317,6 +3554,7 @@ req=m,4
 sfx=wood
 gfx=staff
 loot=staff
+price=182
 
 [item]
 id=410
@@ -3331,6 +3569,7 @@ req=m,4
 sfx=wood
 gfx=staff
 loot=staff
+price=104
 
 [item]
 id=411
@@ -3345,6 +3584,7 @@ req=m,4
 sfx=wood
 gfx=staff
 loot=staff
+price=117
 
 [item]
 id=412
@@ -3359,6 +3599,7 @@ req=m,4
 sfx=wood
 gfx=staff
 loot=staff
+price=91
 
 [item]
 id=413
@@ -3373,6 +3614,7 @@ req=m,4
 sfx=wood
 gfx=staff
 loot=staff
+price=78
 
 [item]
 id=414
@@ -3387,6 +3629,7 @@ req=m,4
 sfx=wood
 gfx=staff
 loot=staff
+price=195
 
 [item]
 id=420
@@ -3401,6 +3644,7 @@ req=m,4
 sfx=wood
 gfx=staff
 loot=staff
+price=325
 
 [item]
 id=421
@@ -3415,6 +3659,7 @@ req=m,4
 sfx=wood
 gfx=staff
 loot=staff
+price=364
 
 [item]
 id=422
@@ -3429,6 +3674,7 @@ req=m,4
 sfx=wood
 gfx=staff
 loot=staff
+price=344
 
 [item]
 id=423
@@ -3443,6 +3689,7 @@ req=m,4
 sfx=wood
 gfx=staff
 loot=staff
+price=383
 
 [item]
 id=424
@@ -3456,6 +3703,7 @@ req=m,4
 sfx=wood
 gfx=staff
 loot=staff
+price=403
 
 [item]
 id=425
@@ -3470,6 +3718,7 @@ req=m,4
 sfx=wood
 gfx=staff
 loot=staff
+price=286
 
 [item]
 id=426
@@ -3484,6 +3733,7 @@ req=m,4
 sfx=wood
 gfx=staff
 loot=staff
+price=305
 
 [item]
 id=427
@@ -3498,6 +3748,7 @@ req=m,4
 sfx=wood
 gfx=staff
 loot=staff
+price=266
 
 [item]
 id=428
@@ -3512,6 +3763,7 @@ req=m,4
 sfx=wood
 gfx=staff
 loot=staff
+price=247
 
 [item]
 id=429
@@ -3526,6 +3778,7 @@ req=m,4
 sfx=wood
 gfx=staff
 loot=staff
+price=422
 
 [item]
 id=435
@@ -3540,6 +3793,7 @@ req=m,4
 sfx=wood
 gfx=staff
 loot=staff
+price=650
 
 [item]
 id=436
@@ -3554,6 +3808,7 @@ req=m,4
 sfx=wood
 gfx=staff
 loot=staff
+price=715
 
 [item]
 id=437
@@ -3568,6 +3823,7 @@ req=m,4
 sfx=wood
 gfx=staff
 loot=staff
+price=682
 
 [item]
 id=438
@@ -3582,6 +3838,7 @@ req=m,4
 sfx=wood
 gfx=staff
 loot=staff
+price=747
 
 [item]
 id=439
@@ -3596,6 +3853,7 @@ req=m,4
 sfx=wood
 gfx=staff
 loot=staff
+price=585
 
 [item]
 id=440
@@ -3610,6 +3868,7 @@ req=m,4
 sfx=wood
 gfx=staff
 loot=staff
+price=617
 
 [item]
 id=441
@@ -3624,6 +3883,7 @@ req=m,4
 sfx=wood
 gfx=staff
 loot=staff
+price=552
 
 [item]
 id=442
@@ -3638,6 +3898,7 @@ req=m,4
 sfx=wood
 gfx=staff
 loot=staff
+price=520
 
 [item]
 id=443
@@ -3652,6 +3913,7 @@ req=m,4
 sfx=wood
 gfx=staff
 loot=staff
+price=780
 
 [item]
 id=450
@@ -3665,6 +3927,7 @@ req=m,5
 sfx=wood
 gfx=greatstaff
 loot=greatstaff
+price=115
 
 [item]
 id=451
@@ -3678,6 +3941,7 @@ req=m,5
 sfx=wood
 gfx=greatstaff
 loot=greatstaff
+price=34
 
 [item]
 id=452
@@ -3692,6 +3956,7 @@ req=m,5
 sfx=wood
 gfx=greatstaff
 loot=greatstaff
+price=80
 
 [item]
 id=453
@@ -3706,6 +3971,7 @@ req=m,5
 sfx=wood
 gfx=greatstaff
 loot=greatstaff
+price=57
 
 [item]
 id=455
@@ -3720,6 +3986,7 @@ req=m,5
 sfx=wood
 gfx=greatstaff
 loot=greatstaff
+price=230
 
 [item]
 id=456
@@ -3734,6 +4001,7 @@ req=m,5
 sfx=wood
 gfx=greatstaff
 loot=greatstaff
+price=276
 
 [item]
 id=457
@@ -3748,6 +4016,7 @@ req=m,5
 sfx=wood
 gfx=greatstaff
 loot=greatstaff
+price=253
 
 [item]
 id=458
@@ -3762,6 +4031,7 @@ req=m,5
 sfx=wood
 gfx=greatstaff
 loot=greatstaff
+price=299
 
 [item]
 id=459
@@ -3775,6 +4045,7 @@ req=m,5
 sfx=wood
 gfx=greatstaff
 loot=greatstaff
+price=322
 
 [item]
 id=460
@@ -3789,6 +4060,7 @@ req=m,5
 sfx=wood
 gfx=greatstaff
 loot=greatstaff
+price=184
 
 [item]
 id=461
@@ -3803,6 +4075,7 @@ req=m,5
 sfx=wood
 gfx=greatstaff
 loot=greatstaff
+price=207
 
 [item]
 id=462
@@ -3817,6 +4090,7 @@ req=m,5
 sfx=wood
 gfx=greatstaff
 loot=greatstaff
+price=161
 
 [item]
 id=463
@@ -3831,6 +4105,7 @@ req=m,5
 sfx=wood
 gfx=greatstaff
 loot=greatstaff
+price=138
 
 [item]
 id=464
@@ -3845,6 +4120,7 @@ req=m,5
 sfx=wood
 gfx=greatstaff
 loot=greatstaff
+price=345
 
 [item]
 id=470
@@ -3859,6 +4135,7 @@ req=m,5
 sfx=wood
 gfx=greatstaff
 loot=greatstaff
+price=575
 
 [item]
 id=471
@@ -3873,6 +4150,7 @@ req=m,5
 sfx=wood
 gfx=greatstaff
 loot=greatstaff
+price=644
 
 [item]
 id=472
@@ -3887,6 +4165,7 @@ req=m,5
 sfx=wood
 gfx=greatstaff
 loot=greatstaff
+price=609
 
 [item]
 id=473
@@ -3901,6 +4180,7 @@ req=m,5
 sfx=wood
 gfx=greatstaff
 loot=greatstaff
+price=678
 
 [item]
 id=474
@@ -3914,6 +4194,7 @@ req=m,5
 sfx=wood
 gfx=greatstaff
 loot=greatstaff
+price=713
 
 [item]
 id=475
@@ -3928,6 +4209,7 @@ req=m,5
 sfx=wood
 gfx=greatstaff
 loot=greatstaff
+price=506
 
 [item]
 id=476
@@ -3942,6 +4224,7 @@ req=m,5
 sfx=wood
 gfx=greatstaff
 loot=greatstaff
+price=540
 
 [item]
 id=477
@@ -3956,6 +4239,7 @@ req=m,5
 sfx=wood
 gfx=greatstaff
 loot=greatstaff
+price=471
 
 [item]
 id=478
@@ -3970,6 +4254,7 @@ req=m,5
 sfx=wood
 gfx=greatstaff
 loot=greatstaff
+price=437
 
 [item]
 id=479
@@ -3984,6 +4269,7 @@ req=m,5
 sfx=wood
 gfx=greatstaff
 loot=greatstaff
+price=747
 
 [item]
 id=485
@@ -3998,6 +4284,7 @@ req=m,5
 sfx=wood
 gfx=greatstaff
 loot=greatstaff
+price=1150
 
 [item]
 id=486
@@ -4012,6 +4299,7 @@ req=m,5
 sfx=wood
 gfx=greatstaff
 loot=greatstaff
+price=1265
 
 [item]
 id=487
@@ -4026,6 +4314,7 @@ req=m,5
 sfx=wood
 gfx=greatstaff
 loot=greatstaff
+price=1207
 
 [item]
 id=488
@@ -4040,6 +4329,7 @@ req=m,5
 sfx=wood
 gfx=greatstaff
 loot=greatstaff
+price=1322
 
 [item]
 id=489
@@ -4054,6 +4344,7 @@ req=m,5
 sfx=wood
 gfx=greatstaff
 loot=greatstaff
+price=1035
 
 [item]
 id=490
@@ -4068,6 +4359,7 @@ req=m,5
 sfx=wood
 gfx=greatstaff
 loot=greatstaff
+price=1092
 
 [item]
 id=491
@@ -4082,6 +4374,7 @@ req=m,5
 sfx=wood
 gfx=greatstaff
 loot=greatstaff
+price=977
 
 [item]
 id=492
@@ -4096,6 +4389,7 @@ req=m,5
 sfx=wood
 gfx=greatstaff
 loot=greatstaff
+price=920
 
 [item]
 id=493
@@ -4110,6 +4404,7 @@ req=m,5
 sfx=wood
 gfx=greatstaff
 loot=greatstaff
+price=1380
 
 [item]
 id=500
@@ -4123,6 +4418,7 @@ req=o,2
 sfx=wood
 gfx=slingshot
 loot=slingshot
+price=8
 
 [item]
 id=501
@@ -4136,6 +4432,7 @@ req=o,2
 sfx=wood
 gfx=slingshot
 loot=slingshot
+price=2
 
 [item]
 id=502
@@ -4150,6 +4447,7 @@ req=o,2
 sfx=wood
 gfx=slingshot
 loot=slingshot
+price=5
 
 [item]
 id=503
@@ -4164,6 +4462,7 @@ req=o,2
 sfx=wood
 gfx=slingshot
 loot=slingshot
+price=4
 
 [item]
 id=505
@@ -4178,6 +4477,7 @@ req=o,2
 sfx=wood
 gfx=slingshot
 loot=slingshot
+price=16
 
 [item]
 id=506
@@ -4192,6 +4492,7 @@ req=o,2
 sfx=wood
 gfx=slingshot
 loot=slingshot
+price=19
 
 [item]
 id=507
@@ -4206,6 +4507,7 @@ req=o,2
 sfx=wood
 gfx=slingshot
 loot=slingshot
+price=17
 
 [item]
 id=508
@@ -4220,6 +4522,7 @@ req=o,2
 sfx=wood
 gfx=slingshot
 loot=slingshot
+price=20
 
 [item]
 id=509
@@ -4233,6 +4536,7 @@ req=o,2
 sfx=wood
 gfx=slingshot
 loot=slingshot
+price=22
 
 [item]
 id=510
@@ -4247,6 +4551,7 @@ req=o,2
 sfx=wood
 gfx=slingshot
 loot=slingshot
+price=12
 
 [item]
 id=511
@@ -4261,6 +4566,7 @@ req=o,2
 sfx=wood
 gfx=slingshot
 loot=slingshot
+price=14
 
 [item]
 id=512
@@ -4275,6 +4581,7 @@ req=o,2
 sfx=wood
 gfx=slingshot
 loot=slingshot
+price=11
 
 [item]
 id=513
@@ -4289,6 +4596,7 @@ req=o,2
 sfx=wood
 gfx=slingshot
 loot=slingshot
+price=9
 
 [item]
 id=514
@@ -4303,6 +4611,7 @@ req=o,2
 sfx=wood
 gfx=slingshot
 loot=slingshot
+price=24
 
 [item]
 id=520
@@ -4317,6 +4626,7 @@ req=o,2
 sfx=wood
 gfx=slingshot
 loot=slingshot
+price=40
 
 [item]
 id=521
@@ -4331,6 +4641,7 @@ req=o,2
 sfx=wood
 gfx=slingshot
 loot=slingshot
+price=44
 
 [item]
 id=522
@@ -4345,6 +4656,7 @@ req=o,2
 sfx=wood
 gfx=slingshot
 loot=slingshot
+price=42
 
 [item]
 id=523
@@ -4359,6 +4671,7 @@ req=o,2
 sfx=wood
 gfx=slingshot
 loot=slingshot
+price=47
 
 [item]
 id=524
@@ -4372,6 +4685,7 @@ req=o,2
 sfx=wood
 gfx=slingshot
 loot=slingshot
+price=49
 
 [item]
 id=525
@@ -4386,6 +4700,7 @@ req=o,2
 sfx=wood
 gfx=slingshot
 loot=slingshot
+price=35
 
 [item]
 id=526
@@ -4400,6 +4715,7 @@ req=o,2
 sfx=wood
 gfx=slingshot
 loot=slingshot
+price=37
 
 [item]
 id=527
@@ -4414,6 +4730,7 @@ req=o,2
 sfx=wood
 gfx=slingshot
 loot=slingshot
+price=32
 
 [item]
 id=528
@@ -4428,6 +4745,7 @@ req=o,2
 sfx=wood
 gfx=slingshot
 loot=slingshot
+price=30
 
 [item]
 id=529
@@ -4442,6 +4760,7 @@ req=o,2
 sfx=wood
 gfx=slingshot
 loot=slingshot
+price=52
 
 [item]
 id=535
@@ -4456,6 +4775,7 @@ req=o,2
 sfx=wood
 gfx=slingshot
 loot=slingshot
+price=80
 
 [item]
 id=536
@@ -4470,6 +4790,7 @@ req=o,2
 sfx=wood
 gfx=slingshot
 loot=slingshot
+price=88
 
 [item]
 id=537
@@ -4484,6 +4805,7 @@ req=o,2
 sfx=wood
 gfx=slingshot
 loot=slingshot
+price=84
 
 [item]
 id=538
@@ -4498,6 +4820,7 @@ req=o,2
 sfx=wood
 gfx=slingshot
 loot=slingshot
+price=92
 
 [item]
 id=539
@@ -4512,6 +4835,7 @@ req=o,2
 sfx=wood
 gfx=slingshot
 loot=slingshot
+price=72
 
 [item]
 id=540
@@ -4526,6 +4850,7 @@ req=o,2
 sfx=wood
 gfx=slingshot
 loot=slingshot
+price=76
 
 [item]
 id=541
@@ -4540,6 +4865,7 @@ req=o,2
 sfx=wood
 gfx=slingshot
 loot=slingshot
+price=68
 
 [item]
 id=542
@@ -4554,6 +4880,7 @@ req=o,2
 sfx=wood
 gfx=slingshot
 loot=slingshot
+price=64
 
 [item]
 id=543
@@ -4568,6 +4895,7 @@ req=o,2
 sfx=wood
 gfx=slingshot
 loot=slingshot
+price=96
 
 [item]
 id=550
@@ -4581,6 +4909,7 @@ req=o,3
 sfx=wood
 gfx=shortbow
 loot=shortbow
+price=24
 
 [item]
 id=551
@@ -4594,6 +4923,7 @@ req=o,3
 sfx=wood
 gfx=shortbow
 loot=shortbow
+price=7
 
 [item]
 id=552
@@ -4608,6 +4938,7 @@ req=o,3
 sfx=wood
 gfx=shortbow
 loot=shortbow
+price=16
 
 [item]
 id=553
@@ -4622,6 +4953,7 @@ req=o,3
 sfx=wood
 gfx=shortbow
 loot=shortbow
+price=12
 
 [item]
 id=555
@@ -4636,6 +4968,7 @@ req=o,3
 sfx=wood
 gfx=shortbow
 loot=shortbow
+price=48
 
 [item]
 id=556
@@ -4650,6 +4983,7 @@ req=o,3
 sfx=wood
 gfx=shortbow
 loot=shortbow
+price=57
 
 [item]
 id=557
@@ -4664,6 +4998,7 @@ req=o,3
 sfx=wood
 gfx=shortbow
 loot=shortbow
+price=52
 
 [item]
 id=558
@@ -4678,6 +5013,7 @@ req=o,3
 sfx=wood
 gfx=shortbow
 loot=shortbow
+price=62
 
 [item]
 id=559
@@ -4691,6 +5027,7 @@ req=o,3
 sfx=wood
 gfx=shortbow
 loot=shortbow
+price=67
 
 [item]
 id=560
@@ -4705,6 +5042,7 @@ req=o,3
 sfx=wood
 gfx=shortbow
 loot=shortbow
+price=38
 
 [item]
 id=561
@@ -4719,6 +5057,7 @@ req=o,3
 sfx=wood
 gfx=shortbow
 loot=shortbow
+price=43
 
 [item]
 id=562
@@ -4733,6 +5072,7 @@ req=o,3
 sfx=wood
 gfx=shortbow
 loot=shortbow
+price=33
 
 [item]
 id=563
@@ -4747,6 +5087,7 @@ req=o,3
 sfx=wood
 gfx=shortbow
 loot=shortbow
+price=28
 
 [item]
 id=564
@@ -4761,6 +5102,7 @@ req=o,3
 sfx=wood
 gfx=shortbow
 loot=shortbow
+price=72
 
 [item]
 id=570
@@ -4775,6 +5117,7 @@ req=o,3
 sfx=wood
 gfx=shortbow
 loot=shortbow
+price=120
 
 [item]
 id=571
@@ -4789,6 +5132,7 @@ req=o,3
 sfx=wood
 gfx=shortbow
 loot=shortbow
+price=134
 
 [item]
 id=572
@@ -4803,6 +5147,7 @@ req=o,3
 sfx=wood
 gfx=shortbow
 loot=shortbow
+price=127
 
 [item]
 id=573
@@ -4817,6 +5162,7 @@ req=o,3
 sfx=wood
 gfx=shortbow
 loot=shortbow
+price=141
 
 [item]
 id=574
@@ -4830,6 +5176,7 @@ req=o,3
 sfx=wood
 gfx=shortbow
 loot=shortbow
+price=148
 
 [item]
 id=575
@@ -4844,6 +5191,7 @@ req=o,3
 sfx=wood
 gfx=shortbow
 loot=shortbow
+price=105
 
 [item]
 id=576
@@ -4858,6 +5206,7 @@ req=o,3
 sfx=wood
 gfx=shortbow
 loot=shortbow
+price=112
 
 [item]
 id=577
@@ -4872,6 +5221,7 @@ req=o,3
 sfx=wood
 gfx=shortbow
 loot=shortbow
+price=98
 
 [item]
 id=578
@@ -4886,6 +5236,7 @@ req=o,3
 sfx=wood
 gfx=shortbow
 loot=shortbow
+price=91
 
 [item]
 id=579
@@ -4900,6 +5251,7 @@ req=o,3
 sfx=wood
 gfx=shortbow
 loot=shortbow
+price=156
 
 [item]
 id=585
@@ -4914,6 +5266,7 @@ req=o,3
 sfx=wood
 gfx=shortbow
 loot=shortbow
+price=240
 
 [item]
 id=586
@@ -4928,6 +5281,7 @@ req=o,3
 sfx=wood
 gfx=shortbow
 loot=shortbow
+price=264
 
 [item]
 id=587
@@ -4942,6 +5296,7 @@ req=o,3
 sfx=wood
 gfx=shortbow
 loot=shortbow
+price=252
 
 [item]
 id=588
@@ -4956,6 +5311,7 @@ req=o,3
 sfx=wood
 gfx=shortbow
 loot=shortbow
+price=276
 
 [item]
 id=589
@@ -4970,6 +5326,7 @@ req=o,3
 sfx=wood
 gfx=shortbow
 loot=shortbow
+price=216
 
 [item]
 id=590
@@ -4984,6 +5341,7 @@ req=o,3
 sfx=wood
 gfx=shortbow
 loot=shortbow
+price=228
 
 [item]
 id=591
@@ -4998,6 +5356,7 @@ req=o,3
 sfx=wood
 gfx=shortbow
 loot=shortbow
+price=204
 
 [item]
 id=592
@@ -5012,6 +5371,7 @@ req=o,3
 sfx=wood
 gfx=shortbow
 loot=shortbow
+price=192
 
 [item]
 id=593
@@ -5026,6 +5386,7 @@ req=o,3
 sfx=wood
 gfx=shortbow
 loot=shortbow
+price=288
 
 [item]
 id=600
@@ -5039,6 +5400,7 @@ req=o,4
 sfx=wood
 gfx=longbow
 loot=longbow
+price=60
 
 [item]
 id=601
@@ -5052,6 +5414,7 @@ req=o,4
 sfx=wood
 gfx=longbow
 loot=longbow
+price=18
 
 [item]
 id=602
@@ -5066,6 +5429,7 @@ req=o,4
 sfx=wood
 gfx=longbow
 loot=longbow
+price=42
 
 [item]
 id=603
@@ -5080,6 +5444,7 @@ req=o,4
 sfx=wood
 gfx=longbow
 loot=longbow
+price=30
 
 [item]
 id=605
@@ -5094,6 +5459,7 @@ req=o,4
 sfx=wood
 gfx=longbow
 loot=longbow
+price=120
 
 [item]
 id=606
@@ -5108,6 +5474,7 @@ req=o,4
 sfx=wood
 gfx=longbow
 loot=longbow
+price=144
 
 [item]
 id=607
@@ -5122,6 +5489,7 @@ req=o,4
 sfx=wood
 gfx=longbow
 loot=longbow
+price=132
 
 [item]
 id=608
@@ -5136,6 +5504,7 @@ req=o,4
 sfx=wood
 gfx=longbow
 loot=longbow
+price=156
 
 [item]
 id=609
@@ -5149,6 +5518,7 @@ req=o,4
 sfx=wood
 gfx=longbow
 loot=longbow
+price=168
 
 [item]
 id=610
@@ -5163,6 +5533,7 @@ req=o,4
 sfx=wood
 gfx=longbow
 loot=longbow
+price=96
 
 [item]
 id=611
@@ -5177,6 +5548,7 @@ req=o,4
 sfx=wood
 gfx=longbow
 loot=longbow
+price=108
 
 [item]
 id=612
@@ -5191,6 +5563,7 @@ req=o,4
 sfx=wood
 gfx=longbow
 loot=longbow
+price=84
 
 [item]
 id=613
@@ -5205,6 +5578,7 @@ req=o,4
 sfx=wood
 gfx=longbow
 loot=longbow
+price=72
 
 [item]
 id=614
@@ -5219,6 +5593,7 @@ req=o,4
 sfx=wood
 gfx=longbow
 loot=longbow
+price=180
 
 [item]
 id=620
@@ -5233,6 +5608,7 @@ req=o,4
 sfx=wood
 gfx=longbow
 loot=longbow
+price=300
 
 [item]
 id=621
@@ -5247,6 +5623,7 @@ req=o,4
 sfx=wood
 gfx=longbow
 loot=longbow
+price=336
 
 [item]
 id=622
@@ -5261,6 +5638,7 @@ req=o,4
 sfx=wood
 gfx=longbow
 loot=longbow
+price=318
 
 [item]
 id=623
@@ -5275,6 +5653,7 @@ req=o,4
 sfx=wood
 gfx=longbow
 loot=longbow
+price=354
 
 [item]
 id=624
@@ -5288,6 +5667,7 @@ req=o,4
 sfx=wood
 gfx=longbow
 loot=longbow
+price=372
 
 [item]
 id=625
@@ -5302,6 +5682,7 @@ req=o,4
 sfx=wood
 gfx=longbow
 loot=longbow
+price=264
 
 [item]
 id=626
@@ -5316,6 +5697,7 @@ req=o,4
 sfx=wood
 gfx=longbow
 loot=longbow
+price=282
 
 [item]
 id=627
@@ -5330,6 +5712,7 @@ req=o,4
 sfx=wood
 gfx=longbow
 loot=longbow
+price=246
 
 [item]
 id=628
@@ -5344,6 +5727,7 @@ req=o,4
 sfx=wood
 gfx=longbow
 loot=longbow
+price=228
 
 [item]
 id=629
@@ -5358,6 +5742,7 @@ req=o,4
 sfx=wood
 gfx=longbow
 loot=longbow
+price=390
 
 [item]
 id=635
@@ -5372,6 +5757,7 @@ req=o,4
 sfx=wood
 gfx=longbow
 loot=longbow
+price=600
 
 [item]
 id=636
@@ -5386,6 +5772,7 @@ req=o,4
 sfx=wood
 gfx=longbow
 loot=longbow
+price=660
 
 [item]
 id=637
@@ -5400,6 +5787,7 @@ req=o,4
 sfx=wood
 gfx=longbow
 loot=longbow
+price=630
 
 [item]
 id=638
@@ -5414,6 +5802,7 @@ req=o,4
 sfx=wood
 gfx=longbow
 loot=longbow
+price=690
 
 [item]
 id=639
@@ -5428,6 +5817,7 @@ req=o,4
 sfx=wood
 gfx=longbow
 loot=longbow
+price=540
 
 [item]
 id=640
@@ -5442,6 +5832,7 @@ req=o,4
 sfx=wood
 gfx=longbow
 loot=longbow
+price=570
 
 [item]
 id=641
@@ -5456,6 +5847,7 @@ req=o,4
 sfx=wood
 gfx=longbow
 loot=longbow
+price=510
 
 [item]
 id=642
@@ -5470,6 +5862,7 @@ req=o,4
 sfx=wood
 gfx=longbow
 loot=longbow
+price=480
 
 [item]
 id=643
@@ -5484,6 +5877,7 @@ req=o,4
 sfx=wood
 gfx=longbow
 loot=longbow
+price=720
 
 [item]
 id=650
@@ -5497,6 +5891,7 @@ req=o,5
 sfx=wood
 gfx=greatbow
 loot=greatbow
+price=110
 
 [item]
 id=651
@@ -5510,6 +5905,7 @@ req=o,5
 sfx=wood
 gfx=greatbow
 loot=greatbow
+price=33
 
 [item]
 id=652
@@ -5524,6 +5920,7 @@ req=o,5
 sfx=wood
 gfx=greatbow
 loot=greatbow
+price=77
 
 [item]
 id=653
@@ -5538,6 +5935,7 @@ req=o,5
 sfx=wood
 gfx=greatbow
 loot=greatbow
+price=55
 
 [item]
 id=655
@@ -5552,6 +5950,7 @@ req=o,5
 sfx=wood
 gfx=greatbow
 loot=greatbow
+price=220
 
 [item]
 id=656
@@ -5566,6 +5965,7 @@ req=o,5
 sfx=wood
 gfx=greatbow
 loot=greatbow
+price=264
 
 [item]
 id=657
@@ -5580,6 +5980,7 @@ req=o,5
 sfx=wood
 gfx=greatbow
 loot=greatbow
+price=242
 
 [item]
 id=658
@@ -5594,6 +5995,7 @@ req=o,5
 sfx=wood
 gfx=greatbow
 loot=greatbow
+price=286
 
 [item]
 id=659
@@ -5607,6 +6009,7 @@ req=o,5
 sfx=wood
 gfx=greatbow
 loot=greatbow
+price=308
 
 [item]
 id=660
@@ -5621,6 +6024,7 @@ req=o,5
 sfx=wood
 gfx=greatbow
 loot=greatbow
+price=176
 
 [item]
 id=661
@@ -5635,6 +6039,7 @@ req=o,5
 sfx=wood
 gfx=greatbow
 loot=greatbow
+price=198
 
 [item]
 id=662
@@ -5649,6 +6054,7 @@ req=o,5
 sfx=wood
 gfx=greatbow
 loot=greatbow
+price=154
 
 [item]
 id=663
@@ -5663,6 +6069,7 @@ req=o,5
 sfx=wood
 gfx=greatbow
 loot=greatbow
+price=132
 
 [item]
 id=664
@@ -5677,6 +6084,7 @@ req=o,5
 sfx=wood
 gfx=greatbow
 loot=greatbow
+price=330
 
 [item]
 id=670
@@ -5691,6 +6099,7 @@ req=o,5
 sfx=wood
 gfx=greatbow
 loot=greatbow
+price=550
 
 [item]
 id=671
@@ -5705,6 +6114,7 @@ req=o,5
 sfx=wood
 gfx=greatbow
 loot=greatbow
+price=616
 
 [item]
 id=672
@@ -5719,6 +6129,7 @@ req=o,5
 sfx=wood
 gfx=greatbow
 loot=greatbow
+price=583
 
 [item]
 id=673
@@ -5733,6 +6144,7 @@ req=o,5
 sfx=wood
 gfx=greatbow
 loot=greatbow
+price=649
 
 [item]
 id=674
@@ -5746,6 +6158,7 @@ req=o,5
 sfx=wood
 gfx=greatbow
 loot=greatbow
+price=682
 
 [item]
 id=675
@@ -5760,6 +6173,7 @@ req=o,5
 sfx=wood
 gfx=greatbow
 loot=greatbow
+price=484
 
 [item]
 id=676
@@ -5774,6 +6188,7 @@ req=o,5
 sfx=wood
 gfx=greatbow
 loot=greatbow
+price=517
 
 [item]
 id=677
@@ -5788,6 +6203,7 @@ req=o,5
 sfx=wood
 gfx=greatbow
 loot=greatbow
+price=451
 
 [item]
 id=678
@@ -5802,6 +6218,7 @@ req=o,5
 sfx=wood
 gfx=greatbow
 loot=greatbow
+price=418
 
 [item]
 id=679
@@ -5816,6 +6233,7 @@ req=o,5
 sfx=wood
 gfx=greatbow
 loot=greatbow
+price=715
 
 [item]
 id=685
@@ -5830,6 +6248,7 @@ req=o,5
 sfx=wood
 gfx=greatbow
 loot=greatbow
+price=1100
 
 [item]
 id=686
@@ -5844,6 +6263,7 @@ req=o,5
 sfx=wood
 gfx=greatbow
 loot=greatbow
+price=1210
 
 [item]
 id=687
@@ -5858,6 +6278,7 @@ req=o,5
 sfx=wood
 gfx=greatbow
 loot=greatbow
+price=1155
 
 [item]
 id=688
@@ -5872,6 +6293,7 @@ req=o,5
 sfx=wood
 gfx=greatbow
 loot=greatbow
+price=1265
 
 [item]
 id=689
@@ -5886,6 +6308,7 @@ req=o,5
 sfx=wood
 gfx=greatbow
 loot=greatbow
+price=990
 
 [item]
 id=690
@@ -5900,6 +6323,7 @@ req=o,5
 sfx=wood
 gfx=greatbow
 loot=greatbow
+price=1045
 
 [item]
 id=691
@@ -5914,6 +6338,7 @@ req=o,5
 sfx=wood
 gfx=greatbow
 loot=greatbow
+price=935
 
 [item]
 id=692
@@ -5928,6 +6353,7 @@ req=o,5
 sfx=wood
 gfx=greatbow
 loot=greatbow
+price=880
 
 [item]
 id=693
@@ -5942,6 +6368,7 @@ req=o,5
 sfx=wood
 gfx=greatbow
 loot=greatbow
+price=1320
 
 [item]
 id=700
@@ -5955,6 +6382,7 @@ req=d,2
 sfx=leather
 gfx=leather_armor
 loot=leather_armor
+price=17
 
 [item]
 id=701
@@ -5968,6 +6396,7 @@ req=d,2
 sfx=leather
 gfx=leather_armor
 loot=leather_armor
+price=5
 
 [item]
 id=702
@@ -5982,6 +6411,7 @@ req=d,2
 sfx=leather
 gfx=leather_armor
 loot=leather_armor
+price=11
 
 [item]
 id=705
@@ -5996,6 +6426,7 @@ req=d,2
 sfx=leather
 gfx=leather_armor
 loot=leather_armor
+price=34
 
 [item]
 id=706
@@ -6010,6 +6441,7 @@ req=d,2
 sfx=leather
 gfx=leather_armor
 loot=leather_armor
+price=40
 
 [item]
 id=707
@@ -6024,6 +6456,7 @@ req=d,2
 sfx=leather
 gfx=leather_armor
 loot=leather_armor
+price=37
 
 [item]
 id=708
@@ -6038,6 +6471,7 @@ req=d,2
 sfx=leather
 gfx=leather_armor
 loot=leather_armor
+price=44
 
 [item]
 id=709
@@ -6051,6 +6485,7 @@ req=d,2
 sfx=leather
 gfx=leather_armor
 loot=leather_armor
+price=47
 
 [item]
 id=710
@@ -6065,6 +6500,7 @@ req=d,2
 sfx=leather
 gfx=leather_armor
 loot=leather_armor
+price=27
 
 [item]
 id=711
@@ -6079,6 +6515,7 @@ req=d,2
 sfx=leather
 gfx=leather_armor
 loot=leather_armor
+price=30
 
 [item]
 id=712
@@ -6093,6 +6530,7 @@ req=d,2
 sfx=leather
 gfx=leather_armor
 loot=leather_armor
+price=23
 
 [item]
 id=713
@@ -6107,6 +6545,7 @@ req=d,2
 sfx=leather
 gfx=leather_armor
 loot=leather_armor
+price=20
 
 [item]
 id=714
@@ -6121,6 +6560,7 @@ req=d,2
 sfx=leather
 gfx=leather_armor
 loot=leather_armor
+price=51
 
 [item]
 id=720
@@ -6135,6 +6575,7 @@ req=d,2
 sfx=leather
 gfx=leather_armor
 loot=leather_armor
+price=85
 
 [item]
 id=721
@@ -6149,6 +6590,7 @@ req=d,2
 sfx=leather
 gfx=leather_armor
 loot=leather_armor
+price=95
 
 [item]
 id=722
@@ -6163,6 +6605,7 @@ req=d,2
 sfx=leather
 gfx=leather_armor
 loot=leather_armor
+price=90
 
 [item]
 id=723
@@ -6177,6 +6620,7 @@ req=d,2
 sfx=leather
 gfx=leather_armor
 loot=leather_armor
+price=100
 
 [item]
 id=724
@@ -6190,6 +6634,7 @@ req=d,2
 sfx=leather
 gfx=leather_armor
 loot=leather_armor
+price=105
 
 [item]
 id=725
@@ -6204,6 +6649,7 @@ req=d,2
 sfx=leather
 gfx=leather_armor
 loot=leather_armor
+price=74
 
 [item]
 id=726
@@ -6218,6 +6664,7 @@ req=d,2
 sfx=leather
 gfx=leather_armor
 loot=leather_armor
+price=79
 
 [item]
 id=727
@@ -6232,6 +6679,7 @@ req=d,2
 sfx=leather
 gfx=leather_armor
 loot=leather_armor
+price=69
 
 [item]
 id=728
@@ -6246,6 +6694,7 @@ req=d,2
 sfx=leather
 gfx=leather_armor
 loot=leather_armor
+price=64
 
 [item]
 id=729
@@ -6260,6 +6709,7 @@ req=d,2
 sfx=leather
 gfx=leather_armor
 loot=leather_armor
+price=110
 
 [item]
 id=735
@@ -6274,6 +6724,7 @@ req=d,2
 sfx=leather
 gfx=leather_armor
 loot=leather_armor
+price=170
 
 [item]
 id=736
@@ -6288,6 +6739,7 @@ req=d,2
 sfx=leather
 gfx=leather_armor
 loot=leather_armor
+price=187
 
 [item]
 id=737
@@ -6302,6 +6754,7 @@ req=d,2
 sfx=leather
 gfx=leather_armor
 loot=leather_armor
+price=178
 
 [item]
 id=738
@@ -6316,6 +6769,7 @@ req=d,2
 sfx=leather
 gfx=leather_armor
 loot=leather_armor
+price=195
 
 [item]
 id=739
@@ -6330,6 +6784,7 @@ req=d,2
 sfx=leather
 gfx=leather_armor
 loot=leather_armor
+price=153
 
 [item]
 id=740
@@ -6344,6 +6799,7 @@ req=d,2
 sfx=leather
 gfx=leather_armor
 loot=leather_armor
+price=161
 
 [item]
 id=741
@@ -6358,6 +6814,7 @@ req=d,2
 sfx=leather
 gfx=leather_armor
 loot=leather_armor
+price=144
 
 [item]
 id=742
@@ -6372,6 +6829,7 @@ req=d,2
 sfx=leather
 gfx=leather_armor
 loot=leather_armor
+price=136
 
 [item]
 id=743
@@ -6386,6 +6844,7 @@ req=d,2
 sfx=leather
 gfx=leather_armor
 loot=leather_armor
+price=204
 
 [item]
 id=750
@@ -6399,6 +6858,7 @@ req=d,3
 sfx=wood
 gfx=buckler
 loot=buckler
+price=30
 
 [item]
 id=751
@@ -6412,6 +6872,7 @@ req=d,3
 sfx=wood
 gfx=buckler
 loot=buckler
+price=9
 
 [item]
 id=752
@@ -6426,6 +6887,7 @@ req=d,3
 sfx=wood
 gfx=buckler
 loot=buckler
+price=21
 
 [item]
 id=755
@@ -6440,6 +6902,7 @@ req=d,3
 sfx=wood
 gfx=buckler
 loot=buckler
+price=60
 
 [item]
 id=756
@@ -6454,6 +6917,7 @@ req=d,3
 sfx=wood
 gfx=buckler
 loot=buckler
+price=72
 
 [item]
 id=757
@@ -6468,6 +6932,7 @@ req=d,3
 sfx=wood
 gfx=buckler
 loot=buckler
+price=66
 
 [item]
 id=758
@@ -6482,6 +6947,7 @@ req=d,3
 sfx=wood
 gfx=buckler
 loot=buckler
+price=78
 
 [item]
 id=759
@@ -6495,6 +6961,7 @@ req=d,3
 sfx=wood
 gfx=buckler
 loot=buckler
+price=84
 
 [item]
 id=760
@@ -6509,6 +6976,7 @@ req=d,3
 sfx=wood
 gfx=buckler
 loot=buckler
+price=48
 
 [item]
 id=761
@@ -6523,6 +6991,7 @@ req=d,3
 sfx=wood
 gfx=buckler
 loot=buckler
+price=54
 
 [item]
 id=762
@@ -6537,6 +7006,7 @@ req=d,3
 sfx=wood
 gfx=buckler
 loot=buckler
+price=42
 
 [item]
 id=763
@@ -6551,6 +7021,7 @@ req=d,3
 sfx=wood
 gfx=buckler
 loot=buckler
+price=36
 
 [item]
 id=764
@@ -6565,6 +7036,7 @@ req=d,3
 sfx=wood
 gfx=buckler
 loot=buckler
+price=90
 
 [item]
 id=770
@@ -6579,6 +7051,7 @@ req=d,3
 sfx=wood
 gfx=buckler
 loot=buckler
+price=150
 
 [item]
 id=771
@@ -6593,6 +7066,7 @@ req=d,3
 sfx=wood
 gfx=buckler
 loot=buckler
+price=168
 
 [item]
 id=772
@@ -6607,6 +7081,7 @@ req=d,3
 sfx=wood
 gfx=buckler
 loot=buckler
+price=159
 
 [item]
 id=773
@@ -6621,6 +7096,7 @@ req=d,3
 sfx=wood
 gfx=buckler
 loot=buckler
+price=177
 
 [item]
 id=774
@@ -6634,6 +7110,7 @@ req=d,3
 sfx=wood
 gfx=buckler
 loot=buckler
+price=186
 
 [item]
 id=775
@@ -6648,6 +7125,7 @@ req=d,3
 sfx=wood
 gfx=buckler
 loot=buckler
+price=132
 
 [item]
 id=776
@@ -6662,6 +7140,7 @@ req=d,3
 sfx=wood
 gfx=buckler
 loot=buckler
+price=141
 
 [item]
 id=777
@@ -6676,6 +7155,7 @@ req=d,3
 sfx=wood
 gfx=buckler
 loot=buckler
+price=123
 
 [item]
 id=778
@@ -6690,6 +7170,7 @@ req=d,3
 sfx=wood
 gfx=buckler
 loot=buckler
+price=114
 
 [item]
 id=779
@@ -6704,6 +7185,7 @@ req=d,3
 sfx=wood
 gfx=buckler
 loot=buckler
+price=195
 
 [item]
 id=785
@@ -6718,6 +7200,7 @@ req=d,3
 sfx=wood
 gfx=buckler
 loot=buckler
+price=300
 
 [item]
 id=786
@@ -6732,6 +7215,7 @@ req=d,3
 sfx=wood
 gfx=buckler
 loot=buckler
+price=330
 
 [item]
 id=787
@@ -6746,6 +7230,7 @@ req=d,3
 sfx=wood
 gfx=buckler
 loot=buckler
+price=315
 
 [item]
 id=788
@@ -6760,6 +7245,7 @@ req=d,3
 sfx=wood
 gfx=buckler
 loot=buckler
+price=345
 
 [item]
 id=789
@@ -6774,6 +7260,7 @@ req=d,3
 sfx=wood
 gfx=buckler
 loot=buckler
+price=270
 
 [item]
 id=790
@@ -6788,6 +7275,7 @@ req=d,3
 sfx=wood
 gfx=buckler
 loot=buckler
+price=285
 
 [item]
 id=791
@@ -6802,6 +7290,7 @@ req=d,3
 sfx=wood
 gfx=buckler
 loot=buckler
+price=255
 
 [item]
 id=792
@@ -6816,6 +7305,7 @@ req=d,3
 sfx=wood
 gfx=buckler
 loot=buckler
+price=240
 
 [item]
 id=793
@@ -6830,6 +7320,7 @@ req=d,3
 sfx=wood
 gfx=buckler
 loot=buckler
+price=360
 
 [item]
 id=800
@@ -6843,6 +7334,7 @@ req=d,4
 sfx=maille
 gfx=steel_armor
 loot=steel_armor
+price=75
 
 [item]
 id=801
@@ -6856,6 +7348,7 @@ req=d,4
 sfx=maille
 gfx=steel_armor
 loot=steel_armor
+price=22
 
 [item]
 id=802
@@ -6870,6 +7363,7 @@ req=d,4
 sfx=maille
 gfx=steel_armor
 loot=steel_armor
+price=52
 
 [item]
 id=805
@@ -6884,6 +7378,7 @@ req=d,4
 sfx=maille
 gfx=steel_armor
 loot=steel_armor
+price=150
 
 [item]
 id=806
@@ -6898,6 +7393,7 @@ req=d,4
 sfx=maille
 gfx=steel_armor
 loot=steel_armor
+price=180
 
 [item]
 id=807
@@ -6912,6 +7408,7 @@ req=d,4
 sfx=maille
 gfx=steel_armor
 loot=steel_armor
+price=165
 
 [item]
 id=808
@@ -6926,6 +7423,7 @@ req=d,4
 sfx=maille
 gfx=steel_armor
 loot=steel_armor
+price=195
 
 [item]
 id=809
@@ -6939,6 +7437,7 @@ req=d,4
 sfx=maille
 gfx=steel_armor
 loot=steel_armor
+price=210
 
 [item]
 id=810
@@ -6953,6 +7452,7 @@ req=d,4
 sfx=maille
 gfx=steel_armor
 loot=steel_armor
+price=120
 
 [item]
 id=811
@@ -6967,6 +7467,7 @@ req=d,4
 sfx=maille
 gfx=steel_armor
 loot=steel_armor
+price=135
 
 [item]
 id=812
@@ -6981,6 +7482,7 @@ req=d,4
 sfx=maille
 gfx=steel_armor
 loot=steel_armor
+price=105
 
 [item]
 id=813
@@ -6995,6 +7497,7 @@ req=d,4
 sfx=maille
 gfx=steel_armor
 loot=steel_armor
+price=90
 
 [item]
 id=814
@@ -7009,6 +7512,7 @@ req=d,4
 sfx=maille
 gfx=steel_armor
 loot=steel_armor
+price=225
 
 [item]
 id=820
@@ -7023,6 +7527,7 @@ req=d,4
 sfx=maille
 gfx=steel_armor
 loot=steel_armor
+price=375
 
 [item]
 id=821
@@ -7037,6 +7542,7 @@ req=d,4
 sfx=maille
 gfx=steel_armor
 loot=steel_armor
+price=420
 
 [item]
 id=822
@@ -7051,6 +7557,7 @@ req=d,4
 sfx=maille
 gfx=steel_armor
 loot=steel_armor
+price=397
 
 [item]
 id=823
@@ -7065,6 +7572,7 @@ req=d,4
 sfx=maille
 gfx=steel_armor
 loot=steel_armor
+price=442
 
 [item]
 id=824
@@ -7078,6 +7586,7 @@ req=d,4
 sfx=maille
 gfx=steel_armor
 loot=steel_armor
+price=465
 
 [item]
 id=825
@@ -7092,6 +7601,7 @@ req=d,4
 sfx=maille
 gfx=steel_armor
 loot=steel_armor
+price=330
 
 [item]
 id=826
@@ -7106,6 +7616,7 @@ req=d,4
 sfx=maille
 gfx=steel_armor
 loot=steel_armor
+price=352
 
 [item]
 id=827
@@ -7120,6 +7631,7 @@ req=d,4
 sfx=maille
 gfx=steel_armor
 loot=steel_armor
+price=307
 
 [item]
 id=828
@@ -7134,6 +7646,7 @@ req=d,4
 sfx=maille
 gfx=steel_armor
 loot=steel_armor
+price=285
 
 [item]
 id=829
@@ -7148,6 +7661,7 @@ req=d,4
 sfx=maille
 gfx=steel_armor
 loot=steel_armor
+price=487
 
 [item]
 id=835
@@ -7162,6 +7676,7 @@ req=d,4
 sfx=maille
 gfx=steel_armor
 loot=steel_armor
+price=750
 
 [item]
 id=836
@@ -7176,6 +7691,7 @@ req=d,4
 sfx=maille
 gfx=steel_armor
 loot=steel_armor
+price=825
 
 [item]
 id=837
@@ -7190,6 +7706,7 @@ req=d,4
 sfx=maille
 gfx=steel_armor
 loot=steel_armor
+price=787
 
 [item]
 id=838
@@ -7204,6 +7721,7 @@ req=d,4
 sfx=maille
 gfx=steel_armor
 loot=steel_armor
+price=862
 
 [item]
 id=839
@@ -7218,6 +7736,7 @@ req=d,4
 sfx=maille
 gfx=steel_armor
 loot=steel_armor
+price=675
 
 [item]
 id=840
@@ -7232,6 +7751,7 @@ req=d,4
 sfx=maille
 gfx=steel_armor
 loot=steel_armor
+price=712
 
 [item]
 id=841
@@ -7246,6 +7766,7 @@ req=d,4
 sfx=maille
 gfx=steel_armor
 loot=steel_armor
+price=637
 
 [item]
 id=842
@@ -7260,6 +7781,7 @@ req=d,4
 sfx=maille
 gfx=steel_armor
 loot=steel_armor
+price=600
 
 [item]
 id=843
@@ -7274,6 +7796,7 @@ req=d,4
 sfx=maille
 gfx=steel_armor
 loot=steel_armor
+price=900
 
 [item]
 id=850
@@ -7287,6 +7810,7 @@ req=d,5
 sfx=heavy
 gfx=shield
 loot=shield
+price=90
 
 [item]
 id=851
@@ -7300,6 +7824,7 @@ req=d,5
 sfx=heavy
 gfx=shield
 loot=shield
+price=27
 
 [item]
 id=852
@@ -7314,6 +7839,7 @@ req=d,5
 sfx=heavy
 gfx=shield
 loot=shield
+price=63
 
 [item]
 id=855
@@ -7328,6 +7854,7 @@ req=d,5
 sfx=heavy
 gfx=shield
 loot=shield
+price=180
 
 [item]
 id=856
@@ -7342,6 +7869,7 @@ req=d,5
 sfx=heavy
 gfx=shield
 loot=shield
+price=216
 
 [item]
 id=857
@@ -7356,6 +7884,7 @@ req=d,5
 sfx=heavy
 gfx=shield
 loot=shield
+price=198
 
 [item]
 id=858
@@ -7370,6 +7899,7 @@ req=d,5
 sfx=heavy
 gfx=shield
 loot=shield
+price=234
 
 [item]
 id=859
@@ -7383,6 +7913,7 @@ req=d,5
 sfx=heavy
 gfx=shield
 loot=shield
+price=252
 
 [item]
 id=860
@@ -7397,6 +7928,7 @@ req=d,5
 sfx=heavy
 gfx=shield
 loot=shield
+price=144
 
 [item]
 id=861
@@ -7411,6 +7943,7 @@ req=d,5
 sfx=heavy
 gfx=shield
 loot=shield
+price=162
 
 [item]
 id=862
@@ -7425,6 +7958,7 @@ req=d,5
 sfx=heavy
 gfx=shield
 loot=shield
+price=126
 
 [item]
 id=863
@@ -7439,6 +7973,7 @@ req=d,5
 sfx=heavy
 gfx=shield
 loot=shield
+price=108
 
 [item]
 id=864
@@ -7453,6 +7988,7 @@ req=d,5
 sfx=heavy
 gfx=shield
 loot=shield
+price=270
 
 [item]
 id=870
@@ -7467,6 +8003,7 @@ req=d,5
 sfx=heavy
 gfx=shield
 loot=shield
+price=450
 
 [item]
 id=871
@@ -7481,6 +8018,7 @@ req=d,5
 sfx=heavy
 gfx=shield
 loot=shield
+price=504
 
 [item]
 id=872
@@ -7495,6 +8033,7 @@ req=d,5
 sfx=heavy
 gfx=shield
 loot=shield
+price=477
 
 [item]
 id=873
@@ -7509,6 +8048,7 @@ req=d,5
 sfx=heavy
 gfx=shield
 loot=shield
+price=531
 
 [item]
 id=874
@@ -7522,6 +8062,7 @@ req=d,5
 sfx=heavy
 gfx=shield
 loot=shield
+price=558
 
 [item]
 id=875
@@ -7536,6 +8077,7 @@ req=d,5
 sfx=heavy
 gfx=shield
 loot=shield
+price=396
 
 [item]
 id=876
@@ -7550,6 +8092,7 @@ req=d,5
 sfx=heavy
 gfx=shield
 loot=shield
+price=423
 
 [item]
 id=877
@@ -7564,6 +8107,7 @@ req=d,5
 sfx=heavy
 gfx=shield
 loot=shield
+price=369
 
 [item]
 id=878
@@ -7578,6 +8122,7 @@ req=d,5
 sfx=heavy
 gfx=shield
 loot=shield
+price=342
 
 [item]
 id=879
@@ -7592,6 +8137,7 @@ req=d,5
 sfx=heavy
 gfx=shield
 loot=shield
+price=585
 
 [item]
 id=885
@@ -7606,6 +8152,7 @@ req=d,5
 sfx=heavy
 gfx=shield
 loot=shield
+price=900
 
 [item]
 id=886
@@ -7620,6 +8167,7 @@ req=d,5
 sfx=heavy
 gfx=shield
 loot=shield
+price=990
 
 [item]
 id=887
@@ -7634,6 +8182,7 @@ req=d,5
 sfx=heavy
 gfx=shield
 loot=shield
+price=945
 
 [item]
 id=888
@@ -7648,6 +8197,7 @@ req=d,5
 sfx=heavy
 gfx=shield
 loot=shield
+price=1035
 
 [item]
 id=889
@@ -7662,6 +8212,7 @@ req=d,5
 sfx=heavy
 gfx=shield
 loot=shield
+price=810
 
 [item]
 id=890
@@ -7676,6 +8227,7 @@ req=d,5
 sfx=heavy
 gfx=shield
 loot=shield
+price=855
 
 [item]
 id=891
@@ -7690,6 +8242,7 @@ req=d,5
 sfx=heavy
 gfx=shield
 loot=shield
+price=765
 
 [item]
 id=892
@@ -7704,6 +8257,7 @@ req=d,5
 sfx=heavy
 gfx=shield
 loot=shield
+price=720
 
 [item]
 id=893
@@ -7718,6 +8272,7 @@ req=d,5
 sfx=heavy
 gfx=shield
 loot=shield
+price=1080
 
 [item]
 id=900
@@ -7728,6 +8283,7 @@ type=artifact
 icon=115,19
 sfx=leather
 loot=belt
+price=15
 
 [item]
 id=901
@@ -7738,6 +8294,7 @@ type=artifact
 icon=115,19
 sfx=leather
 loot=belt
+price=7
 
 [item]
 id=902
@@ -7749,6 +8306,7 @@ icon=115,19
 bonus=health,5
 sfx=leather
 loot=belt
+price=30
 
 [item]
 id=903
@@ -7760,6 +8318,7 @@ icon=115,19
 bonus=mana,5
 sfx=leather
 loot=belt
+price=33
 
 [item]
 id=904
@@ -7771,6 +8330,7 @@ icon=115,19
 bonus=health,10
 sfx=leather
 loot=belt
+price=75
 
 [item]
 id=905
@@ -7782,6 +8342,7 @@ icon=115,19
 bonus=mana,10
 sfx=leather
 loot=belt
+price=79
 
 [item]
 id=906
@@ -7793,6 +8354,7 @@ icon=115,19
 bonus=health,15
 sfx=leather
 loot=belt
+price=150
 
 [item]
 id=907
@@ -7804,6 +8366,7 @@ icon=115,19
 bonus=mana,15
 sfx=leather
 loot=belt
+price=157
 
 [item]
 id=910
@@ -7814,6 +8377,7 @@ type=artifact
 icon=113,17
 sfx=leather
 loot=boots
+price=25
 
 [item]
 id=911
@@ -7824,6 +8388,7 @@ type=artifact
 icon=113,17
 sfx=leather
 loot=boots
+price=12
 
 [item]
 id=912
@@ -7835,6 +8400,7 @@ icon=113,17
 bonus=speed,3
 sfx=leather
 loot=boots
+price=80
 
 [item]
 id=913
@@ -7846,6 +8412,7 @@ icon=113,17
 bonus=avoidance,5
 sfx=leather
 loot=boots
+price=45
 
 [item]
 id=914
@@ -7857,6 +8424,7 @@ icon=113,17
 bonus=speed,6
 sfx=leather
 loot=boots
+price=170
 
 [item]
 id=915
@@ -7868,6 +8436,7 @@ icon=113,17
 bonus=avoidance,10
 sfx=leather
 loot=boots
+price=117
 
 [item]
 id=916
@@ -7879,6 +8448,7 @@ icon=113,17
 bonus=speed,9
 sfx=leather
 loot=boots
+price=312
 
 [item]
 id=917
@@ -7890,6 +8460,7 @@ icon=113,17
 bonus=avoidance,15
 sfx=leather
 loot=boots
+price=237
 
 [item]
 id=940
@@ -7900,6 +8471,7 @@ type=artifact
 icon=114,18
 sfx=gem
 loot=ring
+price=80
 
 [item]
 id=941
@@ -7910,6 +8482,7 @@ type=artifact
 icon=114,18
 sfx=gem
 loot=ring
+price=40
 
 [item]
 id=942
@@ -7921,6 +8494,7 @@ icon=114,18
 bonus=health regen,2
 sfx=gem
 loot=ring
+price=192
 
 [item]
 id=943
@@ -7932,6 +8506,7 @@ icon=114,18
 bonus=mana regen,2
 sfx=gem
 loot=ring
+price=208
 
 [item]
 id=944
@@ -7943,6 +8518,7 @@ icon=114,18
 bonus=health regen,4
 sfx=gem
 loot=ring
+price=448
 
 [item]
 id=945
@@ -7954,6 +8530,7 @@ icon=114,18
 bonus=mana regen,4
 sfx=gem
 loot=ring
+price=472
 
 [item]
 id=946
@@ -7965,6 +8542,7 @@ icon=114,18
 bonus=health regen,6
 sfx=gem
 loot=ring
+price=880
 
 [item]
 id=947
@@ -7976,6 +8554,8 @@ icon=114,18
 bonus=mana regen,6
 sfx=gem
 loot=ring
+price=920
+
 
 
 # Dungeon Master's test items
