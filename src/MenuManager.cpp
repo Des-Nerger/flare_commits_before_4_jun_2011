@@ -25,6 +25,7 @@ MenuManager::MenuManager(PowerManager *_powers, SDL_Surface *_screen, InputState
 	hpmp = new MenuHealthMana(screen, font);
 	tip = new MenuTooltip(font, screen);
 	mini = new MenuMiniMap(screen);
+	xp = new MenuExperience(screen, font);
 
 	
 	pause = false;
@@ -254,6 +255,7 @@ void MenuManager::logic() {
 
 void MenuManager::render() {
 	hpmp->render(stats, inp->mouse);
+	xp->render(stats, inp->mouse);
 	act->render();
 	inv->render();
 	pow->render();
@@ -306,6 +308,7 @@ void MenuManager::closeAll() {
 }
 
 MenuManager::~MenuManager() {
+	delete(xp);
 	delete(mini);
 	delete(items);
 	delete(inv);

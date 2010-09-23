@@ -136,8 +136,8 @@ void HazardManager::handleNewMap(MapCollision *_collider) {
 Renderable HazardManager::getRender(int haz_id) {
 
 	Renderable r;
-	r.map_pos.x = h[haz_id]->pos.x;
-	r.map_pos.y = h[haz_id]->pos.y;
+	r.map_pos.x = round(h[haz_id]->pos.x);
+	r.map_pos.y = round(h[haz_id]->pos.y);
 	r.sprite = h[haz_id]->sprites;
 	r.src = new SDL_Rect();
 	r.src->x = h[haz_id]->frame_size.x * (h[haz_id]->frame / h[haz_id]->frame_duration);
