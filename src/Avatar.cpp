@@ -522,7 +522,6 @@ bool Avatar::takeHit(Hazard h) {
 			if (dmg < 0) dmg = 0;
 		}
 	
-		curFrame = 0;
 		
 		int prev_hp = stats.hp;
 		stats.takeDamage(dmg);
@@ -539,10 +538,12 @@ bool Avatar::takeHit(Hazard h) {
 		}
 		
 		if (stats.hp <= 0) {
+			curFrame = 0;
 			dispFrame = 18;
 			curState = AVATAR_DEAD;		
 		}
 		else if (prev_hp > stats.hp) { // only interrupt if damage was taken
+			curFrame = 0;
 			dispFrame = 18;
 			curState = AVATAR_HIT;
 		}

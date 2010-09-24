@@ -17,7 +17,6 @@ const int TILE_H = 32;
 const int TILE_W_HALF = TILE_W/2;
 const int TILE_H_HALF = TILE_H/2;
 
-static bool FULLSCREEN = false;
 const int FRAMES_PER_SEC = 30;
 const int VIEW_W = 640;
 const int VIEW_H = 480;

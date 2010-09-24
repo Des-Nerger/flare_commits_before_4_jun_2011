@@ -51,7 +51,7 @@ void FontEngine::load() {
 			getline(infile, line);
 			if (line.length() > 0) {
 				strcpy(str, line.c_str());
-				width[str[0]] = line.c_str()[2] - 48;
+				width[(int)str[0]] = line.c_str()[2] - 48;
 				
 			}
 		}
@@ -70,9 +70,9 @@ void FontEngine::load() {
 int FontEngine::calc_length(string text) {
 	int size=0;
 	char c;
-	for (int i=0; i<text.length(); i++) {
+	for (unsigned int i=0; i<text.length(); i++) {
 		c = text.c_str()[i];
-		size = size + width[c] + kerning;
+		size = size + width[(int)c] + kerning;
 	}
 	size = size - kerning;
 	return size;
@@ -166,7 +166,7 @@ void FontEngine::render(string text, int x, int y, int justify, SDL_Surface *tar
 		dest_y = y;
 	}
 
-	for (int i=0; i<text.length(); i++) {
+	for (unsigned int i=0; i<text.length(); i++) {
 	
 		// Note, SDL_BlitSurface rewrites dest to show clipping.
 		// So we have to remember dest locally.  - cpb 2010/07/03

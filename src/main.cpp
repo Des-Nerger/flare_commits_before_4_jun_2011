@@ -20,6 +20,8 @@ SDL_Surface *screen;
 InputState *inps;
 GameEngine *eng;
 
+bool FULLSCREEN;
+
 static void init() {
 	/* SDL Inits */
 	if ( SDL_Init (SDL_INIT_VIDEO | SDL_INIT_AUDIO) < 0 ) {		
