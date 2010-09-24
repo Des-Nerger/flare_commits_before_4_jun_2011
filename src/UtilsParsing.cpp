@@ -1,6 +1,8 @@
 #include "UtilsParsing.h"
+using namespace std;
 
 unsigned short xtoi(string hex) {
+
 	char c0 = hex.at(0);
 	char c1 = hex.at(1);
 	unsigned short val;
@@ -21,9 +23,10 @@ unsigned short xtoi(string hex) {
  * trim: remove leading and trailing c from s
  */
 string trim(string s, char c) {
+	if (s.length() == 0) return "";
+	
 	unsigned int first = 0;
 	unsigned int last = s.length()-1;
-	if (last < 0) return "";
 
 	while (s.at(first) == c && first < s.length()-1) {
 		first++;
@@ -36,11 +39,18 @@ string trim(string s, char c) {
 }
 
 string parse_section_title(string s) {
-	return s.substr(1, s.find_first_of(']') -1);
+	unsigned int bracket = s.find_first_of(']');
+	if (bracket == string::npos) return ""; // not found
+	return s.substr(1, bracket-1);
 }
 
 void parse_key_pair(string s, string &key, string &val) {
-	int separator = s.find_first_of('=');
+	unsigned int separator = s.find_first_of('=');
+	if (separator == string::npos) {
+		key = "";
+		val = "";
+		return; // not found
+	}
 	key = s.substr(0, separator);
 	val = s.substr(separator+1, s.length());
 }
@@ -52,22 +62,32 @@ void parse_key_pair(string s, string &key, string &val) {
  * This is basically a really lazy "split" replacement
  */
 int eatFirstInt(string &s, char separator) {
-	int seppos = s.find_first_of(separator);
+	unsigned int seppos = s.find_first_of(separator);
+	if (seppos == string::npos) {
+		s = "";
+		return 0; // not found
+	}
 	int num = atoi(s.substr(0, seppos).c_str());
 	s = s.substr(seppos+1, s.length());
 	return num;
 }
 
-unsigned eatFirstHex(string &s, char separator) {
-	int seppos = s.find_first_of(separator);
+unsigned short eatFirstHex(string &s, char separator) {
+	unsigned int seppos = s.find_first_of(separator);
+	if (seppos == string::npos) {
+		s = "";
+		return 0; // not found
+	}
 	unsigned short num = xtoi(s.substr(0, seppos));
 	s = s.substr(seppos+1, s.length());
 	return num;
 }
 
 string eatFirstString(string &s, char separator) {
-	int seppos = s.find_first_of(separator);
+	unsigned int seppos = s.find_first_of(separator);
+	if (seppos == string::npos) return ""; // not found
 	string outs = s.substr(0, seppos);
 	s = s.substr(seppos+1, s.length());
 	return outs;
 }
+

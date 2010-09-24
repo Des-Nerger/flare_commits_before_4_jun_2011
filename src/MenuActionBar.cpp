@@ -66,11 +66,11 @@ MenuActionBar::MenuActionBar(PowerManager *_powers, SDL_Surface *_screen, InputS
 
 void MenuActionBar::loadGraphics() {
 
-	background = IMG_Load("images/menus/slot_empty.png");
-	trim = IMG_Load("images/menus/actionbar_trim.png");
+	emptyslot = IMG_Load("images/menus/slot_empty.png");
+	background = IMG_Load("images/menus/actionbar_trim.png");
 	labels = IMG_Load("images/menus/actionbar_labels.png");
 	attack = IMG_Load("images/menus/attack.png");
-	if(!background || !trim || !labels || !attack) {
+	if(!emptyslot || !background || !labels || !attack) {
 		fprintf(stderr, "Couldn't load image: %s\n", IMG_GetError());
 		SDL_Quit();
 	}
@@ -112,7 +112,7 @@ void MenuActionBar::render() {
 	trimsrc.w = 640;
 	trimsrc.h = 35;
 	
-	SDL_BlitSurface(trim, &trimsrc, screen, &dest);	
+	SDL_BlitSurface(background, &trimsrc, screen, &dest);	
 	
 	// draw hotkeyed icons
 	src.x = src.y = 0;
@@ -128,7 +128,7 @@ void MenuActionBar::render() {
 		if (hotkeys[i] != -1)
 			renderIcon(powers->powers[hotkeys[i]].icon, dest.x, dest.y);
 		else
-			SDL_BlitSurface(background, &src, screen, &dest);
+			SDL_BlitSurface(emptyslot, &src, screen, &dest);
 	}
 		
 	// draw hotkey labels
@@ -231,8 +231,8 @@ void MenuActionBar::set(int power_id[12]) {
 }
 
 MenuActionBar::~MenuActionBar() {
+	SDL_FreeSurface(emptyslot);
 	SDL_FreeSurface(background);
-	SDL_FreeSurface(trim);
 	SDL_FreeSurface(labels);
 	SDL_FreeSurface(attack);
 }

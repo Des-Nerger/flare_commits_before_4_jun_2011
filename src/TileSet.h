@@ -29,8 +29,6 @@ struct Tile_Def {
 class TileSet {
 private:
 	void loadGraphics(string filename);
-	int eatFirstInt(string &s, char separator);
-	unsigned short eatFirstHex(string &s, char separator);
 	
 	string current_map;
 public:

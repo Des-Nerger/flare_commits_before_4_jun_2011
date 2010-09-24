@@ -20,8 +20,8 @@
 class MenuActionBar {
 private:
 	SDL_Surface *screen;
-	SDL_Surface *trim;
 	SDL_Surface *background;
+	SDL_Surface *emptyslot;
 	SDL_Surface *attack; // temp
 	SDL_Surface *icons;
 	

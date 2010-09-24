@@ -21,24 +21,6 @@ TileSet::TileSet() {
 	}
 }
 
-/**
- * Given a string that starts with a number then a comma
- * Return that int, and modify the string to remove the num and comma
- */
-int TileSet::eatFirstInt(string &s, char separator) {
-	int seppos = s.find_first_of(separator);
-	int num = atoi(s.substr(0, seppos).c_str());
-	s = s.substr(seppos+1, s.length());
-	return num;
-}
-
-unsigned short TileSet::eatFirstHex(string &s, char separator) {
-	int seppos = s.find_first_of(separator);
-	unsigned short num = xtoi(s.substr(0, seppos));
-	s = s.substr(seppos+1, s.length());
-	return num;
-}
-
 void TileSet::loadGraphics(string filename) {
 	if (sprites) SDL_FreeSurface(sprites);
 	
