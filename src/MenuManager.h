@@ -29,6 +29,7 @@
 
 const int DRAG_SRC_POWERS = 1;
 const int DRAG_SRC_INVENTORY = 2;
+const int DRAG_SRC_ACTIONBAR = 3;
 
 class MenuManager {
 private:

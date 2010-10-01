@@ -200,9 +200,17 @@ void MenuManager::logic() {
 				act->remove(inp->mouse);
 				inp->mouse_lock = true;
 			}
+			// if any menu is open, allow drag-to-rearrange action bar
+			else if (pause && !isWithin(act->menuArea, inp->mouse)) {
+				drag_power = act->checkDrag(inp->mouse);
+				if (drag_power > -1) {
+					dragging = true;
+					drag_src = DRAG_SRC_ACTIONBAR;
+				}
+			}
 			// click action bar to use that power
 			else {
-				act->checkAction();
+				act->checkAction(inp->mouse);
 				inp->mouse_lock = true;
 			}
 		}
@@ -212,9 +220,15 @@ void MenuManager::logic() {
 		
 		// putting a power on the Action Bar
 		if (drag_src == DRAG_SRC_POWERS) {
-		
 			if (isWithin(act->numberArea,inp->mouse) || isWithin(act->mouseArea,inp->mouse)) {
-				act->drop(inp->mouse, drag_power);
+				act->drop(inp->mouse, drag_power, 0);
+			}
+		}
+		
+		// rearranging the action bar
+		else if (drag_src == DRAG_SRC_ACTIONBAR) {
+			if (isWithin(act->numberArea,inp->mouse) || isWithin(act->mouseArea,inp->mouse)) {
+				act->drop(inp->mouse, drag_power, 1);
 			}
 		}
 	
@@ -292,7 +306,7 @@ void MenuManager::render() {
 	if (dragging) {
 		if (drag_src == DRAG_SRC_INVENTORY)
 			items->renderIcon(drag_item, inp->mouse.x - 16, inp->mouse.y - 16, ICON_SIZE_32);
-		else if (drag_src == DRAG_SRC_POWERS)
+		else if (drag_src == DRAG_SRC_POWERS || drag_src == DRAG_SRC_ACTIONBAR)
 			renderIcon(drag_power, inp->mouse.x-16, inp->mouse.y-16);
 	}
 	

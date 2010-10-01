@@ -40,8 +40,9 @@ public:
 	void renderIcon(int icon_id, int x, int y);
 	void logic();
 	void render();
-	int checkAction();
-	void drop(Point mouse, int power_index);
+	int checkAction(Point mouse);
+	int checkDrag(Point mouse);
+	void drop(Point mouse, int power_index, bool rearranging);
 	void remove(Point mouse);
 	void set(int power_id[12]);
 
@@ -56,6 +57,7 @@ public:
 	SDL_Rect numberArea;
 	SDL_Rect mouseArea;
 	SDL_Rect menuArea;
+	int drag_prev_slot;
 	
 };
 

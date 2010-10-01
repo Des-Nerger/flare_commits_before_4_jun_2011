@@ -23,6 +23,7 @@ MenuActionBar::MenuActionBar(PowerManager *_powers, SDL_Surface *_screen, InputS
 	label_src.y = 0;
 	label_src.w = 640;
 	label_src.h = 10;
+	drag_prev_slot = -1;
 	
 	// clear action bar
 	for (int i=0; i<12; i++) {
@@ -178,9 +179,12 @@ TooltipData MenuActionBar::checkTooltip(Point mouse) {
 /**
  * After dragging a power or item onto the action bar, set as new hotkey
  */
-void MenuActionBar::drop(Point mouse, int power_index) {
+void MenuActionBar::drop(Point mouse, int power_index, bool rearranging) {
 	for (int i=0; i<12; i++) {
 		if (isWithin(slots[i], mouse)) {
+			if (rearranging) {
+				hotkeys[drag_prev_slot] = hotkeys[i];
+			}
 			hotkeys[i] = power_index;
 			return;
 		}
@@ -202,7 +206,7 @@ void MenuActionBar::remove(Point mouse) {
 /**
  * If pressing an action key, return 
  */
-int MenuActionBar::checkAction() {
+int MenuActionBar::checkAction(Point mouse) {
 
 	// TODO: check clicking on stuff
 	
@@ -221,6 +225,24 @@ int MenuActionBar::checkAction() {
 	
 	return -1;
 }
+
+/**
+ * If clicking while a menu is open, assume the player wants to rearrange the action bar
+ */
+ int MenuActionBar::checkDrag(Point mouse) {
+	int power_index;
+	
+	for (int i=0; i<12; i++) {
+		if (isWithin(slots[i], mouse)) {
+			drag_prev_slot = i;
+			power_index = hotkeys[i];
+			hotkeys[i] = -1;
+			return power_index;
+		}
+	}
+	
+	return -1;
+ }
 
 /**
  * Set all hotkeys at once e.g. when loading a game

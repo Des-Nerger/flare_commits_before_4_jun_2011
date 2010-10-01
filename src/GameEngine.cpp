@@ -65,7 +65,7 @@ void GameEngine::logic() {
 		}
 	
 		
-		pc->logic(menu->act->checkAction());
+		pc->logic(menu->act->checkAction(inp->mouse));
 		enemies->heroPos = pc->stats.pos;
 		enemies->logic();
 		hazards->logic();
