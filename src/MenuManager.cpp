@@ -84,7 +84,7 @@ void MenuManager::logic() {
 		rightclick_lock = false;
 
 	// inventory menu toggle
-	if (inp->pressing[INVENTORY] && !key_lock) {
+	if (inp->pressing[INVENTORY] && !key_lock && !dragging) {
 		key_lock = true;
 		inv->visible = !inv->visible;
 		if (inv->visible) {
@@ -97,7 +97,7 @@ void MenuManager::logic() {
 	}
 
 	// powers menu toggle
-	if (inp->pressing[POWERS] && !key_lock) {
+	if (inp->pressing[POWERS] && !key_lock && !dragging) {
 		key_lock = true;
 		pow->visible = !pow->visible;
 		if (pow->visible) {
@@ -109,7 +109,7 @@ void MenuManager::logic() {
 	}
 
 	// character menu toggle
-	if (inp->pressing[CHARACTER] && !key_lock) {
+	if (inp->pressing[CHARACTER] && !key_lock && !dragging) {
 		key_lock = true;
 		chr->visible = !chr->visible;
 		if (chr->visible) {
@@ -121,7 +121,7 @@ void MenuManager::logic() {
 	}
 	
 	// log menu toggle
-	if (inp->pressing[LOG] && !key_lock) {
+	if (inp->pressing[LOG] && !key_lock && !dragging) {
 		key_lock = true;
 		log->visible = !log->visible;
 		if (log->visible) {
@@ -299,12 +299,14 @@ void MenuManager::render() {
 }
 
 void MenuManager::closeAll() {
-	inv->visible = false;
-	pow->visible = false;
-	chr->visible = false;
-	log->visible = false;
+	if (!dragging) {
+		inv->visible = false;
+		pow->visible = false;
+		chr->visible = false;
+		log->visible = false;
 		
-	Mix_PlayChannel(-1, sfx_close, 0);
+		Mix_PlayChannel(-1, sfx_close, 0);
+	}
 }
 
 MenuManager::~MenuManager() {
