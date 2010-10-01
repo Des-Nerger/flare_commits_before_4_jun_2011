@@ -457,6 +457,12 @@ void Enemy::logic() {
 bool Enemy::takeHit(Hazard h) {
 	if (stats.cur_state != ENEMY_DEAD && stats.cur_state != ENEMY_CRITDEAD) {
 	
+		if (!stats.in_combat) {
+			stats.in_combat = true;
+			stats.last_seen.x = stats.hero_pos.x;
+			stats.last_seen.y = stats.hero_pos.y;
+		}
+	
 		// auto-miss if recently attacked
 		// this is mainly to prevent slow, wide missiles from getting multiple attack attempts
 		if (stats.targeted > 0) return false;
