@@ -155,7 +155,7 @@ PowerManager::PowerManager() {
 	powers[POWER_TIMESTOP].name = "Time Stop";
 	powers[POWER_TIMESTOP].type = POWTYPE_NONDAMAGE;
 	powers[POWER_TIMESTOP].icon = 19;
-	powers[POWER_TIMESTOP].description = "Stop time for 3 seconds";
+	powers[POWER_TIMESTOP].description = "Stop time for 5 seconds";
 	powers[POWER_TIMESTOP].new_state = POWSTATE_CAST;
 	powers[POWER_TIMESTOP].face = false;
 	powers[POWER_TIMESTOP].requires_mana = true;
@@ -165,6 +165,7 @@ PowerManager::PowerManager() {
 	powers[POWER_SPARK_ICE].type = POWTYPE_NONDAMAGE;
 	
 	loadGraphics();
+	loadSounds();
 }
 
 void PowerManager::loadGraphics() {
@@ -184,6 +185,15 @@ void PowerManager::loadGraphics() {
 		fprintf(stderr, "Couldn't load image: %s\n", IMG_GetError());
 		SDL_Quit();
 	}
+}
+
+void PowerManager::loadSounds() {
+	sfx_shock = Mix_LoadWAV("soundfx/powers/shock.ogg");
+	sfx_freeze = Mix_LoadWAV("soundfx/powers/freeze.ogg");	
+	sfx_burn = Mix_LoadWAV("soundfx/powers/burn.ogg");
+	sfx_heal = Mix_LoadWAV("soundfx/powers/heal.ogg");
+	sfx_teleport = Mix_LoadWAV("soundfx/powers/teleport.ogg");	
+	sfx_timestop = Mix_LoadWAV("soundfx/powers/timestop.ogg");	
 }
 
 /**
@@ -256,6 +266,7 @@ bool PowerManager::nonDamage(int power_index, StatBlock *src_stats, Point target
 		// perform actual healing
 		src_stats->hp += rand() % (src_stats->dmg_magic_max - src_stats->dmg_magic_min) + src_stats->dmg_magic_min;
 		if (src_stats->hp > src_stats->maxhp) src_stats->hp = src_stats->maxhp;
+		Mix_PlayChannel(-1, sfx_heal, 0);
 	}
 	else if (power_index == POWER_TIMESTOP) {
 		haz->active = true;
@@ -264,9 +275,10 @@ bool PowerManager::nonDamage(int power_index, StatBlock *src_stats, Point target
 		haz->rendered = false;
 		haz->lifespan = 1;
 		haz->radius = 512;
-		haz->stun_duration = 90;
+		haz->stun_duration = 150;
 		haz->multitarget = true;
 		src_stats->mp--;
+		Mix_PlayChannel(-1, sfx_timestop, 0);
 	}
 	else if (power_index == POWER_SHIELD) {
 		src_stats->mp--;
@@ -321,6 +333,7 @@ bool PowerManager::nonDamage(int power_index, StatBlock *src_stats, Point target
 		src_stats->teleport_destination.x = target.x;
 		src_stats->teleport_destination.y = target.y;
 		src_stats->mp--;
+		Mix_PlayChannel(-1,sfx_teleport,0);
 	}
 	
 	hazards.push(haz);
@@ -385,6 +398,7 @@ bool PowerManager::missile(int power_index, StatBlock *src_stats, Point target) 
 		haz->trait_air = true;
 		src_stats->mp--;
 		speed = 32;
+		Mix_PlayChannel(-1,sfx_shock,0);
 	}
 	
 	// calculate speed
@@ -550,6 +564,7 @@ bool PowerManager::groundRay(int power_index, StatBlock *src_stats, Point target
 			haz[i]->complete_animation = true;
 			haz[i]->slow_duration = 90;
 			haz[i]->trait_ice = true;
+			Mix_PlayChannel(-1, sfx_freeze, 0);
 		}
 		
 		hazards.push(haz[i]);
@@ -631,6 +646,7 @@ bool PowerManager::single(int power_index, StatBlock *src_stats, Point target) {
 		haz->floor = true;
 		haz->trait_fire = true;
 		src_stats->mp--;
+		Mix_PlayChannel(-1, sfx_burn, 0);
 	}
 	else if (power_index == POWER_QUAKE) {
 		haz->pos.x = src_stats->pos.x;
@@ -695,5 +711,12 @@ PowerManager::~PowerManager() {
 	SDL_FreeSurface(sparks);
 	SDL_FreeSurface(freeze);
 	SDL_FreeSurface(runes);
+	Mix_FreeChunk(sfx_shock);
+	Mix_FreeChunk(sfx_freeze);
+	Mix_FreeChunk(sfx_burn);
+	Mix_FreeChunk(sfx_heal);
+	Mix_FreeChunk(sfx_teleport);
+	Mix_FreeChunk(sfx_timestop);
+	
 }
 

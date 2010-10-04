@@ -106,11 +106,13 @@ public:
 	~PowerManager();
 	bool activate(int power_index, StatBlock *src_stats, Point target);
 	void loadGraphics();
+	void loadSounds();
 		
 	Power powers[POWER_COUNT];
 	queue<Hazard *> hazards; // output; read by HazardManager
 	
 	// shared images/sounds for power special effects
+	// TODO: when power definitions move to a config file, change these to an array
 	SDL_Surface *arrows;
 	SDL_Surface *stone;
 	SDL_Surface *lightning;
@@ -121,7 +123,12 @@ public:
 	SDL_Surface *sparks;
 	SDL_Surface *freeze;
 	SDL_Surface *runes;
-	
+	Mix_Chunk *sfx_shock;
+	Mix_Chunk *sfx_freeze;
+	Mix_Chunk *sfx_burn;
+	Mix_Chunk *sfx_heal;
+	Mix_Chunk *sfx_teleport;
+	Mix_Chunk *sfx_timestop;
 };
 
 #endif

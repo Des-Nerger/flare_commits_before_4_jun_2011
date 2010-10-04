@@ -1,0 +1,3 @@
+This folder contains high-quality versions of sound effects.  I usually reduce the quality of sound effects for use in-game.  I found that, with SDL_Mixer, if I played too many high-quality sound effects simultaneously some would fail to play.  This was most notable in the foosteps sound effects.
+
+It could be a matter of SDL_Mixer settings, in which case I'd want to replace the sound effects with higher quality versions.  That's why I'm keeping HQ copies here.
