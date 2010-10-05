@@ -11,6 +11,7 @@
 #define UTILS_PARSING_H
 
 #include <string>
+#include <stdlib.h>
 using namespace std;
 
 unsigned short xtoi(string hex);
