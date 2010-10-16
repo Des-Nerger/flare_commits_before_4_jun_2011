@@ -520,9 +520,10 @@ bool Avatar::takeHit(Hazard h) {
 			
 			dmg = dmg - absorption;
 			if (dmg < 1 && !stats.blocking) dmg = 1; // when blocking, dmg can be reduced to 0
-			if (dmg < 0) {
+			if (dmg <= 0) {
 				dmg = 0;
 				Mix_PlayChannel(-1, sound_block, 0);
+				curFrame = 0; // shield stutter
 			}
 			
 		}
