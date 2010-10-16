@@ -89,6 +89,7 @@ void Avatar::loadSounds() {
 	sound_weapon1 = Mix_LoadWAV("soundfx/melee_attack.ogg");
 	sound_hit = Mix_LoadWAV("soundfx/male_hit.ogg");
 	sound_die = Mix_LoadWAV("soundfx/male_die.ogg");
+	sound_block = Mix_LoadWAV("soundfx/powers/block.ogg");	
 	sound_steps[0] = Mix_LoadWAV("soundfx/step_echo1.ogg");
 	sound_steps[1] = Mix_LoadWAV("soundfx/step_echo2.ogg");
 	sound_steps[2] = Mix_LoadWAV("soundfx/step_echo3.ogg");
@@ -519,7 +520,11 @@ bool Avatar::takeHit(Hazard h) {
 			
 			dmg = dmg - absorption;
 			if (dmg < 1 && !stats.blocking) dmg = 1; // when blocking, dmg can be reduced to 0
-			if (dmg < 0) dmg = 0;
+			if (dmg < 0) {
+				dmg = 0;
+				Mix_PlayChannel(-1, sound_block, 0);
+			}
+			
 		}
 	
 		
@@ -579,6 +584,7 @@ Avatar::~Avatar() {
 	Mix_FreeChunk(sound_weapon1);
 	Mix_FreeChunk(sound_hit);
 	Mix_FreeChunk(sound_die);
+	Mix_FreeChunk(sound_block);
 	Mix_FreeChunk(sound_steps[0]);
 	Mix_FreeChunk(sound_steps[1]);
 	Mix_FreeChunk(sound_steps[2]);

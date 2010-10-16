@@ -50,6 +50,7 @@ private:
 	Mix_Chunk *sound_weapon1;
 	Mix_Chunk *sound_hit;
 	Mix_Chunk *sound_die;
+	Mix_Chunk *sound_block;
 	Mix_Chunk *sound_steps[4];
 	Mix_Chunk *level_up;
 			

@@ -123,10 +123,14 @@ public:
 	SDL_Surface *sparks;
 	SDL_Surface *freeze;
 	SDL_Surface *runes;
+	
+	Mix_Chunk *sfx_warcry;
 	Mix_Chunk *sfx_shock;
 	Mix_Chunk *sfx_freeze;
+	Mix_Chunk *sfx_quake;
 	Mix_Chunk *sfx_burn;
 	Mix_Chunk *sfx_heal;
+	Mix_Chunk *sfx_shield;
 	Mix_Chunk *sfx_teleport;
 	Mix_Chunk *sfx_timestop;
 };

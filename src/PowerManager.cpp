@@ -188,11 +188,15 @@ void PowerManager::loadGraphics() {
 }
 
 void PowerManager::loadSounds() {
+
+	sfx_warcry = Mix_LoadWAV("soundfx/powers/warcry.ogg");
 	sfx_shock = Mix_LoadWAV("soundfx/powers/shock.ogg");
+	sfx_quake = Mix_LoadWAV("soundfx/powers/quake.ogg");		
 	sfx_freeze = Mix_LoadWAV("soundfx/powers/freeze.ogg");	
 	sfx_burn = Mix_LoadWAV("soundfx/powers/burn.ogg");
 	sfx_heal = Mix_LoadWAV("soundfx/powers/heal.ogg");
-	sfx_teleport = Mix_LoadWAV("soundfx/powers/teleport.ogg");	
+	sfx_shield = Mix_LoadWAV("soundfx/powers/shield.ogg");	
+	sfx_teleport = Mix_LoadWAV("soundfx/powers/teleport.ogg");
 	sfx_timestop = Mix_LoadWAV("soundfx/powers/timestop.ogg");	
 }
 
@@ -284,6 +288,7 @@ bool PowerManager::nonDamage(int power_index, StatBlock *src_stats, Point target
 		src_stats->mp--;
 		src_stats->shield_hp = src_stats->dmg_magic_max;
 		delete(haz); // no hazard needed
+		Mix_PlayChannel(-1,sfx_shield,0);
 		return true;
 	}
 	else if (power_index == POWER_WARCRY) {
@@ -296,6 +301,7 @@ bool PowerManager::nonDamage(int power_index, StatBlock *src_stats, Point target
 		src_stats->bleed_duration = 0;
 		
 		delete(haz); // no hazard needed
+		Mix_PlayChannel(-1,sfx_warcry,0);
 		return true;
 	}
 	else if (power_index == POWER_SPARK_BLOOD) {
@@ -670,6 +676,7 @@ bool PowerManager::single(int power_index, StatBlock *src_stats, Point target) {
 		haz->stun_duration = 30;
 		haz->trait_earth = true;
 		src_stats->mp--;
+		Mix_PlayChannel(-1,sfx_quake,0);
 	}
 	
 	hazards.push(haz);
@@ -711,10 +718,14 @@ PowerManager::~PowerManager() {
 	SDL_FreeSurface(sparks);
 	SDL_FreeSurface(freeze);
 	SDL_FreeSurface(runes);
+	
+	Mix_FreeChunk(sfx_warcry);	
 	Mix_FreeChunk(sfx_shock);
 	Mix_FreeChunk(sfx_freeze);
+	Mix_FreeChunk(sfx_quake);	
 	Mix_FreeChunk(sfx_burn);
 	Mix_FreeChunk(sfx_heal);
+	Mix_FreeChunk(sfx_shield);	
 	Mix_FreeChunk(sfx_teleport);
 	Mix_FreeChunk(sfx_timestop);
 	
