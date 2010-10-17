@@ -393,6 +393,9 @@ void Enemy::logic() {
 				haz->dmg_min = stats.dmg_magic_min;
 				haz->dmg_max = stats.dmg_magic_max;
 				haz->accuracy = stats.accuracy;
+				
+				// TODO: temp
+				haz->bleed_duration = 150;
 			}
 			
 			if (stats.cur_frame == max_frame-1) {

@@ -312,6 +312,9 @@ bool PowerManager::nonDamage(int power_index, StatBlock *src_stats, Point target
 		src_stats->stun_duration = 0;
 		src_stats->bleed_duration = 0;
 		
+		// add immunity
+		if (src_stats->immunity_duration < 300) src_stats->immunity_duration = 300;
+		
 		delete(haz); // no hazard needed
 		Mix_PlayChannel(-1,sfx_warcry,0);
 		return true;

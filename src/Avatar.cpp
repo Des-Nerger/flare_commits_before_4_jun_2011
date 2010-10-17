@@ -219,6 +219,11 @@ void Avatar::logic(int actionbar_power) {
 		log_msg = ss.str();
 		Mix_PlayChannel(-1, level_up, 0);
 	}
+
+	// check for bleeding spurt
+	if (stats.bleed_duration % 30 == 1) {
+		powers->activate(POWER_SPARK_BLOOD, &stats, stats.pos);
+	}
 	
 	switch(curState) {
 		case AVATAR_STANCE:
@@ -546,6 +551,20 @@ bool Avatar::takeHit(Hazard h) {
 		
 		int prev_hp = stats.hp;
 		stats.takeDamage(dmg);
+		
+		// after effects
+		if (stats.hp > 0 && stats.immunity_duration == 0) {
+			if (h.stun_duration > stats.stun_duration) stats.stun_duration = h.stun_duration;
+			if (h.slow_duration > stats.slow_duration) stats.slow_duration = h.slow_duration;
+			if (h.bleed_duration > stats.bleed_duration) stats.bleed_duration = h.bleed_duration;
+			if (h.immobilize_duration > stats.immobilize_duration) stats.immobilize_duration = h.immobilize_duration;
+		}
+		
+		// create a blood spark upon bloody attack
+		Point pt;
+		if (h.bleed_duration > 0 && dmg > 0) {
+			powers->activate(POWER_SPARK_BLOOD, &stats, pt);
+		}
 		
 		// Power-specific: Vengeance gains stacks when blocking
 		if (stats.blocking && stats.physdef >= 9) {

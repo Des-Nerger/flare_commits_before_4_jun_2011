@@ -180,6 +180,10 @@ void GameEngine::render() {
 		r[renderableCount] = pc->stats.getEffectRender(STAT_EFFECT_SHIELD);
 		r[renderableCount++].sprite = powers->shield;
 	}
+	if (pc->stats.vengeance_stacks > 0) {
+		r[renderableCount] = pc->stats.getEffectRender(STAT_EFFECT_VENGEANCE);
+		r[renderableCount++].sprite = powers->runes;		
+	}
 		
 	zsort(r,renderableCount);
 

@@ -18,6 +18,8 @@
 using namespace std;
 
 const int STAT_EFFECT_SHIELD = 0;
+const int STAT_EFFECT_VENGEANCE = 1;
+
 
 class StatBlock {
 private:
@@ -102,6 +104,7 @@ public:
 	int shield_frame;
 	bool blocking;
 	int vengeance_stacks;
+	int vengeance_frame;
 	
 	int speed;
 	int dspeed;

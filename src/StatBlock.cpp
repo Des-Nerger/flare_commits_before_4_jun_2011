@@ -47,6 +47,8 @@ StatBlock::StatBlock() {
 	immunity_duration = 0;	
 	shield_hp = 0;
 	shield_frame = 0;
+	vengeance_stacks = 0;
+	vengeance_frame = 0;
 	cooldown_ticks = 0;
 	blocking = false;
 	
@@ -64,6 +66,7 @@ StatBlock::StatBlock() {
 	xp_table[9] = -1;
 
 	teleportation=false;
+
 }
 
 /**
@@ -269,6 +272,9 @@ void StatBlock::logic() {
 	// handle buff/debuff animations
 	shield_frame++;
 	if (shield_frame == 12) shield_frame = 0;
+	
+	vengeance_frame+= vengeance_stacks;
+	if (vengeance_frame >= 24) vengeance_frame -= 24;
 
 }
 
@@ -291,6 +297,15 @@ Renderable StatBlock::getEffectRender(int effect_type) {
 		r.offset.x = 64;
 		r.offset.y = 96; 
 		r.object_layer = true;
+	}
+	else if (effect_type = STAT_EFFECT_VENGEANCE) {
+		r.src->x = (vengeance_frame/6) * 64;
+		r.src->y = 128;
+		r.src->w = 64;
+		r.src->h = 64;
+		r.offset.x = 32;
+		r.offset.y = 32; 
+		r.object_layer = false;	
 	}
 	return r;	
 }
