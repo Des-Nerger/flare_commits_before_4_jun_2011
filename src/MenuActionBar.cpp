@@ -208,8 +208,16 @@ void MenuActionBar::remove(Point mouse) {
  */
 int MenuActionBar::checkAction(Point mouse) {
 
-	// TODO: check clicking on stuff
+	// check click action
+	if (inp->pressing[MAIN1] || inp->pressing[MAIN2]) {
+		for (int i=0; i<12; i++) {
+			if (isWithin(slots[i], mouse)) {
+				return hotkeys[i];
+			}	
+		}
+	}
 	
+	// check hotkey action
 	if (inp->pressing[BAR_1]) return hotkeys[0];
 	if (inp->pressing[BAR_2]) return hotkeys[1];
 	if (inp->pressing[BAR_3]) return hotkeys[2];
