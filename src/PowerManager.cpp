@@ -20,7 +20,7 @@ PowerManager::PowerManager() {
 	powers[POWER_SHOOT].new_state = POWSTATE_SHOOT;
 	powers[POWER_SHOOT].face = true;
 	powers[POWER_SHOOT].requires_ammo = true;
-	powers[POWER_SHOOT].aim_assist = 32;	
+	powers[POWER_SHOOT].aim_assist = 32;
 
 	powers[POWER_SWING].name = "Swing";
 	powers[POWER_SWING].type = POWTYPE_SINGLE;
@@ -127,6 +127,9 @@ PowerManager::PowerManager() {
 	powers[POWER_TELEPORT].new_state = POWSTATE_CAST;
 	powers[POWER_TELEPORT].face = true;
 	powers[POWER_TELEPORT].requires_mana = true;
+	powers[POWER_TELEPORT].requires_los = true;
+	powers[POWER_TELEPORT].requires_empty_target = true;
+
 	
 	powers[POWER_PIERCING].name = "Piercing Shot";
 	powers[POWER_PIERCING].type = POWTYPE_MISSILE;	
@@ -151,6 +154,7 @@ PowerManager::PowerManager() {
 	powers[POWER_BURN].new_state = POWSTATE_CAST;
 	powers[POWER_BURN].face = true;
 	powers[POWER_BURN].requires_mana = true;
+	powers[POWER_BURN].requires_los = true;
 
 	powers[POWER_TIMESTOP].name = "Time Stop";
 	powers[POWER_TIMESTOP].type = POWTYPE_NONDAMAGE;
@@ -201,6 +205,13 @@ void PowerManager::loadSounds() {
 }
 
 /**
+ * Set new collision object
+ */
+void PowerManager::handleNewMap(MapCollision *_collider) {
+	collider = _collider;
+}
+
+/**
  * Change direction to face the target map location
  */
 int PowerManager::calcDirection(int origin_x, int origin_y, int target_x, int target_y) {
@@ -248,6 +259,7 @@ bool PowerManager::consume(int power_index, StatBlock *src_stats) {
  * Hazards that are graphics/sounds only
  */
 bool PowerManager::nonDamage(int power_index, StatBlock *src_stats, Point target) {
+
 	Hazard *haz = new Hazard();
 	haz->pos.x = src_stats->pos.x;
 	haz->pos.y = src_stats->pos.y;	
@@ -505,8 +517,6 @@ bool PowerManager::missileX3(int power_index, StatBlock *src_stats, Point target
 
 
 
-
-
 /**
  * Ground Rays are multiple hazards that spawn in a straight line
  */
@@ -536,13 +546,20 @@ bool PowerManager::groundRay(int power_index, StatBlock *src_stats, Point target
 	delay_iterator = 0;
 
 	for (int i=0; i<6; i++) {
-		haz[i] = new Hazard();
-	
+
 		location_iterator.x += speed.x;
 		location_iterator.y += speed.y;
-	
+
+		// only travels until it hits a wall
+		if (!collider->is_empty(location_iterator.x, location_iterator.y)) {
+			break; // no more hazards
+		}
+
+		haz[i] = new Hazard();	
 		haz[i]->pos.x = location_iterator.x;
 		haz[i]->pos.y = location_iterator.y;
+		
+		
 		haz[i]->delay_frames = delay_iterator;
 		delay_iterator += 3;
 		
@@ -690,7 +707,16 @@ bool PowerManager::single(int power_index, StatBlock *src_stats, Point target) {
  * Activate is basically a switch/redirect to the appropriate function
  */
 bool PowerManager::activate(int power_index, StatBlock *src_stats, Point target) {
+
+	// quit early if this power requires LOS but there is no LOS between
+	// stat pos and target
+	//if (powers[power_index].requires_los) {
+	//	if (!collider->line_of_sight(src_stats->pos.x, src_stats->pos.y, target.x, target.y))
+	//		return false;
+	//}
 	
+	// logic for different types of powers are very different.  We allow these
+	// separate functions to handle the details.
 	if (powers[power_index].type == POWTYPE_SINGLE)
 		return single(power_index, src_stats, target);
 	else if (powers[power_index].type == POWTYPE_NONDAMAGE)

@@ -15,6 +15,7 @@
 #include "Utils.h"
 #include "StatBlock.h"
 #include "Hazard.h"
+#include "MapCollision.h"
 
 #ifndef POWER_MANAGER_H
 #define POWER_MANAGER_H
@@ -36,6 +37,7 @@ const int POWSTATE_SHOOT = 2;
 const int POWSTATE_BLOCK = 3;
 
 // first 20 powers coincide with power tree
+// TODO: remove this restriction
 const int POWER_SHOOT = 0;
 const int POWER_SWING = 1;
 const int POWER_LORE = 2;
@@ -74,6 +76,8 @@ struct Power {
 	string description;
 	bool requires_ammo;
 	bool requires_mana;
+	bool requires_los; // line of sight
+	bool requires_empty_target; // target square must be empty
 	int aim_assist;
 	
 	Power() {
@@ -85,6 +89,8 @@ struct Power {
 		face=false;
 		requires_ammo = false;
 		requires_mana = false;
+		requires_los = false;
+		requires_empty_target = false;
 		aim_assist = 0;
 	}	
 	
@@ -93,6 +99,7 @@ struct Power {
 class PowerManager {
 private:
 	
+	MapCollision *collider;
 	int calcDirection(int origin_x, int origin_y, int target_x, int target_y) ;	
 	bool consume(int powernum, StatBlock *src_stats);
 	bool nonDamage(int powernum, StatBlock *src_stats, Point target);
@@ -104,6 +111,8 @@ private:
 public:
 	PowerManager();
 	~PowerManager();
+	
+	void handleNewMap(MapCollision *_collider);	
 	bool activate(int power_index, StatBlock *src_stats, Point target);
 	void loadGraphics();
 	void loadSounds();

@@ -86,7 +86,8 @@ void Avatar::loadGraphics(string img_main, string img_body, string img_off) {
 }
 
 void Avatar::loadSounds() {
-	sound_weapon1 = Mix_LoadWAV("soundfx/melee_attack.ogg");
+	sound_melee = Mix_LoadWAV("soundfx/melee_attack.ogg");
+	sound_ranged = Mix_LoadWAV("soundfx/ranged_attack.ogg");
 	sound_hit = Mix_LoadWAV("soundfx/male_hit.ogg");
 	sound_die = Mix_LoadWAV("soundfx/male_die.ogg");
 	sound_block = Mix_LoadWAV("soundfx/powers/block.ogg");	
@@ -96,7 +97,7 @@ void Avatar::loadSounds() {
 	sound_steps[3] = Mix_LoadWAV("soundfx/step_echo4.ogg");
 	level_up = Mix_LoadWAV("soundfx/level_up.ogg");
 				
-	if (!sound_weapon1 || !sound_hit || !sound_die || !sound_steps[0] || !level_up) {
+	if (!sound_melee || !sound_ranged || !sound_hit || !sound_die || !sound_steps[0] || !level_up) {
 	  printf("Mix_LoadWAV: %s\n", Mix_GetError());
 	  SDL_Quit();
 	}
@@ -243,17 +244,22 @@ void Avatar::logic(int actionbar_power) {
 			// handle power usage
 			if (actionbar_power != -1 && cooldown_power == 0) {
 
+				target = screen_to_map(inp->mouse.x,  inp->mouse.y + powers->powers[actionbar_power].aim_assist, stats.pos.x, stats.pos.y);
+
 				// check requirements
 				if (powers->powers[actionbar_power].requires_mana && stats.mp <= 0)
 					break;
 				if (powers->powers[actionbar_power].requires_ammo && !(stats.ammo_arrows || stats.ammo_stones))
 					break;
-								
+				if (powers->powers[actionbar_power].requires_los && !map->collider.line_of_sight(stats.pos.x, stats.pos.y, target.x, target.y))
+					break;
+				if (powers->powers[actionbar_power].requires_empty_target && !map->collider.is_empty(target.x, target.y))
+					break;
+												
 				current_power = actionbar_power;
 			
 				// is this a power that requires changing direction?
 				if (powers->powers[current_power].face) {
-					target = screen_to_map(inp->mouse.x, inp->mouse.y + powers->powers[current_power].aim_assist, stats.pos.x, stats.pos.y);
 					act_target.x = target.x;
 					act_target.y = target.y;
 					stats.direction = face(target.x, target.y);
@@ -315,18 +321,23 @@ void Avatar::logic(int actionbar_power) {
 
 			// handle power usage
 			if (actionbar_power != -1 && cooldown_power == 0) {
+
+				target = screen_to_map(inp->mouse.x,  inp->mouse.y + powers->powers[actionbar_power].aim_assist, stats.pos.x, stats.pos.y);
 			
 				// check requirements
 				if (powers->powers[actionbar_power].requires_mana && stats.mp <= 0)
 					break;
 				if (powers->powers[actionbar_power].requires_ammo && !(stats.ammo_arrows || stats.ammo_stones))
 					break;
+				if (powers->powers[actionbar_power].requires_los && !map->collider.line_of_sight(stats.pos.x, stats.pos.y, target.x, target.y))
+					break;
+				if (powers->powers[actionbar_power].requires_empty_target && !map->collider.is_empty(target.x, target.y))
+					break;
 			
 				current_power = actionbar_power;
 			
 				// is this a power that requires changing direction?
 				if (powers->powers[current_power].face) {
-					target = screen_to_map(inp->mouse.x,  inp->mouse.y + powers->powers[current_power].aim_assist, stats.pos.x, stats.pos.y);
 					act_target.x = target.x;
 					act_target.y = target.y;
 					stats.direction = face(target.x, target.y);
@@ -367,7 +378,7 @@ void Avatar::logic(int actionbar_power) {
 			dispFrame = (curFrame / 4) + 12;
 			
 			if (curFrame == 1) {
-				Mix_PlayChannel(-1, sound_weapon1, 0);
+				Mix_PlayChannel(-1, sound_melee, 0);
 			}
 			
 			// do power
@@ -407,6 +418,10 @@ void Avatar::logic(int actionbar_power) {
 			// handle animation
 			curFrame++;
 			dispFrame = (curFrame / 4) + 28;
+
+			if (curFrame == 1) {
+				Mix_PlayChannel(-1, sound_ranged, 0);
+			}
 
 			// do power
 			if (curFrame == 8) {
@@ -582,7 +597,8 @@ Renderable Avatar::getRender() {
 
 Avatar::~Avatar() {
 	SDL_FreeSurface(sprites);
-	Mix_FreeChunk(sound_weapon1);
+	Mix_FreeChunk(sound_melee);
+	Mix_FreeChunk(sound_ranged);	
 	Mix_FreeChunk(sound_hit);
 	Mix_FreeChunk(sound_die);
 	Mix_FreeChunk(sound_block);

@@ -166,6 +166,10 @@ void Enemy::logic() {
 		stats.cur_state = ENEMY_DEAD;
 		stats.cur_frame = 0;
 	}
+	// check for bleeding spurt
+	if (stats.bleed_duration % 30 == 1) {
+		powers->activate(POWER_SPARK_BLOOD, &stats, stats.pos);
+	}
 	
 	int dist;
 	int prev_direction;

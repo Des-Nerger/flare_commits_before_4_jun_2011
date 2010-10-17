@@ -86,6 +86,7 @@ void GameEngine::loadGame() {
 		hotkeys[i] = -1;
 	}
 
+	// TODO: change to hero name?
 	infile.open("saves/save1.txt", ios::in);
 
 	if (infile.is_open()) {

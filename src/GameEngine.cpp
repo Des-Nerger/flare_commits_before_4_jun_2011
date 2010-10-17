@@ -98,6 +98,7 @@ void GameEngine::logic() {
 			enemies->handleNewMap();
 			hazards->handleNewMap(&map->collider);
 			loot->handleNewMap();
+			powers->handleNewMap(&map->collider);
 			
 			// store this as the new respawn point
 			map->respawn_map = map->teleport_mapname;
