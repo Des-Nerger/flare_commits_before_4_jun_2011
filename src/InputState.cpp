@@ -52,6 +52,7 @@ InputState::InputState(void) {
 	}
 	done = false;
 	mouse_lock = false;
+	mouse2_lock = false;
 }
 	
 void InputState::handle() {

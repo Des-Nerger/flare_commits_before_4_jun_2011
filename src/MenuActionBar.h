@@ -17,6 +17,11 @@
 #include "MenuTooltip.h"
 #include "PowerManager.h"
 
+const int MENU_CHARACTER = 0;
+const int MENU_INVENTORY = 1;
+const int MENU_POWERS = 2;
+const int MENU_LOG = 3;
+
 class MenuActionBar {
 private:
 	SDL_Surface *screen;
@@ -42,6 +47,7 @@ public:
 	void render();
 	int checkAction(Point mouse);
 	int checkDrag(Point mouse);
+	void checkMenu(Point mouse, bool &menu_c, bool &menu_i, bool &menu_p, bool &menu_l);
 	void drop(Point mouse, int power_index, bool rearranging);
 	void remove(Point mouse);
 	void set(int power_id[12]);

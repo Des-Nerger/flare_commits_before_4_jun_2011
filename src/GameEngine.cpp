@@ -22,10 +22,7 @@ GameEngine::GameEngine(SDL_Surface *_screen, InputState *_inp) {
 	hazards = new HazardManager(powers, pc, enemies);
 	menu = new MenuManager(powers, _screen, _inp, font, &pc->stats);
 	loot = new LootManager(menu->items, menu->tip, enemies, map);
-	
-	menu->log->add("Welcome to OSARE v0.09.");
-	menu->log->add("Use WASD or arrows to move.");
-	
+		
 	cancel_lock = false;
 	loadGame();
 }
@@ -37,10 +34,14 @@ GameEngine::GameEngine(SDL_Surface *_screen, InputState *_inp) {
  * This includes some message passing between child object
  */
 void GameEngine::logic() {
-
+	
 	int pickup;
 	if (!inp->pressing[MAIN1]) inp->mouse_lock = false;
-	
+	if (!inp->pressing[MAIN2]) inp->mouse2_lock = false;
+
+	// check menus first (top layer gets mouse click priority)
+	menu->logic();
+		
 	// the game action is paused if any menus are opened
 	if (!menu->pause) {
 		
@@ -139,9 +140,7 @@ void GameEngine::logic() {
 		menu->log->add(pc->log_msg);
 		pc->log_msg = "";
 	}
-	
-	menu->logic();
-	
+		
 	// check change equipment
 	if (menu->inv->changed_equipment) {
 		pc->loadGraphics(menu->items->items[menu->inv->equipped[0]].gfx, 

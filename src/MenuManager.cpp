@@ -75,6 +75,11 @@ void MenuManager::renderIcon(int icon_id, int x, int y) {
 
 void MenuManager::logic() {
 
+	bool clicking_character = false;
+	bool clicking_inventory = false;
+	bool clicking_powers = false;
+	bool clicking_log = false;
+	
 	log->logic();
 
 	if (!inp->pressing[INVENTORY] && !inp->pressing[POWERS] && !inp->pressing[CHARACTER] && !inp->pressing[LOG])
@@ -82,9 +87,12 @@ void MenuManager::logic() {
 
 	if (!inp->pressing[MAIN2])
 		rightclick_lock = false;
+	
+	// check if clicking a menu button
+	act->checkMenu(inp->mouse, clicking_character, clicking_inventory, clicking_powers, clicking_log);
 
 	// inventory menu toggle
-	if (inp->pressing[INVENTORY] && !key_lock && !dragging) {
+	if ((inp->pressing[INVENTORY] && !key_lock && !dragging) || clicking_inventory) {
 		key_lock = true;
 		inv->visible = !inv->visible;
 		if (inv->visible) {
@@ -97,7 +105,7 @@ void MenuManager::logic() {
 	}
 
 	// powers menu toggle
-	if (inp->pressing[POWERS] && !key_lock && !dragging) {
+	if ((inp->pressing[POWERS] && !key_lock && !dragging) || clicking_powers) {
 		key_lock = true;
 		pow->visible = !pow->visible;
 		if (pow->visible) {
@@ -109,7 +117,7 @@ void MenuManager::logic() {
 	}
 
 	// character menu toggle
-	if (inp->pressing[CHARACTER] && !key_lock && !dragging) {
+	if ((inp->pressing[CHARACTER] && !key_lock && !dragging) || clicking_character) {
 		key_lock = true;
 		chr->visible = !chr->visible;
 		if (chr->visible) {
@@ -121,7 +129,7 @@ void MenuManager::logic() {
 	}
 	
 	// log menu toggle
-	if (inp->pressing[LOG] && !key_lock && !dragging) {
+	if ((inp->pressing[LOG] && !key_lock && !dragging) || clicking_log) {
 		key_lock = true;
 		log->visible = !log->visible;
 		if (log->visible) {
@@ -208,11 +216,10 @@ void MenuManager::logic() {
 					drag_src = DRAG_SRC_ACTIONBAR;
 				}
 			}
-			// click action bar to use that power
-			else {
-				act->checkAction(inp->mouse);
-				inp->mouse_lock = true;
-			}
+			// else, clicking action bar to use a power?
+			// this check is done by GameEngine when calling Avatar::logic()
+
+
 		}
 	}
 	// handle dropping

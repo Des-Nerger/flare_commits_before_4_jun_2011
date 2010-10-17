@@ -209,9 +209,13 @@ void MenuActionBar::remove(Point mouse) {
 int MenuActionBar::checkAction(Point mouse) {
 
 	// check click action
-	if (inp->pressing[MAIN1] || inp->pressing[MAIN2]) {
+	if ((inp->pressing[MAIN1] && !inp->mouse_lock) || (inp->pressing[MAIN2] && !inp->mouse2_lock)) {
 		for (int i=0; i<12; i++) {
 			if (isWithin(slots[i], mouse)) {
+			
+				//if (inp->pressing[MAIN1] && !inp->mouse_lock) inp->mouse_lock = true;
+				//else inp->mouse2_lock = true;
+
 				return hotkeys[i];
 			}	
 		}
@@ -228,16 +232,19 @@ int MenuActionBar::checkAction(Point mouse) {
 	if (inp->pressing[BAR_8]) return hotkeys[7];
 	if (inp->pressing[BAR_9]) return hotkeys[8];
 	if (inp->pressing[BAR_0]) return hotkeys[9];
-	if (inp->pressing[MAIN1] && !inp->mouse_lock) return hotkeys[10];
-	if (inp->pressing[MAIN2] && !inp->mouse_lock) return hotkeys[11];
-	
+	if (inp->pressing[MAIN1] && !inp->mouse_lock) {
+		return hotkeys[10];
+	}
+	if (inp->pressing[MAIN2] && !inp->mouse2_lock) {
+		return hotkeys[11];
+	}
 	return -1;
 }
 
 /**
  * If clicking while a menu is open, assume the player wants to rearrange the action bar
  */
- int MenuActionBar::checkDrag(Point mouse) {
+int MenuActionBar::checkDrag(Point mouse) {
 	int power_index;
 	
 	for (int i=0; i<12; i++) {
@@ -251,6 +258,36 @@ int MenuActionBar::checkAction(Point mouse) {
 	
 	return -1;
  }
+
+/**
+ * if clicking a menu, act as if the player pressed that menu's hotkey
+ */
+void MenuActionBar::checkMenu(Point mouse, bool &menu_c, bool &menu_i, bool &menu_p, bool &menu_l) {
+	if ((inp->pressing[MAIN1] && !inp->mouse_lock) || (inp->pressing[MAIN2] && !inp->mouse2_lock)) {
+		if (isWithin(menus[MENU_CHARACTER], mouse)) {
+			if (inp->pressing[MAIN1] && !inp->mouse_lock) inp->mouse_lock = true;
+			else inp->mouse2_lock = true;
+			menu_c = true;
+		}
+		else if (isWithin(menus[MENU_INVENTORY], mouse)) {
+			if (inp->pressing[MAIN1] && !inp->mouse_lock) inp->mouse_lock = true;
+			else inp->mouse2_lock = true;
+			menu_i = true;
+		}
+		else if (isWithin(menus[MENU_POWERS], mouse)) {
+			if (inp->pressing[MAIN1] && !inp->mouse_lock) inp->mouse_lock = true;
+			else inp->mouse2_lock = true;
+			inp->mouse_lock = true;
+			menu_p = true;
+		}
+		else if (isWithin(menus[MENU_LOG], mouse)) {
+			if (inp->pressing[MAIN1] && !inp->mouse_lock) inp->mouse_lock = true;
+			else inp->mouse2_lock = true;
+			inp->mouse_lock = true;
+			menu_l = true;		
+		}
+	}
+}
 
 /**
  * Set all hotkeys at once e.g. when loading a game
