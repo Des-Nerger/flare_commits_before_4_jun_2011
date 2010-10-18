@@ -19,10 +19,10 @@ MenuHealthMana::MenuHealthMana(SDL_Surface *_screen, FontEngine *_font) {
 void MenuHealthMana::loadGraphics() {
 
 	background = IMG_Load("images/menus/bar_hp_mp.png");
-	bar_red = IMG_Load("images/menus/bar_red.png");
-	bar_green = IMG_Load("images/menus/bar_green.png");
-	bar_blue = IMG_Load("images/menus/bar_blue.png");
-	if(!background || !bar_red || !bar_green || !bar_blue) {
+	bar_hp = IMG_Load("images/menus/bar_hp.png");
+	bar_mp = IMG_Load("images/menus/bar_mp.png");
+	
+	if(!background || !bar_hp || !bar_mp) {
 		fprintf(stderr, "Couldn't load image: %s\n", IMG_GetError());
 		SDL_Quit();
 	}
@@ -56,25 +56,16 @@ void MenuHealthMana::render(StatBlock *stats, Point mouse) {
 	// draw hp bar
 	src.x = 0;
 	src.y = 0;
-	src.w = 1;
 	src.h = 12;
+	dest.x = 3;
 	dest.y = 3;
-	dest.w = 1;
-	dest.h = 1;
-	for (int i=0; i<hp_bar_length; i++) {
-		dest.x = i + 3;
-		if (hp_bar_length < 50) {
-			SDL_BlitSurface(bar_red, &src, screen, &dest);
-		}
-		else {
-			SDL_BlitSurface(bar_green, &src, screen, &dest);		
-		}
-	}
+	src.w = hp_bar_length;	
+	SDL_BlitSurface(bar_hp, &src, screen, &dest);
+	
+	// draw mp bar
 	dest.y = 18;
-	for (int i=0; i<mp_bar_length; i++) {
-		dest.x = i + 3;
-		SDL_BlitSurface(bar_blue, &src, screen, &dest);		
-	}
+	src.w = mp_bar_length;
+	SDL_BlitSurface(bar_mp, &src, screen, &dest);		
 	
 	// if mouseover, draw text
 	if (mouse.x <= 106 && mouse.y <= 33) {
@@ -91,8 +82,8 @@ void MenuHealthMana::render(StatBlock *stats, Point mouse) {
 
 MenuHealthMana::~MenuHealthMana() {
 	SDL_FreeSurface(background);
-	SDL_FreeSurface(bar_red);
-	SDL_FreeSurface(bar_green);
-	SDL_FreeSurface(bar_blue);
+	SDL_FreeSurface(bar_hp);
+	SDL_FreeSurface(bar_mp);
+	
 }
 

@@ -25,9 +25,8 @@ private:
 	SDL_Surface *screen;
 	FontEngine *font;
 	SDL_Surface *background;
-	SDL_Surface *bar_red;
-	SDL_Surface *bar_green;
-	SDL_Surface *bar_blue;
+	SDL_Surface *bar_hp;
+	SDL_Surface *bar_mp;
 public:
 	MenuHealthMana(SDL_Surface *_screen, FontEngine *_font);
 	~MenuHealthMana();
