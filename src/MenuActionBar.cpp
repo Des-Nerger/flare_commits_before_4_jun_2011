@@ -70,8 +70,7 @@ void MenuActionBar::loadGraphics() {
 	emptyslot = IMG_Load("images/menus/slot_empty.png");
 	background = IMG_Load("images/menus/actionbar_trim.png");
 	labels = IMG_Load("images/menus/actionbar_labels.png");
-	attack = IMG_Load("images/menus/attack.png");
-	if(!emptyslot || !background || !labels || !attack) {
+	if(!emptyslot || !background || !labels) {
 		fprintf(stderr, "Couldn't load image: %s\n", IMG_GetError());
 		SDL_Quit();
 	}
@@ -301,5 +300,4 @@ MenuActionBar::~MenuActionBar() {
 	SDL_FreeSurface(emptyslot);
 	SDL_FreeSurface(background);
 	SDL_FreeSurface(labels);
-	SDL_FreeSurface(attack);
 }
