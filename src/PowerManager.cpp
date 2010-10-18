@@ -554,7 +554,7 @@ bool PowerManager::groundRay(int power_index, StatBlock *src_stats, Point target
 		location_iterator.y += speed.y;
 
 		// only travels until it hits a wall
-		if (!collider->is_empty(location_iterator.x, location_iterator.y)) {
+		if (!collider->is_empty((int)location_iterator.x, (int)location_iterator.y)) {
 			break; // no more hazards
 		}
 
