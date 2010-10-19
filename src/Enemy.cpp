@@ -236,7 +236,6 @@ void Enemy::logic() {
 		pursue_pos.y = stats.last_seen.y;
 	}
 
-	if (stats.cooldown_ticks > 0) stats.cooldown_ticks--;
 
 	
 	// SECTION 2: States

@@ -230,6 +230,8 @@ void StatBlock::recalc() {
  */
 void StatBlock::logic() {
 
+	if (cooldown_ticks > 0) cooldown_ticks--;
+
 	// health regen
 	if (hp_per_minute > 0 && hp < maxhp && hp > 0) {
 		hp_ticker++;

@@ -38,14 +38,10 @@ private:
 	InputState *inp;
 	
 	MapIso *map;
-	int curState;
 	bool lockSwing;
 	bool lockCast;
 	bool lockShoot;
-	int curFrame;
-	int dispFrame;
 	bool animFwd;
-	int cooldown_power;
 	
 	Mix_Chunk *sound_melee;
 	Mix_Chunk *sound_ranged;	

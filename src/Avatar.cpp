@@ -15,14 +15,14 @@ Avatar::Avatar(PowerManager *_powers, InputState *_inp, MapIso *_map) {
 	map = _map;
 	
 	// other init
-	curState = AVATAR_STANCE;
+	stats.cur_state = AVATAR_STANCE;
 	stats.pos.x = map->spawn.x;
 	stats.pos.y = map->spawn.y;
 	stats.direction = map->spawn_dir;
 	current_power = -1;
 		
-	curFrame = 1;
-	dispFrame = 0;
+	stats.cur_frame = 1;
+	stats.disp_frame = 0;
 	lockSwing = false;
 	lockCast = false;
 	lockShoot = false;
@@ -41,7 +41,7 @@ Avatar::Avatar(PowerManager *_powers, InputState *_inp, MapIso *_map) {
 	
 	log_msg = "";
 
-	cooldown_power = 0;
+	stats.cooldown_ticks = 0;
 	
 	haz = NULL;
 
@@ -207,9 +207,6 @@ void Avatar::logic(int actionbar_power) {
 	Point target;
 	int stepfx;
 	stats.logic();
-
-	// handle internal cooldowns
-	if (cooldown_power > 0) cooldown_power--;
 	
 	// check level up
 	if (stats.level < 9 && stats.xp >= stats.xp_table[stats.level]) {
@@ -224,30 +221,35 @@ void Avatar::logic(int actionbar_power) {
 	if (stats.bleed_duration % 30 == 1) {
 		powers->activate(POWER_SPARK_BLOOD, &stats, stats.pos);
 	}
+	// check for bleeding to death
+	if (stats.hp == 0 && !(stats.cur_state == AVATAR_DEAD)) {
+		stats.cur_state = AVATAR_DEAD;
+		stats.cur_frame = 0;
+	}
 	
-	switch(curState) {
+	switch(stats.cur_state) {
 		case AVATAR_STANCE:
 		
 			// handle animation
-		    curFrame++;
-			if (curFrame >= 48) curFrame = 0;
-			if (curFrame >= 24)
-				dispFrame = (47 - curFrame) / 6;
+		    stats.cur_frame++;
+			if (stats.cur_frame >= 48) stats.cur_frame = 0;
+			if (stats.cur_frame >= 24)
+				stats.disp_frame = (47 - stats.cur_frame) / 6;
 			else
-				dispFrame = curFrame / 6;
+				stats.disp_frame = stats.cur_frame / 6;
 			
 			// handle transitions to RUN
 			set_direction();
 			if (pressing_move()) {
 				if (move()) { // no collision
-					curFrame = 1;
-					curState = AVATAR_RUN;
+					stats.cur_frame = 1;
+					stats.cur_state = AVATAR_RUN;
 					break;
 				}
 			}
 			
 			// handle power usage
-			if (actionbar_power != -1 && cooldown_power == 0) {
+			if (actionbar_power != -1 && stats.cooldown_ticks == 0) {
 
 				target = screen_to_map(inp->mouse.x,  inp->mouse.y + powers->powers[actionbar_power].aim_assist, stats.pos.x, stats.pos.y);
 
@@ -272,25 +274,25 @@ void Avatar::logic(int actionbar_power) {
 			
 				// handle melee powers
 				if (powers->powers[current_power].new_state == POWSTATE_SWING) {
-					curFrame = 0;
-					curState = AVATAR_MELEE;
+					stats.cur_frame = 0;
+					stats.cur_state = AVATAR_MELEE;
 					break;
 				}
 				// handle ranged powers
 				if (powers->powers[current_power].new_state == POWSTATE_SHOOT) {
-					curFrame = 0;
-					curState = AVATAR_SHOOT;
+					stats.cur_frame = 0;
+					stats.cur_state = AVATAR_SHOOT;
 					break;
 				}
 				// handle magic powers
 				if (powers->powers[current_power].new_state == POWSTATE_CAST) {
-					curFrame = 0;
-					curState = AVATAR_CAST;
+					stats.cur_frame = 0;
+					stats.cur_state = AVATAR_CAST;
 					break;
 				}
 				if (powers->powers[current_power].new_state == POWSTATE_BLOCK) {
-					curFrame = 0;
-					curState = AVATAR_BLOCK;
+					stats.cur_frame = 0;
+					stats.cur_state = AVATAR_BLOCK;
 					stats.blocking = true;
 					break;
 				}
@@ -301,13 +303,13 @@ void Avatar::logic(int actionbar_power) {
 		case AVATAR_RUN:
 		
 			// handle animation
-			curFrame++;
-			if (curFrame >= 24) curFrame = 0;
-			dispFrame = (curFrame /3) + 4;
+			stats.cur_frame++;
+			if (stats.cur_frame >= 24) stats.cur_frame = 0;
+			stats.disp_frame = (stats.cur_frame /3) + 4;
 			
 			stepfx = rand() % 4;
 			
-			if (curFrame == 4 || curFrame == 16) {
+			if (stats.cur_frame == 4 || stats.cur_frame == 16) {
 				Mix_PlayChannel(-1, sound_steps[stepfx], 0);
 			}
 
@@ -316,16 +318,16 @@ void Avatar::logic(int actionbar_power) {
 
 			// handle transition to STANCE
 			if (!pressing_move()) {
-				curState = AVATAR_STANCE;
+				stats.cur_state = AVATAR_STANCE;
 				break;
 			} 
 			else if (!move()) { // collide with wall
-				curState = AVATAR_STANCE;
+				stats.cur_state = AVATAR_STANCE;
 				break;
 			}
 
 			// handle power usage
-			if (actionbar_power != -1 && cooldown_power == 0) {
+			if (actionbar_power != -1 && stats.cooldown_ticks == 0) {
 
 				target = screen_to_map(inp->mouse.x,  inp->mouse.y + powers->powers[actionbar_power].aim_assist, stats.pos.x, stats.pos.y);
 			
@@ -350,25 +352,25 @@ void Avatar::logic(int actionbar_power) {
 			
 				// handle melee powers
 				if (powers->powers[current_power].new_state == POWSTATE_SWING) {
-					curFrame = 0;
-					curState = AVATAR_MELEE;
+					stats.cur_frame = 0;
+					stats.cur_state = AVATAR_MELEE;
 					break;
 				}
 				// handle ranged powers
 				if (powers->powers[current_power].new_state == POWSTATE_SHOOT) {
-					curFrame = 0;
-					curState = AVATAR_SHOOT;
+					stats.cur_frame = 0;
+					stats.cur_state = AVATAR_SHOOT;
 					break;
 				}
 				// handle magic powers
 				if (powers->powers[current_power].new_state == POWSTATE_CAST) {
-					curFrame = 0;
-					curState = AVATAR_CAST;
+					stats.cur_frame = 0;
+					stats.cur_state = AVATAR_CAST;
 					break;
 				}
 				if (powers->powers[current_power].new_state == POWSTATE_BLOCK) {
-					curFrame = 0;
-					curState = AVATAR_BLOCK;
+					stats.cur_frame = 0;
+					stats.cur_state = AVATAR_BLOCK;
 					stats.blocking = true;
 					break;
 				}				
@@ -379,41 +381,41 @@ void Avatar::logic(int actionbar_power) {
 		case AVATAR_MELEE:
 
 			// handle animation
-			curFrame++;
-			dispFrame = (curFrame / 4) + 12;
+			stats.cur_frame++;
+			stats.disp_frame = (stats.cur_frame / 4) + 12;
 			
-			if (curFrame == 1) {
+			if (stats.cur_frame == 1) {
 				Mix_PlayChannel(-1, sound_melee, 0);
 			}
 			
 			// do power
-			if (curFrame == 8) {
+			if (stats.cur_frame == 8) {
 				act_target = round(calcVector(stats.pos, stats.direction, 48));
 				powers->activate(current_power, &stats, act_target);
 			}
 			
-			if (curFrame == 15) {
-				curFrame = 0;
-				curState = AVATAR_STANCE;
-				cooldown_power = 8;
+			if (stats.cur_frame == 15) {
+				stats.cur_frame = 0;
+				stats.cur_state = AVATAR_STANCE;
+				stats.cooldown_ticks = 8;
 			}
 			break;
 
 		case AVATAR_CAST:
 		
 			// handle animation
-			curFrame++;
-			dispFrame = (curFrame / 4) + 24;
+			stats.cur_frame++;
+			stats.disp_frame = (stats.cur_frame / 4) + 24;
 
 			// do power
-			if (curFrame == 8) {
+			if (stats.cur_frame == 8) {
 				powers->activate(current_power, &stats, act_target);
 			}
 
-			if (curFrame == 15) {
-				curFrame = 0;
-				curState = AVATAR_STANCE;
-				cooldown_power = 8;
+			if (stats.cur_frame == 15) {
+				stats.cur_frame = 0;
+				stats.cur_state = AVATAR_STANCE;
+				stats.cooldown_ticks = 8;
 			}
 			break;
 
@@ -421,59 +423,59 @@ void Avatar::logic(int actionbar_power) {
 		case AVATAR_SHOOT:
 		
 			// handle animation
-			curFrame++;
-			dispFrame = (curFrame / 4) + 28;
+			stats.cur_frame++;
+			stats.disp_frame = (stats.cur_frame / 4) + 28;
 
-			if (curFrame == 1) {
+			if (stats.cur_frame == 1) {
 				Mix_PlayChannel(-1, sound_ranged, 0);
 			}
 
 			// do power
-			if (curFrame == 8) {
+			if (stats.cur_frame == 8) {
 				powers->activate(current_power, &stats, act_target);
 			}
 
-			if (curFrame == 15) {
-				curFrame = 0;
-				curState = AVATAR_STANCE;
-				cooldown_power = 8;
+			if (stats.cur_frame == 15) {
+				stats.cur_frame = 0;
+				stats.cur_state = AVATAR_STANCE;
+				stats.cooldown_ticks = 8;
 			}
 			break;
 
 		case AVATAR_BLOCK:
-			if (curFrame < 4) curFrame++;
-			dispFrame = (curFrame / 4) + 16;
+			if (stats.cur_frame < 4) stats.cur_frame++;
+			stats.disp_frame = (stats.cur_frame / 4) + 16;
 			
 			if (actionbar_power != POWER_BLOCK) {
-				curFrame = 0;
-				curState = AVATAR_STANCE;
-				cooldown_power = 8;
+				stats.cur_frame = 0;
+				stats.cur_state = AVATAR_STANCE;
+				stats.cooldown_ticks = 8;
 				stats.blocking = false;
 			}
 			break;
 			
 		case AVATAR_HIT:
-			curFrame++;
+			stats.cur_frame++;
 			
-			if (curFrame == 1) {
+			if (stats.cur_frame == 1) {
 				Mix_PlayChannel(-1, sound_hit, 0);
 			}
 			
-			if (curFrame < 3) dispFrame = 18;
-			else if (curFrame < 6) dispFrame = 19;
-			else dispFrame = 18;
+			if (stats.cur_frame < 3) stats.disp_frame = 18;
+			else if (stats.cur_frame < 6) stats.disp_frame = 19;
+			else stats.disp_frame = 18;
 			
-			if (curFrame >= 8) {
-				curState = AVATAR_STANCE;
-				curFrame = 0;
+			if (stats.cur_frame >= 8) {
+				stats.cur_state = AVATAR_STANCE;
+				stats.cur_frame = 0;
 			}
 			
 			break;
 		case AVATAR_DEAD:
-			if (curFrame < 17) curFrame++;
-			dispFrame = (curFrame /3) + 18;
+			if (stats.cur_frame < 17) stats.cur_frame++;
+			stats.disp_frame = (stats.cur_frame /3) + 18;
 
-			if (curFrame == 1) {
+			if (stats.cur_frame == 1) {
 				Mix_PlayChannel(-1, sound_die, 0);
 				log_msg = "You are defeated.  Press Enter to continue.";
 			}
@@ -484,8 +486,8 @@ void Avatar::logic(int actionbar_power) {
 				stats.mp = stats.maxmp;
 				stats.alive = true;
 				stats.corpse = false;
-				curFrame = 0;
-				curState = AVATAR_STANCE;
+				stats.cur_frame = 0;
+				stats.cur_state = AVATAR_STANCE;
 				
 				// set teleportation variables.  GameEngine acts on these.
 				map->teleportation = true;
@@ -517,7 +519,7 @@ void Avatar::logic(int actionbar_power) {
  */
 bool Avatar::takeHit(Hazard h) {
 
-	if (curState != AVATAR_DEAD) {
+	if (stats.cur_state != AVATAR_DEAD) {
 	
 		// auto-miss if recently attacked
 		// this is mainly to prevent slow, wide missiles from getting multiple attack attempts
@@ -543,7 +545,7 @@ bool Avatar::takeHit(Hazard h) {
 			if (dmg <= 0) {
 				dmg = 0;
 				Mix_PlayChannel(-1, sound_block, 0);
-				curFrame = 0; // shield stutter
+				stats.cur_frame = 0; // shield stutter
 			}
 			
 		}
@@ -578,14 +580,14 @@ bool Avatar::takeHit(Hazard h) {
 		}
 		
 		if (stats.hp <= 0) {
-			curFrame = 0;
-			dispFrame = 18;
-			curState = AVATAR_DEAD;		
+			stats.cur_frame = 0;
+			stats.disp_frame = 18;
+			stats.cur_state = AVATAR_DEAD;		
 		}
 		else if (prev_hp > stats.hp) { // only interrupt if damage was taken
-			curFrame = 0;
-			dispFrame = 18;
-			curState = AVATAR_HIT;
+			stats.cur_frame = 0;
+			stats.disp_frame = 18;
+			stats.cur_state = AVATAR_HIT;
 		}
 		
 		return true;
@@ -604,7 +606,7 @@ Renderable Avatar::getRender() {
 	r.map_pos.y = stats.pos.y;
 	r.sprite = sprites;
 	r.src = new SDL_Rect();
-	r.src->x = 128 * dispFrame;
+	r.src->x = 128 * stats.disp_frame;
 	r.src->y = 128 * stats.direction;
 	r.src->w = 128;
 	r.src->h = 128;
