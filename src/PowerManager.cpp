@@ -573,7 +573,7 @@ bool PowerManager::groundRay(int power_index, StatBlock *src_stats, Point target
 		else
 			haz[i]->source = SRC_ENEMY;
 		haz[i]->rendered = true;
-		haz[i]->frame_offset.y = 64;
+		haz[i]->frame_offset.y = 48;
 		
 		// specific powers have different stats here
 		if (power_index == POWER_FREEZE) {
