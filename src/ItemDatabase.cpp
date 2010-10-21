@@ -400,6 +400,7 @@ void ItemDatabase::applyEquipment(StatBlock *stats, int equipped[4]) {
 	stats->resist_ice = 0;
 	stats->ammo_stones = false;
 	stats->ammo_arrows = false;
+	stats->ammo_range = 0;
 
 	// main hand weapon
 	int item_id = equipped[SLOT_MAIN];
@@ -425,6 +426,8 @@ void ItemDatabase::applyEquipment(StatBlock *stats, int equipped[4]) {
 				stats->ammo_stones = true;
 			else
 				stats->ammo_arrows = true;
+			stats->ammo_range = 5 + items[item_id].req_val; // range 7-10 for bows 	
+			
 				
 		}
 		else if (items[item_id].req_stat == REQUIRES_DEF) {

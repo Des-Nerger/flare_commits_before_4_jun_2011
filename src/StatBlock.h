@@ -93,6 +93,7 @@ public:
 	int resist_ice;
 	bool ammo_stones;
 	bool ammo_arrows;
+	int ammo_range;
 	
 	// buff and debuff stats
 	int slow_duration;

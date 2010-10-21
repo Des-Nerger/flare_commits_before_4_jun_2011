@@ -387,7 +387,7 @@ bool PowerManager::missile(int power_index, StatBlock *src_stats, Point target) 
 	// specific powers have different stats here
 	int speed;
 	if (power_index == POWER_SHOOT || power_index == POWER_PIERCING) {
-		haz->lifespan = 8;
+		haz->lifespan = src_stats->ammo_range;
 		haz->radius = 96;
 		haz->dmg_min = src_stats->dmg_ranged_min;
 		haz->dmg_max = src_stats->dmg_ranged_max;
@@ -464,7 +464,7 @@ bool PowerManager::missileX3(int power_index, StatBlock *src_stats, Point target
 		
 		// specific powers have different stats here
 		if (power_index == POWER_MULTISHOT) {
-			haz[i]->lifespan = 8;
+			haz[i]->lifespan = src_stats->ammo_range;
 			haz[i]->radius = 96;
 			haz[i]->dmg_min = src_stats->dmg_ranged_min;
 			haz[i]->dmg_max = src_stats->dmg_ranged_max;
