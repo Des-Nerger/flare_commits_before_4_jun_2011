@@ -4,7 +4,7 @@ width=60
 height=80
 tileset=tileset_dungeon.txt
 spawnpoint=28,76,3
-music=dungeon_theme.ogg
+music=unrest_theme.ogg
 
 [layer]
 id=background

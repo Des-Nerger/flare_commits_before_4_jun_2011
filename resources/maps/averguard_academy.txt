@@ -4,7 +4,7 @@ width=70
 height=100
 tileset=tileset_dungeon.txt
 spawnpoint=62,3,7
-music=dungeon_theme.ogg
+music=town_theme.ogg
 
 [layer]
 id=background
