@@ -360,7 +360,8 @@ void MapIso::render(Renderable r[], int rnum) {
 			SDL_BlitSurface(r[ri].sprite, r[ri].src, screen, &dest);
 		} 
 	}
-			
+		
+	int r_cursor = 0;
 
 	// todo: trim by screen rect
 	// object layer
@@ -384,20 +385,21 @@ void MapIso::render(Renderable r[], int rnum) {
 			}
 			
 			// some renderable entities go in this layer
-			// TODO: horribly inefficient.  If the objects were sorted in the same draw order of tiles,
-			//       it wouldn't be necessary to loop through all renderables each tile
-			for (int ri = 0; ri < rnum; ri++) {			
-				if (r[ri].object_layer && r[ri].map_pos.x >> TILE_SHIFT == i && r[ri].map_pos.y >> TILE_SHIFT == j) {
-				
+			while (r_cursor < rnum && r[r_cursor].tile.x == i && r[r_cursor].tile.y == j) {
+				if (r[r_cursor].object_layer) {
 					// draw renderable
-					dest.w = r[ri].src->w;
-					dest.h = r[ri].src->h;
-					dest.x = VIEW_W_HALF + (r[ri].map_pos.x/UNITS_PER_PIXEL_X - xcam.x) - (r[ri].map_pos.y/UNITS_PER_PIXEL_X - xcam.y) - r[ri].offset.x;
-					dest.y = VIEW_H_HALF + (r[ri].map_pos.x/UNITS_PER_PIXEL_Y - ycam.x) + (r[ri].map_pos.y/UNITS_PER_PIXEL_Y - ycam.y) - r[ri].offset.y;
+					dest.w = r[r_cursor].src->w;
+					dest.h = r[r_cursor].src->h;
+					dest.x = VIEW_W_HALF + (r[r_cursor].map_pos.x/UNITS_PER_PIXEL_X - xcam.x) - (r[r_cursor].map_pos.y/UNITS_PER_PIXEL_X - xcam.y) - r[r_cursor].offset.x;
+					dest.y = VIEW_H_HALF + (r[r_cursor].map_pos.x/UNITS_PER_PIXEL_Y - ycam.x) + (r[r_cursor].map_pos.y/UNITS_PER_PIXEL_Y - ycam.y) - r[r_cursor].offset.y;
 
-					SDL_BlitSurface(r[ri].sprite, r[ri].src, screen, &dest);
-				} 
+					SDL_BlitSurface(r[r_cursor].sprite, r[r_cursor].src, screen, &dest);				
+				}
+				
+				r_cursor++;
+
 			}
+			
 		}
 	}
 

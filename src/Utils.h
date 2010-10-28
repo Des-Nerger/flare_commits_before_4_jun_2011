@@ -33,6 +33,7 @@ struct Renderable {
 	SDL_Rect *src;
 	Point offset;
 	bool object_layer;
+	Point tile;
 };
 
 struct Event_Component {
@@ -53,6 +54,7 @@ double calcDist(Point p1, Point p2);
 bool isWithin(Point center, int radius, Point target);
 bool isWithin(SDL_Rect r, Point target);
 void zsort(Renderable r[], int rnum);
+void sort_by_tile(Renderable r[], int rnum);
 void drawPixel(SDL_Surface *screen, int x, int y, Uint32 color);
 
 #endif

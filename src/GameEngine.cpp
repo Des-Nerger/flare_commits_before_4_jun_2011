@@ -185,7 +185,7 @@ void GameEngine::render() {
 		r[renderableCount++].sprite = powers->runes;		
 	}
 		
-	zsort(r,renderableCount);
+	sort_by_tile(r,renderableCount);
 
 	// render the static map layers plus the renderables
 	map->render(r, renderableCount);

@@ -126,6 +126,70 @@ void zsort(Renderable r[], int rnum) {
 }
 
 /**
+ * Sort in the same order as the tiles are drawn
+ * Depends upon the map implementation
+ */
+void sort_by_tile(Renderable r[], int rnum) {
+
+	// For MapIso the sort order is:
+	// tile column first, then tile row.  Within each tile, z-order
+	int zpos[1024];
+	int ztemp;
+	Renderable rtemp;
+	
+	// prep	
+	for (int i=0; i<rnum; i++) {
+		// calculate zpos
+		zpos[i] = r[i].map_pos.x/2 + r[i].map_pos.y/2;
+		// calculate tile
+		r[i].tile.x = r[i].map_pos.x >> TILE_SHIFT;
+		r[i].tile.y = r[i].map_pos.y >> TILE_SHIFT;
+	}
+	
+	// sort
+	for (int i=0; i<rnum; i++) {
+		for (int j=0; j<rnum-1; j++) {
+		
+			// check tile y
+			if (r[j].tile.y > r[j+1].tile.y) {
+				ztemp = zpos[j];
+				zpos[j] = zpos[j+1];
+				zpos[j+1] = ztemp;
+				rtemp = r[j];
+				r[j] = r[j+1];
+				r[j+1] = rtemp;
+			}
+			else if (r[j].tile.y == r[j+1].tile.y) {
+			
+				// check tile x
+				if (r[j].tile.x > r[j+1].tile.x) {
+					ztemp = zpos[j];
+					zpos[j] = zpos[j+1];
+					zpos[j+1] = ztemp;
+					rtemp = r[j];
+					r[j] = r[j+1];
+					r[j+1] = rtemp;
+				}
+				else if (r[j].tile.x == r[j+1].tile.x) {
+				
+					// check zpos
+					if (zpos[j] > zpos[j+1]) {
+						ztemp = zpos[j];
+						zpos[j] = zpos[j+1];
+						zpos[j+1] = ztemp;
+						rtemp = r[j];
+						r[j] = r[j+1];
+						r[j+1] = rtemp;			
+					}
+				}
+			}
+			
+		}	
+	}
+	
+}
+
+/**
  * draw pixel to the screen
  */
 void drawPixel(SDL_Surface *screen, int x, int y, Uint32 color) {

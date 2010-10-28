@@ -184,6 +184,16 @@ void Enemy::logic() {
 		
 	// check distance and line of sight between enemy and hero
 	dist = getDistance(stats.hero_pos);
+	
+	// if the hero is too far away, abandon combat and do nothing
+	if (dist > stats.threat_range+stats.threat_range) {
+		stats.in_combat = false;
+		stats.patrol_ticks = 0;
+		stats.last_seen.x = -1;
+		stats.last_seen.y = -1;
+		return;
+	}
+	
 	if (dist < stats.threat_range)
 		los = map->collider.line_of_sight(stats.pos.x, stats.pos.y, stats.hero_pos.x, stats.hero_pos.y);
 	else
@@ -204,13 +214,7 @@ void Enemy::logic() {
 		}		
 	}
 	
-	// if the hero is too far away, abandon combat
-	if (dist > stats.threat_range+stats.threat_range) {
-		stats.in_combat = false;
-		stats.patrol_ticks = 0;
-		stats.last_seen.x = -1;
-		stats.last_seen.y = -1;
-	}
+
 	
 	// where is the creature heading?
 	// TODO: add fleeing for X ticks
