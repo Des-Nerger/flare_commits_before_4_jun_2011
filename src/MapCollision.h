@@ -36,6 +36,7 @@ public:
 	~MapCollision();
 	void setmap(unsigned short _colmap[256][256]);
 	bool move(int &x, int &y, int step_x, int step_y, int dist);
+	bool outsideMap(int tile_x, int tile_y);
 	bool is_empty(int x, int y);
 	bool is_wall(int x, int y);
 
@@ -43,6 +44,7 @@ public:
 	bool line_of_movement(int x1, int y1, int x2, int y2);
 
 	unsigned short colmap[256][256];
+	Point map_size;
 		
 	int result_x;
 	int result_y;

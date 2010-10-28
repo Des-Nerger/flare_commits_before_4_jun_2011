@@ -273,6 +273,9 @@ int MapIso::load(string filename) {
 	infile.close();
 
 	collider.setmap(collision);
+	collider.map_size.x = w;
+	collider.map_size.y = h;
+	
 	if (this->new_music) {
 		loadMusic();
 		this->new_music = false;

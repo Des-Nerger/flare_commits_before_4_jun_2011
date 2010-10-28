@@ -23,6 +23,8 @@ void MapCollision::setmap(unsigned short _colmap[256][256]) {
 			colmap[i][j] = _colmap[i][j];
 		}
 	}
+	map_size.x = 0;
+	map_size.y = 0;
 }
 
 /**
@@ -53,9 +55,18 @@ bool MapCollision::move(int &x, int &y, int step_x, int step_y, int dist) {
 	return true;
 }
 
+bool MapCollision::outsideMap(int tile_x, int tile_y) {
+	if (tile_x < 0 || tile_y < 0 || tile_x >= map_size.x || tile_y >= map_size.y) return true;
+	return false;
+}
+
 bool MapCollision::is_empty(int x, int y) {
 	int tile_x = x >> TILE_SHIFT; // fast div
 	int tile_y = y >> TILE_SHIFT; // fast div
+	
+	// bounds check
+	if (outsideMap(tile_x, tile_y)) return false;
+
 	if (colmap[tile_x][tile_y] == 0)
 		return true;
 	return false;
@@ -64,6 +75,10 @@ bool MapCollision::is_empty(int x, int y) {
 bool MapCollision::is_wall(int x, int y) {
 	int tile_x = x >> TILE_SHIFT; // fast div
 	int tile_y = y >> TILE_SHIFT; // fast div
+	
+	// bounds check
+	if (outsideMap(tile_x, tile_y)) return true;
+	
 	if (colmap[tile_x][tile_y] == BLOCKS_ALL || colmap[tile_x][tile_y] == BLOCKS_ALL_HIDDEN)
 		return true;
 	return false;
@@ -81,8 +96,7 @@ bool MapCollision::line_check(int x1, int y1, int x2, int y2, int checktype) {
 	float step_x;
 	float step_y;
 	int steps = (int)max(dx, dy);
-	int mapx;
-	int mapy;
+
 
 	if (dx > dy) {
 		step_x = 1;
@@ -101,9 +115,7 @@ bool MapCollision::line_check(int x1, int y1, int x2, int y2, int checktype) {
 		for (int i=0; i<steps; i++) {
 			x += step_x;
 			y += step_y;
-			mapx = round(x) >> TILE_SHIFT;
-			mapy = round(y) >> TILE_SHIFT;
-			if (colmap[mapx][mapy] == BLOCKS_ALL || colmap[mapx][mapy] == BLOCKS_ALL_HIDDEN) {
+			if (is_wall(round(x), round(y))) {
 				result_x = round(x -= step_x);
 				result_y = round(y -= step_y);
 				return false;
@@ -114,12 +126,10 @@ bool MapCollision::line_check(int x1, int y1, int x2, int y2, int checktype) {
 		for (int i=0; i<steps; i++) {
 			x += step_x;
 			y += step_y;
-			mapx = round(x) >> TILE_SHIFT;
-			mapy = round(y) >> TILE_SHIFT;
-			if (colmap[mapx][mapy] == BLOCKS_ALL || colmap[mapx][mapy] == BLOCKS_ALL_HIDDEN || colmap[mapx][mapy] == BLOCKS_MOVEMENT) {
+			if (!is_empty(round(x), round(y))) {
 				result_x = round(x -= step_x);
 				result_y = round(y -= step_y);
-				return false;		
+				return false;
 			}
 		}
 	}

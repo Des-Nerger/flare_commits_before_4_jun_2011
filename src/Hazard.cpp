@@ -41,6 +41,7 @@ Hazard::Hazard() {
 	trait_ice = false;
 	trait_air = false;
 	trait_earth = false;
+	remove_now = false;
 }
 
 void Hazard::setCollision(MapCollision *_collider) {
@@ -69,6 +70,9 @@ void Hazard::logic() {
 		// or even pass through thin walls if speed > tilesize
 		if (collider->is_wall(round(pos.x), round(pos.y))) {
 			lifespan = 0;
+			
+			if (collider->outsideMap(round(pos.x) >> TILE_SHIFT, round(pos.y) >> TILE_SHIFT))
+				remove_now = true;
 		}
 	}
 

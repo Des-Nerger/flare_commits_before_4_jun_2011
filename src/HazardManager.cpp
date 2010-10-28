@@ -17,18 +17,22 @@ HazardManager::HazardManager(PowerManager *_powers, Avatar *_hero, EnemyManager 
 }
 
 void HazardManager::logic() {
-	// remove all hazards with lifespan 0
-	for (int i=0; i<hazard_count; i++) {
-		if (h[i]->lifespan == 0) {
+
+	// remove all hazards with lifespan 0.  Most hazards still display their last frame.
+	for (int i=hazard_count-1; i>=0; i--) {
+		if (h[i]->lifespan == 0)
 			expire(i);
-		}
 	}
 	
 	checkNewHazards();
 	
 	// handle single-frame transforms
-	for (int i=0; i<hazard_count; i++) {
+	for (int i=hazard_count-1; i>=0; i--) {
 		h[i]->logic();
+		
+		// remove all hazards that need to die immediately (e.g. exit the map)
+		if (h[i]->remove_now)
+			expire(i);
 	}
 	
 	bool hit;

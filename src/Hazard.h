@@ -65,6 +65,8 @@ public:
 	bool multitarget;
 	bool active;
 	
+	bool remove_now;
+	
 	// after effects of various powers
 	int stun_duration;
 	int immobilize_duration;
