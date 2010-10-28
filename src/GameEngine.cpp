@@ -202,6 +202,12 @@ void GameEngine::render() {
 
 }
 
+void GameEngine::showFPS(int fps) {
+	stringstream ss;
+	ss << fps << "fps";
+	font->render(ss.str(), VIEW_W >> 1, 2, JUSTIFY_CENTER, screen, FONT_GRAY); 
+}
+
 GameEngine::~GameEngine() {
 	delete(hazards);
 	delete(enemies);

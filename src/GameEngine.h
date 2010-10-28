@@ -52,6 +52,7 @@ public:
 	
 	void logic();
 	void render();
+	void showFPS(int fps);
 };
 
 #endif
