@@ -191,7 +191,6 @@ void Enemy::logic() {
 		stats.patrol_ticks = 0;
 		stats.last_seen.x = -1;
 		stats.last_seen.y = -1;
-		return;
 	}
 	
 	if (dist < stats.threat_range)
