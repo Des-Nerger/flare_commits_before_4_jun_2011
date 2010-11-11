@@ -387,7 +387,7 @@ bool PowerManager::missile(int power_index, StatBlock *src_stats, Point target) 
 	// specific powers have different stats here
 	int speed;
 	if (power_index == POWER_SHOOT || power_index == POWER_PIERCING) {
-		haz->lifespan = src_stats->ammo_range;
+		haz->lifespan = 16;
 		haz->radius = 96;
 		haz->dmg_min = src_stats->dmg_ranged_min;
 		haz->dmg_max = src_stats->dmg_ranged_max;
@@ -409,7 +409,7 @@ bool PowerManager::missile(int power_index, StatBlock *src_stats, Point target) 
 	}
 	else if (power_index == POWER_SHOCK) {
 		haz->direction = calcDirection(src_stats->pos.x, src_stats->pos.y, target.x, target.y);\
-		haz->lifespan = 10;
+		haz->lifespan = 24;
 		haz->radius = 96;
 		haz->dmg_min = src_stats->dmg_magic_min;
 		haz->dmg_max = src_stats->dmg_magic_max;
@@ -464,7 +464,7 @@ bool PowerManager::missileX3(int power_index, StatBlock *src_stats, Point target
 		
 		// specific powers have different stats here
 		if (power_index == POWER_MULTISHOT) {
-			haz[i]->lifespan = src_stats->ammo_range;
+			haz[i]->lifespan = 16;
 			haz[i]->radius = 96;
 			haz[i]->dmg_min = src_stats->dmg_ranged_min;
 			haz[i]->dmg_max = src_stats->dmg_ranged_max;
@@ -527,7 +527,7 @@ bool PowerManager::groundRay(int power_index, StatBlock *src_stats, Point target
 
 	src_stats->mp--;
 
-	Hazard *haz[6];
+	Hazard *haz[10];
 	FPoint location_iterator;
 	FPoint speed;
 	int delay_iterator;
@@ -548,7 +548,7 @@ bool PowerManager::groundRay(int power_index, StatBlock *src_stats, Point target
 	location_iterator.y = (float)src_stats->pos.y;
 	delay_iterator = 0;
 
-	for (int i=0; i<6; i++) {
+	for (int i=0; i<10; i++) {
 
 		location_iterator.x += speed.x;
 		location_iterator.y += speed.y;
@@ -599,9 +599,6 @@ bool PowerManager::groundRay(int power_index, StatBlock *src_stats, Point target
 	// Hazard memory is now the responsibility of HazardManager
 	return true;
 }
-
-
-
 
 
 /**
