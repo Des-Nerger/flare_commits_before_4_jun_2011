@@ -54,7 +54,7 @@ PowerManager::PowerManager() {
 	powers[POWER_SHOCK].name = "Shock";
 	powers[POWER_SHOCK].type = POWTYPE_MISSILE;
 	powers[POWER_SHOCK].icon = 6;
-	powers[POWER_SHOCK].description = "Channel a bolt of magic through your enchanted weapon";
+	powers[POWER_SHOCK].description = "Channel a bolt of magic through your enchanted weapon.  Does not require mana.";
 	powers[POWER_SHOCK].new_state = POWSTATE_CAST;
 	powers[POWER_SHOCK].face = true;
 	powers[POWER_SHOCK].requires_mana = false;
