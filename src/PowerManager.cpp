@@ -57,7 +57,7 @@ PowerManager::PowerManager() {
 	powers[POWER_SHOCK].description = "Channel a bolt of magic through your enchanted weapon";
 	powers[POWER_SHOCK].new_state = POWSTATE_CAST;
 	powers[POWER_SHOCK].face = true;
-	powers[POWER_SHOCK].requires_mana = true;
+	powers[POWER_SHOCK].requires_mana = false;
 	powers[POWER_SHOCK].aim_assist = 32;	
 
 	powers[POWER_HEAL].name = "Heal";
@@ -417,7 +417,7 @@ bool PowerManager::missile(int power_index, StatBlock *src_stats, Point target) 
 		haz->frame_duration = 1;
 		haz->sprites = lightning;
 		haz->trait_air = true;
-		src_stats->mp--;
+		//src_stats->mp--;
 		speed = 32;
 		Mix_PlayChannel(-1,sfx_shock,0);
 	}
