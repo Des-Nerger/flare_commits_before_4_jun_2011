@@ -54,15 +54,18 @@ StatBlock::StatBlock() {
 	
 	// xp table
 	// what experience do you need to reach the next level
+	// formula:
+	// scale 20-50-100-200-500-1000-2000-5000
+	// multiplied by current level
 	xp_table[0] = 0;
 	xp_table[1] = 20;
-	xp_table[2] = 120;
-	xp_table[3] = 420;
-	xp_table[4] = 1220;
-	xp_table[5] = 3720;
-	xp_table[6] = 9720;
-	xp_table[7] = 23720;
-	xp_table[8] = 63720;
+	xp_table[2] = 100;
+	xp_table[3] = 300;
+	xp_table[4] = 800;
+	xp_table[5] = 2500;
+	xp_table[6] = 6000;
+	xp_table[7] = 14000;
+	xp_table[8] = 40000;
 	xp_table[9] = -1;
 
 	teleportation=false;
