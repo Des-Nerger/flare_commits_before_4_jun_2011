@@ -55,7 +55,7 @@ void GameEngine::saveGame() {
 		}
 		
 		// spawn point
-		outfile << "spawn=" << map->respawn_map << "," << map->respawn_point.x << "," << map->respawn_point.y << "\n";
+		outfile << "spawn=" << map->respawn_map << "," << map->respawn_point.x/UNITS_PER_TILE << "," << map->respawn_point.y/UNITS_PER_TILE << "\n";
 		
 		// action bar
 		outfile << "actionbar=";
@@ -135,8 +135,8 @@ void GameEngine::loadGame() {
 					else if (key == "spawn") {
 						val = val + ",";
 						map->teleport_mapname = eatFirstString(val, ',');
-						map->teleport_destination.x = eatFirstInt(val, ',');
-						map->teleport_destination.y = eatFirstInt(val, ',');
+						map->teleport_destination.x = eatFirstInt(val, ',') * UNITS_PER_TILE + UNITS_PER_TILE/2;
+						map->teleport_destination.y = eatFirstInt(val, ',') * UNITS_PER_TILE + UNITS_PER_TILE/2;
 						map->teleportation = true;
 						
 						// prevent spawn.txt from putting us on the starting map

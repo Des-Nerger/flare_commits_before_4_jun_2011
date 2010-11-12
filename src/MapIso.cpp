@@ -416,8 +416,8 @@ void MapIso::checkEvents(Point loc) {
 	for (int i=0; i<event_count; i++) {
 		if (maploc.x >= events[i].location.x &&
 		    maploc.y >= events[i].location.y &&
-		    maploc.x <= events[i].location.x + events[i].location.w &&
-			maploc.y <= events[i].location.y + events[i].location.h) {
+		    maploc.x <= events[i].location.x + events[i].location.w-1 &&
+			maploc.y <= events[i].location.y + events[i].location.h-1) {
 			executeEvent(i);
 		}
 	}
