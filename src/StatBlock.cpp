@@ -303,7 +303,7 @@ Renderable StatBlock::getEffectRender(int effect_type) {
 		r.offset.y = 96; 
 		r.object_layer = true;
 	}
-	else if (effect_type = STAT_EFFECT_VENGEANCE) {
+	else if (effect_type == STAT_EFFECT_VENGEANCE) {
 		r.src->x = (vengeance_frame/6) * 64;
 		r.src->y = 128;
 		r.src->w = 64;
