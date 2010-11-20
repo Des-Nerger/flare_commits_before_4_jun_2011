@@ -57,6 +57,7 @@ StatBlock::StatBlock() {
 	// formula:
 	// scale 20-50-100-200-500-1000-2000-5000
 	// multiplied by current level
+	
 	xp_table[0] = 0;
 	xp_table[1] = 20;
 	xp_table[2] = 100;

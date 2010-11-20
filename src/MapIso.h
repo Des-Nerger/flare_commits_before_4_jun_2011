@@ -65,6 +65,7 @@ public:
 	void clear_enemy(Map_Enemy e);
 	int load(string filename);
 	void loadMusic();
+	void logic();
 	void render(Renderable r[], int rnum);
 	void checkEvents(Point loc);
 	void clearEvents();
@@ -104,6 +105,9 @@ public:
 	
 	// message handling
 	string log_msg;
+	
+	// shaky cam
+	int shaky_cam_ticks;
 	
 };
 

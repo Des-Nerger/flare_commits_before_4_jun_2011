@@ -410,6 +410,11 @@ void Avatar::logic(int actionbar_power) {
 			// do power
 			if (stats.cur_frame == 8) {
 				powers->activate(current_power, &stats, act_target);
+				
+				// TEMP
+				if (current_power == POWER_QUAKE) {
+					map->shaky_cam_ticks = 8;
+				}
 			}
 
 			if (stats.cur_frame == 15) {

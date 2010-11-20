@@ -27,6 +27,7 @@ MapIso::MapIso(SDL_Surface *_screen) {
 	sfx = NULL;
 	sfx_filename = "";
 	log_msg = "";
+	shaky_cam_ticks = 0;
 	
 	// spawn is a special map that defines where the campaign begins
 	load("spawn.txt");
@@ -302,6 +303,10 @@ void MapIso::loadMusic() {
 	
 }
 
+void MapIso::logic() {
+	if (shaky_cam_ticks > 0) shaky_cam_ticks--;
+}
+
 void MapIso::render(Renderable r[], int rnum) {
 
 	// r will become a list of renderables.  Everything not on the map already:
@@ -321,11 +326,19 @@ void MapIso::render(Renderable r[], int rnum) {
 	
 	Point xcam;
 	Point ycam;
-	xcam.x = cam.x/UNITS_PER_PIXEL_X;
-	xcam.y = cam.y/UNITS_PER_PIXEL_X;
-	ycam.x = cam.x/UNITS_PER_PIXEL_Y;
-	ycam.y = cam.y/UNITS_PER_PIXEL_Y;
 	
+	if (shaky_cam_ticks == 0) {
+		xcam.x = cam.x/UNITS_PER_PIXEL_X;
+		xcam.y = cam.y/UNITS_PER_PIXEL_X;
+		ycam.x = cam.x/UNITS_PER_PIXEL_Y;
+		ycam.y = cam.y/UNITS_PER_PIXEL_Y;
+	}
+	else {
+		xcam.x = (cam.x + rand() % 8 - 4) /UNITS_PER_PIXEL_X;
+		xcam.y = (cam.y + rand() % 8 - 4) /UNITS_PER_PIXEL_X;
+		ycam.x = (cam.x + rand() % 8 - 4) /UNITS_PER_PIXEL_Y;
+		ycam.y = (cam.y + rand() % 8 - 4) /UNITS_PER_PIXEL_Y;
+	}
 	
 	// todo: trim by screen rect
 	// background

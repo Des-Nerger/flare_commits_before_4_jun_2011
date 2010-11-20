@@ -149,6 +149,8 @@ void GameEngine::logic() {
 		menu->inv->changed_equipment = false;
 	}
 	
+	map->logic();
+	
 }
 
 /**
