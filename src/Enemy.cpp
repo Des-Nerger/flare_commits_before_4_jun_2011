@@ -170,6 +170,12 @@ void Enemy::logic() {
 	if (stats.bleed_duration % 30 == 1) {
 		powers->activate(POWER_SPARK_BLOOD, &stats, stats.pos);
 	}
+	// check for teleport powers
+	if (stats.teleportation) {
+		stats.pos.x = stats.teleport_destination.x;
+		stats.pos.y = stats.teleport_destination.y;	
+		stats.teleportation = false;	
+	}
 	
 	int dist;
 	int prev_direction;
@@ -269,21 +275,39 @@ void Enemy::logic() {
 		
 				// performed ranged actions
 				if (dist > stats.melee_range) {
+
+					// CHECK: ranged physical!
+					if (!powers->powers[stats.power_ranged_phys].requires_los || los) {
+						if ((rand() % 100) < stats.chance_ranged_phys) {
+							newState(ENEMY_RANGED_PHYS);
+							break;
+						}
+					}
+					// CHECK: ranged spell!
+					if (!powers->powers[stats.power_ranged_mag].requires_los || los) {					
+						if ((rand() % 100) < stats.chance_ranged_mag) {
+							newState(ENEMY_RANGED_MAG);
+							break;
+						}
+					}
 				
 					// CHECK: flee!
 					
 					// CHECK: pursue!
-					if (move()) { // no collision
-						newState(ENEMY_MOVE);
-					}
-					else {
-						// hit an obstacle, try the next best angle
-						prev_direction = stats.direction;
-						stats.direction = faceNextBest(pursue_pos.x, pursue_pos.y);
-						if (move()) {
+					if ((rand() % 100) < stats.chance_pursue) {
+						if (move()) { // no collision
 							newState(ENEMY_MOVE);
 						}
-						else stats.direction = prev_direction;
+						else {
+							// hit an obstacle, try the next best angle
+							prev_direction = stats.direction;
+							stats.direction = faceNextBest(pursue_pos.x, pursue_pos.y);
+							if (move()) {
+								newState(ENEMY_MOVE);
+								break;
+							}
+							else stats.direction = prev_direction;
+						}
 					}
 					
 				}
@@ -291,11 +315,18 @@ void Enemy::logic() {
 				else if (dist <= stats.melee_range && stats.cooldown_ticks == 0) {
 				
 					// CHECK: melee attack!
-					if ((rand() % 100) < stats.chance_melee_phys) {
-						newState(ENEMY_MELEE_PHYS);
+					if (!powers->powers[stats.power_melee_phys].requires_los || los) {
+						if ((rand() % 100) < stats.chance_melee_phys) {
+							newState(ENEMY_MELEE_PHYS);
+							break;
+						}
 					}
-					else if ((rand() % 100) < stats.chance_melee_mag) {
-						newState(ENEMY_MELEE_MAG);
+					// CHECK: melee magic!
+					if (!powers->powers[stats.power_melee_mag].requires_los || los) {
+						if ((rand() % 100) < stats.chance_melee_mag) {
+							newState(ENEMY_MELEE_MAG);
+							break;
+						}
 					}
 				}
 			}
@@ -320,6 +351,21 @@ void Enemy::logic() {
 				}
 				
 				if (dist > stats.melee_range) {
+				
+					// CHECK: ranged physical!
+					if (!powers->powers[stats.power_ranged_phys].requires_los || los) {
+						if ((rand() % 100) < stats.chance_ranged_phys) {
+							newState(ENEMY_RANGED_PHYS);
+							break;
+						}
+					}
+					// CHECK: ranged spell!
+					if (!powers->powers[stats.power_ranged_mag].requires_los || los) {
+						if ((rand() % 100) < stats.chance_ranged_mag) {
+							newState(ENEMY_RANGED_MAG);
+							break;
+						}
+					}
 				
 					if (!move()) {
 						// hit an obstacle.  Try the next best angle
@@ -355,15 +401,7 @@ void Enemy::logic() {
 
 			// the attack hazard is alive for a single frame
 			if (stats.cur_frame == max_frame/2 && haz == NULL) {
-				haz = new Hazard();
-				haz->setCollision(&(map->collider));
-				haz->pos = calcVector(stats.pos, stats.direction, (UNITS_PER_TILE*3)/4 );
-				haz->radius = UNITS_PER_TILE;
-				haz->source = SRC_ENEMY;
-				haz->lifespan = 1;
-				haz->dmg_min = stats.dmg_melee_min;
-				haz->dmg_max = stats.dmg_melee_max;
-				haz->accuracy = stats.accuracy;
+				powers->activate(stats.power_melee_phys, &stats, stats.hero_pos);
 			}
 
 			if (stats.cur_frame == max_frame-1) {
@@ -371,6 +409,30 @@ void Enemy::logic() {
 				stats.cooldown_ticks = stats.cooldown;
 			}
 			break;
+
+		case ENEMY_RANGED_PHYS:
+	
+			// handle animation
+			stats.cur_frame++;
+			max_frame = stats.anim_ranged_frames * stats.anim_ranged_duration;
+			stats.disp_frame = (stats.cur_frame / stats.anim_ranged_duration) + stats.anim_ranged_position;
+
+			if (stats.cur_frame == 1) {
+				// TODO: update
+				sfx_mag_melee = true;
+			}
+			
+			// the attack hazard is alive for a single frame
+			if (stats.cur_frame == max_frame/2 && haz == NULL) {
+				powers->activate(stats.power_ranged_phys, &stats, stats.hero_pos);
+			}
+			
+			if (stats.cur_frame == max_frame-1) {
+				newState(ENEMY_STANCE);
+				stats.cooldown_ticks = stats.cooldown;
+			}
+			break;
+
 		
 		case ENEMY_MELEE_MAG:
 	
@@ -386,18 +448,30 @@ void Enemy::logic() {
 			
 			// the attack hazard is alive for a single frame
 			if (stats.cur_frame == max_frame/2 && haz == NULL) {
-				haz = new Hazard();
-				haz->setCollision(&(map->collider));
-				haz->pos = calcVector(stats.pos, stats.direction, (UNITS_PER_TILE*3)/4 );
-				haz->radius = UNITS_PER_TILE;
-				haz->source = SRC_ENEMY;
-				haz->lifespan = 1;
-				haz->dmg_min = stats.dmg_magic_min;
-				haz->dmg_max = stats.dmg_magic_max;
-				haz->accuracy = stats.accuracy;
-				
-				// TODO: temp
-				haz->bleed_duration = 150;
+				powers->activate(stats.power_melee_mag, &stats, stats.hero_pos);
+			}
+			
+			if (stats.cur_frame == max_frame-1) {
+				newState(ENEMY_STANCE);
+				stats.cooldown_ticks = stats.cooldown;
+			}
+			break;
+
+		case ENEMY_RANGED_MAG:
+	
+			// handle animation
+			stats.cur_frame++;
+			max_frame = stats.anim_magic_frames * stats.anim_magic_duration;
+			stats.disp_frame = (stats.cur_frame / stats.anim_magic_duration) + stats.anim_magic_position;
+
+			if (stats.cur_frame == 1) {
+				// TODO: update
+				sfx_mag_melee = true;
+			}
+			
+			// the attack hazard is alive for a single frame
+			if (stats.cur_frame == max_frame/2 && haz == NULL) {
+				powers->activate(stats.power_ranged_mag, &stats, stats.hero_pos);
 			}
 			
 			if (stats.cur_frame == max_frame-1) {
@@ -497,7 +571,10 @@ bool Enemy::takeHit(Hazard h) {
 
 		// check for crits
 		bool crit = (rand() % 100) < h.crit_chance;
-		if (crit) dmg = dmg * 2;
+		if (crit) {
+			dmg = dmg * 2;
+			map->shaky_cam_ticks = 8;
+		}
 		
 		// apply damage
 		stats.takeDamage(dmg);

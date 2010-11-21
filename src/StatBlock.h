@@ -112,10 +112,17 @@ public:
 	int direction;
 		
 	// enemy behavioral stats
+	int chance_pursue;
+	int chance_flee;
+	
 	int chance_melee_phys;
 	int chance_melee_mag;
 	int chance_ranged_phys;
 	int chance_ranged_mag;
+	int power_melee_phys;
+	int power_melee_mag;
+	int power_ranged_phys;
+	int power_ranged_mag;
 	
 	int melee_range;
 	int threat_range;

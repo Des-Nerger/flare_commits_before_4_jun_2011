@@ -207,6 +207,7 @@ void Avatar::logic(int actionbar_power) {
 	Point target;
 	int stepfx;
 	stats.logic();
+	if (stats.stun_duration > 0) return;
 	
 	// check level up
 	if (stats.level < 9 && stats.xp >= stats.xp_table[stats.level]) {
@@ -390,7 +391,6 @@ void Avatar::logic(int actionbar_power) {
 			
 			// do power
 			if (stats.cur_frame == 8) {
-				act_target = round(calcVector(stats.pos, stats.direction, 48));
 				powers->activate(current_power, &stats, act_target);
 			}
 			
@@ -462,9 +462,6 @@ void Avatar::logic(int actionbar_power) {
 		case AVATAR_HIT:
 			stats.cur_frame++;
 			
-			if (stats.cur_frame == 1) {
-				Mix_PlayChannel(-1, sound_hit, 0);
-			}
 			
 			if (stats.cur_frame < 3) stats.disp_frame = 18;
 			else if (stats.cur_frame < 6) stats.disp_frame = 19;
@@ -580,16 +577,13 @@ bool Avatar::takeHit(Hazard h) {
 		}
 		
 		
-		if (stats.immunity_duration == 0) {
-			// TODO: apply negative hazard after-effects 
-		}
-		
 		if (stats.hp <= 0) {
 			stats.cur_frame = 0;
 			stats.disp_frame = 18;
 			stats.cur_state = AVATAR_DEAD;		
 		}
 		else if (prev_hp > stats.hp) { // only interrupt if damage was taken
+			Mix_PlayChannel(-1, sound_hit, 0);
 			stats.cur_frame = 0;
 			stats.disp_frame = 18;
 			stats.cur_state = AVATAR_HIT;

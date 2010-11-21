@@ -13,10 +13,14 @@ dspeed=5
 melee_range=72
 threat_range=640
 dir_favor=6
+chance_pursue=25
 chance_melee_phys=20
 chance_melee_mag=15
 chance_ranged_phys=0
 chance_ranged_mag=0
+power_melee_phys=1
+power_melee_mag=4
+
 accuracy=125
 avoidance=40
 

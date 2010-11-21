@@ -70,6 +70,10 @@ StatBlock::StatBlock() {
 	xp_table[9] = -1;
 
 	teleportation=false;
+	
+	power_melee_phys = power_melee_mag = power_ranged_phys = power_ranged_mag = 0;
+	chance_melee_phys = chance_melee_mag = chance_ranged_phys = chance_ranged_mag = 0;
+	melee_range = 64;
 
 }
 
@@ -136,10 +140,17 @@ void StatBlock::load(string filename) {
 					else if (key == "speed") speed = num;
 					else if (key == "dspeed") dspeed = num;
 					else if (key == "dir_favor") dir_favor = num;
+					else if (key == "chance_pursue") chance_pursue = num;
+					else if (key == "chance_flee") chance_flee = num;
+
 					else if (key == "chance_melee_phys") chance_melee_phys = num;
 					else if (key == "chance_melee_mag") chance_melee_mag = num;
 					else if (key == "chance_ranged_phys") chance_ranged_phys = num;
 					else if (key == "chance_ranged_mag") chance_ranged_mag = num;
+					else if (key == "power_melee_phys") power_melee_phys = num;
+					else if (key == "power_melee_mag") power_melee_mag = num;
+					else if (key == "power_ranged_phys") power_ranged_phys = num;
+					else if (key == "power_ranged_mag") power_ranged_mag = num;
 					
 					else if (key == "melee_range") melee_range = num;
 					else if (key == "threat_range") threat_range = num;

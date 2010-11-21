@@ -1,5 +1,5 @@
 name=Minotaur
-level=7
+level=8
 
 sfx_prefix=minotaur
 gfx_prefix=minotaur
@@ -7,23 +7,29 @@ gfx_prefix=minotaur
 loot_chance=40
 
 # combat stats
-hp=32
+hp=50
 speed=7
 dspeed=5
 melee_range=76
 threat_range=512
 dir_favor=7
-chance_melee_phys=25
-chance_melee_mag=0
+chance_pursue=90
+chance_melee_phys=10
+chance_melee_mag=3
 chance_ranged_phys=0
 chance_ranged_mag=0
+power_melee_phys=1
+power_melee_mag=10
+
 accuracy=90
 avoidance=40
 
-dmg_melee_min=3
-dmg_melee_max=9
+dmg_melee_min=8
+dmg_melee_max=14
+dmg_magic_min=1
+dmg_magic_max=4
 absorb_min=0
-absorb_max=2
+absorb_max=0
 cooldown=20
 
 # animation info

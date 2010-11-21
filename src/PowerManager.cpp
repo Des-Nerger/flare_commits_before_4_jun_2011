@@ -621,11 +621,13 @@ bool PowerManager::single(int power_index, StatBlock *src_stats, Point target) {
 
 	// specific powers have different stats here
 	if (power_index == POWER_SWING) {
+		haz->pos = calcVector(src_stats->pos, src_stats->direction, src_stats->melee_range);
 		haz->dmg_min = src_stats->dmg_melee_min;
 		haz->dmg_max = src_stats->dmg_melee_max;
 		haz->radius = 64;
 	}
 	if (power_index == POWER_BLOOD) {
+		haz->pos = calcVector(src_stats->pos, src_stats->direction, src_stats->melee_range);
 		haz->dmg_min = src_stats->dmg_melee_min;
 		haz->dmg_max = src_stats->dmg_melee_max;
 		haz->bleed_duration = 90;
@@ -633,6 +635,7 @@ bool PowerManager::single(int power_index, StatBlock *src_stats, Point target) {
 		src_stats->mp--;
 	}
 	if (power_index == POWER_VENGEANCE) {
+		haz->pos = calcVector(src_stats->pos, src_stats->direction, src_stats->melee_range);
 		haz->dmg_min = src_stats->dmg_melee_min;
 		haz->dmg_max = src_stats->dmg_melee_max;
 		haz->radius = 64;
@@ -644,6 +647,7 @@ bool PowerManager::single(int power_index, StatBlock *src_stats, Point target) {
 		src_stats->vengeance_stacks = 0;
 	}
 	else if (power_index == POWER_CLEAVE) {
+		haz->pos = calcVector(src_stats->pos, src_stats->direction, src_stats->melee_range);
 		haz->dmg_min = src_stats->dmg_melee_min;
 		haz->dmg_max = src_stats->dmg_melee_max;
 		haz->radius = 128;
