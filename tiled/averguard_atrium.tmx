@@ -198,4 +198,27 @@
 0,0,0,0,0,0,0,15,15,15,15,0,0,0,0,0,0,0,0,0
 </data>
  </layer>
+ <objectgroup name="events" width="20" height="60">
+  <object name="" x="32" y="1632" width="32" height="64">
+   <properties>
+    <property name="intermap" value="averguard_complex.txt,98,70"/>
+    <property name="type" value="teleport"/>
+   </properties>
+  </object>
+  <object name="" x="512" y="1632" width="32" height="64">
+   <properties>
+    <property name="intermap" value="averguard_prison.txt,2,55"/>
+   </properties>
+  </object>
+  <object name="" x="256" y="1856" width="64" height="32">
+   <properties>
+    <property name="intermap" value="averguard_academy.txt,62,3"/>
+   </properties>
+  </object>
+  <object name="" x="576" y="320" width="32" height="64">
+   <properties>
+    <property name="intermap" value="goblin_warrents.txt,2,9"/>
+   </properties>
+  </object>
+ </objectgroup>
 </map>
