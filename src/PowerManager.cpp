@@ -548,13 +548,17 @@ bool PowerManager::groundRay(int power_index, StatBlock *src_stats, Point target
 	location_iterator.y = (float)src_stats->pos.y;
 	delay_iterator = 0;
 
+	if (power_index == POWER_FREEZE) {
+		Mix_PlayChannel(-1, sfx_freeze, 0);
+	}
+
 	for (int i=0; i<10; i++) {
 
 		location_iterator.x += speed.x;
 		location_iterator.y += speed.y;
 
 		// only travels until it hits a wall
-		if (!collider->is_empty((int)location_iterator.x, (int)location_iterator.y)) {
+		if (collider->is_wall((int)location_iterator.x, (int)location_iterator.y)) {
 			break; // no more hazards
 		}
 
@@ -590,7 +594,6 @@ bool PowerManager::groundRay(int power_index, StatBlock *src_stats, Point target
 			haz[i]->complete_animation = true;
 			haz[i]->slow_duration = 90;
 			haz[i]->trait_ice = true;
-			Mix_PlayChannel(-1, sfx_freeze, 0);
 		}
 		
 		hazards.push(haz[i]);
