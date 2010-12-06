@@ -40,7 +40,7 @@ PowerManager::PowerManager() {
 	powers[POWER_BLOOD].name = "Blood Strike";
 	powers[POWER_BLOOD].type = POWTYPE_SINGLE;
 	powers[POWER_BLOOD].icon = 4;
-	powers[POWER_BLOOD].description = "Inflict a bleeding wound that causes additional damage over 3 seconds";
+	powers[POWER_BLOOD].description = "Inflict a bleeding wound that causes additional damage over 5 seconds";
 	powers[POWER_BLOOD].new_state = POWSTATE_SWING;
 	powers[POWER_BLOOD].face = true;
 	powers[POWER_BLOOD].requires_mana = true;
@@ -633,7 +633,7 @@ bool PowerManager::single(int power_index, StatBlock *src_stats, Point target) {
 		haz->pos = calcVector(src_stats->pos, src_stats->direction, src_stats->melee_range);
 		haz->dmg_min = src_stats->dmg_melee_min;
 		haz->dmg_max = src_stats->dmg_melee_max;
-		haz->bleed_duration = 90;
+		haz->bleed_duration = 150;
 		haz->radius = 64;
 		src_stats->mp--;
 	}
