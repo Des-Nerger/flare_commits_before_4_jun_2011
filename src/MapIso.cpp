@@ -299,6 +299,7 @@ void MapIso::loadMusic() {
 	  SDL_Quit();
 	}
 
+	Mix_VolumeMusic(MUSIC_VOLUME);
 	Mix_PlayMusic(music, -1);
 	
 }
