@@ -167,7 +167,7 @@ void GameEngine::render() {
 		r[renderableCount++] = enemies->getRender(i);
 		if (enemies->enemies[i]->stats.shield_hp > 0) {
 			r[renderableCount] = enemies->enemies[i]->stats.getEffectRender(STAT_EFFECT_SHIELD);
-			r[renderableCount++].sprite = powers->shield;
+			r[renderableCount++].sprite = powers->gfx[powers->powers[POWER_SHIELD].gfx_index]; // TODO: parameter
 		}
 	}
 	
@@ -184,7 +184,7 @@ void GameEngine::render() {
 	// get additional hero overlays
 	if (pc->stats.shield_hp > 0) {
 		r[renderableCount] = pc->stats.getEffectRender(STAT_EFFECT_SHIELD);
-		r[renderableCount++].sprite = powers->shield;
+		r[renderableCount++].sprite = powers->gfx[powers->powers[POWER_SHIELD].gfx_index]; // TODO: parameter
 	}
 	if (pc->stats.vengeance_stacks > 0) {
 		r[renderableCount] = pc->stats.getEffectRender(STAT_EFFECT_VENGEANCE);

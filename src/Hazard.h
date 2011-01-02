@@ -74,14 +74,7 @@ public:
 	int bleed_duration;
 	
 	bool trait_armor_penetration;
-	bool trait_fire;
-	bool trait_ice;
-	bool trait_air;
-	bool trait_earth;
-	
-	
-	
-	
+	int trait_elemental;	
 };
 
 #endif

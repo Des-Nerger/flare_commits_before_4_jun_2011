@@ -87,7 +87,6 @@ void Avatar::loadGraphics(string img_main, string img_body, string img_off) {
 
 void Avatar::loadSounds() {
 	sound_melee = Mix_LoadWAV("soundfx/melee_attack.ogg");
-	sound_ranged = Mix_LoadWAV("soundfx/ranged_attack.ogg");
 	sound_hit = Mix_LoadWAV("soundfx/male_hit.ogg");
 	sound_die = Mix_LoadWAV("soundfx/male_die.ogg");
 	sound_block = Mix_LoadWAV("soundfx/powers/block.ogg");	
@@ -97,7 +96,7 @@ void Avatar::loadSounds() {
 	sound_steps[3] = Mix_LoadWAV("soundfx/step_echo4.ogg");
 	level_up = Mix_LoadWAV("soundfx/level_up.ogg");
 				
-	if (!sound_melee || !sound_ranged || !sound_hit || !sound_die || !sound_steps[0] || !level_up) {
+	if (!sound_melee || !sound_hit || !sound_die || !sound_steps[0] || !level_up) {
 	  printf("Mix_LoadWAV: %s\n", Mix_GetError());
 	  SDL_Quit();
 	}
@@ -265,11 +264,11 @@ void Avatar::logic(int actionbar_power) {
 					break;
 												
 				current_power = actionbar_power;
+				act_target.x = target.x;
+				act_target.y = target.y;
 			
 				// is this a power that requires changing direction?
 				if (powers->powers[current_power].face) {
-					act_target.x = target.x;
-					act_target.y = target.y;
 					stats.direction = face(target.x, target.y);
 				}
 			
@@ -343,11 +342,11 @@ void Avatar::logic(int actionbar_power) {
 					break;
 			
 				current_power = actionbar_power;
+				act_target.x = target.x;
+				act_target.y = target.y;
 			
 				// is this a power that requires changing direction?
 				if (powers->powers[current_power].face) {
-					act_target.x = target.x;
-					act_target.y = target.y;
 					stats.direction = face(target.x, target.y);
 				}
 			
@@ -412,9 +411,9 @@ void Avatar::logic(int actionbar_power) {
 				powers->activate(current_power, &stats, act_target);
 				
 				// TEMP
-				if (current_power == POWER_QUAKE) {
-					map->shaky_cam_ticks = 8;
-				}
+				//if (current_power == POWER_QUAKE) {
+				//	map->shaky_cam_ticks = 8;
+				//}
 			}
 
 			if (stats.cur_frame == 15) {
@@ -430,10 +429,6 @@ void Avatar::logic(int actionbar_power) {
 			// handle animation
 			stats.cur_frame++;
 			stats.disp_frame = (stats.cur_frame / 4) + 28;
-
-			if (stats.cur_frame == 1) {
-				Mix_PlayChannel(-1, sound_ranged, 0);
-			}
 
 			// do power
 			if (stats.cur_frame == 8) {
@@ -451,7 +446,7 @@ void Avatar::logic(int actionbar_power) {
 			if (stats.cur_frame < 4) stats.cur_frame++;
 			stats.disp_frame = (stats.cur_frame / 4) + 16;
 			
-			if (actionbar_power != POWER_BLOCK) {
+			if (powers->powers[actionbar_power].new_state != POWSTATE_BLOCK) {
 				stats.cur_frame = 0;
 				stats.cur_state = AVATAR_STANCE;
 				stats.cooldown_ticks = 8;
@@ -618,7 +613,6 @@ Renderable Avatar::getRender() {
 Avatar::~Avatar() {
 	SDL_FreeSurface(sprites);
 	Mix_FreeChunk(sound_melee);
-	Mix_FreeChunk(sound_ranged);	
 	Mix_FreeChunk(sound_hit);
 	Mix_FreeChunk(sound_die);
 	Mix_FreeChunk(sound_block);

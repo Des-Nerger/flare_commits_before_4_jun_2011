@@ -14,11 +14,13 @@
 #include "Utils.h"
 #include "PowerManager.h"
 
+// TODO: rename these to something more specific to EnemyManager
 const int max_sfx = 8;
 const int max_gfx = 32;
 
 class EnemyManager {
 private:
+
 	MapIso *map;
 	PowerManager *powers;
 	void loadGraphics(string type_id);

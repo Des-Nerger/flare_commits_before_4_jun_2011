@@ -13,6 +13,7 @@
 Hazard::Hazard() {
 	speed.x = 0.0;
 	speed.y = 0.0;
+	direction = 0;
 	multitarget = false;
 	dmg_min = 0;
 	dmg_max = 0;
@@ -37,10 +38,7 @@ Hazard::Hazard() {
 	slow_duration=0;
 	bleed_duration=0;
 	trait_armor_penetration = false;
-	trait_fire = false;
-	trait_ice = false;
-	trait_air = false;
-	trait_earth = false;
+	trait_elemental = -1;
 	remove_now = false;
 }
 

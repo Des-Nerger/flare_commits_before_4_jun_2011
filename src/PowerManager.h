@@ -22,76 +22,155 @@
 
 using namespace std;
 
-const int POWER_COUNT = 32;
+const int POWER_COUNT = 128;
+const int POWER_MAX_GFX = 64;
+const int POWER_MAX_SFX = 64;
 
-const int POWTYPE_CONSUME = 0;
-const int POWTYPE_SINGLE = 1;
-const int POWTYPE_MISSILE = 2;
-const int POWTYPE_NONDAMAGE = 3;
-const int POWTYPE_MISSILE_X3 = 4; // used by MultiShot
-const int POWTYPE_GROUNDRAY = 5; // used by Freeze
+const int POWTYPE_SINGLE = 2;
+const int POWTYPE_MISSILE = 3;
+const int POWTYPE_NONDAMAGE = 4;
+const int POWTYPE_MISSILE_X3 = 5; // used by MultiShot
+const int POWTYPE_GROUNDRAY = 6; // used by Freeze
+const int POWTYPE_EFFECT = 7;
 
 const int POWSTATE_SWING = 0;
 const int POWSTATE_CAST = 1;
 const int POWSTATE_SHOOT = 2;
 const int POWSTATE_BLOCK = 3;
 
+const int BASE_DAMAGE_NONE = 0;
+const int BASE_DAMAGE_MELEE = 1;
+const int BASE_DAMAGE_RANGED = 2;
+const int BASE_DAMAGE_MAGIC = 3;
+
+// this elemental list covers the western 4, eastern 5, and classic rpg light vs. shadow
+// TODO: user-defined element list?
+const int ELEMENT_WOOD = 0;
+const int ELEMENT_METAL = 1;
+const int ELEMENT_WIND = 2;
+const int ELEMENT_WATER = 3;
+const int ELEMENT_EARTH = 4;
+const int ELEMENT_FIRE = 5;
+const int ELEMENT_SHADOW = 6;
+const int ELEMENT_LIGHT = 7;
+
+// when casting a spell/power, the hazard starting position is
+// either the source (the avatar or enemy), the target (mouse click position),
+// or melee range in the direction that the source is facing
+const int STARTING_POS_SOURCE = 0;
+const int STARTING_POS_TARGET = 1;
+const int STARTING_POS_MELEE = 2;
+
+
 // first 20 powers coincide with power tree
 // TODO: remove this restriction
-const int POWER_SHOOT = 0;
-const int POWER_SWING = 1;
-const int POWER_LORE = 2;
-const int POWER_RETURN = 3;
-const int POWER_BLOOD = 4;
-const int POWER_BLOCK = 5;
-const int POWER_SHOCK = 6;
-const int POWER_HEAL = 7;
 const int POWER_MULTISHOT = 8;
-const int POWER_WARCRY = 9;
-const int POWER_QUAKE = 10;
 const int POWER_SHIELD = 11;
-const int POWER_CLEAVE = 12;
-const int POWER_CHARGE = 13;
 const int POWER_FREEZE = 14;
-const int POWER_TELEPORT = 15;
-const int POWER_PIERCING = 16;
 const int POWER_VENGEANCE = 17;
-const int POWER_BURN = 18;
-const int POWER_TIMESTOP = 19;
-const int POWER_HEALTH_POTION = 20;
-const int POWER_MANA_POTION = 21;
-const int POWER_HEALTH_FOOD = 22;
-const int POWER_MANA_FOOD = 23;
 const int POWER_SPARK_BLOOD = 24;
-const int POWER_SPARK_FIRE = 25;
-const int POWER_SPARK_ICE = 26;
-
 
 struct Power {
+
+	// base info
 	int type; // what kind of activate() this is
+	string name;
+	string description;
 	int icon; // just the number.  The caller menu will have access to the surface.
 	int new_state; // when using this power the user (avatar/enemy) starts a new state
 	bool face; // does the user turn to face the mouse cursor when using this power?
-	string name;
-	string description;
+
+	// power requirements
 	bool requires_ammo;
 	bool requires_mana;
 	bool requires_los; // line of sight
 	bool requires_empty_target; // target square must be empty
+	
+	// animation info
+	int gfx_index;
+	int sfx_index;
+	bool rendered;
+	bool directional;
 	int aim_assist;
+	int speed; // for missile hazards, map units per frame
+	int lifespan; // how long the hazard/animation lasts
+	int frame_loop;
+	int frame_duration;
+	Point frame_size;
+	Point frame_offset;
+	bool floor; // the hazard is drawn between the background and object layers
+	int active_frame;
+
+	// hazard traits
+	bool use_hazard;
+	bool no_attack;
+	int radius;
+	int base_damage; // enum.  damage is powered by melee, ranged, magical weapon
+	int starting_pos; // enum. (source, target, or melee)
+	bool multitarget;
+	
+	int trait_elemental; // enum. of elements
+	bool trait_armor_penetration;
+	
+	int bleed_duration;
+	int stun_duration;
+	int slow_duration;
+	int immobilize_duration;
+	int immunity_duration;
+	
+	// special effects
+	bool buff_heal;
+	bool buff_shield;
+	bool buff_teleport;
+	bool buff_immunity;
 	
 	Power() {
 		type = -1;
-		icon = -1;
 		name = "";
 		description = "";
+		icon = -1;
 		new_state = -1;
 		face=false;
+		
 		requires_ammo = false;
 		requires_mana = false;
 		requires_los = false;
 		requires_empty_target = false;
+		
+		gfx_index = -1;
+		sfx_index = -1;
+		rendered = false;
+		directional = false;
 		aim_assist = 0;
+		speed = 0;
+		lifespan = 0;
+		frame_loop = 1;
+		frame_duration = 1;
+		frame_size.x = frame_size.y = 0;
+		frame_offset.x = frame_offset.y = 0;
+		floor = false;
+		active_frame = -1;
+
+		use_hazard = false;
+		no_attack = false;
+		radius = 0;
+		starting_pos = STARTING_POS_SOURCE;
+		base_damage = BASE_DAMAGE_NONE;
+		multitarget = false;
+
+		trait_elemental = -1;
+		trait_armor_penetration = false;
+		
+		bleed_duration = 0;
+		stun_duration = 0;
+		slow_duration = 0;
+		immobilize_duration = 0;
+		immunity_duration = 0;
+		
+		buff_heal = false;
+		buff_shield = false;
+		buff_teleport = false;
+		buff_immunity = false;
 	}	
 	
 };
@@ -100,10 +179,27 @@ class PowerManager {
 private:
 	
 	MapCollision *collider;
-	int calcDirection(int origin_x, int origin_y, int target_x, int target_y) ;	
-	bool consume(int powernum, StatBlock *src_stats);
-	bool nonDamage(int powernum, StatBlock *src_stats, Point target);
+
+	void loadPowers();
+	void loadGraphics();
+	void loadSounds();
+	
+	int loadGFX(string filename);
+	int loadSFX(string filename);
+	string gfx_filenames[POWER_MAX_GFX];
+	string sfx_filenames[POWER_MAX_SFX];
+	int gfx_count;
+	int sfx_count;
+
+
+	int calcDirection(int origin_x, int origin_y, int target_x, int target_y);
+	void initHazard(int powernum, StatBlock *src_stats, Point target, Hazard *haz);
+	void buff(int power_index, StatBlock *src_stats, Point target);
+
+	bool effect(int powernum, StatBlock *src_stats, Point target);
 	bool missile(int powernum, StatBlock *src_stats, Point target);
+	
+	bool nonDamage(int powernum, StatBlock *src_stats, Point target);
 	bool single(int powernum, StatBlock *src_stats, Point target);
 	bool missileX3(int powernum, StatBlock *src_stats, Point target);
 	bool groundRay(int powernum, StatBlock *src_stats, Point target);
@@ -114,34 +210,20 @@ public:
 	
 	void handleNewMap(MapCollision *_collider);	
 	bool activate(int power_index, StatBlock *src_stats, Point target);
-	void loadGraphics();
-	void loadSounds();
 		
 	Power powers[POWER_COUNT];
 	queue<Hazard *> hazards; // output; read by HazardManager
+
+	SDL_Surface *gfx[POWER_MAX_GFX];
+	Mix_Chunk *sfx[POWER_MAX_SFX];
 	
 	// shared images/sounds for power special effects
-	// TODO: when power definitions move to a config file, change these to an array
-	SDL_Surface *arrows;
-	SDL_Surface *stone;
-	SDL_Surface *lightning;
-	SDL_Surface *blast;
-	SDL_Surface *quake;
-	SDL_Surface *heal;
-	SDL_Surface *shield;
+	// TODO: when power definitions move to a config file, change these to an array	
 	SDL_Surface *sparks;
 	SDL_Surface *freeze;
 	SDL_Surface *runes;
 	
-	Mix_Chunk *sfx_warcry;
-	Mix_Chunk *sfx_shock;
 	Mix_Chunk *sfx_freeze;
-	Mix_Chunk *sfx_quake;
-	Mix_Chunk *sfx_burn;
-	Mix_Chunk *sfx_heal;
-	Mix_Chunk *sfx_shield;
-	Mix_Chunk *sfx_teleport;
-	Mix_Chunk *sfx_timestop;
 };
 
 #endif

@@ -23,6 +23,6 @@ const int VIEW_H = 480;
 const int VIEW_W_HALF = VIEW_W/2;
 const int VIEW_H_HALF = VIEW_H/2;
 
-const int MUSIC_VOLUME = 100;
+const int MUSIC_VOLUME = 32;
 
 #endif

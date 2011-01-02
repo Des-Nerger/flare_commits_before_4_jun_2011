@@ -50,7 +50,7 @@ MenuActionBar::MenuActionBar(PowerManager *_powers, SDL_Surface *_screen, InputS
 	}
 	
 	// default: LMB set to basic melee attack
-	hotkeys[10] = POWER_SWING;
+	hotkeys[10] = 1;
 		
 	// screen areas occupied by the three main sections	
 	numberArea.h = mouseArea.h = menuArea.h = 32;

@@ -44,7 +44,6 @@ private:
 	bool animFwd;
 	
 	Mix_Chunk *sound_melee;
-	Mix_Chunk *sound_ranged;	
 	Mix_Chunk *sound_hit;
 	Mix_Chunk *sound_die;
 	Mix_Chunk *sound_block;

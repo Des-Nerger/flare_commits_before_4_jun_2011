@@ -592,13 +592,8 @@ bool Enemy::takeHit(Hazard h) {
 		
 		// create a blood spark upon crit or bloody attack
 		Point pt;
-		if (crit || h.bleed_duration > 0) {
-			if (h.trait_ice || h.trait_air)
-				powers->activate(POWER_SPARK_ICE, &stats, pt);
-			else if (h.trait_fire)
-				powers->activate(POWER_SPARK_FIRE, &stats, pt);
-			else
-				powers->activate(POWER_SPARK_BLOOD, &stats, pt);
+		if (dmg > 0 && (crit || h.bleed_duration > 0)) {
+			powers->activate(POWER_SPARK_BLOOD, &stats, pt);
 		}
 		
 		// interrupted to new state
