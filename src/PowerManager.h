@@ -90,7 +90,9 @@ struct Power {
 	int gfx_index;
 	int sfx_index;
 	bool rendered;
-	bool directional;
+	bool directional; // sprite sheet contains options for 8 directions, one per row
+	int visual_random; // sprite sheet contains rows of random options
+	int visual_option; // sprite sheet contains rows of similar effects.  use a specific option
 	int aim_assist;
 	int speed; // for missile hazards, map units per frame
 	int lifespan; // how long the hazard/animation lasts
@@ -141,6 +143,8 @@ struct Power {
 		sfx_index = -1;
 		rendered = false;
 		directional = false;
+		visual_random = 0;
+		visual_option = 0;
 		aim_assist = 0;
 		speed = 0;
 		lifespan = 0;
@@ -214,11 +218,10 @@ public:
 	Power powers[POWER_COUNT];
 	queue<Hazard *> hazards; // output; read by HazardManager
 
+	// shared images/sounds for power special effects
 	SDL_Surface *gfx[POWER_MAX_GFX];
 	Mix_Chunk *sfx[POWER_MAX_SFX];
 	
-	// shared images/sounds for power special effects
-	// TODO: when power definitions move to a config file, change these to an array	
 	SDL_Surface *sparks;
 	SDL_Surface *freeze;
 	SDL_Surface *runes;

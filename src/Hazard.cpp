@@ -14,6 +14,7 @@ Hazard::Hazard() {
 	speed.x = 0.0;
 	speed.y = 0.0;
 	direction = 0;
+	visual_option = 0;
 	multitarget = false;
 	dmg_min = 0;
 	dmg_max = 0;

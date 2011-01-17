@@ -54,7 +54,8 @@ public:
 	int frame_loop;
 	int frame_duration;
 	int active_frame; // some hazards are only dangerous on a single frame of their existence
-	int direction; // helps when choosing animations
+	int direction; // some hazard animations are 8-directional
+	int visual_option; // some hazard animations have random/varietal options
 	bool floor; // rendererable goes on the floor layer
 	int delay_frames;
 	bool complete_animation; // if not multitarget but hitting a creature, still complete the animation?

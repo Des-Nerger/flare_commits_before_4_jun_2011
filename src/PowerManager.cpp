@@ -144,6 +144,12 @@ void PowerManager::loadPowers() {
 					else if (key == "directional") {
 						if (val == "true") powers[input_id].directional = true;
 					}
+					else if (key == "visual_random") {
+						powers[input_id].visual_random = atoi(val.c_str());
+					}
+					else if (key == "visual_option") {
+						powers[input_id].visual_option = atoi(val.c_str());
+					}
 					else if (key == "aim_assist") {
 						powers[input_id].aim_assist = atoi(val.c_str());
 					}
@@ -372,7 +378,7 @@ int PowerManager::calcDirection(int origin_x, int origin_y, int target_x, int ta
 		if (dx > 0) return 6;
 		else return 2;
 	}
-	if (2 <= slope || -2 >= slope) {
+	if (2.0 <= slope || -2.0 >= slope) {
 		if (dy > 0) return 3;
 		else return 7;
 	}
@@ -430,6 +436,12 @@ void PowerManager::initHazard(int power_index, StatBlock *src_stats, Point targe
 	haz->frame_offset.y = powers[power_index].frame_offset.y;
 	if (powers[power_index].directional) {
 		haz->direction = calcDirection(src_stats->pos.x, src_stats->pos.y, target.x, target.y);
+	}
+	else if (powers[power_index].visual_random > 0) {
+		haz->visual_option = rand() % powers[power_index].visual_random;
+	}
+	else {
+		haz->visual_option = powers[power_index].visual_option;
 	}
 	haz->floor = powers[power_index].floor;
 	haz->active_frame = powers[power_index].active_frame;

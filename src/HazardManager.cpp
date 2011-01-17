@@ -145,13 +145,19 @@ Renderable HazardManager::getRender(int haz_id) {
 	r.sprite = h[haz_id]->sprites;
 	r.src = new SDL_Rect();
 	r.src->x = h[haz_id]->frame_size.x * (h[haz_id]->frame / h[haz_id]->frame_duration);
-	r.src->y = h[haz_id]->frame_size.y * h[haz_id]->direction;
 	r.src->w = h[haz_id]->frame_size.x;
 	r.src->h = h[haz_id]->frame_size.y;
 	r.offset.x = h[haz_id]->frame_offset.x;
 	r.offset.y = h[haz_id]->frame_offset.y;
 	r.object_layer = !h[haz_id]->floor;
 
+	if (h[haz_id]->direction > 0)
+		r.src->y = h[haz_id]->frame_size.y * h[haz_id]->direction;
+	else if (h[haz_id]->visual_option > 0)
+		r.src->y = h[haz_id]->frame_size.y * h[haz_id]->visual_option;
+	else
+		r.src->y = 0;
+	
 	return r;
 }
 
