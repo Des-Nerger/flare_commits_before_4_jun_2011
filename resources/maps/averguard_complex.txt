@@ -532,10 +532,10 @@ loot=random,9,28,8
 
 # intro skeletons
 [enemy]
-type=skeletal_warrior
+type=skeletal_archer
 spawnpoint=85,69,5
 [enemy]
-type=skeletal_warrior
+type=skeletal_archer
 spawnpoint=85,72,5
 
 # corner zombies
@@ -687,13 +687,13 @@ spawnpoint=45,69,7
 type=skeletal_warrior
 spawnpoint=40,60,3
 [enemy]
-type=skeletal_warrior
+type=skeletal_archer
 spawnpoint=42,53,6
 [enemy]
 type=skeletal_warrior
 spawnpoint=44,54,7
 [enemy]
-type=skeletal_warrior
+type=skeletal_mage
 spawnpoint=44,56,3
 [enemy]
 type=skeletal_warrior
@@ -733,7 +733,7 @@ spawnpoint=67,41,2
 
 # antlion trainers left of chasm
 [enemy]
-type=skeleton
+type=skeletal_archer
 spawnpoint=55,63,2
 [enemy]
 type=antlion
@@ -742,7 +742,7 @@ spawnpoint=55,62,2
 type=antlion
 spawnpoint=56,63,2
 [enemy]
-type=skeleton
+type=skeletal_archer
 spawnpoint=59,54,6
 [enemy]
 type=antlion

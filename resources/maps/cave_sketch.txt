@@ -4,7 +4,7 @@ width=50
 height=50
 tileset=tileset_cave.txt
 spawnpoint=1,1,5
-#music=unrest_theme.ogg
+music=cave_theme.ogg
 
 [layer]
 id=background

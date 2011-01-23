@@ -189,14 +189,11 @@ lifespan=1
 radius=128
 starting_pos=melee
 
-
 [power]
 id=13
 name=Charge
 icon=13
 description=Bull rush and stun an enemy (NYI)
-
-
 
 [power]
 id=15
@@ -313,3 +310,25 @@ frame_offset=32,64
 trait_elemental=water
 slow_duration=60
 
+[power]
+id=31
+name=Fireshot
+type=missile
+new_state=cast
+face=true
+directional=true
+gfx=fireball.png
+sfx=shock.ogg
+use_hazard=true
+rendered=true
+aim_assist=32
+base_damage=magic
+lifespan=24
+radius=96
+speed=32
+frame_loop=12
+frame_duration=3
+frame_size=64,64
+frame_offset=32,64
+trait_elemental=fire
+bleed_duration=90

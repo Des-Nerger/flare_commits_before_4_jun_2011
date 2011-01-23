@@ -32,8 +32,8 @@ private:
 	int sfx_count;
 	
 	SDL_Surface *sprites[max_gfx];	
-	Mix_Chunk *sound_phys_melee[max_sfx];
-	Mix_Chunk *sound_mag_melee[max_sfx];
+	Mix_Chunk *sound_phys[max_sfx];
+	Mix_Chunk *sound_mag[max_sfx];
 	Mix_Chunk *sound_hit[max_sfx];
 	Mix_Chunk *sound_die[max_sfx];
 	Mix_Chunk *sound_critdie[max_sfx];

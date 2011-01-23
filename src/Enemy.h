@@ -60,9 +60,11 @@ public:
 	Hazard *haz;
 	StatBlock stats;
 
+
 	// sound effects flags
-	bool sfx_phys_melee;
-	bool sfx_mag_melee;
+	bool sfx_phys;
+	bool sfx_mag;
+	
 	bool sfx_hit;
 	bool sfx_die;
 	bool sfx_critdie;

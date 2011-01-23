@@ -24,8 +24,8 @@ Enemy::Enemy(PowerManager *_powers, MapIso *_map) {
 	
 	haz = NULL;
 	
-	sfx_phys_melee = false;
-	sfx_mag_melee = false;
+	sfx_phys = false;
+	sfx_mag = false;
 	sfx_hit = false;
 	sfx_die = false;
 	sfx_critdie = false;
@@ -147,6 +147,7 @@ int Enemy::getDistance(Point dest) {
 }
 
 void Enemy::newState(int state) {
+	
 	stats.cur_state = state;
 	stats.cur_frame = 0;
 }
@@ -180,7 +181,7 @@ void Enemy::logic() {
 	int dist;
 	int prev_direction;
 	bool los = false;
-	Point pursue_pos;
+	Point pursue_pos;	
 	int max_frame;
 	int mid_frame;
 	
@@ -279,6 +280,7 @@ void Enemy::logic() {
 					// CHECK: ranged physical!
 					if (!powers->powers[stats.power_ranged_phys].requires_los || los) {
 						if ((rand() % 100) < stats.chance_ranged_phys) {
+							
 							newState(ENEMY_RANGED_PHYS);
 							break;
 						}
@@ -286,6 +288,7 @@ void Enemy::logic() {
 					// CHECK: ranged spell!
 					if (!powers->powers[stats.power_ranged_mag].requires_los || los) {					
 						if ((rand() % 100) < stats.chance_ranged_mag) {
+							
 							newState(ENEMY_RANGED_MAG);
 							break;
 						}
@@ -317,6 +320,7 @@ void Enemy::logic() {
 					// CHECK: melee attack!
 					if (!powers->powers[stats.power_melee_phys].requires_los || los) {
 						if ((rand() % 100) < stats.chance_melee_phys) {
+							
 							newState(ENEMY_MELEE_PHYS);
 							break;
 						}
@@ -324,6 +328,7 @@ void Enemy::logic() {
 					// CHECK: melee magic!
 					if (!powers->powers[stats.power_melee_mag].requires_los || los) {
 						if ((rand() % 100) < stats.chance_melee_mag) {
+													
 							newState(ENEMY_MELEE_MAG);
 							break;
 						}
@@ -355,6 +360,7 @@ void Enemy::logic() {
 					// CHECK: ranged physical!
 					if (!powers->powers[stats.power_ranged_phys].requires_los || los) {
 						if ((rand() % 100) < stats.chance_ranged_phys) {
+							
 							newState(ENEMY_RANGED_PHYS);
 							break;
 						}
@@ -362,6 +368,7 @@ void Enemy::logic() {
 					// CHECK: ranged spell!
 					if (!powers->powers[stats.power_ranged_mag].requires_los || los) {
 						if ((rand() % 100) < stats.chance_ranged_mag) {
+							
 							newState(ENEMY_RANGED_MAG);
 							break;
 						}
@@ -387,7 +394,7 @@ void Enemy::logic() {
 			break;
 			
 		case ENEMY_MELEE_PHYS:
-		
+			
 			// handle animation
 			stats.cur_frame++;
 			
@@ -396,7 +403,7 @@ void Enemy::logic() {
 			stats.disp_frame = (stats.cur_frame / stats.anim_melee_duration) + stats.anim_melee_position;
 
 			if (stats.cur_frame == 1) {
-				sfx_phys_melee = true;
+				sfx_phys = true;
 			}
 
 			// the attack hazard is alive for a single frame
@@ -412,14 +419,16 @@ void Enemy::logic() {
 
 		case ENEMY_RANGED_PHYS:
 	
+			// monsters turn to keep aim at the hero
+			stats.direction = face(pursue_pos.x, pursue_pos.y);
+			
 			// handle animation
 			stats.cur_frame++;
 			max_frame = stats.anim_ranged_frames * stats.anim_ranged_duration;
 			stats.disp_frame = (stats.cur_frame / stats.anim_ranged_duration) + stats.anim_ranged_position;
 
 			if (stats.cur_frame == 1) {
-				// TODO: update
-				sfx_mag_melee = true;
+				sfx_phys = true;
 			}
 			
 			// the attack hazard is alive for a single frame
@@ -442,8 +451,7 @@ void Enemy::logic() {
 			stats.disp_frame = (stats.cur_frame / stats.anim_magic_duration) + stats.anim_magic_position;
 
 			if (stats.cur_frame == 1) {
-				// TODO: update
-				sfx_mag_melee = true;
+				sfx_mag = true;
 			}
 			
 			// the attack hazard is alive for a single frame
@@ -458,6 +466,9 @@ void Enemy::logic() {
 			break;
 
 		case ENEMY_RANGED_MAG:
+		
+			// monsters turn to keep aim at the hero
+			stats.direction = face(pursue_pos.x, pursue_pos.y);
 	
 			// handle animation
 			stats.cur_frame++;
@@ -465,8 +476,7 @@ void Enemy::logic() {
 			stats.disp_frame = (stats.cur_frame / stats.anim_magic_duration) + stats.anim_magic_position;
 
 			if (stats.cur_frame == 1) {
-				// TODO: update
-				sfx_mag_melee = true;
+				sfx_mag = true;
 			}
 			
 			// the attack hazard is alive for a single frame

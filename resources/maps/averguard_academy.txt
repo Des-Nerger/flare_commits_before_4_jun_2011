@@ -511,7 +511,7 @@ type=zombie
 spawnpoint=45,85,3
 
 [enemy]
-type=zombie
+type=skeletal_mage
 spawnpoint=51,71,2
 
 [enemy]
@@ -532,7 +532,7 @@ type=zombie
 spawnpoint=31,71,5
 
 [enemy]
-type=zombie
+type=skeletal_mage
 spawnpoint=30,63,0
 
 [enemy]
@@ -559,15 +559,15 @@ type=zombie
 spawnpoint=41,48,2
 
 [enemy]
-type=skeleton
+type=skeletal_mage
 spawnpoint=52,52,3
 
 [enemy]
-type=skeleton
+type=skeletal_mage
 spawnpoint=57,70,5
 
 [enemy]
-type=skeleton
+type=skeletal_mage
 spawnpoint=35,53,0
 
 [enemy]
