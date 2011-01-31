@@ -20,6 +20,12 @@ using namespace std;
 const int STAT_EFFECT_SHIELD = 0;
 const int STAT_EFFECT_VENGEANCE = 1;
 
+const int POWERSLOT_COUNT = 4;
+const int MELEE_PHYS = 0;
+const int MELEE_MAG = 1;
+const int RANGED_PHYS = 2;
+const int RANGED_MAG = 3;
+
 
 class StatBlock {
 private:
@@ -115,15 +121,11 @@ public:
 	int chance_pursue;
 	int chance_flee;
 	
-	int chance_melee_phys;
-	int chance_melee_mag;
-	int chance_ranged_phys;
-	int chance_ranged_mag;
-	int power_melee_phys;
-	int power_melee_mag;
-	int power_ranged_phys;
-	int power_ranged_mag;
-	
+	int power_chance[POWERSLOT_COUNT];
+	int power_index[POWERSLOT_COUNT];
+	int power_cooldown[POWERSLOT_COUNT];
+	int power_ticks[POWERSLOT_COUNT];
+		
 	int melee_range;
 	int threat_range;
 	Point hero_pos;

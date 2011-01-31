@@ -275,19 +275,19 @@ void Enemy::logic() {
 				}
 		
 				// performed ranged actions
-				if (dist > stats.melee_range) {
+				if (dist > stats.melee_range && stats.cooldown_ticks == 0) {
 
 					// CHECK: ranged physical!
-					if (!powers->powers[stats.power_ranged_phys].requires_los || los) {
-						if ((rand() % 100) < stats.chance_ranged_phys) {
+					if (!powers->powers[stats.power_index[RANGED_PHYS]].requires_los || los) {
+						if ((rand() % 100) < stats.power_chance[RANGED_PHYS] && stats.power_ticks[RANGED_PHYS] == 0) {
 							
 							newState(ENEMY_RANGED_PHYS);
 							break;
 						}
 					}
 					// CHECK: ranged spell!
-					if (!powers->powers[stats.power_ranged_mag].requires_los || los) {					
-						if ((rand() % 100) < stats.chance_ranged_mag) {
+					if (!powers->powers[stats.power_index[RANGED_PHYS]].requires_los || los) {					
+						if ((rand() % 100) < stats.power_index[RANGED_MAG] && stats.power_ticks[RANGED_MAG] == 0) {
 							
 							newState(ENEMY_RANGED_MAG);
 							break;
@@ -318,16 +318,16 @@ void Enemy::logic() {
 				else if (dist <= stats.melee_range && stats.cooldown_ticks == 0) {
 				
 					// CHECK: melee attack!
-					if (!powers->powers[stats.power_melee_phys].requires_los || los) {
-						if ((rand() % 100) < stats.chance_melee_phys) {
+					if (!powers->powers[stats.power_index[MELEE_PHYS]].requires_los || los) {
+						if ((rand() % 100) < stats.power_chance[MELEE_PHYS] && stats.power_ticks[MELEE_PHYS] == 0) {
 							
 							newState(ENEMY_MELEE_PHYS);
 							break;
 						}
 					}
 					// CHECK: melee magic!
-					if (!powers->powers[stats.power_melee_mag].requires_los || los) {
-						if ((rand() % 100) < stats.chance_melee_mag) {
+					if (!powers->powers[stats.power_index[MELEE_MAG]].requires_los || los) {
+						if ((rand() % 100) < stats.power_chance[MELEE_MAG] && stats.power_ticks[MELEE_MAG] == 0) {
 													
 							newState(ENEMY_MELEE_MAG);
 							break;
@@ -355,19 +355,19 @@ void Enemy::logic() {
 					stats.dir_ticks = 0;
 				}
 				
-				if (dist > stats.melee_range) {
+				if (dist > stats.melee_range && stats.cooldown_ticks == 0) {
 				
 					// CHECK: ranged physical!
-					if (!powers->powers[stats.power_ranged_phys].requires_los || los) {
-						if ((rand() % 100) < stats.chance_ranged_phys) {
+					if (!powers->powers[stats.power_index[RANGED_PHYS]].requires_los || los) {
+						if ((rand() % 100) < stats.power_chance[RANGED_PHYS] && stats.power_ticks[RANGED_PHYS] == 0) {
 							
 							newState(ENEMY_RANGED_PHYS);
 							break;
 						}
 					}
 					// CHECK: ranged spell!
-					if (!powers->powers[stats.power_ranged_mag].requires_los || los) {
-						if ((rand() % 100) < stats.chance_ranged_mag) {
+					if (!powers->powers[stats.power_index[RANGED_MAG]].requires_los || los) {
+						if ((rand() % 100) < stats.power_chance[RANGED_MAG] && stats.power_ticks[RANGED_MAG] == 0) {
 							
 							newState(ENEMY_RANGED_MAG);
 							break;
@@ -408,7 +408,8 @@ void Enemy::logic() {
 
 			// the attack hazard is alive for a single frame
 			if (stats.cur_frame == max_frame/2 && haz == NULL) {
-				powers->activate(stats.power_melee_phys, &stats, stats.hero_pos);
+				powers->activate(stats.power_index[MELEE_PHYS], &stats, stats.hero_pos);
+				stats.power_ticks[MELEE_PHYS] = stats.power_cooldown[MELEE_PHYS];
 			}
 
 			if (stats.cur_frame == max_frame-1) {
@@ -433,7 +434,8 @@ void Enemy::logic() {
 			
 			// the attack hazard is alive for a single frame
 			if (stats.cur_frame == max_frame/2 && haz == NULL) {
-				powers->activate(stats.power_ranged_phys, &stats, stats.hero_pos);
+				powers->activate(stats.power_index[RANGED_PHYS], &stats, stats.hero_pos);
+				stats.power_ticks[RANGED_PHYS] = stats.power_cooldown[RANGED_PHYS];
 			}
 			
 			if (stats.cur_frame == max_frame-1) {
@@ -456,7 +458,8 @@ void Enemy::logic() {
 			
 			// the attack hazard is alive for a single frame
 			if (stats.cur_frame == max_frame/2 && haz == NULL) {
-				powers->activate(stats.power_melee_mag, &stats, stats.hero_pos);
+				powers->activate(stats.power_index[MELEE_MAG], &stats, stats.hero_pos);
+				stats.power_ticks[MELEE_MAG] = stats.power_cooldown[MELEE_MAG];
 			}
 			
 			if (stats.cur_frame == max_frame-1) {
@@ -481,7 +484,8 @@ void Enemy::logic() {
 			
 			// the attack hazard is alive for a single frame
 			if (stats.cur_frame == max_frame/2 && haz == NULL) {
-				powers->activate(stats.power_ranged_mag, &stats, stats.hero_pos);
+				powers->activate(stats.power_index[RANGED_MAG], &stats, stats.hero_pos);
+				stats.power_ticks[RANGED_MAG] = stats.power_cooldown[RANGED_MAG];
 			}
 			
 			if (stats.cur_frame == max_frame-1) {

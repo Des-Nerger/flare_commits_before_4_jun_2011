@@ -71,8 +71,12 @@ StatBlock::StatBlock() {
 
 	teleportation=false;
 	
-	power_melee_phys = power_melee_mag = power_ranged_phys = power_ranged_mag = 0;
-	chance_melee_phys = chance_melee_mag = chance_ranged_phys = chance_ranged_mag = 0;
+	for (int i=0; i<POWERSLOT_COUNT; i++) {
+		power_chance[i] = 0;
+		power_index[i] = 0;
+		power_cooldown[i] = 0;
+		power_ticks[i] = 0;
+	}
 	melee_range = 64;
 
 }
@@ -143,14 +147,18 @@ void StatBlock::load(string filename) {
 					else if (key == "chance_pursue") chance_pursue = num;
 					else if (key == "chance_flee") chance_flee = num;
 
-					else if (key == "chance_melee_phys") chance_melee_phys = num;
-					else if (key == "chance_melee_mag") chance_melee_mag = num;
-					else if (key == "chance_ranged_phys") chance_ranged_phys = num;
-					else if (key == "chance_ranged_mag") chance_ranged_mag = num;
-					else if (key == "power_melee_phys") power_melee_phys = num;
-					else if (key == "power_melee_mag") power_melee_mag = num;
-					else if (key == "power_ranged_phys") power_ranged_phys = num;
-					else if (key == "power_ranged_mag") power_ranged_mag = num;
+					else if (key == "chance_melee_phys") power_chance[MELEE_PHYS] = num;
+					else if (key == "chance_melee_mag") power_chance[MELEE_MAG] = num;
+					else if (key == "chance_ranged_phys") power_chance[RANGED_PHYS] = num;
+					else if (key == "chance_ranged_mag") power_chance[RANGED_MAG] = num;
+					else if (key == "power_melee_phys") power_index[MELEE_PHYS] = num;
+					else if (key == "power_melee_mag") power_index[MELEE_MAG] = num;
+					else if (key == "power_ranged_phys") power_index[RANGED_PHYS] = num;
+					else if (key == "power_ranged_mag") power_index[RANGED_MAG] = num;
+					else if (key == "cooldown_melee_phys") power_cooldown[MELEE_PHYS] = num;
+					else if (key == "cooldown_melee_mag") power_cooldown[MELEE_MAG] = num;
+					else if (key == "cooldown_ranged_phys") power_cooldown[RANGED_PHYS] = num;
+					else if (key == "cooldown_ranged_mag") power_cooldown[RANGED_MAG] = num;
 					
 					else if (key == "melee_range") melee_range = num;
 					else if (key == "threat_range") threat_range = num;
@@ -245,7 +253,12 @@ void StatBlock::recalc() {
  */
 void StatBlock::logic() {
 
-	if (cooldown_ticks > 0) cooldown_ticks--;
+	// handle cooldowns
+	if (cooldown_ticks > 0) cooldown_ticks--; // global cooldown
+
+	for (int i=0; i<POWERSLOT_COUNT; i++) { // NPC/enemy powerslot cooldown
+		if (power_ticks[i] > 0) power_ticks[i]--;
+	}
 
 	// health regen
 	if (hp_per_minute > 0 && hp < maxhp && hp > 0) {
