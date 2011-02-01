@@ -408,7 +408,7 @@ void Enemy::logic() {
 
 			// the attack hazard is alive for a single frame
 			if (stats.cur_frame == max_frame/2 && haz == NULL) {
-				powers->activate(stats.power_index[MELEE_PHYS], &stats, stats.hero_pos);
+				powers->activate(stats.power_index[MELEE_PHYS], &stats, pursue_pos);
 				stats.power_ticks[MELEE_PHYS] = stats.power_cooldown[MELEE_PHYS];
 			}
 
@@ -434,7 +434,7 @@ void Enemy::logic() {
 			
 			// the attack hazard is alive for a single frame
 			if (stats.cur_frame == max_frame/2 && haz == NULL) {
-				powers->activate(stats.power_index[RANGED_PHYS], &stats, stats.hero_pos);
+				powers->activate(stats.power_index[RANGED_PHYS], &stats, pursue_pos);
 				stats.power_ticks[RANGED_PHYS] = stats.power_cooldown[RANGED_PHYS];
 			}
 			
@@ -458,7 +458,7 @@ void Enemy::logic() {
 			
 			// the attack hazard is alive for a single frame
 			if (stats.cur_frame == max_frame/2 && haz == NULL) {
-				powers->activate(stats.power_index[MELEE_MAG], &stats, stats.hero_pos);
+				powers->activate(stats.power_index[MELEE_MAG], &stats, pursue_pos);
 				stats.power_ticks[MELEE_MAG] = stats.power_cooldown[MELEE_MAG];
 			}
 			
@@ -484,7 +484,7 @@ void Enemy::logic() {
 			
 			// the attack hazard is alive for a single frame
 			if (stats.cur_frame == max_frame/2 && haz == NULL) {
-				powers->activate(stats.power_index[RANGED_MAG], &stats, stats.hero_pos);
+				powers->activate(stats.power_index[RANGED_MAG], &stats, pursue_pos);
 				stats.power_ticks[RANGED_MAG] = stats.power_cooldown[RANGED_MAG];
 			}
 			
