@@ -57,6 +57,7 @@ StatBlock::StatBlock() {
 	// formula:
 	// scale 20-50-100-200-500-1000-2000-5000
 	// multiplied by current level
+	// affter 10000, increase by 5k each level
 	
 	xp_table[0] = 0;
 	xp_table[1] = 20;
@@ -67,7 +68,15 @@ StatBlock::StatBlock() {
 	xp_table[6] = 6000;
 	xp_table[7] = 14000;
 	xp_table[8] = 40000;
-	xp_table[9] = -1;
+	xp_table[9] = 90000;
+	xp_table[10] = 150000;
+	xp_table[11] = 220000;
+	xp_table[12] = 300000;
+	xp_table[13] = 390000;
+	xp_table[14] = 490000;
+	xp_table[15] = 600000;
+	xp_table[16] = 720000;
+	xp_table[17] = -1;
 
 	teleportation=false;
 	
@@ -242,7 +251,7 @@ void StatBlock::recalc() {
 	hp_per_minute = 9 + physical;
 	mp_per_minute = 9 + magical;
 	
-	for (int i=1; i<9; i++) {
+	for (int i=1; i<17; i++) {
 		if (xp >= xp_table[i])
 			level=i+1;
 	}

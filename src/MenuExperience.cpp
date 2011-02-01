@@ -58,7 +58,7 @@ void MenuExperience::render(StatBlock *stats, Point mouse) {
 	
 	// don't display anything if max level
 	// TODO: change this implementation if max level is configurable
-	if (stats->level < 1 || stats->level >= 9) return;
+	if (stats->level < 1 || stats->level >= 17) return;
 	
 	// lay down the background image first
 	src.x = 0;

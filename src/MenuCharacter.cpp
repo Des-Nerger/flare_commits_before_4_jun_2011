@@ -224,7 +224,7 @@ TooltipData MenuCharacter::checkTooltip(Point mouse) {
 		ss << "XP: " << stats->xp;
 		tip.lines[tip.num_lines++] = ss.str();
 		ss.str("");
-		if (stats->level < 9) {
+		if (stats->level < 17) {
 			ss << "Next: " << stats->xp_table[stats->level];
 			tip.lines[tip.num_lines++] = ss.str();
 		}

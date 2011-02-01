@@ -209,7 +209,7 @@ void Avatar::logic(int actionbar_power) {
 	if (stats.stun_duration > 0) return;
 	
 	// check level up
-	if (stats.level < 9 && stats.xp >= stats.xp_table[stats.level]) {
+	if (stats.level < 17 && stats.xp >= stats.xp_table[stats.level]) {
 		stats.level++;
 		stringstream ss;
 		ss << "Congratulations, you have reached level " << stats.level << "! You may increase one attribute through the Character Menu.";
