@@ -26,6 +26,7 @@ MapIso::MapIso(SDL_Surface *_screen) {
 	
 	sfx = NULL;
 	sfx_filename = "";
+	music = NULL;
 	log_msg = "";
 	shaky_cam_ticks = 0;
 	
