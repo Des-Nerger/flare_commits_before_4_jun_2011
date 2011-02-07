@@ -7,7 +7,7 @@ gfx_prefix=skeleton
 loot_chance=100
 
 # combat stats
-hp=50
+hp=32
 speed=9
 dspeed=6
 melee_range=76
@@ -22,7 +22,7 @@ power_melee_phys=1
 power_ranged_mag=14
 power_melee_mag=7
 
-accuracy=125
+accuracy=100
 avoidance=40
 
 dmg_melee_min=4

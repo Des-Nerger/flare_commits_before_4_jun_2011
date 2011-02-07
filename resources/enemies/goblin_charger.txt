@@ -7,7 +7,7 @@ gfx_prefix=goblin
 loot_chance=30
 
 # combat stats
-hp=14
+hp=9
 speed=6
 dspeed=4
 melee_range=76
@@ -16,11 +16,8 @@ dir_favor=12
 chance_pursue=50
 chance_melee_phys=12
 chance_melee_mag=4
-chance_ranged_phys=0
-chance_ranged_mag=3
 power_melee_phys=1
 power_melee_mag=4
-power_ranged_mag=31
 
 accuracy=80
 avoidance=30

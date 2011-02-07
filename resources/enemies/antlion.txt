@@ -7,7 +7,7 @@ gfx_prefix=antlion
 loot_chance=25
 
 # combat stats
-hp=7
+hp=4
 speed=7
 dspeed=5
 melee_range=76
@@ -20,6 +20,9 @@ chance_ranged_phys=0
 chance_ranged_mag=2
 power_melee_phys=1
 power_ranged_mag=15
+
+accuracy=70
+avoidance=20
 
 dmg_melee_min=1
 dmg_melee_max=3

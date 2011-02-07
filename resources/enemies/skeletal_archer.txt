@@ -7,7 +7,7 @@ gfx_prefix=skeleton_archer
 loot_chance=40
 
 # combat stats
-hp=15
+hp=9
 speed=6
 dspeed=4
 melee_range=76
