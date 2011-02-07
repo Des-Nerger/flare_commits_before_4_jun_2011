@@ -27,6 +27,19 @@ void MenuHealthMana::loadGraphics() {
 		SDL_Quit();
 	}
 	
+	// optimize
+	SDL_Surface *cleanup = background;
+	background = SDL_DisplayFormatAlpha(background);
+	SDL_FreeSurface(cleanup);	
+	
+	cleanup = bar_hp;
+	bar_hp = SDL_DisplayFormatAlpha(bar_hp);
+	SDL_FreeSurface(cleanup);
+	
+	cleanup = bar_mp;
+	bar_mp = SDL_DisplayFormatAlpha(bar_mp);
+	SDL_FreeSurface(cleanup);
+	
 }
 
 void MenuHealthMana::render(StatBlock *stats, Point mouse) {

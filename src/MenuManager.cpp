@@ -49,6 +49,11 @@ void MenuManager::loadIcons() {
 		fprintf(stderr, "Couldn't load icons: %s\n", IMG_GetError());
 		SDL_Quit();
 	}
+	
+	// optimize
+	SDL_Surface *cleanup = icons;
+	icons = SDL_DisplayFormatAlpha(icons);
+	SDL_FreeSurface(cleanup);	
 }
 
 void MenuManager::loadSounds() {

@@ -38,9 +38,15 @@ void EnemyManager::loadGraphics(string type_id) {
 		SDL_Quit();
 	}
 	SDL_SetColorKey( sprites[gfx_count], SDL_SRCCOLORKEY, SDL_MapRGB(sprites[gfx_count]->format, 255, 0, 255) ); 
+
+	// optimize
+	SDL_Surface *cleanup = sprites[gfx_count];
+	sprites[gfx_count] = SDL_DisplayFormatAlpha(sprites[gfx_count]);
+	SDL_FreeSurface(cleanup);	
 	
 	gfx_prefixes[gfx_count] = type_id;
 	gfx_count++;
+
 }
 
 void EnemyManager::loadSounds(string type_id) {

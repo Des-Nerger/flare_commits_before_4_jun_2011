@@ -38,6 +38,11 @@ void MenuInventory::loadGraphics() {
 		SDL_Quit();
 	}
 	
+	// optimize
+	SDL_Surface *cleanup = background;
+	background = SDL_DisplayFormatAlpha(background);
+	SDL_FreeSurface(cleanup);	
+	
 }
 
 void MenuInventory::render() {

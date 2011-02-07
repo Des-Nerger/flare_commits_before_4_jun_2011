@@ -289,6 +289,11 @@ int PowerManager::loadGFX(string filename) {
 		return -1;
 	}
 	
+	// optimize
+	SDL_Surface *cleanup = gfx[gfx_count];
+	gfx[gfx_count] = SDL_DisplayFormatAlpha(gfx[gfx_count]);
+	SDL_FreeSurface(cleanup);	
+
 	// success; perform record-keeping
 	gfx_filenames[gfx_count] = filename;
 	gfx_count++;

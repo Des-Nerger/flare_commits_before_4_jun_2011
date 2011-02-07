@@ -38,6 +38,18 @@ void MenuPowers::loadGraphics() {
 		SDL_Quit();
 	}
 	
+	// optimize
+	SDL_Surface *cleanup = background;
+	background = SDL_DisplayFormatAlpha(background);
+	SDL_FreeSurface(cleanup);	
+	
+	cleanup = powers_step;
+	powers_step = SDL_DisplayFormatAlpha(powers_step);
+	SDL_FreeSurface(cleanup);
+	
+	cleanup = powers_unlock;
+	powers_unlock = SDL_DisplayFormatAlpha(powers_unlock);
+	SDL_FreeSurface(cleanup);
 }
 
 /**

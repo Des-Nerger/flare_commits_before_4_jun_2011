@@ -27,6 +27,19 @@ void MenuCharacter::loadGraphics() {
 		SDL_Quit();
 	}
 	
+	// optimize
+	SDL_Surface *cleanup = background;
+	background = SDL_DisplayFormatAlpha(background);
+	SDL_FreeSurface(cleanup);
+	
+	cleanup = proficiency;
+	proficiency = SDL_DisplayFormatAlpha(proficiency);
+	SDL_FreeSurface(cleanup);
+
+	cleanup = upgrade;
+	upgrade = SDL_DisplayFormatAlpha(upgrade);
+	SDL_FreeSurface(cleanup);
+		
 }
 
 void MenuCharacter::render() {

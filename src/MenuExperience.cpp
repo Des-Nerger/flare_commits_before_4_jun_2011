@@ -44,7 +44,15 @@ void MenuExperience::loadGraphics() {
 		Mix_CloseAudio();
 		SDL_Quit();
 	}
+
+	// optimize
+	SDL_Surface *cleanup = background;
+	background = SDL_DisplayFormatAlpha(background);
+	SDL_FreeSurface(cleanup);	
 	
+	cleanup = bar;
+	bar = SDL_DisplayFormatAlpha(bar);
+	SDL_FreeSurface(cleanup);
 }
 
 /**

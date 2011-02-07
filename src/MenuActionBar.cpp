@@ -74,6 +74,20 @@ void MenuActionBar::loadGraphics() {
 		fprintf(stderr, "Couldn't load image: %s\n", IMG_GetError());
 		SDL_Quit();
 	}
+	
+	// optimize
+	SDL_Surface *cleanup = background;
+	background = SDL_DisplayFormatAlpha(background);
+	SDL_FreeSurface(cleanup);	
+	
+	cleanup = emptyslot;
+	emptyslot = SDL_DisplayFormatAlpha(emptyslot);
+	SDL_FreeSurface(cleanup);
+	
+	cleanup = labels;
+	labels = SDL_DisplayFormatAlpha(labels);
+	SDL_FreeSurface(cleanup);	
+	
 }
 
 /**

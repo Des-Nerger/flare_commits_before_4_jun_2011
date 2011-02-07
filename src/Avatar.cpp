@@ -83,6 +83,11 @@ void Avatar::loadGraphics(string img_main, string img_body, string img_off) {
 	
 	if (gfx_main) SDL_FreeSurface(gfx_main);
 	if (gfx_off) SDL_FreeSurface(gfx_off);
+	
+	// optimize
+	SDL_Surface *cleanup = sprites;
+	sprites = SDL_DisplayFormatAlpha(sprites);
+	SDL_FreeSurface(cleanup);
 }
 
 void Avatar::loadSounds() {

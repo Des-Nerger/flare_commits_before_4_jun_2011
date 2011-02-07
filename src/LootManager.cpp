@@ -92,9 +92,19 @@ void LootManager::loadGraphics() {
 	// set magic pink transparency
 	for (int i=0; i<animation_count; i++) {
 		SDL_SetColorKey( flying_loot[i], SDL_SRCCOLORKEY, SDL_MapRGB(flying_loot[i]->format, 255, 0, 255) ); 
+		
+		// optimize
+		SDL_Surface *cleanup = flying_loot[i];
+		flying_loot[i] = SDL_DisplayFormatAlpha(flying_loot[i]);
+		SDL_FreeSurface(cleanup);
 	}
 	for (int i=0; i<3; i++) {
-		SDL_SetColorKey( flying_gold[i], SDL_SRCCOLORKEY, SDL_MapRGB(flying_gold[i]->format, 255, 0, 255) ); 	
+		SDL_SetColorKey( flying_gold[i], SDL_SRCCOLORKEY, SDL_MapRGB(flying_gold[i]->format, 255, 0, 255) ); 
+		
+		// optimize
+		SDL_Surface *cleanup = flying_gold[i];
+		flying_gold[i] = SDL_DisplayFormatAlpha(flying_gold[i]);
+		SDL_FreeSurface(cleanup);
 	}
 }
 

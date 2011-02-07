@@ -30,6 +30,11 @@ void TileSet::loadGraphics(string filename) {
 		SDL_Quit();
 	}
 	SDL_SetColorKey( sprites, SDL_SRCCOLORKEY, SDL_MapRGB(sprites->format, 255, 0, 255) ); 
+	
+	// optimize
+	SDL_Surface *cleanup = sprites;
+	sprites = SDL_DisplayFormatAlpha(sprites);
+	SDL_FreeSurface(cleanup);	
 }
 
 void TileSet::load(string filename) {
