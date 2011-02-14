@@ -50,6 +50,8 @@ static void init() {
 		exit(1);
 	}
 	
+	SDL_WM_SetCaption("Flare", "Flare");
+	
 	/* Shared game units setup */
 	inps = new InputState();
 	eng = new GameEngine(screen, inps);
