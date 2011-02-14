@@ -331,4 +331,26 @@ frame_duration=3
 frame_size=64,64
 frame_offset=32,64
 trait_elemental=fire
-bleed_duration=90
+
+[power]
+id=32
+name=Goblin Spear
+type=missile
+icon=0
+description=Crude goblin spear toss
+new_state=shoot
+face=true
+directional=true
+gfx=spear.png
+use_hazard=true
+rendered=true
+aim_assist=32
+requires_ammo=true
+base_damage=ranged
+lifespan=24
+radius=64
+speed=24
+frame_size=64,64
+frame_offset=32,64
+frame_duration=6
+frame_loop=32

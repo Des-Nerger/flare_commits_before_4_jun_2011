@@ -9,10 +9,12 @@
 #ifndef AVATAR_H
 #define AVATAR_H
 
+
 #include <sstream>
 #include "SDL.h"
 #include "SDL_image.h"
 #include "SDL_mixer.h"
+
 #include "Utils.h"
 #include "InputState.h"
 #include "MapIso.h"

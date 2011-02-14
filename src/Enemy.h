@@ -9,11 +9,13 @@
 #ifndef ENEMY_H
 #define ENEMY_H
 
+
 #include <math.h>
 #include <string>
 #include "SDL.h"
 #include "SDL_image.h"
 #include "SDL_mixer.h"
+
 #include "Utils.h"
 #include "InputState.h"
 #include "MapIso.h"

@@ -535,6 +535,23 @@ bool Avatar::takeHit(Hazard h) {
 		if (h.dmg_min == h.dmg_max) dmg = h.dmg_min;
 		else dmg = h.dmg_min + (rand() % (h.dmg_max - h.dmg_min + 1));
 	
+		// apply elemental resistance
+		// TODO: make this generic
+		int resist_pct = 100;
+		if (h.trait_elemental == ELEMENT_FIRE) {
+			if (stats.resist_fire > 0) {
+				resist_pct = 100 - stats.resist_fire;
+				dmg = dmg * resist_pct / 100;
+			}
+		}
+		if (h.trait_elemental == ELEMENT_WATER) {
+			if (stats.resist_ice > 0) {
+				resist_pct = 100 - stats.resist_ice;
+				dmg = dmg * resist_pct / 100;			
+			}
+		}
+	
+		// apply absorption
 		int absorption;
 		if (!h.trait_armor_penetration) { // armor penetration ignores all absorption
 			if (stats.absorb_min == stats.absorb_max) absorption = stats.absorb_min;

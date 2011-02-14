@@ -231,11 +231,11 @@ type=goblin_charger
 spawnpoint=8,22,7
 
 [enemy]
-type=goblin
+type=goblin_spearman
 spawnpoint=4,5,4
 
 [enemy]
-type=goblin
+type=goblin_spearman
 spawnpoint=8,16,6
 
 [enemy]
