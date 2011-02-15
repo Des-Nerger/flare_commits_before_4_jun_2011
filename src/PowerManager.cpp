@@ -29,6 +29,7 @@ PowerManager::PowerManager() {
 	powers[POWER_MULTISHOT].new_state = POWSTATE_SHOOT;
 	powers[POWER_MULTISHOT].face = true;
 	powers[POWER_MULTISHOT].requires_mana = true;
+	powers[POWER_MULTISHOT].sfx_index = 0;
 	
 	powers[POWER_FREEZE].name = "Freeze";
 	powers[POWER_FREEZE].type = POWTYPE_GROUNDRAY;
@@ -635,9 +636,10 @@ bool PowerManager::missileX3(int power_index, StatBlock *src_stats, Point target
 			haz[i]->sprites = gfx[0];
 			haz[i]->direction = calcDirection(src_stats->pos.x, src_stats->pos.y, target.x, target.y);
 			haz[i]->wall_power = 124;
+			
 		}
 	}
-	
+	Mix_PlayChannel(-1,sfx[0],0);
 	src_stats->mp--;
 	
 	// calculate speeds
