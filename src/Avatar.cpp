@@ -581,10 +581,10 @@ bool Avatar::takeHit(Hazard h) {
 			if (h.immobilize_duration > stats.immobilize_duration) stats.immobilize_duration = h.immobilize_duration;
 		}
 		
-		// create a blood spark upon bloody attack
+		// post effect power
 		Point pt;
-		if (h.bleed_duration > 0 && dmg > 0) {
-			powers->activate(POWER_SPARK_BLOOD, &stats, pt);
+		if (h.post_power >= 0 && dmg > 0) {
+			powers->activate(h.post_power, &stats, pt);
 		}
 		
 		// Power-specific: Vengeance gains stacks when blocking

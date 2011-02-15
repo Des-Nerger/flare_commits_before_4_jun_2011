@@ -17,10 +17,12 @@ aim_assist=32
 requires_ammo=true
 base_damage=ranged
 lifespan=16
-radius=96
+radius=64
 speed=48
 frame_size=64,64
 frame_offset=32,64
+wall_power=124
+
 
 [power]
 id=1
@@ -66,6 +68,7 @@ lifespan=1
 radius=64
 starting_pos=melee
 bleed_duration=150
+post_power=127
 
 [power]
 id=5
@@ -90,14 +93,16 @@ use_hazard=true
 rendered=true
 aim_assist=32
 base_damage=magic
-lifespan=24
-radius=96
-speed=32
+lifespan=32
+radius=64
+speed=20
 frame_loop=4
 frame_duration=1
 frame_size=64,64
 frame_offset=32,64
 trait_elemental=wind
+post_power=126
+wall_power=126
 
 [power]
 id=7
@@ -238,10 +243,11 @@ multitarget=true
 trait_armor_penetrating=true
 base_damage=ranged
 lifespan=16
-radius=96
+radius=64
 speed=48
 frame_size=64,64
 frame_offset=32,64
+wall_power=124
 
 [power]
 id=18
@@ -269,6 +275,8 @@ active_frame=4
 trait_elemental=fire
 starting_pos=target
 multitarget=true
+post_effect=40
+post_power=125
 
 [power]
 id=19
@@ -300,15 +308,18 @@ use_hazard=true
 rendered=true
 aim_assist=32
 base_damage=magic
-lifespan=24
-radius=96
-speed=32
+lifespan=32
+radius=64
+speed=20
 frame_loop=12
 frame_duration=3
 frame_size=64,64
 frame_offset=32,64
 trait_elemental=water
 slow_duration=60
+post_power=126
+wall_power=126
+
 
 [power]
 id=31
@@ -318,19 +329,22 @@ new_state=cast
 face=true
 directional=true
 gfx=fireball.png
-sfx=shock.ogg
+sfx=fireball.ogg
 use_hazard=true
 rendered=true
 aim_assist=32
 base_damage=magic
-lifespan=24
-radius=96
-speed=32
-frame_loop=12
-frame_duration=3
+lifespan=32
+radius=64
+speed=20
+frame_loop=8
+frame_duration=2
 frame_size=64,64
 frame_offset=32,64
 trait_elemental=fire
+post_power=125
+wall_power=125
+
 
 [power]
 id=32
@@ -379,3 +393,69 @@ starting_pos=source
 multitarget=true
 visual_option=1
 slow_duration=15
+post_power=125
+
+[power]
+id=124
+name=Arrow Wall Strike
+type=effect
+gfx=arrows.png
+use_hazard=true
+rendered=true
+no_attack=true
+directional=true
+lifespan=90
+frame_duration=1
+frame_size=64,64
+frame_offset=32,64
+frame_loop=1
+starting_pos=source
+
+[power]
+id=125
+name=Orange Spark
+type=effect
+gfx=spark_orange.png
+use_hazard=true
+rendered=true
+no_attack=true
+lifespan=24
+frame_duration=6
+frame_size=64,64
+frame_offset=32,64
+frame_loop=100
+starting_pos=source
+visual_random=2
+
+[power]
+id=126
+name=Blue Spark
+type=effect
+gfx=spark_blue.png
+use_hazard=true
+rendered=true
+no_attack=true
+lifespan=24
+frame_duration=6
+frame_size=64,64
+frame_offset=32,64
+frame_loop=100
+starting_pos=source
+visual_random=2
+
+[power]
+id=127
+name=Red Spark
+type=effect
+gfx=spark_red.png
+use_hazard=true
+rendered=true
+no_attack=true
+lifespan=24
+frame_duration=6
+frame_size=64,64
+frame_offset=32,64
+frame_loop=100
+starting_pos=source
+visual_random=2
+

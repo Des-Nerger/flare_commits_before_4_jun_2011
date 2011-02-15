@@ -46,7 +46,6 @@ PowerManager::PowerManager() {
 	powers[POWER_VENGEANCE].face = true;
 	powers[POWER_VENGEANCE].requires_mana = true;
 	
-	powers[POWER_SPARK_BLOOD].type = POWTYPE_NONDAMAGE;
 	
 	loadGraphics();
 	loadSounds();
@@ -94,7 +93,6 @@ void PowerManager::loadPowers() {
 					else if (key == "type") {
 						if (val == "single") powers[input_id].type = POWTYPE_SINGLE;
 						else if (val == "effect") powers[input_id].type = POWTYPE_EFFECT;
-						else if (val == "nondamage") powers[input_id].type = POWTYPE_NONDAMAGE;
 						else if (val == "missile") powers[input_id].type = POWTYPE_MISSILE;
 						else if (val == "groundray") powers[input_id].type = POWTYPE_GROUNDRAY;
 					}
@@ -257,6 +255,13 @@ void PowerManager::loadPowers() {
 						if (val == "true") powers[input_id].buff_immunity = true;
 					}
 					
+					// pre and post power effects
+					else if (key == "post_power") {
+						powers[input_id].post_power = atoi(val.c_str());
+					}
+					else if (key == "wall_power") {
+						powers[input_id].wall_power = atoi(val.c_str());
+					}
 				}
 			}
 		}
@@ -333,12 +338,11 @@ int PowerManager::loadSFX(string filename) {
 
 
 void PowerManager::loadGraphics() {
-	
-	sparks = IMG_Load("images/powers/sparks.png");
+
 	freeze = IMG_Load("images/powers/freeze.png");
 	runes = IMG_Load("images/powers/runes.png");
 	
-	if(!sparks || !freeze || !runes) {
+	if(!freeze || !runes) {
 		fprintf(stderr, "Couldn't load image: %s\n", IMG_GetError());
 		SDL_Quit();
 	}
@@ -476,6 +480,10 @@ void PowerManager::initHazard(int power_index, StatBlock *src_stats, Point targe
 	else if (powers[power_index].starting_pos == STARTING_POS_MELEE) {
 		haz->pos = calcVector(src_stats->pos, src_stats->direction, src_stats->melee_range);
 	}
+	
+	// pre/post power effects
+	haz->post_power = powers[power_index].post_power;
+	haz->wall_power = powers[power_index].wall_power;
 	
 }
 
@@ -626,7 +634,7 @@ bool PowerManager::missileX3(int power_index, StatBlock *src_stats, Point target
 			speed = 48;
 			haz[i]->sprites = gfx[0];
 			haz[i]->direction = calcDirection(src_stats->pos.x, src_stats->pos.y, target.x, target.y);
-			
+			haz[i]->wall_power = 124;
 		}
 	}
 	
@@ -752,35 +760,6 @@ bool PowerManager::groundRay(int power_index, StatBlock *src_stats, Point target
 	return true;
 }
 
-/**
- * Hazards that are graphics/sounds only
- */
-bool PowerManager::nonDamage(int power_index, StatBlock *src_stats, Point target) {
-
-	Hazard *haz = new Hazard();
-	haz->pos.x = src_stats->pos.x;
-	haz->pos.y = src_stats->pos.y;
-	if (src_stats->hero)
-		haz->source = SRC_HERO;
-	else
-		haz->source = SRC_ENEMY;
-	haz->rendered = true;
-	haz->active = false;
-	
-	if (power_index == POWER_SPARK_BLOOD) {
-		haz->lifespan = 24;
-		haz->frame_duration = 6;
-		haz->frame_loop = 100;
-		haz->frame_offset.y = 64;
-		haz->direction = rand() % 2;
-		haz->sprites = sparks;
-	}
-	
-	hazards.push(haz);
-
-	// Hazard memory is now the responsibility of HazardManager
-	return true;			
-}
 
 /**
  * Basic single-frame area hazard
@@ -830,8 +809,6 @@ bool PowerManager::activate(int power_index, StatBlock *src_stats, Point target)
 	// separate functions to handle the details.
 	if (powers[power_index].type == POWTYPE_SINGLE)
 		return single(power_index, src_stats, target);
-	else if (powers[power_index].type == POWTYPE_NONDAMAGE)
-		return nonDamage(power_index, src_stats, target);
 	else if (powers[power_index].type == POWTYPE_MISSILE)
 		return missile(power_index, src_stats, target);
 	else if (powers[power_index].type == POWTYPE_MISSILE_X3)
@@ -855,7 +832,6 @@ PowerManager::~PowerManager() {
 			Mix_FreeChunk(sfx[i]);
 	}
 
-	SDL_FreeSurface(sparks);
 	SDL_FreeSurface(freeze);
 	SDL_FreeSurface(runes);	
 	Mix_FreeChunk(sfx_freeze);

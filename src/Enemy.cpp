@@ -604,10 +604,10 @@ bool Enemy::takeHit(Hazard h) {
 			if (h.immobilize_duration > stats.immobilize_duration) stats.immobilize_duration = h.immobilize_duration;
 		}
 		
-		// create a blood spark upon crit or bloody attack
+		// post effect power
 		Point pt;
-		if (dmg > 0 && (crit || h.bleed_duration > 0)) {
-			powers->activate(POWER_SPARK_BLOOD, &stats, pt);
+		if (h.post_power >= 0 && dmg > 0) {
+			powers->activate(h.post_power, &stats, pt);
 		}
 		
 		// interrupted to new state

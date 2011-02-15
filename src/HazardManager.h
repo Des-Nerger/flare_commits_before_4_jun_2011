@@ -15,6 +15,7 @@
 #include "Utils.h"
 #include "Hazard.h"
 #include "MapCollision.h"
+#include "PowerManager.h"
 
 class HazardManager {
 private:

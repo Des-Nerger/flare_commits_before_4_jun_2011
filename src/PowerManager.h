@@ -28,10 +28,9 @@ const int POWER_MAX_SFX = 64;
 
 const int POWTYPE_SINGLE = 2;
 const int POWTYPE_MISSILE = 3;
-const int POWTYPE_NONDAMAGE = 4;
-const int POWTYPE_MISSILE_X3 = 5; // used by MultiShot
-const int POWTYPE_GROUNDRAY = 6; // used by Freeze
-const int POWTYPE_EFFECT = 7;
+const int POWTYPE_MISSILE_X3 = 4; // used by MultiShot
+const int POWTYPE_GROUNDRAY = 5; // used by Freeze
+const int POWTYPE_EFFECT = 6;
 
 const int POWSTATE_SWING = 0;
 const int POWSTATE_CAST = 1;
@@ -68,7 +67,7 @@ const int POWER_MULTISHOT = 8;
 const int POWER_SHIELD = 11;
 const int POWER_FREEZE = 14;
 const int POWER_VENGEANCE = 17;
-const int POWER_SPARK_BLOOD = 24;
+const int POWER_SPARK_BLOOD = 127;
 
 struct Power {
 
@@ -126,6 +125,9 @@ struct Power {
 	bool buff_teleport;
 	bool buff_immunity;
 	
+	int post_power;
+	int wall_power;
+	
 	Power() {
 		type = -1;
 		name = "";
@@ -175,6 +177,9 @@ struct Power {
 		buff_shield = false;
 		buff_teleport = false;
 		buff_immunity = false;
+		
+		post_power = -1;
+		wall_power = -1;
 	}	
 	
 };
@@ -203,7 +208,6 @@ private:
 	bool effect(int powernum, StatBlock *src_stats, Point target);
 	bool missile(int powernum, StatBlock *src_stats, Point target);
 	
-	bool nonDamage(int powernum, StatBlock *src_stats, Point target);
 	bool single(int powernum, StatBlock *src_stats, Point target);
 	bool missileX3(int powernum, StatBlock *src_stats, Point target);
 	bool groundRay(int powernum, StatBlock *src_stats, Point target);
@@ -222,7 +226,6 @@ public:
 	SDL_Surface *gfx[POWER_MAX_GFX];
 	Mix_Chunk *sfx[POWER_MAX_SFX];
 	
-	SDL_Surface *sparks;
 	SDL_Surface *freeze;
 	SDL_Surface *runes;
 	

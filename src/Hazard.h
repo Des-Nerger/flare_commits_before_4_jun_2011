@@ -67,6 +67,7 @@ public:
 	bool active;
 	
 	bool remove_now;
+	bool hit_wall;
 	
 	// after effects of various powers
 	int stun_duration;
@@ -75,7 +76,11 @@ public:
 	int bleed_duration;
 	
 	bool trait_armor_penetration;
-	int trait_elemental;	
+	int trait_elemental;
+	
+	// pre/post power effects
+	int post_power;
+	int wall_power;
 };
 
 #endif

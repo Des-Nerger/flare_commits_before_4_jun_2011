@@ -41,6 +41,9 @@ Hazard::Hazard() {
 	trait_armor_penetration = false;
 	trait_elemental = -1;
 	remove_now = false;
+	post_power = -1;
+	wall_power = -1;
+	hit_wall = false;
 }
 
 void Hazard::setCollision(MapCollision *_collider) {
@@ -69,6 +72,7 @@ void Hazard::logic() {
 		// or even pass through thin walls if speed > tilesize
 		if (collider->is_wall(round(pos.x), round(pos.y))) {
 			lifespan = 0;
+			hit_wall = true;
 			
 			if (collider->outsideMap(round(pos.x) >> TILE_SHIFT, round(pos.y) >> TILE_SHIFT))
 				remove_now = true;
