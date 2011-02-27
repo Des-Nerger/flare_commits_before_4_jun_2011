@@ -10,6 +10,7 @@ new_state=shoot
 face=true
 requires_ammo=true
 base_damage=ranged
+aim_assist=32
 allow_power_mod=true
 
 [power]
@@ -128,6 +129,7 @@ face=true
 requires_ammo=true
 requires_mana=true
 base_damage=ranged
+aim_assist=32
 allow_power_mod=true
 
 [power]
@@ -241,6 +243,7 @@ requires_mana=true
 multitarget=true
 trait_armor_penetrating=true
 base_damage=ranged
+aim_assist=32
 allow_power_mod=true
 
 
