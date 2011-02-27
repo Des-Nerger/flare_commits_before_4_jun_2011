@@ -46,7 +46,7 @@ void GameEngine::logic() {
 	if (!menu->pause) {
 		
 		// click to pick up loot on the ground
-		if (inp->pressing[MAIN1] && !inp->mouse_lock) {
+		if (inp->pressing[MAIN1] && !inp->mouse_lock && pc->stats.alive) {
 			int gold;
 			
 			pickup = loot->checkPickup(inp->mouse, map->cam, pc->stats.pos, gold, menu->inv->full());
