@@ -19,7 +19,7 @@ chance_melee_mag=0
 chance_ranged_phys=1
 chance_ranged_mag=0
 power_melee_phys=1
-power_ranged_phys=0
+power_ranged_phys=121
 
 accuracy=80
 avoidance=30
@@ -33,7 +33,6 @@ absorb_max=1
 cooldown=30
 
 # animation info
-render_size_x=128
 render_size_x=128
 render_size_y=128
 render_offset_x=64

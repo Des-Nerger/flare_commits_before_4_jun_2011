@@ -19,7 +19,7 @@ chance_melee_mag=0
 chance_ranged_phys=1
 chance_ranged_mag=1
 power_melee_phys=1
-power_ranged_phys=0
+power_ranged_phys=121
 power_ranged_mag=30
 cooldown_ranged_phys=60
 cooldown_ranged_mag=90
@@ -35,10 +35,11 @@ dmg_magic_min=2
 dmg_magic_max=6
 absorb_min=1
 absorb_max=2
+attunement_fire=150
+attunement_ice=75
 cooldown=30
 
 # animation info
-render_size_x=128
 render_size_x=128
 render_size_y=128
 render_offset_x=64

@@ -95,10 +95,10 @@ public:
 	int dmg_ranged_max;
 	int absorb_min;
 	int absorb_max;	
-	int resist_fire;
-	int resist_ice;
 	bool ammo_stones;
 	bool ammo_arrows;
+	int attunement_fire;
+	int attunement_ice;
 
 	// buff and debuff stats
 	int slow_duration;
@@ -179,6 +179,11 @@ public:
 	// for the teleport spell
 	bool teleportation;
 	Point teleport_destination;
+	
+	// weapons can modify spells
+	int melee_weapon_power;
+	int magic_weapon_power;
+	int ranged_weapon_power;
 };
 
 #endif

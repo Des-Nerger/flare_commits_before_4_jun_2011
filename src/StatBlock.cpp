@@ -34,8 +34,6 @@ StatBlock::StatBlock() {
 	dmg_ranged_max = 0;
 	absorb_min = 0;
 	absorb_max = 0;
-	resist_fire = 0;
-	resist_ice = 0;
 	ammo_stones = false;
 	ammo_arrows = false;
 	
@@ -87,6 +85,13 @@ StatBlock::StatBlock() {
 		power_ticks[i] = 0;
 	}
 	melee_range = 64;
+	
+	melee_weapon_power = -1;
+	ranged_weapon_power = -1;
+	magic_weapon_power = -1;
+	
+	attunement_fire = 100;
+	attunement_ice = 100;
 
 }
 
@@ -106,9 +111,11 @@ void StatBlock::load(string filename) {
 	if (infile.is_open()) {
 		while (!infile.eof()) {
 
-			getline(infile, line);
+			line = getLine(infile);
 
 			if (line.length() > 0) {
+			
+			
 				starts_with = line.at(0);
 				
 				if (starts_with == "#") {
@@ -146,8 +153,6 @@ void StatBlock::load(string filename) {
 					else if (key == "dmg_ranged_max") dmg_ranged_max = num;
 					else if (key == "absorb_min") absorb_min = num;
 					else if (key == "absorb_max") absorb_max = num;
-					else if (key == "resist_fire") resist_fire = num;
-					else if (key == "resist_ice") resist_ice = num;					
 					
 					// behavior stats
 					else if (key == "speed") speed = num;
@@ -171,6 +176,9 @@ void StatBlock::load(string filename) {
 					
 					else if (key == "melee_range") melee_range = num;
 					else if (key == "threat_range") threat_range = num;
+					
+					else if (key == "attunement_fire") attunement_fire=num;
+					else if (key == "attunement_ice") attunement_ice=num;
 
 					// animation stats
 					else if (key == "render_size_x") render_size.x = num;
@@ -204,6 +212,9 @@ void StatBlock::load(string filename) {
 					else if (key == "anim_critdie_position") anim_critdie_position = num;
 					else if (key == "anim_critdie_frames") anim_critdie_frames = num;
 					else if (key == "anim_critdie_duration") anim_critdie_duration = num;
+					else if (key == "melee_weapon_power") melee_weapon_power = num;
+					else if (key == "magic_weapon_power") magic_weapon_power = num;
+					else if (key == "ranged_weapon_power") ranged_weapon_power = num;
 	
 				}
 			}
@@ -300,7 +311,7 @@ void StatBlock::logic() {
 		immunity_duration--;
 	
 	// apply bleed
-	if (bleed_duration % 30 == 1) {
+	if (bleed_duration % FRAMES_PER_SEC == 1) {
 		takeDamage(1);
 	}
 	

@@ -30,6 +30,8 @@ ItemDatabase::ItemDatabase(SDL_Surface *_screen, SDL_Surface *_icons) {
 		items[i].sfx = SFX_NONE;
 		items[i].gfx = "";
 		items[i].loot = "";
+		items[i].power_mod = -1;
+		items[i].power_desc = "";
 		items[i].price = 0;
 		
 	}
@@ -53,7 +55,7 @@ void ItemDatabase::load() {
 	if (infile.is_open()) {
 		while (!infile.eof()) {
 
-			getline(infile, line);
+			line = getLine(infile);
 
 			if (line.length() > 0) {
 				starts_with = line.at(0);
@@ -172,6 +174,10 @@ void ItemDatabase::load() {
 						items[id].loot = val;
 					else if (key == "effect")
 						items[id].effect = val;
+					else if (key == "power_mod")
+						items[id].power_mod = atoi(val.c_str());
+					else if (key == "power_desc")
+						items[id].power_desc = val;
 					else if (key == "price")
 						items[id].price = atoi(val.c_str());
 				}
@@ -339,6 +345,14 @@ TooltipData ItemDatabase::getTooltip(int item, StatBlock *stats) {
 			ss << "Decreases " << items[item].bonus_stat << " by " << (-1 * items[item].bonus_val);
 		tip.lines[tip.num_lines++] = ss.str();
 	}
+	
+	// power
+	if (items[item].power_desc != "") {
+		ss.str("");
+		ss << items[item].power_desc;
+		tip.colors[tip.num_lines] = FONT_GREEN;
+		tip.lines[tip.num_lines++] = ss.str();
+	}
 
 	ss.str("");
 	
@@ -396,8 +410,8 @@ void ItemDatabase::applyEquipment(StatBlock *stats, int equipped[4]) {
 	stats->absorb_min = stats->absorb_max = 0;
 	stats->speed = 10;
 	stats->dspeed = 7;
-	stats->resist_fire = 0;
-	stats->resist_ice = 0;
+	stats->attunement_fire = 100;
+	stats->attunement_ice = 100;
 	stats->ammo_stones = false;
 	stats->ammo_arrows = false;
 
@@ -406,11 +420,13 @@ void ItemDatabase::applyEquipment(StatBlock *stats, int equipped[4]) {
 	if (item_id > 0) {
 		if (items[item_id].req_stat == REQUIRES_PHYS) {
 			stats->dmg_melee_min = items[item_id].dmg_min;
-			stats->dmg_melee_max = items[item_id].dmg_max;			
+			stats->dmg_melee_max = items[item_id].dmg_max;
+			stats->melee_weapon_power = items[item_id].power_mod;	
 		}
 		else if (items[item_id].req_stat == REQUIRES_MAG) {
 			stats->dmg_magic_min = items[item_id].dmg_min;
 			stats->dmg_magic_max = items[item_id].dmg_max;						
+			stats->magic_weapon_power = items[item_id].power_mod;	
 		}
 	}
 	// off hand item
@@ -419,6 +435,7 @@ void ItemDatabase::applyEquipment(StatBlock *stats, int equipped[4]) {
 		if (items[item_id].req_stat == REQUIRES_OFF) {
 			stats->dmg_ranged_min = items[item_id].dmg_min;
 			stats->dmg_ranged_max = items[item_id].dmg_max;
+			stats->ranged_weapon_power = items[item_id].power_mod;	
 			
 			// setup ammo so that PowerManager knows what animation to use
 			if (items[item_id].req_val == 2) // slingshot
@@ -464,9 +481,9 @@ void ItemDatabase::applyEquipment(StatBlock *stats, int equipped[4]) {
 			stats->dspeed += ((items[item_id].bonus_val) * 2) /3;
 		}
 		else if (items[item_id].bonus_stat == "fire resist")
-			stats->resist_fire += items[item_id].bonus_val;
+			stats->attunement_fire -= items[item_id].bonus_val;
 		else if (items[item_id].bonus_stat == "ice resist")
-			stats->resist_ice += items[item_id].bonus_val;
+			stats->attunement_ice -= items[item_id].bonus_val;
 	}
 	
 	// apply previous hp/mp
@@ -479,7 +496,7 @@ void ItemDatabase::applyEquipment(StatBlock *stats, int equipped[4]) {
 		stats->mp = prev_mp;
 	else
 		stats->mp = stats->maxmp;
-
+		
 }
 
 /**

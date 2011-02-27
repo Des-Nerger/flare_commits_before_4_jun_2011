@@ -330,11 +330,11 @@ intermap=goblin_warrens.txt,51,13
 
 #entry room
 [enemy]
-type=antlion
+type=antlion_hatchling
 spawnpoint=12,9,3
 
 [enemy]
-type=antlion
+type=antlion_hatchling
 spawnpoint=12,12,3
 
 [event]

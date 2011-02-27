@@ -537,18 +537,11 @@ bool Avatar::takeHit(Hazard h) {
 	
 		// apply elemental resistance
 		// TODO: make this generic
-		int resist_pct = 100;
 		if (h.trait_elemental == ELEMENT_FIRE) {
-			if (stats.resist_fire > 0) {
-				resist_pct = 100 - stats.resist_fire;
-				dmg = dmg * resist_pct / 100;
-			}
+			dmg = (dmg * stats.attunement_fire) / 100;
 		}
 		if (h.trait_elemental == ELEMENT_WATER) {
-			if (stats.resist_ice > 0) {
-				resist_pct = 100 - stats.resist_ice;
-				dmg = dmg * resist_pct / 100;			
-			}
+			dmg = (dmg * stats.attunement_ice) / 100;			
 		}
 	
 		// apply absorption

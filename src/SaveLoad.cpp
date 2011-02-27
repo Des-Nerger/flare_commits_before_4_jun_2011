@@ -91,7 +91,7 @@ void GameEngine::loadGame() {
 
 	if (infile.is_open()) {
 		while (!infile.eof()) {
-			getline(infile, line);
+			line = getLine(infile);
 
 			if (line.length() > 0) {
 				starts_with = line.at(0);

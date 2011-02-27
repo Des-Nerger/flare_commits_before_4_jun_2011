@@ -51,11 +51,12 @@ void TileSet::load(string filename) {
 		string img;
 		
 		// first line is the tileset image filename
-		getline(infile, line);
+		line = getLine(infile);
+		
 		img = line;
 
 		while (!infile.eof()) {
-			getline(infile, line);
+			line = getLine(infile);
 
 			if (line.length() > 0) {
 				line = line + ',';

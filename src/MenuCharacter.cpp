@@ -146,10 +146,10 @@ void MenuCharacter::render() {
 		ss << stats->absorb_min << "-" << stats->absorb_max;
 	font->render(ss.str(), 272, offset_y+338, JUSTIFY_CENTER, screen, FONT_WHITE);
 	ss.str("");
-	ss << stats->resist_fire << "%";
+	ss << (100 - stats->attunement_fire) << "%";
 	font->render(ss.str(), 272, offset_y+354, JUSTIFY_CENTER, screen, FONT_WHITE);
 	ss.str("");
-	ss << stats->resist_ice << "%";
+	ss << (100 - stats->attunement_ice) << "%";
 	font->render(ss.str(), 272, offset_y+370, JUSTIFY_CENTER, screen, FONT_WHITE);
 	
 	// highlight proficiencies

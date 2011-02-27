@@ -42,6 +42,7 @@ public:
 	
 	FPoint pos;
 	FPoint speed;
+	int base_speed;
 	int lifespan; // ticks down to zero
 	int radius;
 	int power_index;
@@ -81,6 +82,8 @@ public:
 	// pre/post power effects
 	int post_power;
 	int wall_power;
+	
+	bool equipment_modified;
 };
 
 #endif

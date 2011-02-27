@@ -104,7 +104,7 @@ int MapIso::load(string filename) {
 	if (infile.is_open()) {
 		while (!infile.eof()) {
 
-			getline(infile, line);
+			line = getLine(infile);
 
 			if (line.length() > 0) {
 				starts_with = line.at(0);
@@ -179,7 +179,7 @@ int MapIso::load(string filename) {
 							// The next h lines must contain layer data.  TODO: err
 							if (data_format == "hex") {
 								for (int j=0; j<h; j++) {
-									getline(infile, line);
+									line = getLine(infile);
 									line = line + ',';
 									for (int i=0; i<w; i++) {
 										if (cur_layer == "background") background[i][j] = eatFirstHex(line, ',');
@@ -190,7 +190,7 @@ int MapIso::load(string filename) {
 							}
 							else if (data_format == "dec") {
 								for (int j=0; j<h; j++) {
-									getline(infile, line);
+									line = getLine(infile);
 									line = line + ',';
 									for (int i=0; i<w; i++) {
 										if (cur_layer == "background") background[i][j] = eatFirstInt(line, ',');

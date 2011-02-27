@@ -653,6 +653,7 @@ req=p,2
 sfx=metal
 gfx=dagger
 loot=dagger
+power_mod=118
 price=14
 
 [item]
@@ -668,6 +669,7 @@ req=p,2
 sfx=metal
 gfx=dagger
 loot=dagger
+power_mod=119
 price=12
 
 [item]
@@ -4418,6 +4420,7 @@ req=o,2
 sfx=wood
 gfx=slingshot
 loot=slingshot
+power_mod=120
 price=8
 
 [item]
@@ -4432,6 +4435,7 @@ req=o,2
 sfx=wood
 gfx=slingshot
 loot=slingshot
+power_mod=120
 price=2
 
 [item]
@@ -4447,6 +4451,7 @@ req=o,2
 sfx=wood
 gfx=slingshot
 loot=slingshot
+power_mod=120
 price=5
 
 [item]
@@ -4462,6 +4467,7 @@ req=o,2
 sfx=wood
 gfx=slingshot
 loot=slingshot
+power_mod=120
 price=4
 
 [item]
@@ -4477,6 +4483,7 @@ req=o,2
 sfx=wood
 gfx=slingshot
 loot=slingshot
+power_mod=120
 price=16
 
 [item]
@@ -4492,6 +4499,7 @@ req=o,2
 sfx=wood
 gfx=slingshot
 loot=slingshot
+power_mod=120
 price=19
 
 [item]
@@ -4507,6 +4515,7 @@ req=o,2
 sfx=wood
 gfx=slingshot
 loot=slingshot
+power_mod=120
 price=17
 
 [item]
@@ -4522,6 +4531,7 @@ req=o,2
 sfx=wood
 gfx=slingshot
 loot=slingshot
+power_mod=120
 price=20
 
 [item]
@@ -4536,6 +4546,7 @@ req=o,2
 sfx=wood
 gfx=slingshot
 loot=slingshot
+power_mod=120
 price=22
 
 [item]
@@ -4551,6 +4562,7 @@ req=o,2
 sfx=wood
 gfx=slingshot
 loot=slingshot
+power_mod=120
 price=12
 
 [item]
@@ -4566,6 +4578,7 @@ req=o,2
 sfx=wood
 gfx=slingshot
 loot=slingshot
+power_mod=120
 price=14
 
 [item]
@@ -4576,11 +4589,13 @@ quality=high
 type=off
 icon=104,8
 dmg=2,6
-bonus=fire resist,6
+bonus=ice resist,6
 req=o,2
 sfx=wood
 gfx=slingshot
 loot=slingshot
+power_mod=122
+power_desc=Fire Ammo
 price=11
 
 [item]
@@ -4591,11 +4606,13 @@ quality=high
 type=off
 icon=104,8
 dmg=2,6
-bonus=ice resist,6
+bonus=fire resist,6
 req=o,2
 sfx=wood
 gfx=slingshot
 loot=slingshot
+power_mod=123
+power_desc=Ice Ammo
 price=9
 
 [item]
@@ -4611,6 +4628,7 @@ req=o,2
 sfx=wood
 gfx=slingshot
 loot=slingshot
+power_mod=120
 price=24
 
 [item]
@@ -4626,6 +4644,7 @@ req=o,2
 sfx=wood
 gfx=slingshot
 loot=slingshot
+power_mod=120
 price=40
 
 [item]
@@ -4641,6 +4660,7 @@ req=o,2
 sfx=wood
 gfx=slingshot
 loot=slingshot
+power_mod=120
 price=44
 
 [item]
@@ -4656,6 +4676,7 @@ req=o,2
 sfx=wood
 gfx=slingshot
 loot=slingshot
+power_mod=120
 price=42
 
 [item]
@@ -4671,6 +4692,7 @@ req=o,2
 sfx=wood
 gfx=slingshot
 loot=slingshot
+power_mod=120
 price=47
 
 [item]
@@ -4685,6 +4707,7 @@ req=o,2
 sfx=wood
 gfx=slingshot
 loot=slingshot
+power_mod=120
 price=49
 
 [item]
@@ -4700,6 +4723,7 @@ req=o,2
 sfx=wood
 gfx=slingshot
 loot=slingshot
+power_mod=120
 price=35
 
 [item]
@@ -4715,6 +4739,7 @@ req=o,2
 sfx=wood
 gfx=slingshot
 loot=slingshot
+power_mod=120
 price=37
 
 [item]
@@ -4725,11 +4750,13 @@ quality=high
 type=off
 icon=104,8
 dmg=2,7
-bonus=fire resist,9
+bonus=ice resist,9
 req=o,2
 sfx=wood
 gfx=slingshot
 loot=slingshot
+power_mod=122
+power_desc=Fire Ammo
 price=32
 
 [item]
@@ -4740,11 +4767,13 @@ quality=high
 type=off
 icon=104,8
 dmg=2,7
-bonus=ice resist,9
+bonus=fire resist,9
 req=o,2
 sfx=wood
 gfx=slingshot
 loot=slingshot
+power_mod=123
+power_desc=Ice Ammo
 price=30
 
 [item]
@@ -4760,6 +4789,7 @@ req=o,2
 sfx=wood
 gfx=slingshot
 loot=slingshot
+power_mod=120
 price=52
 
 [item]
@@ -4775,6 +4805,7 @@ req=o,2
 sfx=wood
 gfx=slingshot
 loot=slingshot
+power_mod=120
 price=80
 
 [item]
@@ -4790,6 +4821,7 @@ req=o,2
 sfx=wood
 gfx=slingshot
 loot=slingshot
+power_mod=120
 price=88
 
 [item]
@@ -4805,6 +4837,7 @@ req=o,2
 sfx=wood
 gfx=slingshot
 loot=slingshot
+power_mod=120
 price=84
 
 [item]
@@ -4820,6 +4853,7 @@ req=o,2
 sfx=wood
 gfx=slingshot
 loot=slingshot
+power_mod=120
 price=92
 
 [item]
@@ -4835,6 +4869,7 @@ req=o,2
 sfx=wood
 gfx=slingshot
 loot=slingshot
+power_mod=120
 price=72
 
 [item]
@@ -4850,6 +4885,7 @@ req=o,2
 sfx=wood
 gfx=slingshot
 loot=slingshot
+power_mod=120
 price=76
 
 [item]
@@ -4860,11 +4896,13 @@ quality=epic
 type=off
 icon=104,8
 dmg=4,8
-bonus=fire resist,12
+bonus=ice resist,12
 req=o,2
 sfx=wood
 gfx=slingshot
 loot=slingshot
+power_mod=122
+power_desc=Fire Ammo
 price=68
 
 [item]
@@ -4875,11 +4913,13 @@ quality=epic
 type=off
 icon=104,8
 dmg=4,8
-bonus=ice resist,12
+bonus=fire resist,12
 req=o,2
 sfx=wood
 gfx=slingshot
 loot=slingshot
+power_mod=123
+power_desc=Ice Ammo
 price=64
 
 [item]
@@ -4895,6 +4935,7 @@ req=o,2
 sfx=wood
 gfx=slingshot
 loot=slingshot
+power_mod=120
 price=96
 
 [item]
@@ -4909,6 +4950,7 @@ req=o,3
 sfx=wood
 gfx=shortbow
 loot=shortbow
+power_mod=121
 price=24
 
 [item]
@@ -4923,6 +4965,7 @@ req=o,3
 sfx=wood
 gfx=shortbow
 loot=shortbow
+power_mod=121
 price=7
 
 [item]
@@ -4938,6 +4981,7 @@ req=o,3
 sfx=wood
 gfx=shortbow
 loot=shortbow
+power_mod=121
 price=16
 
 [item]
@@ -4953,6 +4997,7 @@ req=o,3
 sfx=wood
 gfx=shortbow
 loot=shortbow
+power_mod=121
 price=12
 
 [item]
@@ -4968,6 +5013,7 @@ req=o,3
 sfx=wood
 gfx=shortbow
 loot=shortbow
+power_mod=121
 price=48
 
 [item]
@@ -4983,6 +5029,7 @@ req=o,3
 sfx=wood
 gfx=shortbow
 loot=shortbow
+power_mod=121
 price=57
 
 [item]
@@ -4998,6 +5045,7 @@ req=o,3
 sfx=wood
 gfx=shortbow
 loot=shortbow
+power_mod=121
 price=52
 
 [item]
@@ -5013,6 +5061,7 @@ req=o,3
 sfx=wood
 gfx=shortbow
 loot=shortbow
+power_mod=121
 price=62
 
 [item]
@@ -5027,6 +5076,7 @@ req=o,3
 sfx=wood
 gfx=shortbow
 loot=shortbow
+power_mod=121
 price=67
 
 [item]
@@ -5042,6 +5092,7 @@ req=o,3
 sfx=wood
 gfx=shortbow
 loot=shortbow
+power_mod=121
 price=38
 
 [item]
@@ -5057,6 +5108,7 @@ req=o,3
 sfx=wood
 gfx=shortbow
 loot=shortbow
+power_mod=121
 price=43
 
 [item]
@@ -5067,11 +5119,13 @@ quality=high
 type=off
 icon=105,9
 dmg=3,8
-bonus=fire resist,6
+bonus=ice resist,6
 req=o,3
 sfx=wood
 gfx=shortbow
 loot=shortbow
+power_mod=122
+power_desc=Fire Ammo
 price=33
 
 [item]
@@ -5082,11 +5136,13 @@ quality=high
 type=off
 icon=105,9
 dmg=3,8
-bonus=ice resist,6
+bonus=fire resist,6
 req=o,3
 sfx=wood
 gfx=shortbow
 loot=shortbow
+power_mod=123
+power_desc=Fire Ammo
 price=28
 
 [item]
@@ -5102,6 +5158,7 @@ req=o,3
 sfx=wood
 gfx=shortbow
 loot=shortbow
+power_mod=121
 price=72
 
 [item]
@@ -5117,6 +5174,7 @@ req=o,3
 sfx=wood
 gfx=shortbow
 loot=shortbow
+power_mod=121
 price=120
 
 [item]
@@ -5132,6 +5190,7 @@ req=o,3
 sfx=wood
 gfx=shortbow
 loot=shortbow
+power_mod=121
 price=134
 
 [item]
@@ -5147,6 +5206,7 @@ req=o,3
 sfx=wood
 gfx=shortbow
 loot=shortbow
+power_mod=121
 price=127
 
 [item]
@@ -5162,6 +5222,7 @@ req=o,3
 sfx=wood
 gfx=shortbow
 loot=shortbow
+power_mod=121
 price=141
 
 [item]
@@ -5176,6 +5237,7 @@ req=o,3
 sfx=wood
 gfx=shortbow
 loot=shortbow
+power_mod=121
 price=148
 
 [item]
@@ -5191,6 +5253,7 @@ req=o,3
 sfx=wood
 gfx=shortbow
 loot=shortbow
+power_mod=121
 price=105
 
 [item]
@@ -5206,6 +5269,7 @@ req=o,3
 sfx=wood
 gfx=shortbow
 loot=shortbow
+power_mod=121
 price=112
 
 [item]
@@ -5216,11 +5280,13 @@ quality=high
 type=off
 icon=105,9
 dmg=3,9
-bonus=fire resist,9
+bonus=ice resist,9
 req=o,3
 sfx=wood
 gfx=shortbow
 loot=shortbow
+power_mod=122
+power_desc=Fire Ammo
 price=98
 
 [item]
@@ -5231,11 +5297,13 @@ quality=high
 type=off
 icon=105,9
 dmg=3,9
-bonus=ice resist,9
+bonus=fire resist,9
 req=o,3
 sfx=wood
 gfx=shortbow
 loot=shortbow
+power_mod=123
+power_desc=Ice Ammo
 price=91
 
 [item]
@@ -5251,6 +5319,7 @@ req=o,3
 sfx=wood
 gfx=shortbow
 loot=shortbow
+power_mod=121
 price=156
 
 [item]
@@ -5266,6 +5335,7 @@ req=o,3
 sfx=wood
 gfx=shortbow
 loot=shortbow
+power_mod=121
 price=240
 
 [item]
@@ -5281,6 +5351,7 @@ req=o,3
 sfx=wood
 gfx=shortbow
 loot=shortbow
+power_mod=121
 price=264
 
 [item]
@@ -5296,6 +5367,7 @@ req=o,3
 sfx=wood
 gfx=shortbow
 loot=shortbow
+power_mod=121
 price=252
 
 [item]
@@ -5311,6 +5383,7 @@ req=o,3
 sfx=wood
 gfx=shortbow
 loot=shortbow
+power_mod=121
 price=276
 
 [item]
@@ -5326,6 +5399,7 @@ req=o,3
 sfx=wood
 gfx=shortbow
 loot=shortbow
+power_mod=121
 price=216
 
 [item]
@@ -5341,6 +5415,7 @@ req=o,3
 sfx=wood
 gfx=shortbow
 loot=shortbow
+power_mod=121
 price=228
 
 [item]
@@ -5351,11 +5426,13 @@ quality=epic
 type=off
 icon=105,9
 dmg=5,10
-bonus=fire resist,12
+bonus=ice resist,12
 req=o,3
 sfx=wood
 gfx=shortbow
 loot=shortbow
+power_mod=122
+power_desc=Fire Ammo
 price=204
 
 [item]
@@ -5366,11 +5443,13 @@ quality=epic
 type=off
 icon=105,9
 dmg=5,10
-bonus=ice resist,12
+bonus=fire resist,12
 req=o,3
 sfx=wood
 gfx=shortbow
 loot=shortbow
+power_mod=123
+power_desc=Ice Ammo
 price=192
 
 [item]
@@ -5386,6 +5465,7 @@ req=o,3
 sfx=wood
 gfx=shortbow
 loot=shortbow
+power_mod=121
 price=288
 
 [item]
@@ -5400,6 +5480,7 @@ req=o,4
 sfx=wood
 gfx=longbow
 loot=longbow
+power_mod=121
 price=60
 
 [item]
@@ -5414,6 +5495,7 @@ req=o,4
 sfx=wood
 gfx=longbow
 loot=longbow
+power_mod=121
 price=18
 
 [item]
@@ -5429,6 +5511,7 @@ req=o,4
 sfx=wood
 gfx=longbow
 loot=longbow
+power_mod=121
 price=42
 
 [item]
@@ -5444,6 +5527,7 @@ req=o,4
 sfx=wood
 gfx=longbow
 loot=longbow
+power_mod=121
 price=30
 
 [item]
@@ -5459,6 +5543,7 @@ req=o,4
 sfx=wood
 gfx=longbow
 loot=longbow
+power_mod=121
 price=120
 
 [item]
@@ -5474,6 +5559,7 @@ req=o,4
 sfx=wood
 gfx=longbow
 loot=longbow
+power_mod=121
 price=144
 
 [item]
@@ -5489,6 +5575,7 @@ req=o,4
 sfx=wood
 gfx=longbow
 loot=longbow
+power_mod=121
 price=132
 
 [item]
@@ -5504,6 +5591,7 @@ req=o,4
 sfx=wood
 gfx=longbow
 loot=longbow
+power_mod=121
 price=156
 
 [item]
@@ -5518,6 +5606,7 @@ req=o,4
 sfx=wood
 gfx=longbow
 loot=longbow
+power_mod=121
 price=168
 
 [item]
@@ -5533,6 +5622,7 @@ req=o,4
 sfx=wood
 gfx=longbow
 loot=longbow
+power_mod=121
 price=96
 
 [item]
@@ -5548,6 +5638,7 @@ req=o,4
 sfx=wood
 gfx=longbow
 loot=longbow
+power_mod=121
 price=108
 
 [item]
@@ -5558,11 +5649,13 @@ quality=high
 type=off
 icon=106,10
 dmg=4,10
-bonus=fire resist,6
+bonus=ice resist,6
 req=o,4
 sfx=wood
 gfx=longbow
 loot=longbow
+power_mod=122
+power_desc=Fire Ammo
 price=84
 
 [item]
@@ -5573,11 +5666,13 @@ quality=high
 type=off
 icon=106,10
 dmg=4,10
-bonus=ice resist,6
+bonus=fire resist,6
 req=o,4
 sfx=wood
 gfx=longbow
 loot=longbow
+power_mod=123
+power_desc=Ice Ammo
 price=72
 
 [item]
@@ -5593,6 +5688,7 @@ req=o,4
 sfx=wood
 gfx=longbow
 loot=longbow
+power_mod=121
 price=180
 
 [item]
@@ -5608,6 +5704,7 @@ req=o,4
 sfx=wood
 gfx=longbow
 loot=longbow
+power_mod=121
 price=300
 
 [item]
@@ -5623,6 +5720,7 @@ req=o,4
 sfx=wood
 gfx=longbow
 loot=longbow
+power_mod=121
 price=336
 
 [item]
@@ -5638,6 +5736,7 @@ req=o,4
 sfx=wood
 gfx=longbow
 loot=longbow
+power_mod=121
 price=318
 
 [item]
@@ -5653,6 +5752,7 @@ req=o,4
 sfx=wood
 gfx=longbow
 loot=longbow
+power_mod=121
 price=354
 
 [item]
@@ -5667,6 +5767,7 @@ req=o,4
 sfx=wood
 gfx=longbow
 loot=longbow
+power_mod=121
 price=372
 
 [item]
@@ -5682,6 +5783,7 @@ req=o,4
 sfx=wood
 gfx=longbow
 loot=longbow
+power_mod=121
 price=264
 
 [item]
@@ -5697,6 +5799,7 @@ req=o,4
 sfx=wood
 gfx=longbow
 loot=longbow
+power_mod=121
 price=282
 
 [item]
@@ -5707,11 +5810,13 @@ quality=high
 type=off
 icon=106,10
 dmg=4,11
-bonus=fire resist,9
+bonus=ice resist,9
 req=o,4
 sfx=wood
 gfx=longbow
 loot=longbow
+power_mod=122
+power_desc=Fire Ammo
 price=246
 
 [item]
@@ -5722,11 +5827,13 @@ quality=high
 type=off
 icon=106,10
 dmg=4,11
-bonus=ice resist,9
+bonus=fire resist,9
 req=o,4
 sfx=wood
 gfx=longbow
 loot=longbow
+power_mod=123
+power_desc=Ice Ammo
 price=228
 
 [item]
@@ -5742,6 +5849,7 @@ req=o,4
 sfx=wood
 gfx=longbow
 loot=longbow
+power_mod=121
 price=390
 
 [item]
@@ -5757,6 +5865,7 @@ req=o,4
 sfx=wood
 gfx=longbow
 loot=longbow
+power_mod=121
 price=600
 
 [item]
@@ -5772,6 +5881,7 @@ req=o,4
 sfx=wood
 gfx=longbow
 loot=longbow
+power_mod=121
 price=660
 
 [item]
@@ -5787,6 +5897,7 @@ req=o,4
 sfx=wood
 gfx=longbow
 loot=longbow
+power_mod=121
 price=630
 
 [item]
@@ -5802,6 +5913,7 @@ req=o,4
 sfx=wood
 gfx=longbow
 loot=longbow
+power_mod=121
 price=690
 
 [item]
@@ -5817,6 +5929,7 @@ req=o,4
 sfx=wood
 gfx=longbow
 loot=longbow
+power_mod=121
 price=540
 
 [item]
@@ -5832,6 +5945,7 @@ req=o,4
 sfx=wood
 gfx=longbow
 loot=longbow
+power_mod=121
 price=570
 
 [item]
@@ -5842,11 +5956,13 @@ quality=epic
 type=off
 icon=106,10
 dmg=6,12
-bonus=fire resist,12
+bonus=ice resist,12
 req=o,4
 sfx=wood
 gfx=longbow
 loot=longbow
+power_mod=122
+power_desc=Fire Ammo
 price=510
 
 [item]
@@ -5857,11 +5973,13 @@ quality=epic
 type=off
 icon=106,10
 dmg=6,12
-bonus=ice resist,12
+bonus=fire resist,12
 req=o,4
 sfx=wood
 gfx=longbow
 loot=longbow
+power_mod=123
+power_desc=Ice Ammo
 price=480
 
 [item]
@@ -5877,6 +5995,7 @@ req=o,4
 sfx=wood
 gfx=longbow
 loot=longbow
+power_mod=121
 price=720
 
 [item]
@@ -5891,6 +6010,7 @@ req=o,5
 sfx=wood
 gfx=greatbow
 loot=greatbow
+power_mod=121
 price=110
 
 [item]
@@ -5905,6 +6025,7 @@ req=o,5
 sfx=wood
 gfx=greatbow
 loot=greatbow
+power_mod=121
 price=33
 
 [item]
@@ -5920,6 +6041,7 @@ req=o,5
 sfx=wood
 gfx=greatbow
 loot=greatbow
+power_mod=121
 price=77
 
 [item]
@@ -5935,6 +6057,7 @@ req=o,5
 sfx=wood
 gfx=greatbow
 loot=greatbow
+power_mod=121
 price=55
 
 [item]
@@ -5950,6 +6073,7 @@ req=o,5
 sfx=wood
 gfx=greatbow
 loot=greatbow
+power_mod=121
 price=220
 
 [item]
@@ -5965,6 +6089,7 @@ req=o,5
 sfx=wood
 gfx=greatbow
 loot=greatbow
+power_mod=121
 price=264
 
 [item]
@@ -5980,6 +6105,7 @@ req=o,5
 sfx=wood
 gfx=greatbow
 loot=greatbow
+power_mod=121
 price=242
 
 [item]
@@ -5995,6 +6121,7 @@ req=o,5
 sfx=wood
 gfx=greatbow
 loot=greatbow
+power_mod=121
 price=286
 
 [item]
@@ -6009,6 +6136,7 @@ req=o,5
 sfx=wood
 gfx=greatbow
 loot=greatbow
+power_mod=121
 price=308
 
 [item]
@@ -6024,6 +6152,7 @@ req=o,5
 sfx=wood
 gfx=greatbow
 loot=greatbow
+power_mod=121
 price=176
 
 [item]
@@ -6039,6 +6168,7 @@ req=o,5
 sfx=wood
 gfx=greatbow
 loot=greatbow
+power_mod=121
 price=198
 
 [item]
@@ -6049,11 +6179,13 @@ quality=high
 type=off
 icon=107,11
 dmg=5,12
-bonus=fire resist,6
+bonus=ice resist,6
 req=o,5
 sfx=wood
 gfx=greatbow
 loot=greatbow
+power_mod=122
+power_desc=Fire Ammo
 price=154
 
 [item]
@@ -6064,11 +6196,13 @@ quality=high
 type=off
 icon=107,11
 dmg=5,12
-bonus=ice resist,6
+bonus=fire resist,6
 req=o,5
 sfx=wood
 gfx=greatbow
 loot=greatbow
+power_mod=123
+power_desc=Ice Ammo
 price=132
 
 [item]
@@ -6084,6 +6218,7 @@ req=o,5
 sfx=wood
 gfx=greatbow
 loot=greatbow
+power_mod=121
 price=330
 
 [item]
@@ -6099,6 +6234,7 @@ req=o,5
 sfx=wood
 gfx=greatbow
 loot=greatbow
+power_mod=121
 price=550
 
 [item]
@@ -6114,6 +6250,7 @@ req=o,5
 sfx=wood
 gfx=greatbow
 loot=greatbow
+power_mod=121
 price=616
 
 [item]
@@ -6129,6 +6266,7 @@ req=o,5
 sfx=wood
 gfx=greatbow
 loot=greatbow
+power_mod=121
 price=583
 
 [item]
@@ -6144,6 +6282,7 @@ req=o,5
 sfx=wood
 gfx=greatbow
 loot=greatbow
+power_mod=121
 price=649
 
 [item]
@@ -6158,6 +6297,7 @@ req=o,5
 sfx=wood
 gfx=greatbow
 loot=greatbow
+power_mod=121
 price=682
 
 [item]
@@ -6173,6 +6313,7 @@ req=o,5
 sfx=wood
 gfx=greatbow
 loot=greatbow
+power_mod=121
 price=484
 
 [item]
@@ -6188,6 +6329,7 @@ req=o,5
 sfx=wood
 gfx=greatbow
 loot=greatbow
+power_mod=121
 price=517
 
 [item]
@@ -6198,11 +6340,13 @@ quality=high
 type=off
 icon=107,11
 dmg=5,13
-bonus=fire resist,9
+bonus=ice resist,9
 req=o,5
 sfx=wood
 gfx=greatbow
 loot=greatbow
+power_mod=122
+power_desc=Fire Ammo
 price=451
 
 [item]
@@ -6213,11 +6357,13 @@ quality=high
 type=off
 icon=107,11
 dmg=5,13
-bonus=ice resist,9
+bonus=fire resist,9
 req=o,5
 sfx=wood
 gfx=greatbow
 loot=greatbow
+power_mod=123
+power_desc=Ice Ammo
 price=418
 
 [item]
@@ -6233,6 +6379,7 @@ req=o,5
 sfx=wood
 gfx=greatbow
 loot=greatbow
+power_mod=121
 price=715
 
 [item]
@@ -6248,6 +6395,7 @@ req=o,5
 sfx=wood
 gfx=greatbow
 loot=greatbow
+power_mod=121
 price=1100
 
 [item]
@@ -6263,6 +6411,7 @@ req=o,5
 sfx=wood
 gfx=greatbow
 loot=greatbow
+power_mod=121
 price=1210
 
 [item]
@@ -6278,6 +6427,7 @@ req=o,5
 sfx=wood
 gfx=greatbow
 loot=greatbow
+power_mod=121
 price=1155
 
 [item]
@@ -6293,6 +6443,7 @@ req=o,5
 sfx=wood
 gfx=greatbow
 loot=greatbow
+power_mod=121
 price=1265
 
 [item]
@@ -6308,6 +6459,7 @@ req=o,5
 sfx=wood
 gfx=greatbow
 loot=greatbow
+power_mod=121
 price=990
 
 [item]
@@ -6323,6 +6475,7 @@ req=o,5
 sfx=wood
 gfx=greatbow
 loot=greatbow
+power_mod=121
 price=1045
 
 [item]
@@ -6333,11 +6486,13 @@ quality=epic
 type=off
 icon=107,11
 dmg=7,14
-bonus=fire resist,12
+bonus=ice resist,12
 req=o,5
 sfx=wood
 gfx=greatbow
 loot=greatbow
+power_mod=122
+power_desc=Fire Ammo
 price=935
 
 [item]
@@ -6348,11 +6503,13 @@ quality=epic
 type=off
 icon=107,11
 dmg=7,14
-bonus=ice resist,12
+bonus=fire resist,12
 req=o,5
 sfx=wood
 gfx=greatbow
 loot=greatbow
+power_mod=123
+power_desc=Ice Ammo
 price=880
 
 [item]
@@ -6368,6 +6525,7 @@ req=o,5
 sfx=wood
 gfx=greatbow
 loot=greatbow
+power_mod=121
 price=1320
 
 [item]

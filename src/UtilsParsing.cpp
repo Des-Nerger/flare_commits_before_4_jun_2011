@@ -91,3 +91,20 @@ string eatFirstString(string &s, char separator) {
 	return outs;
 }
 
+// strip carriage return if exists
+string stripCarriageReturn(string line) {
+	if (line.length() > 0) {
+		if ('\r' == line.at(line.length()-1)) {
+			return line.substr(0, line.length()-1);
+		}
+	}
+	return line;
+}
+
+string getLine(ifstream &infile) {
+	string line;
+	getline(infile, line);
+	line = stripCarriageReturn(line);
+	return line; 
+}
+

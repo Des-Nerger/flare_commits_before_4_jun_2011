@@ -1,43 +1,34 @@
-name=Antlion Spitter
-level=7
+name=Antlion Hatchling
+level=3
 
 sfx_prefix=antlion
-gfx_prefix=fire_ant
+gfx_prefix=antlion_hatchling
 
-loot_chance=25
+loot_chance=5
 
 # combat stats
-hp=10
-speed=7
-dspeed=5
-melee_range=76
+hp=6
+speed=6
+dspeed=4
+melee_range=48
 threat_range=512
 dir_favor=8
-chance_pursue=10
-chance_melee_phys=5
-chance_ranged_mag=10
+chance_pursue=75
+chance_melee_phys=10
 power_melee_phys=1
-power_ranged_mag=31
 
-accuracy=85
-avoidance=30
+accuracy=70
+avoidance=20
 
 dmg_melee_min=2
 dmg_melee_max=6
-dmg_magic_min=3
-dmg_magic_max=8
-absorb_min=0
-absorb_max=1
-attunement_fire=50
-attunement_ice=200
-
 cooldown=25
 
 # animation info
-render_size_x=128
-render_size_y=128
-render_offset_x=64
-render_offset_y=96
+render_size_x=64
+render_size_y=64
+render_offset_x=32
+render_offset_y=48
 anim_stance_position=0
 anim_stance_frames=4
 anim_stance_duration=5

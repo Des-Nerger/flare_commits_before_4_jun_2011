@@ -8,21 +8,9 @@ icon=0
 description=Basic ranged attack (requires a ranged weapon)
 new_state=shoot
 face=true
-directional=true
-gfx=arrows.png
-sfx=shoot.ogg
-use_hazard=true
-rendered=true
-aim_assist=32
 requires_ammo=true
 base_damage=ranged
-lifespan=16
-radius=64
-speed=48
-frame_size=64,64
-frame_offset=32,64
-wall_power=124
-
+allow_power_mod=true
 
 [power]
 id=1
@@ -39,6 +27,8 @@ base_damage=melee
 lifespan=1
 radius=64
 starting_pos=melee
+allow_power_mod=true
+
 
 [power]
 id=2
@@ -69,6 +59,7 @@ radius=64
 starting_pos=melee
 bleed_duration=150
 post_power=127
+allow_power_mod=true
 
 [power]
 id=5
@@ -125,6 +116,19 @@ frame_loop=0
 trait_elemental=light
 starting_pos=source
 buff_heal=true
+
+[power]
+id=8
+name=Multishot
+type=missileX3
+icon=8
+description=Shoot three projectiles simultaneously (requires a ranged weapon)
+new_state=shoot
+face=true
+requires_ammo=true
+requires_mana=true
+base_damage=ranged
+allow_power_mod=true
 
 [power]
 id=9
@@ -193,6 +197,7 @@ base_damage=melee
 lifespan=1
 radius=128
 starting_pos=melee
+allow_power_mod=true
 
 [power]
 id=13
@@ -231,23 +236,13 @@ icon=16
 description=Fire a shot that ignores armor and goes through multiple enemies
 new_state=shoot
 face=true
-directional=true
-gfx=arrows.png
-sfx=shoot.ogg
-use_hazard=true
-rendered=true
-aim_assist=32
 requires_ammo=true
 requires_mana=true
 multitarget=true
 trait_armor_penetrating=true
 base_damage=ranged
-lifespan=16
-radius=64
-speed=48
-frame_size=64,64
-frame_offset=32,64
-wall_power=124
+allow_power_mod=true
+
 
 [power]
 id=18
@@ -320,7 +315,6 @@ slow_duration=60
 post_power=126
 wall_power=126
 
-
 [power]
 id=31
 name=Fireshot
@@ -344,7 +338,6 @@ frame_offset=32,64
 trait_elemental=fire
 post_power=125
 wall_power=125
-
 
 [power]
 id=32
@@ -394,6 +387,116 @@ multitarget=true
 visual_option=1
 slow_duration=15
 post_power=125
+
+[power]
+id=118
+name=Melee Fire
+trait_elemental=fire
+post_power=125
+base_damage=melee
+starting_pos=melee
+
+[power]
+id=119
+name=Melee Ice
+trait_elemental=water
+post_power=126
+base_damage=melee
+starting_pos=melee
+
+[power]
+id=120
+name=Slingshot Shoot
+type=missile
+icon=0
+description=Basic ranged attack (requires a ranged weapon)
+new_state=shoot
+face=true
+directional=false
+gfx=stone.png
+sfx=shoot.ogg
+use_hazard=true
+rendered=true
+aim_assist=32
+requires_ammo=true
+base_damage=ranged
+lifespan=16
+radius=64
+speed=48
+frame_size=64,64
+frame_offset=32,64
+
+[power]
+id=121
+name=Arrow Shoot
+type=missile
+icon=0
+description=Basic ranged attack (requires a ranged weapon)
+new_state=shoot
+face=true
+directional=true
+gfx=arrows.png
+sfx=shoot.ogg
+use_hazard=true
+rendered=true
+aim_assist=32
+requires_ammo=true
+base_damage=ranged
+lifespan=16
+radius=64
+speed=48
+frame_size=64,64
+frame_offset=32,64
+wall_power=124
+
+[power]
+id=122
+name=Fire Ammo
+type=missile
+new_state=shoot
+face=true
+directional=true
+gfx=fireball.png
+sfx=fireball.ogg
+use_hazard=true
+rendered=true
+aim_assist=32
+base_damage=ranged
+lifespan=32
+radius=64
+speed=20
+frame_loop=8
+frame_duration=2
+frame_size=64,64
+frame_offset=32,64
+trait_elemental=fire
+post_power=125
+wall_power=125
+
+[power]
+id=123
+name=Ice Ammo
+type=missile
+new_state=shoot
+face=true
+directional=true
+gfx=icicle.png
+sfx=shock.ogg
+use_hazard=true
+rendered=true
+aim_assist=32
+base_damage=ranged
+lifespan=32
+radius=64
+speed=20
+frame_loop=12
+frame_duration=3
+frame_size=64,64
+frame_offset=32,64
+trait_elemental=water
+post_power=126
+wall_power=126
+
 
 [power]
 id=124

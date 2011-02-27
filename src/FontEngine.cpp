@@ -32,23 +32,27 @@ void FontEngine::load() {
 
 	if (infile.is_open()) {
 			
-		getline(infile, line);
+		line = getLine(infile);
 		font_width = atoi(line.c_str());
 		
-		getline(infile, line);
+		line = getLine(infile);
+				
 		font_height = atoi(line.c_str());
 		src.h = font_height;
 		dest.h = font_height;
 		
-		getline(infile, line);
+		line = getLine(infile);
+				
 		line_height = atoi(line.c_str());
 		
-		getline(infile, line);
+		line = getLine(infile);
+			
 		kerning = atoi(line.c_str());
 		
 		// the rest of the file is character pixel widths
 		while (!infile.eof()) {
-			getline(infile, line);
+			line = getLine(infile);
+			
 			if (line.length() > 0) {
 				strcpy(str, line.c_str());
 				width[(int)str[0]] = line.c_str()[2] - 48;

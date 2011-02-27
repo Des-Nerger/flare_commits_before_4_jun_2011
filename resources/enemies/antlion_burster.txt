@@ -2,7 +2,7 @@ name=Antlion Burster
 level=6
 
 sfx_prefix=antlion
-gfx_prefix=antlion
+gfx_prefix=fire_ant
 
 loot_chance=25
 
@@ -28,11 +28,12 @@ dmg_magic_min=3
 dmg_magic_max=8
 absorb_min=1
 absorb_max=2
+attunement_fire=50
+attunement_ice=200
 
 cooldown=25
 
 # animation info
-render_size_x=128
 render_size_x=128
 render_size_y=128
 render_offset_x=64

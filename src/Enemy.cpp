@@ -572,6 +572,15 @@ bool Enemy::takeHit(Hazard h) {
 		int dmg;
 		if (h.dmg_max > h.dmg_min) dmg = rand() % (h.dmg_max - h.dmg_min + 1) + h.dmg_min;
 		else dmg = h.dmg_min;
+
+		// apply elemental resistance
+		// TODO: make this generic
+		if (h.trait_elemental == ELEMENT_FIRE) {
+			dmg = (dmg * stats.attunement_fire) / 100;
+		}
+		if (h.trait_elemental == ELEMENT_WATER) {
+			dmg = (dmg * stats.attunement_ice) / 100;			
+		}
 		
 		// subtract absorption from armor
 		int absorption;

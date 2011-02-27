@@ -63,7 +63,6 @@ const int STARTING_POS_MELEE = 2;
 
 // first 20 powers coincide with power tree
 // TODO: remove this restriction
-const int POWER_MULTISHOT = 8;
 const int POWER_SHIELD = 11;
 const int POWER_FREEZE = 14;
 const int POWER_VENGEANCE = 17;
@@ -127,6 +126,7 @@ struct Power {
 	
 	int post_power;
 	int wall_power;
+	bool allow_power_mod;
 	
 	Power() {
 		type = -1;
@@ -180,6 +180,8 @@ struct Power {
 		
 		post_power = -1;
 		wall_power = -1;
+		
+		allow_power_mod = false;
 	}	
 	
 };
@@ -204,6 +206,7 @@ private:
 	int calcDirection(int origin_x, int origin_y, int target_x, int target_y);
 	void initHazard(int powernum, StatBlock *src_stats, Point target, Hazard *haz);
 	void buff(int power_index, StatBlock *src_stats, Point target);
+	void playSound(int power_index, StatBlock *src_stats);
 
 	bool effect(int powernum, StatBlock *src_stats, Point target);
 	bool missile(int powernum, StatBlock *src_stats, Point target);

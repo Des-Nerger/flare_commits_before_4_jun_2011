@@ -11,6 +11,7 @@
 #include "Hazard.h"
 
 Hazard::Hazard() {
+	sprites = NULL;
 	speed.x = 0.0;
 	speed.y = 0.0;
 	direction = 0;
@@ -44,6 +45,8 @@ Hazard::Hazard() {
 	post_power = -1;
 	wall_power = -1;
 	hit_wall = false;
+	equipment_modified = false;
+	base_speed = 0;
 }
 
 void Hazard::setCollision(MapCollision *_collider) {
