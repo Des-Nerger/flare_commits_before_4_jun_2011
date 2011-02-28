@@ -4,10 +4,10 @@ level=4
 sfx_prefix=skeleton
 gfx_prefix=skeleton_archer
 
-loot_chance=40
+loot_chance=30
 
 # combat stats
-hp=9
+hp=10
 speed=6
 dspeed=4
 melee_range=76
@@ -21,15 +21,13 @@ chance_ranged_mag=0
 power_melee_phys=1
 power_ranged_phys=121
 
-accuracy=80
-avoidance=20
+accuracy=83
+avoidance=28
 
 dmg_melee_min=1
-dmg_melee_max=4
-dmg_magic_min=1
-dmg_magic_max=4
+dmg_melee_max=5
 dmg_ranged_min=2
-dmg_ranged_max=6
+dmg_ranged_max=7
 absorb_min=0
 absorb_max=1
 cooldown=30

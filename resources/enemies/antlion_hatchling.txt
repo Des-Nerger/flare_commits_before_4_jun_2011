@@ -13,16 +13,17 @@ dspeed=4
 melee_range=48
 threat_range=512
 dir_favor=8
-chance_pursue=75
+chance_pursue=25
 chance_melee_phys=10
 power_melee_phys=1
 
-accuracy=70
-avoidance=20
-
+accuracy=75
+avoidance=25
 dmg_melee_min=2
 dmg_melee_max=6
 cooldown=25
+absorb_min=0
+absorb_max=1
 
 # animation info
 render_size_x=64

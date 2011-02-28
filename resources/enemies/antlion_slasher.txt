@@ -1,35 +1,29 @@
-name=Antlion Spitter
-level=7
+name=Antlion Slasher
+level=6
 
 sfx_prefix=antlion
-gfx_prefix=fire_ant
+gfx_prefix=antlion
 
 loot_chance=25
 
 # combat stats
-hp=28
+hp=21
 speed=7
 dspeed=5
 melee_range=76
 threat_range=512
 dir_favor=8
 chance_pursue=10
-chance_melee_phys=5
-chance_ranged_mag=10
-power_melee_phys=1
-power_ranged_mag=31
+chance_melee_phys=10
+power_melee_phys=4
 
-accuracy=87
-avoidance=37
+accuracy=84
+avoidance=34
 
-dmg_melee_min=2
-dmg_melee_max=6
-dmg_magic_min=4
-dmg_magic_max=10
+dmg_melee_min=3
+dmg_melee_max=9
 absorb_min=1
-absorb_max=3
-attunement_fire=50
-attunement_ice=200
+absorb_max=2
 
 cooldown=25
 

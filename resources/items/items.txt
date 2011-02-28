@@ -653,7 +653,6 @@ req=p,2
 sfx=metal
 gfx=dagger
 loot=dagger
-power_mod=118
 price=14
 
 [item]
@@ -669,7 +668,6 @@ req=p,2
 sfx=metal
 gfx=dagger
 loot=dagger
-power_mod=119
 price=12
 
 [item]

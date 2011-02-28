@@ -29,6 +29,7 @@ dmg_magic_max=9
 absorb_min=1
 absorb_max=2
 cooldown=25
+cooldown_ranged_phys=90
 
 # animation info
 render_size_x=128

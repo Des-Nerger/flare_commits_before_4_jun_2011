@@ -1,5 +1,5 @@
 name=Zombie Boss
-level=7
+level=8
 
 sfx_prefix=zombie
 gfx_prefix=zombie
@@ -7,7 +7,7 @@ gfx_prefix=zombie
 loot_chance=100
 
 # combat stats
-hp=48
+hp=56
 speed=7
 dspeed=5
 melee_range=72
@@ -21,8 +21,10 @@ chance_ranged_mag=0
 power_melee_phys=1
 power_melee_mag=4
 
-accuracy=100
-avoidance=40
+accuracy=87
+avoidance=37
+abs_min=1
+abs_max=3
 
 dmg_melee_min=4
 dmg_melee_max=10

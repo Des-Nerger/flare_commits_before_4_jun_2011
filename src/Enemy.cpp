@@ -596,7 +596,7 @@ bool Enemy::takeHit(Hazard h) {
 		bool crit = (rand() % 100) < h.crit_chance;
 		if (crit) {
 			dmg = dmg * 2;
-			map->shaky_cam_ticks = 8;
+			map->shaky_cam_ticks = FRAMES_PER_SEC/2;
 		}
 		
 		// apply damage

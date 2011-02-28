@@ -548,7 +548,10 @@ void PowerManager::buff(int power_index, StatBlock *src_stats, Point target) {
 
 	// heal for magic weapon damage
 	if (powers[power_index].buff_heal) {
-		src_stats->hp += rand() % (src_stats->dmg_magic_max - src_stats->dmg_magic_min) + src_stats->dmg_magic_min;
+		if (src_stats->dmg_magic_max > src_stats->dmg_magic_min)
+			src_stats->hp += rand() % (src_stats->dmg_magic_max - src_stats->dmg_magic_min) + src_stats->dmg_magic_min;
+		else // avoid div by 0
+			src_stats->hp += src_stats->dmg_magic_min;
 		if (src_stats->hp > src_stats->maxhp) src_stats->hp = src_stats->maxhp;
 	}
 	

@@ -7,7 +7,7 @@ gfx_prefix=skeleton_mage
 loot_chance=40
 
 # combat stats
-hp=7
+hp=10
 speed=6
 dspeed=4
 melee_range=76
@@ -21,15 +21,15 @@ chance_ranged_mag=4
 power_melee_phys=1
 power_ranged_mag=30
 
-accuracy=70
-avoidance=20
+accuracy=78
+avoidance=28
 
 dmg_melee_min=1
-dmg_melee_max=4
-dmg_magic_min=3
-dmg_magic_max=8
+dmg_melee_max=5
+dmg_magic_min=2
+dmg_magic_max=7
 absorb_min=0
-absorb_max=0
+absorb_max=1
 attunement_fire=200
 attunement_ice=50
 cooldown=30

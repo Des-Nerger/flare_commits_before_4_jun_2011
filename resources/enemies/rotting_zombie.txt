@@ -7,7 +7,7 @@ gfx_prefix=zombie
 loot_chance=25
 
 # combat stats
-hp=2
+hp=1
 speed=3
 dspeed=2
 melee_range=72
@@ -20,8 +20,8 @@ chance_ranged_phys=0
 chance_ranged_mag=0
 power_melee_phys=1
 
-accuracy=60
-avoidance=10
+accuracy=69
+avoidance=19
 
 dmg_melee_min=1
 dmg_melee_max=4

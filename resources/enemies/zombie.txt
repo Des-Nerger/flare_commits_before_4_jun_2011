@@ -21,13 +21,13 @@ chance_ranged_mag=0
 power_melee_phys=1
 power_melee_mag=4
 
-accuracy=80
-avoidance=30
+accuracy=75
+avoidance=25
 
 dmg_melee_min=2
 dmg_melee_max=6
-dmg_magic_min=3
-dmg_magic_max=7
+dmg_magic_min=2
+dmg_magic_max=6
 cooldown=35
 
 # animation info

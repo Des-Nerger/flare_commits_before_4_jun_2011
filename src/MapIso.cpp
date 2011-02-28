@@ -258,6 +258,9 @@ int MapIso::load(string filename) {
 							else if (key == "msg") {
 								e->s = val;
 							}
+							else if (key == "shakycam") {
+								e->x = atoi(val.c_str());
+							}
 							
 							events[event_count-1].comp_num++;
 						}
@@ -336,10 +339,10 @@ void MapIso::render(Renderable r[], int rnum) {
 		ycam.y = cam.y/UNITS_PER_PIXEL_Y;
 	}
 	else {
-		xcam.x = (cam.x + rand() % 8 - 4) /UNITS_PER_PIXEL_X;
-		xcam.y = (cam.y + rand() % 8 - 4) /UNITS_PER_PIXEL_X;
-		ycam.x = (cam.x + rand() % 8 - 4) /UNITS_PER_PIXEL_Y;
-		ycam.y = (cam.y + rand() % 8 - 4) /UNITS_PER_PIXEL_Y;
+		xcam.x = (cam.x + rand() % 16 - 8) /UNITS_PER_PIXEL_X;
+		xcam.y = (cam.y + rand() % 16 - 8) /UNITS_PER_PIXEL_X;
+		ycam.x = (cam.x + rand() % 16 - 8) /UNITS_PER_PIXEL_Y;
+		ycam.y = (cam.y + rand() % 16 - 8) /UNITS_PER_PIXEL_Y;
 	}
 	
 	// todo: trim by screen rect
@@ -475,6 +478,9 @@ void MapIso::executeEvent(int eid) {
 		}
 		else if (ec->type == "msg") {
 			log_msg = ec->s;
+		}
+		else if (ec->type == "shakycam") {
+			shaky_cam_ticks = ec->x;
 		}
 	}
 	if (events[eid].type == "run_once") {
