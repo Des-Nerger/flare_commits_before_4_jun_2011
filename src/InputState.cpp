@@ -46,6 +46,8 @@ InputState::InputState(void) {
 	
 	binding[CTRL] = SDLK_LCTRL;
 	binding2[CTRL] = SDLK_RCTRL;
+	binding[SHIFT] = SDLK_LSHIFT;
+	binding2[SHIFT] = SDLK_RSHIFT;
 	
 	for (int key=0; key<key_count; key++) {
 		pressing[key] = false;	

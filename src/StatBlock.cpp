@@ -24,6 +24,9 @@ StatBlock::StatBlock() {
 	accuracy = 75;
 	avoidance = 25;
 	crit = 0;
+	
+	//controls
+	mouse_move = false;
 
 	// equipment stats	
 	dmg_melee_min = 1;

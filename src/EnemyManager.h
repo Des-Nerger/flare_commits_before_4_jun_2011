@@ -45,6 +45,7 @@ public:
 	void logic();
 	Renderable getRender(int enemyIndex);
 	void checkEnemiesforXP(StatBlock *stats);
+	Enemy *enemyFocus(Point mouse, Point cam);
 
 	// vars
 	Enemy *enemies[256]; // TODO: change to dynamic list without limits

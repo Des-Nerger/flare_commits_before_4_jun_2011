@@ -41,7 +41,6 @@ private:
 	PowerManager *powers;
 	
 	bool cancel_lock;
-	
 	void saveGame();
 	void loadGame();
 	

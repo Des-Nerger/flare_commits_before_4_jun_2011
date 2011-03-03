@@ -41,6 +41,7 @@ void GameEngine::logic() {
 
 	// check menus first (top layer gets mouse click priority)
 	menu->logic();
+	
 		
 	// the game action is paused if any menus are opened
 	if (!menu->pause) {
@@ -64,9 +65,19 @@ void GameEngine::logic() {
 				loot->full_msg = false;
 			}
 		}
-	
 		
-		pc->logic(menu->act->checkAction(inp->mouse));
+		Enemy* enemy = enemies->enemyFocus(inp->mouse, map->cam);
+		if(enemy != NULL) {
+			//TODO: Enemy tooltip
+		}
+		bool restrictPowerUse = false;
+		if(pc->stats.mouse_move) {
+			if(enemy == NULL && inp->pressing[MAIN1] && !inp->pressing[SHIFT] && !inp->mouse_lock && !(isWithin(menu->act->numberArea,inp->mouse) || isWithin(menu->act->mouseArea,inp->mouse) || isWithin(menu->act->menuArea, inp->mouse))) {
+				restrictPowerUse = true;
+			}
+		}
+		pc->logic(menu->act->checkAction(inp->mouse), restrictPowerUse);
+		
 		enemies->heroPos = pc->stats.pos;
 		enemies->logic();
 		hazards->logic();
@@ -152,6 +163,7 @@ void GameEngine::logic() {
 	map->logic();
 	
 }
+
 
 /**
  * Render all graphics for a single frame

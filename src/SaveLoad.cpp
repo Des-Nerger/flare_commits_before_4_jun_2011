@@ -38,6 +38,11 @@ void GameEngine::saveGame() {
 		// current gold
 		outfile << "gold=" << menu->inv->gold << "\n";
 		
+		// current controls
+		outfile << "mouse_move=";
+		if (pc->stats.mouse_move) outfile << "true\n";
+		else outfile << "false\n";
+		
 		// equipped gear
 		outfile << "equipped=";
 		for (int i=0; i<4; i++) {
@@ -106,6 +111,9 @@ void GameEngine::loadGame() {
 				
 					if (key == "name") {
 						pc->stats.name = val;
+					}
+					else if (key == "mouse_move") {
+						if (val == "true") pc->stats.mouse_move = true;
 					}
 					else if (key == "xp") {
 						pc->stats.xp = atoi(val.c_str());

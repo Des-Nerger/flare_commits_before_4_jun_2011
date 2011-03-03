@@ -37,6 +37,7 @@ Avatar::Avatar(PowerManager *_powers, InputState *_inp, MapIso *_map) {
 	stats.defense = 1;
 	stats.speed = 10;
 	stats.dspeed = 7;
+	stats.mouse_move = false;
 	stats.recalc();
 	
 	log_msg = "";
@@ -109,12 +110,11 @@ void Avatar::loadSounds() {
 }
 
 bool Avatar::pressing_move() {
-	if(inp->pressing[UP] ||
-	   inp->pressing[DOWN] ||
-	   inp->pressing[LEFT] ||
-	   inp->pressing[RIGHT])
-		return true;
-	return false;
+	if(stats.mouse_move) {
+		return inp->pressing[MAIN1];
+	} else {
+		return inp->pressing[UP] || inp->pressing[DOWN] || inp->pressing[LEFT] || inp->pressing[RIGHT];
+	}	
 }
 
 /**
@@ -151,14 +151,19 @@ bool Avatar::move() {
 
 void Avatar::set_direction() {
 	// handle direction changes
-	if(inp->pressing[UP] && inp->pressing[LEFT]) stats.direction = 1;
-	else if(inp->pressing[UP] && inp->pressing[RIGHT]) stats.direction = 3;
-	else if(inp->pressing[DOWN] && inp->pressing[RIGHT]) stats.direction = 5;
-	else if(inp->pressing[DOWN] && inp->pressing[LEFT]) stats.direction = 7;
-	else if(inp->pressing[LEFT]) stats.direction = 0;
-	else if(inp->pressing[UP]) stats.direction = 2;
-	else if(inp->pressing[RIGHT]) stats.direction = 4;
-	else if(inp->pressing[DOWN]) stats.direction = 6;
+	if(stats.mouse_move) {
+		Point target = screen_to_map(inp->mouse.x,  inp->mouse.y, stats.pos.x, stats.pos.y);
+		stats.direction = face(target.x, target.y);
+	} else {
+		if(inp->pressing[UP] && inp->pressing[LEFT]) stats.direction = 1;
+		else if(inp->pressing[UP] && inp->pressing[RIGHT]) stats.direction = 3;
+		else if(inp->pressing[DOWN] && inp->pressing[RIGHT]) stats.direction = 5;
+		else if(inp->pressing[DOWN] && inp->pressing[LEFT]) stats.direction = 7;
+		else if(inp->pressing[LEFT]) stats.direction = 0;
+		else if(inp->pressing[UP]) stats.direction = 2;
+		else if(inp->pressing[RIGHT]) stats.direction = 4;
+		else if(inp->pressing[DOWN]) stats.direction = 6;
+	}
 }
 
 
@@ -207,7 +212,7 @@ int Avatar::face(int mapx, int mapy) {
  *
  * @param power_index The actionbar power activated.  -1 means no power.
  */
-void Avatar::logic(int actionbar_power) {
+void Avatar::logic(int actionbar_power, bool restrictPowerUse) {
 	Point target;
 	int stepfx;
 	stats.logic();
@@ -230,7 +235,7 @@ void Avatar::logic(int actionbar_power) {
 	if (stats.hp == 0 && !(stats.cur_state == AVATAR_DEAD)) {
 		stats.cur_state = AVATAR_DEAD;
 		stats.cur_frame = 0;
-	}
+	}		
 	
 	switch(stats.cur_state) {
 		case AVATAR_STANCE:
@@ -245,19 +250,20 @@ void Avatar::logic(int actionbar_power) {
 			
 			// handle transitions to RUN
 			set_direction();
-			if (pressing_move()) {
+			
+			if (pressing_move() && (!stats.mouse_move || restrictPowerUse)) {
+				if (stats.mouse_move && inp->pressing[MAIN1]) inp->mouse_lock = true;
+				
 				if (move()) { // no collision
 					stats.cur_frame = 1;
 					stats.cur_state = AVATAR_RUN;
 					break;
 				}
 			}
-			
 			// handle power usage
-			if (actionbar_power != -1 && stats.cooldown_ticks == 0) {
-
+			if (!restrictPowerUse && actionbar_power != -1 && stats.cooldown_ticks == 0) {				
 				target = screen_to_map(inp->mouse.x,  inp->mouse.y + powers->powers[actionbar_power].aim_assist, stats.pos.x, stats.pos.y);
-
+			
 				// check requirements
 				if (powers->powers[actionbar_power].requires_mana && stats.mp <= 0)
 					break;
@@ -320,7 +326,7 @@ void Avatar::logic(int actionbar_power) {
 
 			// handle direction changes
 			set_direction();
-
+			
 			// handle transition to STANCE
 			if (!pressing_move()) {
 				stats.cur_state = AVATAR_STANCE;
@@ -330,9 +336,8 @@ void Avatar::logic(int actionbar_power) {
 				stats.cur_state = AVATAR_STANCE;
 				break;
 			}
-
 			// handle power usage
-			if (actionbar_power != -1 && stats.cooldown_ticks == 0) {
+			if (!restrictPowerUse && actionbar_power != -1 && stats.cooldown_ticks == 0) {
 
 				target = screen_to_map(inp->mouse.x,  inp->mouse.y + powers->powers[actionbar_power].aim_assist, stats.pos.x, stats.pos.y);
 			
@@ -414,11 +419,6 @@ void Avatar::logic(int actionbar_power) {
 			// do power
 			if (stats.cur_frame == 8) {
 				powers->activate(current_power, &stats, act_target);
-				
-				// TEMP
-				//if (current_power == POWER_QUAKE) {
-				//	map->shaky_cam_ticks = 8;
-				//}
 			}
 
 			if (stats.cur_frame == 15) {

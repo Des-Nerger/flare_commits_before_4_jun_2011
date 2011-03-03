@@ -184,6 +184,8 @@ public:
 	int melee_weapon_power;
 	int magic_weapon_power;
 	int ranged_weapon_power;
+	
+	bool mouse_move;
 };
 
 #endif

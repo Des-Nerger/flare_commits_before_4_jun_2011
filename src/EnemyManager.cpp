@@ -17,6 +17,27 @@ EnemyManager::EnemyManager(PowerManager *_powers, MapIso *_map) {
 	handleNewMap();
 }
 
+
+Enemy* EnemyManager::enemyFocus(Point mouse, Point cam) {
+	Point p;
+	SDL_Rect r;
+	for(int i = 0; i < enemy_count; i++) {
+		if(enemies[i]->stats.cur_state == ENEMY_DEAD || enemies[i]->stats.cur_state == ENEMY_CRITDEAD) {
+			continue;
+		}
+		p = map_to_screen(enemies[i]->stats.pos.x, enemies[i]->stats.pos.y, cam.x, cam.y);
+				
+		r.w = 64;
+		r.h = 96;
+		r.x = p.x - 16;
+		r.y = p.y - 32;		
+		if (mouse.x > r.x && mouse.x < r.x + r.w && mouse.y > r.y && mouse.y < r.y + r.h) {
+			Enemy *enemy = enemies[i];
+			return enemy;
+		}
+	}
+	return NULL;
+}
 /**
  * Enemies share graphic/sound resources (usually there are groups of similar enemies)
  */

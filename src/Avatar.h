@@ -58,7 +58,7 @@ public:
 	void loadGraphics(string img_main, string img_body, string img_off);
 	void loadSounds();
 	
-	void logic(int actionbar_power);
+	void logic(int actionbar_power, bool restrictPowerUse);
 	bool pressing_move();	
 	bool move();
 	void set_direction();
