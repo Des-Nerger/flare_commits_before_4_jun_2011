@@ -18,26 +18,7 @@ EnemyManager::EnemyManager(PowerManager *_powers, MapIso *_map) {
 }
 
 
-Enemy* EnemyManager::enemyFocus(Point mouse, Point cam) {
-	Point p;
-	SDL_Rect r;
-	for(int i = 0; i < enemy_count; i++) {
-		if(enemies[i]->stats.cur_state == ENEMY_DEAD || enemies[i]->stats.cur_state == ENEMY_CRITDEAD) {
-			continue;
-		}
-		p = map_to_screen(enemies[i]->stats.pos.x, enemies[i]->stats.pos.y, cam.x, cam.y);
-				
-		r.w = 64;
-		r.h = 96;
-		r.x = p.x - 16;
-		r.y = p.y - 32;		
-		if (mouse.x > r.x && mouse.x < r.x + r.w && mouse.y > r.y && mouse.y < r.y + r.h) {
-			Enemy *enemy = enemies[i];
-			return enemy;
-		}
-	}
-	return NULL;
-}
+
 /**
  * Enemies share graphic/sound resources (usually there are groups of similar enemies)
  */
@@ -164,6 +145,28 @@ void EnemyManager::logic() {
 		enemies[i]->logic();
 
 	}
+}
+
+Enemy* EnemyManager::enemyFocus(Point mouse, Point cam) {
+	Point p;
+	SDL_Rect r;
+	for(int i = 0; i < enemy_count; i++) {
+		if(enemies[i]->stats.cur_state == ENEMY_DEAD || enemies[i]->stats.cur_state == ENEMY_CRITDEAD) {
+			continue;
+		}
+		p = map_to_screen(enemies[i]->stats.pos.x, enemies[i]->stats.pos.y, cam.x, cam.y);
+	
+		r.w = enemies[i]->stats.render_size.x;
+		r.h = enemies[i]->stats.render_size.y;
+		r.x = p.x - enemies[i]->stats.render_offset.x;
+		r.y = p.y - enemies[i]->stats.render_offset.y;
+		
+		if (isWithin(r, mouse)) {
+			Enemy *enemy = enemies[i];
+			return enemy;
+		}
+	}
+	return NULL;
 }
 
 /**
