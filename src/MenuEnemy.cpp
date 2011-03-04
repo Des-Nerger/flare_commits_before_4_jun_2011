@@ -41,9 +41,6 @@ void MenuEnemy::handleNewMap() {
 }
 
 void MenuEnemy::logic() {
-	if (enemy != NULL) {
-		if (enemy->stats.corpse) enemy = NULL;
-	}
 }
 
 void MenuEnemy::render() {
@@ -65,6 +62,7 @@ void MenuEnemy::render() {
 		hp_bar_length = 0;
 	else
 		hp_bar_length = (enemy->stats.hp * 100) / enemy->stats.maxhp;
+
 	// draw hp bar
 	
 	dest.x = VIEW_W_HALF-50;
@@ -81,7 +79,10 @@ void MenuEnemy::render() {
 	ss << enemy->stats.name << " level " << enemy->stats.level;
 	font->render(ss.str(), VIEW_W_HALF, 4, JUSTIFY_CENTER, screen, FONT_WHITE);
 	ss.str("");
-	ss << enemy->stats.hp << "/" << enemy->stats.maxhp;
+	if (enemy->stats.hp > 0)
+		ss << enemy->stats.hp << "/" << enemy->stats.maxhp;
+	else
+		ss << "Dead";
 	font->render(ss.str(), VIEW_W_HALF, 20, JUSTIFY_CENTER, screen, FONT_WHITE);
 	
 	//SDL_UpdateRects(screen, 1, &dest);

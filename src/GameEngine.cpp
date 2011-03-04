@@ -66,10 +66,14 @@ void GameEngine::logic() {
 			}
 		}
 		
+		// determine enemies mouseover
+		// only check alive enemies for targeting
+		enemy = enemies->enemyFocus(inp->mouse, map->cam, true);
 		
-		enemy = enemies->enemyFocus(inp->mouse, map->cam);
-		if (enemy != NULL) menu->enemy->enemy = enemy;
-
+		// check dead and alive enemies for the menu display
+		Enemy *temp_enemy = enemies->enemyFocus(inp->mouse, map->cam, false);
+		if (temp_enemy != NULL) menu->enemy->enemy = temp_enemy;
+		
 		bool restrictPowerUse = false;
 		if(pc->stats.mouse_move) {
 			if(enemy == NULL && inp->pressing[MAIN1] && !inp->pressing[SHIFT] && !inp->mouse_lock && !(isWithin(menu->act->numberArea,inp->mouse) || isWithin(menu->act->mouseArea,inp->mouse) || isWithin(menu->act->menuArea, inp->mouse))) {
