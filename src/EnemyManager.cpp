@@ -151,7 +151,7 @@ Enemy* EnemyManager::enemyFocus(Point mouse, Point cam, bool alive_only) {
 	Point p;
 	SDL_Rect r;
 	for(int i = 0; i < enemy_count; i++) {
-		if(alive_only && enemies[i]->stats.cur_state == ENEMY_DEAD || enemies[i]->stats.cur_state == ENEMY_CRITDEAD) {
+		if(alive_only && (enemies[i]->stats.cur_state == ENEMY_DEAD || enemies[i]->stats.cur_state == ENEMY_CRITDEAD)) {
 			continue;
 		}
 		p = map_to_screen(enemies[i]->stats.pos.x, enemies[i]->stats.pos.y, cam.x, cam.y);
