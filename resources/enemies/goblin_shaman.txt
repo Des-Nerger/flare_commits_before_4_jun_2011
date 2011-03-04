@@ -15,9 +15,10 @@ threat_range=512
 dir_favor=6
 chance_pursue=10
 chance_melee_phys=0
-chance_melee_mag=0
+chance_melee_mag=5
 chance_ranged_phys=5
 chance_ranged_mag=10
+power_melee_mag=6
 power_ranged_phys=11
 power_ranged_mag=6
 
