@@ -42,7 +42,7 @@ void MenuEnemy::handleNewMap() {
 
 void MenuEnemy::logic() {
 	if (enemy != NULL) {
-		if (!enemy->stats.alive) enemy = NULL;
+		if (enemy->stats.corpse) enemy = NULL;
 	}
 }
 
