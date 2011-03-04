@@ -66,10 +66,10 @@ void GameEngine::logic() {
 			}
 		}
 		
-		Enemy* enemy = enemies->enemyFocus(inp->mouse, map->cam);
-		if(enemy != NULL) {
-			//TODO: Enemy tooltip
-		}
+		
+		enemy = enemies->enemyFocus(inp->mouse, map->cam);
+		if (enemy != NULL) menu->enemy->enemy = enemy;
+
 		bool restrictPowerUse = false;
 		if(pc->stats.mouse_move) {
 			if(enemy == NULL && inp->pressing[MAIN1] && !inp->pressing[SHIFT] && !inp->mouse_lock && !(isWithin(menu->act->numberArea,inp->mouse) || isWithin(menu->act->mouseArea,inp->mouse) || isWithin(menu->act->menuArea, inp->mouse))) {
@@ -111,6 +111,7 @@ void GameEngine::logic() {
 			hazards->handleNewMap(&map->collider);
 			loot->handleNewMap();
 			powers->handleNewMap(&map->collider);
+			menu->enemy->handleNewMap();
 			
 			// store this as the new respawn point
 			map->respawn_map = map->teleport_mapname;
@@ -217,6 +218,7 @@ void GameEngine::render() {
 	menu->log->renderHUDMessages();
 	menu->mini->render(&map->collider, pc->stats.pos, map->w, map->h);
 	menu->render();
+
 
 }
 

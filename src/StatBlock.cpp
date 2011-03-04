@@ -143,8 +143,14 @@ void StatBlock::load(string filename) {
 					else if (key == "loot_chance") loot_chance = num;
 					
 					// combat stats
-					else if (key == "hp") hp = num;
-					else if (key == "mp") mp = num;
+					else if (key == "hp") {
+						hp = num;
+						maxhp = num;
+					}
+					else if (key == "mp") {
+						mp = num;
+						maxmp = num;
+					}
 					else if (key == "cooldown") cooldown = num;
 					else if (key == "accuracy") accuracy = num;
 					else if (key == "avoidance") avoidance = num;

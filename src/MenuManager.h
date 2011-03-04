@@ -26,6 +26,7 @@
 #include "PowerManager.h"
 #include "MenuMiniMap.h"
 #include "MenuExperience.h"
+#include "MenuEnemy.h"
 
 const int DRAG_SRC_POWERS = 1;
 const int DRAG_SRC_INVENTORY = 2;
@@ -74,6 +75,7 @@ public:
 	MenuTooltip *tip;
 	MenuMiniMap *mini;
 	MenuExperience *xp;
+	MenuEnemy *enemy;
 	ItemDatabase *items;
 	
 	

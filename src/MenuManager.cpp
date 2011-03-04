@@ -26,6 +26,7 @@ MenuManager::MenuManager(PowerManager *_powers, SDL_Surface *_screen, InputState
 	tip = new MenuTooltip(font, screen);
 	mini = new MenuMiniMap(screen);
 	xp = new MenuExperience(screen, font);
+	enemy = new MenuEnemy(screen, font);
 
 	
 	pause = false;
@@ -86,6 +87,7 @@ void MenuManager::logic() {
 	bool clicking_log = false;
 	
 	log->logic();
+	enemy->logic();
 
 	if (!inp->pressing[INVENTORY] && !inp->pressing[POWERS] && !inp->pressing[CHARACTER] && !inp->pressing[LOG])
 		key_lock = false;
@@ -287,6 +289,7 @@ void MenuManager::render() {
 	pow->render();
 	chr->render();
 	log->render();
+	enemy->render();
 	
 	TooltipData tooltip;
 	int offset_x = (VIEW_W - 320);
