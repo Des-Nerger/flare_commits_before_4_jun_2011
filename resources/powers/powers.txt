@@ -216,6 +216,7 @@ description=Blink to a nearby location
 new_state=cast
 requires_mana=true
 requires_los=true
+requires_empty_target=true
 gfx=runes.png
 sfx=teleport.ogg
 use_hazard=true
