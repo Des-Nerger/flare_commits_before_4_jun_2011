@@ -1,7 +1,8 @@
 /**
  * class GameEngine
  *
- * Hands off the logic and rendering for the current game mode
+ * Hands off the logic and rendering for the current game mode.
+ * Also handles message passing between child objects, often to avoid circular dependencies.
  *
  * @author Clint Bellanger
  * @license GPL
@@ -27,76 +28,73 @@ GameEngine::GameEngine(SDL_Surface *_screen, InputState *_inp) {
 	loadGame();
 }
 
-
+/**
+ * Check mouseover for enemies.
+ * class variable "enemy" contains a live enemy on mouseover.
+ * This function also sets enemy mouseover for Menu Enemy.
+ */
+void GameEngine::checkEnemyFocus() {
+	// determine enemies mouseover
+	// only check alive enemies for targeting
+	enemy = enemies->enemyFocus(inp->mouse, map->cam, true);
+	
+	if (enemy != NULL) {
+	
+		// if there's a living creature in focus, display its stats
+		menu->enemy->enemy = enemy;
+		menu->enemy->timeout = MENU_ENEMY_TIMEOUT;
+	}
+	else {
+		
+		// if there's no living creature in focus, look for a dead one instead
+		Enemy *temp_enemy = enemies->enemyFocus(inp->mouse, map->cam, false);
+		if (temp_enemy != NULL) {
+			menu->enemy->enemy = temp_enemy;
+			menu->enemy->timeout = MENU_ENEMY_TIMEOUT;
+		}
+	}
+}
 
 /**
- * Process all actions for a single frame
- * This includes some message passing between child object
+ * If mouse_move is enabled, and the mouse is over a live enemy,
+ * Do not allow power use with button MAIN1
  */
-void GameEngine::logic() {
-	
-	int pickup;
-	if (!inp->pressing[MAIN1]) inp->mouse_lock = false;
-	if (!inp->pressing[MAIN2]) inp->mouse2_lock = false;
+bool GameEngine::restrictPowerUse() {
+	if(pc->stats.mouse_move) {
+		if(enemy == NULL && inp->pressing[MAIN1] && !inp->pressing[SHIFT] && !inp->mouse_lock && !(isWithin(menu->act->numberArea,inp->mouse) || isWithin(menu->act->mouseArea,inp->mouse) || isWithin(menu->act->menuArea, inp->mouse))) {
+			return true;
+		}
+	}
+	return false;
+}
 
-	// check menus first (top layer gets mouse click priority)
-	menu->logic();
-	
+/**
+ * Check to see if the player is picking up loot on the ground
+ */
+void GameEngine::checkLoot() {
+	if (inp->pressing[MAIN1] && !inp->mouse_lock && pc->stats.alive) {
+
+		int pickup;
+		int gold;
 		
-	// the game action is paused if any menus are opened
-	if (!menu->pause) {
-		
-		// click to pick up loot on the ground
-		if (inp->pressing[MAIN1] && !inp->mouse_lock && pc->stats.alive) {
-			int gold;
-			
-			pickup = loot->checkPickup(inp->mouse, map->cam, pc->stats.pos, gold, menu->inv->full());
-			if (pickup > 0) {
-				inp->mouse_lock = true;
-				menu->inv->add(pickup);
-			}
-			else if (gold > 0) {
-				inp->mouse_lock = true;
-				menu->inv->addGold(gold);
-			}
-			if (loot->full_msg) {
-				inp->mouse_lock = true;
-				menu->log->add("Inventory is full.");
-				loot->full_msg = false;
-			}
+		pickup = loot->checkPickup(inp->mouse, map->cam, pc->stats.pos, gold, menu->inv->full());
+		if (pickup > 0) {
+			inp->mouse_lock = true;
+			menu->inv->add(pickup);
 		}
-		
-		// determine enemies mouseover
-		// only check alive enemies for targeting
-		enemy = enemies->enemyFocus(inp->mouse, map->cam, true);
-		
-		// check dead and alive enemies for the menu display
-		Enemy *temp_enemy = enemies->enemyFocus(inp->mouse, map->cam, false);
-		if (temp_enemy != NULL) menu->enemy->enemy = temp_enemy;
-		
-		bool restrictPowerUse = false;
-		if(pc->stats.mouse_move) {
-			if(enemy == NULL && inp->pressing[MAIN1] && !inp->pressing[SHIFT] && !inp->mouse_lock && !(isWithin(menu->act->numberArea,inp->mouse) || isWithin(menu->act->mouseArea,inp->mouse) || isWithin(menu->act->menuArea, inp->mouse))) {
-				restrictPowerUse = true;
-			}
+		else if (gold > 0) {
+			inp->mouse_lock = true;
+			menu->inv->addGold(gold);
 		}
-		pc->logic(menu->act->checkAction(inp->mouse), restrictPowerUse);
-		
-		enemies->heroPos = pc->stats.pos;
-		enemies->logic();
-		hazards->logic();
-		loot->logic();
-		enemies->checkEnemiesforXP(&pc->stats);
-		
+		if (loot->full_msg) {
+			inp->mouse_lock = true;
+			menu->log->add("Inventory is full.");
+			loot->full_msg = false;
+		}
 	}
-	
-	// if the player has dropped an item from the inventory
-	if (menu->drop_item > 0) {
-		loot->addLoot(menu->drop_item, pc->stats.pos);
-		menu->drop_item = 0;
-	}
-	
-	// check teleport
+}
+
+void GameEngine::checkTeleport() {
 	if (map->teleportation || pc->stats.teleportation) {
 		
 		if (map->teleportation) {
@@ -127,8 +125,13 @@ void GameEngine::logic() {
 		pc->stats.teleportation = false; // teleport spell
 		
 	}
-	
-	// handle cancel key
+}
+
+/**
+ * Check for cancel key to exit menus or exit the game.
+ * Also check closing the game window entirely.
+ */
+void GameEngine::checkCancel() {
 	if (!inp->pressing[CANCEL]) cancel_lock = false;
 	else if (inp->pressing[CANCEL] && !cancel_lock) {
 		cancel_lock = true;
@@ -140,14 +143,18 @@ void GameEngine::logic() {
 			done = true;
 		}
 	}
-	
+
 	// if user closes the window
 	if (inp->done) {
 		saveGame();
 		done = true;
-	}
-	
-	// check for log messages from various child objects
+	}	
+}
+
+/**
+ * Check for log messages from various child objects
+ */
+void GameEngine::checkLog() {
 	if (map->log_msg != "") {
 		menu->log->add(map->log_msg);
 		map->log_msg = "";
@@ -156,14 +163,58 @@ void GameEngine::logic() {
 		menu->log->add(pc->log_msg);
 		pc->log_msg = "";
 	}
-		
-	// check change equipment
+}
+
+void GameEngine::checkEquipmentChange() {
 	if (menu->inv->changed_equipment) {
 		pc->loadGraphics(menu->items->items[menu->inv->equipped[0]].gfx, 
 		                 menu->items->items[menu->inv->equipped[1]].gfx, 
 		                 menu->items->items[menu->inv->equipped[2]].gfx);
 		menu->inv->changed_equipment = false;
 	}
+}
+
+void GameEngine::checkLootDrop() {
+	// if the player has dropped an item from the inventory
+	if (menu->drop_item > 0) {
+		loot->addLoot(menu->drop_item, pc->stats.pos);
+		menu->drop_item = 0;
+	}
+}
+
+/**
+ * Process all actions for a single frame
+ * This includes some message passing between child object
+ */
+void GameEngine::logic() {
+	
+	if (!inp->pressing[MAIN1]) inp->mouse_lock = false;
+	if (!inp->pressing[MAIN2]) inp->mouse2_lock = false;
+
+	// check menus first (top layer gets mouse click priority)
+	menu->logic();
+	
+	if (!menu->pause) {
+	
+		// these actions only occur when the game isn't paused		
+		checkLoot();
+		checkEnemyFocus();
+		pc->logic(menu->act->checkAction(inp->mouse), restrictPowerUse());
+		
+		enemies->heroPos = pc->stats.pos;
+		enemies->logic();
+		hazards->logic();
+		loot->logic();
+		enemies->checkEnemiesforXP(&pc->stats);
+		
+	}
+	
+	// these actions occur whether the game is paused or not.
+	checkLootDrop();
+	checkTeleport();
+	checkCancel();
+	checkLog();
+	checkEquipmentChange();
 	
 	map->logic();
 	

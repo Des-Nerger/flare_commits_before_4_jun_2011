@@ -14,6 +14,7 @@ MenuEnemy::MenuEnemy(SDL_Surface *_screen, FontEngine *_font) {
 	font = _font;
 	loadGraphics();
 	enemy = NULL;
+	timeout = 0;
 }
 
 void MenuEnemy::loadGraphics() {
@@ -41,6 +42,10 @@ void MenuEnemy::handleNewMap() {
 }
 
 void MenuEnemy::logic() {
+
+	// after a fixed amount of time, hide the enemy display
+	if (timeout > 0) timeout--;
+	if (timeout == 0) enemy = NULL;
 }
 
 void MenuEnemy::render() {

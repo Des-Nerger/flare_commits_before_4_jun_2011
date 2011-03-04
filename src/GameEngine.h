@@ -1,7 +1,8 @@
 /**
  * class GameEngine
  *
- * Hands off the logic and rendering for the current game mode
+ * Hands off the logic and rendering for the current game mode.
+ * Also handles message passing between child objects, often to avoid circular dependencies.
  *
  * @author Clint Bellanger
  * @license GPL
@@ -44,6 +45,14 @@ private:
 	bool cancel_lock;
 	void saveGame();
 	void loadGame();
+	bool restrictPowerUse();
+	void checkEnemyFocus();
+	void checkLoot();
+	void checkLootDrop();
+	void checkTeleport();
+	void checkCancel();
+	void checkLog();
+	void checkEquipmentChange();	
 	
 public:
 	bool done;

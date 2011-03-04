@@ -19,6 +19,8 @@
 #include <sstream>
 #include "Enemy.h"
 
+const int MENU_ENEMY_TIMEOUT = FRAMES_PER_SEC * 10;
+
 class MenuEnemy {
 private:
 	SDL_Surface *screen;
@@ -33,6 +35,7 @@ public:
 	void handleNewMap();
 	void logic();
 	void render();
+	int timeout;
 };
 
 #endif
