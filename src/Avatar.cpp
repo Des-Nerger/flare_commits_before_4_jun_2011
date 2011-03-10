@@ -251,14 +251,15 @@ void Avatar::logic(int actionbar_power, bool restrictPowerUse) {
 				stats.disp_frame = (47 - stats.cur_frame) / 6;
 			else
 				stats.disp_frame = stats.cur_frame / 6;
-			
-			// handle transitions to RUN
-			set_direction();
-			
+						
 			if (stats.mouse_move) {
 				allowed_to_move = restrictPowerUse && (!inp->mouse_lock || drag_walking);
 			}
 			else allowed_to_move = true;
+
+			// handle transitions to RUN
+			if (allowed_to_move)
+				set_direction();
 			
 			if (pressing_move() && allowed_to_move) {
 				if (stats.mouse_move && inp->pressing[MAIN1]) {

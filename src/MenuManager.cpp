@@ -261,8 +261,10 @@ void MenuManager::logic() {
 				act->remove(inp->mouse);
 				inp->mouse_lock = true;
 			}
-			// if any menu is open, allow drag-to-rearrange action bar
-			else if (pause && !isWithin(act->menuArea, inp->mouse)) {
+			// allow drag-to-rearrange action bar
+			/*
+			Disabled for now.  Clicking should use that power.
+			else if (!isWithin(act->menuArea, inp->mouse)) {
 				drag_power = act->checkDrag(inp->mouse);
 				if (drag_power > -1) {
 					dragging = true;
@@ -270,6 +272,7 @@ void MenuManager::logic() {
 					inp->mouse_lock=true;
 				}
 			}
+			*/
 			// else, clicking action bar to use a power?
 			// this check is done by GameEngine when calling Avatar::logic()
 
