@@ -495,6 +495,9 @@ void Avatar::logic(int actionbar_power, bool restrictPowerUse) {
 				stats.cur_frame = 0;
 				stats.cur_state = AVATAR_STANCE;
 				
+				// remove temporary effects
+				stats.clearEffects();
+				
 				// set teleportation variables.  GameEngine acts on these.
 				map->teleportation = true;
 				map->teleport_mapname = map->respawn_map;

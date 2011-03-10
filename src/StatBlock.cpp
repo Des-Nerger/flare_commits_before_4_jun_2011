@@ -338,6 +338,19 @@ void StatBlock::logic() {
 }
 
 /**
+ * Remove temporary buffs/debuffs
+ */
+void StatBlock::clearEffects() {
+	immunity_duration = 0;
+	immobilize_duration = 0;
+	bleed_duration = 0;
+	stun_duration = 0;
+	shield_hp = 0;
+	vengeance_stacks = 0;
+}
+
+
+/**
  * Get the renderable for various effects on the player (buffs/debuffs)
  *
  * @param effect_type STAT_EFFECT_* consts defined in StatBlock.h

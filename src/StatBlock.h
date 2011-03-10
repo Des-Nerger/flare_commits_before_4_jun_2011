@@ -38,6 +38,7 @@ public:
 	void takeDamage(int dmg);
 	void recalc();
 	void logic();
+	void clearEffects();
 	Renderable getEffectRender(int effect_type);
 
 	bool alive;
