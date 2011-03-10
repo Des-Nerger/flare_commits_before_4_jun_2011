@@ -374,7 +374,7 @@ void MenuManager::render() {
 		if (drag_src == DRAG_SRC_INVENTORY)
 			items->renderIcon(drag_item, inp->mouse.x - 16, inp->mouse.y - 16, ICON_SIZE_32);
 		else if (drag_src == DRAG_SRC_POWERS || drag_src == DRAG_SRC_ACTIONBAR)
-			renderIcon(drag_power, inp->mouse.x-16, inp->mouse.y-16);
+			renderIcon(powers->powers[drag_power].icon, inp->mouse.x-16, inp->mouse.y-16);
 	}
 	
 }
