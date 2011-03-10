@@ -49,6 +49,10 @@ InputState::InputState(void) {
 	binding[SHIFT] = SDLK_LSHIFT;
 	binding2[SHIFT] = SDLK_RSHIFT;
 	
+	// temp vendor/mechant testing
+	binding[VENDOR] = SDLK_v;
+	binding2[VENDOR] = SDLK_m;
+	
 	for (int key=0; key<key_count; key++) {
 		pressing[key] = false;	
 	}

@@ -27,7 +27,7 @@ MenuManager::MenuManager(PowerManager *_powers, SDL_Surface *_screen, InputState
 	mini = new MenuMiniMap(screen);
 	xp = new MenuExperience(screen, font);
 	enemy = new MenuEnemy(screen, font);
-
+	vendor = new MenuVendor(screen, font, items, stats);
 	
 	pause = false;
 	dragging = false;
@@ -89,13 +89,15 @@ void MenuManager::logic() {
 	log->logic();
 	enemy->logic();
 
-	if (!inp->pressing[INVENTORY] && !inp->pressing[POWERS] && !inp->pressing[CHARACTER] && !inp->pressing[LOG])
+	// TEMP v0.12
+	//if (!inp->pressing[INVENTORY] && !inp->pressing[POWERS] && !inp->pressing[CHARACTER] && !inp->pressing[LOG])
+	if (!inp->pressing[INVENTORY] && !inp->pressing[POWERS] && !inp->pressing[CHARACTER] && !inp->pressing[LOG] && !inp->pressing[VENDOR])	
 		key_lock = false;
 
 	if (!inp->pressing[MAIN2])
 		rightclick_lock = false;
 	
-	// check if clicking a menu button
+	// check if mouse-clicking a menu button
 	act->checkMenu(inp->mouse, clicking_character, clicking_inventory, clicking_powers, clicking_log);
 
 	// inventory menu toggle
@@ -106,8 +108,10 @@ void MenuManager::logic() {
 			Mix_PlayChannel(-1, sfx_open, 0);
 			pow->visible = false;
 		}
-		else
+		else {
 			Mix_PlayChannel(-1, sfx_close, 0);
+			vendor->visible = false;
+		}
 		
 	}
 
@@ -118,6 +122,7 @@ void MenuManager::logic() {
 		if (pow->visible) {
 			Mix_PlayChannel(-1, sfx_open, 0);
 			inv->visible = false;
+			vendor->visible = false;
 		}
 		else
 			Mix_PlayChannel(-1, sfx_close, 0);
@@ -130,6 +135,7 @@ void MenuManager::logic() {
 		if (chr->visible) {
 			Mix_PlayChannel(-1, sfx_open, 0);
 			log->visible = false;
+			vendor->visible = false;
 		}
 		else
 			Mix_PlayChannel(-1, sfx_close, 0);
@@ -142,12 +148,29 @@ void MenuManager::logic() {
 		if (log->visible) {
 			Mix_PlayChannel(-1, sfx_open, 0);
 			chr->visible = false;
+			vendor->visible = false;
 		}
 		else
 			Mix_PlayChannel(-1, sfx_close, 0);
 	}
 	
-	pause = (inv->visible || pow->visible || chr->visible || log->visible);
+	// TEMP v0.12
+	// vendor menu toggle.
+	if ((inp->pressing[VENDOR] && !key_lock && !dragging)) {
+		key_lock = true;
+		vendor->visible = !vendor->visible;
+		if (vendor->visible) {
+			Mix_PlayChannel(-1, sfx_open, 0);
+			chr->visible = false;
+			log->visible = false;
+			pow->visible = false;
+			inv->visible = true;
+		}
+		else
+			Mix_PlayChannel(-1, sfx_close, 0);
+	}
+	
+	pause = (inv->visible || pow->visible || chr->visible || log->visible || vendor->visible);
 	
 	int offset_x = (VIEW_W - 320);
 	int offset_y = (VIEW_H - 416)/2;
@@ -172,11 +195,32 @@ void MenuManager::logic() {
 				// applied a level-up
 				if (chr->checkUpgrade(inp->mouse)) {
 					inp->mouse_lock = true;
+					
 					// apply equipment and max hp/mp
 					items->applyEquipment(stats, inv->equipped);
 					stats->hp = stats->maxhp;
 					stats->mp = stats->maxmp;
 				}
+			}
+			else if (vendor->visible) {
+			
+				if (inp->pressing[CTRL]) {
+					inp->mouse_lock = true;
+					
+					// buy item from a vendor
+					if (!inv->full()) {
+						int bought_item;
+						bought_item = vendor->buy(inp->mouse, inv->gold);
+						if (bought_item != -1) {
+							inv->add(bought_item);
+						}
+					}
+				}
+				else {
+					
+					// start dragging a vendor item
+				}
+			
 			}
 		}
 	
@@ -289,6 +333,7 @@ void MenuManager::render() {
 	pow->render();
 	chr->render();
 	log->render();
+	vendor->render();
 	enemy->render();
 	
 	TooltipData tooltip;
@@ -299,6 +344,9 @@ void MenuManager::render() {
 	if (inp->mouse.x < 320 && inp->mouse.y >= offset_y && inp->mouse.y <= offset_y+416) {
 		if (chr->visible) {
 			tooltip = chr->checkTooltip(inp->mouse);
+		}
+		else if (vendor->visible) {
+			tooltip = vendor->checkTooltip(inp->mouse);
 		}
 	}
 	else if (inp->mouse.x >= offset_x && inp->mouse.y >= offset_y && inp->mouse.y <= offset_y+416) {
@@ -333,6 +381,7 @@ void MenuManager::closeAll() {
 		pow->visible = false;
 		chr->visible = false;
 		log->visible = false;
+		vendor->visible = false; 
 		
 		Mix_PlayChannel(-1, sfx_close, 0);
 	}
@@ -348,6 +397,7 @@ MenuManager::~MenuManager() {
 	delete(log);
 	delete(act);
 	delete(tip);
+	delete(vendor);
 	Mix_FreeChunk(sfx_open);
 	Mix_FreeChunk(sfx_close);
 }

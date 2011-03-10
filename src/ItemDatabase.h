@@ -96,7 +96,7 @@ public:
 	void renderIcon(int item, int x, int y, int size);
 	void playSound(int item);
 	void playCoinsSound();	
-	TooltipData getTooltip(int item, StatBlock *stats);
+	TooltipData getTooltip(int item, StatBlock *stats, bool vendor_view);
 	TooltipData getShortTooltip(int item);
 	void applyEquipment(StatBlock *stats, int equipped[4]);
 	bool activate(int item, StatBlock *stats);

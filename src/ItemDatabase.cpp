@@ -257,7 +257,7 @@ TooltipData ItemDatabase::getShortTooltip(int item) {
 /**
  * Create detailed tooltip showing all relevant item info
  */
-TooltipData ItemDatabase::getTooltip(int item, StatBlock *stats) {
+TooltipData ItemDatabase::getTooltip(int item, StatBlock *stats, bool vendor_view) {
 	stringstream ss;
 	TooltipData tip;
 	
@@ -379,9 +379,15 @@ TooltipData ItemDatabase::getTooltip(int item, StatBlock *stats) {
 	
 	ss.str("");
 	if (items[item].price > 0) {
-		int sell_price = items[item].price/vendor_ratio;
-		if (sell_price == 0) sell_price=1;
-		ss << "Sell price: " << sell_price << " gold";
+		if (vendor_view) {
+			int buy_price = items[item].price;
+			ss << "Buy price:: " << buy_price << " gold";
+		}
+		else {
+			int sell_price = items[item].price/vendor_ratio;
+			if (sell_price == 0) sell_price=1;
+			ss << "Sell price: " << sell_price << " gold";
+		}
 		tip.lines[tip.num_lines++] = ss.str();
 	}
 	

@@ -27,6 +27,7 @@
 #include "MenuMiniMap.h"
 #include "MenuExperience.h"
 #include "MenuEnemy.h"
+#include "MenuVendor.h"
 
 const int DRAG_SRC_POWERS = 1;
 const int DRAG_SRC_INVENTORY = 2;
@@ -44,8 +45,6 @@ private:
 	InputState *inp;
 	FontEngine *font;
 	SDL_Surface *screen;
-	
-
 		
 	bool key_lock;
 	bool rightclick_lock;
@@ -76,6 +75,7 @@ public:
 	MenuMiniMap *mini;
 	MenuExperience *xp;
 	MenuEnemy *enemy;
+	MenuVendor *vendor;
 	ItemDatabase *items;
 	
 	
