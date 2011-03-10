@@ -215,7 +215,6 @@ icon=15
 description=Blink to a nearby location
 new_state=cast
 requires_mana=true
-requires_los=true
 requires_empty_target=true
 gfx=runes.png
 sfx=teleport.ogg
@@ -391,6 +390,26 @@ multitarget=true
 visual_option=1
 slow_duration=15
 post_power=125
+
+[power]
+id=116
+type=effect
+icon=40
+name=Health Potion
+sfx=potion.ogg
+new_state=cast
+requires_item=1
+buff_restore_hp=100
+
+[power]
+id=117
+type=effect
+icon=41
+name=Mana Potion
+new_state=cast
+sfx=potion.ogg
+requires_item=1
+buff_restore_mp=100
 
 [power]
 id=118

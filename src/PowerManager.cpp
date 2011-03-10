@@ -247,6 +247,12 @@ void PowerManager::loadPowers() {
 					else if (key == "buff_immunity") {
 						if (val == "true") powers[input_id].buff_immunity = true;
 					}
+					else if (key == "buff_restore_hp") {
+						powers[input_id].buff_restore_hp = atoi(val.c_str());
+					}
+					else if (key == "buff_restore_mp") {
+						powers[input_id].buff_restore_mp = atoi(val.c_str());
+					}
 					
 					// pre and post power effects
 					else if (key == "post_power") {
@@ -553,6 +559,18 @@ void PowerManager::buff(int power_index, StatBlock *src_stats, Point target) {
 		else // avoid div by 0
 			src_stats->hp += src_stats->dmg_magic_min;
 		if (src_stats->hp > src_stats->maxhp) src_stats->hp = src_stats->maxhp;
+	}
+	
+	// health restore
+	if (powers[power_index].buff_restore_hp > 0) {
+		src_stats->hp += powers[power_index].buff_restore_hp;
+		if (src_stats->hp > src_stats->maxhp) src_stats->hp = src_stats->maxhp;
+	}
+
+	// mana restore
+	if (powers[power_index].buff_restore_mp > 0) {
+		src_stats->mp += powers[power_index].buff_restore_mp;
+		if (src_stats->mp > src_stats->maxmp) src_stats->mp = src_stats->maxmp;
 	}
 	
 	// charge shield to max magic weapon damage

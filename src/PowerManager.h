@@ -123,6 +123,8 @@ struct Power {
 	bool buff_shield;
 	bool buff_teleport;
 	bool buff_immunity;
+	int buff_restore_hp;
+	int buff_restore_mp;
 	
 	int post_power;
 	int wall_power;
@@ -177,6 +179,8 @@ struct Power {
 		buff_shield = false;
 		buff_teleport = false;
 		buff_immunity = false;
+		buff_restore_hp = 0;
+		buff_restore_mp = 0;
 		
 		post_power = -1;
 		wall_power = -1;
