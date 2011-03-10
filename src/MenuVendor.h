@@ -39,7 +39,7 @@ public:
 	void logic();
 	void render();
 	int buy(Point mouse, int &gold);
-	TooltipData MenuVendor::checkTooltip(Point mouse);
+	TooltipData checkTooltip(Point mouse);
 	
 	bool visible;
 	int stock[VENDOR_SLOTS]; // items the vendor currently has in stock
