@@ -218,6 +218,7 @@ void Avatar::logic(int actionbar_power, bool restrictPowerUse) {
 	stats.logic();
 	if (stats.stun_duration > 0) return;
 	bool allowed_to_move;
+	bool allowed_to_use_power;
 	
 	// check level up
 	if (stats.level < 17 && stats.xp >= stats.xp_table[stats.level]) {
@@ -251,11 +252,16 @@ void Avatar::logic(int actionbar_power, bool restrictPowerUse) {
 				stats.disp_frame = (47 - stats.cur_frame) / 6;
 			else
 				stats.disp_frame = stats.cur_frame / 6;
-						
+			
+			// allowed to move or use powers?
 			if (stats.mouse_move) {
 				allowed_to_move = restrictPowerUse && (!inp->mouse_lock || drag_walking);
+				allowed_to_use_power = !allowed_to_move;
 			}
-			else allowed_to_move = true;
+			else {
+				allowed_to_move = true;
+				allowed_to_use_power = true;
+			}
 
 			// handle transitions to RUN
 			if (allowed_to_move)
@@ -275,7 +281,7 @@ void Avatar::logic(int actionbar_power, bool restrictPowerUse) {
 
 			}
 			// handle power usage
-			if (!restrictPowerUse && actionbar_power != -1 && stats.cooldown_ticks == 0) {				
+			if (allowed_to_use_power && actionbar_power != -1 && stats.cooldown_ticks == 0) {				
 				target = screen_to_map(inp->mouse.x,  inp->mouse.y + powers->powers[actionbar_power].aim_assist, stats.pos.x, stats.pos.y);
 			
 				// check requirements
@@ -338,6 +344,14 @@ void Avatar::logic(int actionbar_power, bool restrictPowerUse) {
 				Mix_PlayChannel(-1, sound_steps[stepfx], 0);
 			}
 
+			// allowed to move or use powers?
+			if (stats.mouse_move) {
+				allowed_to_use_power = !(restrictPowerUse && !inp->mouse_lock);
+			}
+			else {
+				allowed_to_use_power = true;
+			}
+			
 			// handle direction changes
 			set_direction();
 			
@@ -350,9 +364,9 @@ void Avatar::logic(int actionbar_power, bool restrictPowerUse) {
 				stats.cur_state = AVATAR_STANCE;
 				break;
 			}
-			
+						
 			// handle power usage
-			if (!restrictPowerUse && actionbar_power != -1 && stats.cooldown_ticks == 0) {
+			if (allowed_to_use_power && actionbar_power != -1 && stats.cooldown_ticks == 0) {
 
 				target = screen_to_map(inp->mouse.x,  inp->mouse.y + powers->powers[actionbar_power].aim_assist, stats.pos.x, stats.pos.y);
 			
