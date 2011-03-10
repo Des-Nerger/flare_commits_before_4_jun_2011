@@ -24,5 +24,6 @@ const int VIEW_W_HALF = VIEW_W/2;
 const int VIEW_H_HALF = VIEW_H/2;
 
 const int MUSIC_VOLUME = 255;
+const bool MENUS_PAUSE = false;
 
 #endif

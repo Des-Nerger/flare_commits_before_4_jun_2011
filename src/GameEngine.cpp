@@ -61,7 +61,7 @@ void GameEngine::checkEnemyFocus() {
  */
 bool GameEngine::restrictPowerUse() {
 	if(pc->stats.mouse_move) {
-		if(enemy == NULL && inp->pressing[MAIN1] && !inp->pressing[SHIFT] && !inp->mouse_lock && !(isWithin(menu->act->numberArea,inp->mouse) || isWithin(menu->act->mouseArea,inp->mouse) || isWithin(menu->act->menuArea, inp->mouse))) {
+		if(enemy == NULL && inp->pressing[MAIN1] && !inp->pressing[SHIFT] && !(isWithin(menu->act->numberArea,inp->mouse) || isWithin(menu->act->mouseArea,inp->mouse) || isWithin(menu->act->menuArea, inp->mouse))) {
 			return true;
 		}
 	}
@@ -135,7 +135,7 @@ void GameEngine::checkCancel() {
 	if (!inp->pressing[CANCEL]) cancel_lock = false;
 	else if (inp->pressing[CANCEL] && !cancel_lock) {
 		cancel_lock = true;
-		if (menu->pause) {
+		if (menu->menus_open) {
 			menu->closeAll();
 		}
 		else {
@@ -212,11 +212,11 @@ void GameEngine::logic() {
 	// these actions occur whether the game is paused or not.
 	checkLootDrop();
 	checkTeleport();
-	checkCancel();
 	checkLog();
 	checkEquipmentChange();
-	
 	map->logic();
+
+	checkCancel();
 	
 }
 
@@ -273,7 +273,6 @@ void GameEngine::render() {
 	menu->log->renderHUDMessages();
 	menu->mini->render(&map->collider, pc->stats.pos, map->w, map->h);
 	menu->render();
-
 
 }
 

@@ -51,7 +51,7 @@ private:
 	Mix_Chunk *sound_block;
 	Mix_Chunk *sound_steps[4];
 	Mix_Chunk *level_up;
-			
+
 public:
 	Avatar(PowerManager *_powers, InputState *_inp, MapIso *_map);
 	~Avatar();
@@ -72,6 +72,7 @@ public:
 	Hazard *haz;
 	int current_power;
 	Point act_target;
+	bool drag_walking;
 
 };
 

@@ -217,6 +217,7 @@ void Avatar::logic(int actionbar_power, bool restrictPowerUse) {
 	int stepfx;
 	stats.logic();
 	if (stats.stun_duration > 0) return;
+	bool allowed_to_move;
 	
 	// check level up
 	if (stats.level < 17 && stats.xp >= stats.xp_table[stats.level]) {
@@ -237,6 +238,9 @@ void Avatar::logic(int actionbar_power, bool restrictPowerUse) {
 		stats.cur_frame = 0;
 	}		
 	
+	// assist mouse movement
+	if (!inp->pressing[MAIN1]) drag_walking = false;
+	
 	switch(stats.cur_state) {
 		case AVATAR_STANCE:
 		
@@ -251,17 +255,23 @@ void Avatar::logic(int actionbar_power, bool restrictPowerUse) {
 			// handle transitions to RUN
 			set_direction();
 			
-			if (pressing_move() && (!stats.mouse_move || restrictPowerUse)) {
-				if (stats.mouse_move && inp->pressing[MAIN1]) inp->mouse_lock = true;
+			if (stats.mouse_move) {
+				allowed_to_move = restrictPowerUse && (!inp->mouse_lock || drag_walking);
+			}
+			else allowed_to_move = true;
+			
+			if (pressing_move() && allowed_to_move) {
+				if (stats.mouse_move && inp->pressing[MAIN1]) {
+					inp->mouse_lock = true;
+					drag_walking = true;
+				}
 				
 				if (move()) { // no collision
 					stats.cur_frame = 1;
 					stats.cur_state = AVATAR_RUN;
 					break;
 				}
-				else {
-					if (stats.mouse_move) inp->mouse_lock = false;
-				}
+
 			}
 			// handle power usage
 			if (!restrictPowerUse && actionbar_power != -1 && stats.cooldown_ticks == 0) {				
@@ -337,9 +347,9 @@ void Avatar::logic(int actionbar_power, bool restrictPowerUse) {
 			} 
 			else if (!move()) { // collide with wall
 				stats.cur_state = AVATAR_STANCE;
-				if (stats.mouse_move) inp->mouse_lock = false;
 				break;
 			}
+			
 			// handle power usage
 			if (!restrictPowerUse && actionbar_power != -1 && stats.cooldown_ticks == 0) {
 
@@ -604,7 +614,6 @@ bool Avatar::takeHit(Hazard h) {
 			stats.cur_frame = 0;
 			stats.disp_frame = 18;
 			stats.cur_state = AVATAR_HIT;
-			if (stats.mouse_move) inp->mouse_lock = false;
 		}
 		
 		return true;

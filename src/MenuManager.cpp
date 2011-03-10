@@ -93,9 +93,6 @@ void MenuManager::logic() {
 	//if (!inp->pressing[INVENTORY] && !inp->pressing[POWERS] && !inp->pressing[CHARACTER] && !inp->pressing[LOG])
 	if (!inp->pressing[INVENTORY] && !inp->pressing[POWERS] && !inp->pressing[CHARACTER] && !inp->pressing[LOG] && !inp->pressing[VENDOR])	
 		key_lock = false;
-
-	if (!inp->pressing[MAIN2])
-		rightclick_lock = false;
 	
 	// check if mouse-clicking a menu button
 	act->checkMenu(inp->mouse, clicking_character, clicking_inventory, clicking_powers, clicking_log);
@@ -170,17 +167,20 @@ void MenuManager::logic() {
 			Mix_PlayChannel(-1, sfx_close, 0);
 	}
 	
-	pause = (inv->visible || pow->visible || chr->visible || log->visible || vendor->visible);
+	if (MENUS_PAUSE) {
+		pause = (inv->visible || pow->visible || chr->visible || log->visible || vendor->visible);
+	}
+	menus_open = (inv->visible || pow->visible || chr->visible || log->visible || vendor->visible);
 	
 	int offset_x = (VIEW_W - 320);
 	int offset_y = (VIEW_H - 416)/2;
 	
 	// handle right-click activate inventory item (must be alive)
-	if (!dragging && inp->pressing[MAIN2] && !rightclick_lock) {
+	if (!dragging && inp->pressing[MAIN2] && !inp->mouse2_lock) {
 		if (inp->mouse.x >= offset_x && inp->mouse.y >= offset_y && inp->mouse.y <= offset_y+416) {
 			if (inv->visible) {
 				inv->activate(inp->mouse);
-				rightclick_lock = true;
+				inp->mouse2_lock = true;
 			}
 		}	
 	}
@@ -239,6 +239,7 @@ void MenuManager::logic() {
 					if (drag_item > 0) {
 						dragging = true;
 						drag_src = DRAG_SRC_INVENTORY;
+						inp->mouse_lock=true;
 					}
 				}
 			}
@@ -248,6 +249,7 @@ void MenuManager::logic() {
 				if (drag_power > -1) {
 					dragging = true;
 					drag_src = DRAG_SRC_POWERS;
+					inp->mouse_lock=true;
 				}
 			}
 		}
@@ -265,6 +267,7 @@ void MenuManager::logic() {
 				if (drag_power > -1) {
 					dragging = true;
 					drag_src = DRAG_SRC_ACTIONBAR;
+					inp->mouse_lock=true;
 				}
 			}
 			// else, clicking action bar to use a power?

@@ -47,7 +47,6 @@ private:
 	SDL_Surface *screen;
 		
 	bool key_lock;
-	bool rightclick_lock;
 	void loadSounds();
 	void loadIcons();
 	
@@ -80,6 +79,7 @@ public:
 	
 	
 	bool pause;
+	bool menus_open;
 	int drop_item;	
 
 };
