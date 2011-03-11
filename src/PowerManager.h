@@ -22,7 +22,7 @@
 
 using namespace std;
 
-const int POWER_COUNT = 128;
+const int POWER_COUNT = 1024;
 const int POWER_MAX_GFX = 64;
 const int POWER_MAX_SFX = 64;
 
