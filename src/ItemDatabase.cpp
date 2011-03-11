@@ -30,6 +30,7 @@ ItemDatabase::ItemDatabase(SDL_Surface *_screen, SDL_Surface *_icons) {
 		items[i].sfx = SFX_NONE;
 		items[i].gfx = "";
 		items[i].loot = "";
+		items[i].power = -1;
 		items[i].power_mod = -1;
 		items[i].power_desc = "";
 		items[i].price = 0;
@@ -174,6 +175,8 @@ void ItemDatabase::load() {
 						items[id].loot = val;
 					else if (key == "effect")
 						items[id].effect = val;
+					else if (key == "power")
+						items[id].power = atoi(val.c_str());
 					else if (key == "power_mod")
 						items[id].power_mod = atoi(val.c_str());
 					else if (key == "power_desc")

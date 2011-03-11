@@ -300,6 +300,20 @@ void MenuManager::logic() {
 				inv->drop(inp->mouse, drag_item);
 				drag_item = 0;
 			}
+			else if (isWithin(act->numberArea,inp->mouse) || isWithin(act->mouseArea,inp->mouse)) {
+				
+				// The action bar is not storage!
+				inv->itemReturn(drag_item);
+
+				// put an item with a power on the action bar
+				if (items->items[drag_item].power != -1) {
+					act->drop(inp->mouse, items->items[drag_item].power, false);
+				}
+			
+			
+			void drop(Point mouse, int power_index, bool rearranging);
+			
+			}
 			else if (stats->hp > 0) {
 				// if dragging and the source was inventory, drop item to the floor
 				drop_item = drag_item;

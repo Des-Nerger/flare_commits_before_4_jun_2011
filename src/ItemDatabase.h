@@ -75,6 +75,7 @@ struct Item {
 	int sfx;
 	string gfx;
 	string loot;
+	int power;
 	int power_mod;
 	string power_desc;
 	int price;
