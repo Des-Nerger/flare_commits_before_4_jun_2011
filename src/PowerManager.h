@@ -83,6 +83,8 @@ struct Power {
 	bool requires_mana;
 	bool requires_los; // line of sight
 	bool requires_empty_target; // target square must be empty
+	int requires_item;
+	bool consumable;
 	
 	// animation info
 	int gfx_index;
@@ -142,6 +144,7 @@ struct Power {
 		requires_mana = false;
 		requires_los = false;
 		requires_empty_target = false;
+		requires_item = -1;
 		
 		gfx_index = -1;
 		sfx_index = -1;
@@ -222,7 +225,7 @@ private:
 public:
 	PowerManager();
 	~PowerManager();
-	
+
 	void handleNewMap(MapCollision *_collider);	
 	bool activate(int power_index, StatBlock *src_stats, Point target);
 		
@@ -235,6 +238,8 @@ public:
 	
 	SDL_Surface *freeze;
 	SDL_Surface *runes;
+	
+	int used_item;
 	
 	Mix_Chunk *sfx_freeze;
 };

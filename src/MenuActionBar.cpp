@@ -9,10 +9,11 @@
  
 #include "MenuActionBar.h"
 
-MenuActionBar::MenuActionBar(PowerManager *_powers, SDL_Surface *_screen, InputState *_inp, SDL_Surface *_icons) {
-	powers = _powers;
+MenuActionBar::MenuActionBar(SDL_Surface *_screen, FontEngine *_font, InputState *_inp, PowerManager *_powers, SDL_Surface *_icons) {
 	screen = _screen;
+	font = _font;
 	inp = _inp;
+	powers = _powers;
 	icons = _icons;
 	
 	src.x = 0;
@@ -28,6 +29,8 @@ MenuActionBar::MenuActionBar(PowerManager *_powers, SDL_Surface *_screen, InputS
 	// clear action bar
 	for (int i=0; i<12; i++) {
 		hotkeys[i] = -1;
+		slot_item_count[i] = -1;
+		slot_enabled[i] = true;
 	}
 	
 	// TEMP: set action bar positions
@@ -42,6 +45,7 @@ MenuActionBar::MenuActionBar(PowerManager *_powers, SDL_Surface *_screen, InputS
 	}
 	slots[10].x += 32;
 	slots[11].x += 32;
+	
 	// menu button positions
 	for (int i=0; i<4; i++) {
 		menus[i].w = menus[i].h = 32;
@@ -70,7 +74,8 @@ void MenuActionBar::loadGraphics() {
 	emptyslot = IMG_Load("images/menus/slot_empty.png");
 	background = IMG_Load("images/menus/actionbar_trim.png");
 	labels = IMG_Load("images/menus/actionbar_labels.png");
-	if(!emptyslot || !background || !labels) {
+	disabled = IMG_Load("images/menus/disabled.png");
+	if(!emptyslot || !background || !labels || !disabled) {
 		fprintf(stderr, "Couldn't load image: %s\n", IMG_GetError());
 		SDL_Quit();
 	}
@@ -86,6 +91,10 @@ void MenuActionBar::loadGraphics() {
 	
 	cleanup = labels;
 	labels = SDL_DisplayFormatAlpha(labels);
+	SDL_FreeSurface(cleanup);
+	
+	cleanup = disabled;
+	disabled = SDL_DisplayFormatAlpha(disabled);
 	SDL_FreeSurface(cleanup);	
 	
 }
@@ -144,7 +153,9 @@ void MenuActionBar::render() {
 		else
 			SDL_BlitSurface(emptyslot, &src, screen, &dest);
 	}
-		
+	
+	renderItemCounts();
+	
 	// draw hotkey labels
 	// TODO: keybindings
 	dest.x = offset_x;
@@ -153,6 +164,33 @@ void MenuActionBar::render() {
 	dest.h = 10;
 	SDL_BlitSurface(labels, &label_src, screen, &dest);
 	
+}
+
+/**
+ * For powers that have consumables, display the number of consumables remaining
+ */
+void MenuActionBar::renderItemCounts() {
+
+	stringstream ss;
+	SDL_Rect src;
+	
+	for (int i=0; i<12; i++) {
+
+		if (!slot_enabled[i]) {
+			src.x = src.y = 0;
+			src.w = src.h = 32;
+			SDL_BlitSurface(disabled, &src, screen, &slots[i]);
+		}
+
+		if (slot_item_count[i] > -1) {
+		
+
+			ss.str("");
+			ss << slot_item_count[i];
+	
+			font->render(ss.str(), slots[i].x, slots[i].y, JUSTIFY_LEFT, screen, FONT_WHITE);
+		}
+	}
 }
 
 /**
@@ -217,17 +255,15 @@ void MenuActionBar::remove(Point mouse) {
 }
 
 /**
- * If pressing an action key, return 
+ * If pressing an action key (keyboard or mouseclick) and the power is enabled,
+ * return that power's ID.
  */
 int MenuActionBar::checkAction(Point mouse) {
 
 	// check click action
 	if ((inp->pressing[MAIN1] && !inp->mouse_lock) || (inp->pressing[MAIN2] && !inp->mouse2_lock)) {
 		for (int i=0; i<12; i++) {
-			if (isWithin(slots[i], mouse)) {
-			
-				//if (inp->pressing[MAIN1] && !inp->mouse_lock) inp->mouse_lock = true;
-				//else inp->mouse2_lock = true;
+			if (isWithin(slots[i], mouse) && slot_enabled[i]) {
 
 				return hotkeys[i];
 			}	
@@ -235,20 +271,20 @@ int MenuActionBar::checkAction(Point mouse) {
 	}
 	
 	// check hotkey action
-	if (inp->pressing[BAR_1]) return hotkeys[0];
-	if (inp->pressing[BAR_2]) return hotkeys[1];
-	if (inp->pressing[BAR_3]) return hotkeys[2];
-	if (inp->pressing[BAR_4]) return hotkeys[3];
-	if (inp->pressing[BAR_5]) return hotkeys[4];
-	if (inp->pressing[BAR_6]) return hotkeys[5];
-	if (inp->pressing[BAR_7]) return hotkeys[6];
-	if (inp->pressing[BAR_8]) return hotkeys[7];
-	if (inp->pressing[BAR_9]) return hotkeys[8];
-	if (inp->pressing[BAR_0]) return hotkeys[9];
-	if (inp->pressing[MAIN1] && !inp->mouse_lock) {
+	if (inp->pressing[BAR_1] && slot_enabled[0]) return hotkeys[0];
+	if (inp->pressing[BAR_2] && slot_enabled[1]) return hotkeys[1];
+	if (inp->pressing[BAR_3] && slot_enabled[2]) return hotkeys[2];
+	if (inp->pressing[BAR_4] && slot_enabled[3]) return hotkeys[3];
+	if (inp->pressing[BAR_5] && slot_enabled[4]) return hotkeys[4];
+	if (inp->pressing[BAR_6] && slot_enabled[5]) return hotkeys[5];
+	if (inp->pressing[BAR_7] && slot_enabled[6]) return hotkeys[6];
+	if (inp->pressing[BAR_8] && slot_enabled[7]) return hotkeys[7];
+	if (inp->pressing[BAR_9] && slot_enabled[8]) return hotkeys[8];
+	if (inp->pressing[BAR_0] && slot_enabled[9]) return hotkeys[9];
+	if (inp->pressing[MAIN1] && slot_enabled[10] && !inp->mouse_lock) {
 		return hotkeys[10];
 	}
-	if (inp->pressing[MAIN2] && !inp->mouse2_lock) {
+	if (inp->pressing[MAIN2] && slot_enabled[11] && !inp->mouse2_lock) {
 		return hotkeys[11];
 	}
 	return -1;
@@ -314,4 +350,5 @@ MenuActionBar::~MenuActionBar() {
 	SDL_FreeSurface(emptyslot);
 	SDL_FreeSurface(background);
 	SDL_FreeSurface(labels);
+	SDL_FreeSurface(disabled);
 }

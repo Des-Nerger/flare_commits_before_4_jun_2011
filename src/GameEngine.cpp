@@ -183,6 +183,18 @@ void GameEngine::checkLootDrop() {
 }
 
 /**
+ * When a consumable-based power is used, we need to remove it from the inventory.
+ */
+void GameEngine::checkConsumable() {
+	if (powers->used_item != -1) {
+		if (menu->items->items[powers->used_item].type == ITEM_TYPE_CONSUMABLE) {
+			menu->inv->remove(powers->used_item);
+			powers->used_item = -1;
+		}
+	}
+}
+
+/**
  * Process all actions for a single frame
  * This includes some message passing between child object
  */
@@ -214,6 +226,7 @@ void GameEngine::logic() {
 	checkTeleport();
 	checkLog();
 	checkEquipmentChange();
+	checkConsumable();
 	map->logic();
 
 	checkCancel();

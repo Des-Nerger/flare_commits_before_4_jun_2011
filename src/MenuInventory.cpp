@@ -7,11 +7,12 @@
 
 #include "MenuInventory.h"
 
-MenuInventory::MenuInventory(SDL_Surface *_screen, FontEngine *_font, ItemDatabase *_items, StatBlock *_stats) {
+MenuInventory::MenuInventory(SDL_Surface *_screen, FontEngine *_font, ItemDatabase *_items, StatBlock *_stats, PowerManager *_powers) {
 	screen = _screen;
 	font = _font;
 	items = _items;
 	stats = _stats;
+	powers = _powers;
 	
 	visible = false;
 	loadGraphics();
@@ -279,16 +280,20 @@ void MenuInventory::activate(Point mouse) {
 	int slot;
 	int swap;
 	int equip_slot;
+	Point nullpt;
 	
 	if (mouse.x >= offset_x+32 && mouse.y >= offset_y+128 && mouse.x < offset_x+576 && mouse.y < offset_y+384) {
 		// clicked a carried item
 		slot = (mouse.x - (offset_x+32)) / 32 + ((mouse.y - (offset_y+128)) / 32) * 8;
 	
 		// use a consumable item, but only if alive
-		if (items->items[carried[slot]].type == ITEM_TYPE_CONSUMABLE && stats->hp > 0) {
-			if (items->activate(carried[slot], stats))
-				// items->activate() returns true if the item was used
-				carried[slot] = 0;
+		if (items->items[carried[slot]].type == ITEM_TYPE_CONSUMABLE && stats->alive) {
+		
+			powers->activate(items->items[carried[slot]].power, stats, nullpt);
+			// intercept used_item flag.  We will destroy the item here.
+			powers->used_item = -1;
+			carried[slot] = 0;
+			
 		}
 		// equip an item
 		else if (items->items[carried[slot]].type == ITEM_TYPE_MAIN ||
@@ -372,10 +377,54 @@ void MenuInventory::add(int item) {
 /**
  * Add gold to the current total
  */
- void MenuInventory::addGold(int count) {
+void MenuInventory::addGold(int count) {
 	gold += count;
 	items->playCoinsSound();
- }
+}
+ 
+/**
+ * Get the number of the specified item carried (not equipped)
+ */
+int MenuInventory::getItemCountCarried(int item) {
+	int count=0;
+	for (int i=0; i<64; i++) {
+		if (carried[i] == item)
+			count++;	
+	}
+	return count;
+}
+
+/**
+ * Check to see if the given item is equipped
+ */
+bool MenuInventory::isItemEquipped(int item) {
+	for (int i=0; i<4; i++) {
+		if (equipped[i] == item)
+			return true;
+	}
+	return false;
+}
+
+/**
+ * Remove the given item from the player's inventory.
+ */
+void MenuInventory::remove(int item) {
+	int i;
+	for (i=0; i<64; i++) {
+		if (carried[i] == item) {
+			carried[i] = 0;
+			return;
+		}
+	}
+	for (i=0; i<4; i++) {
+		if (equipped[i] == item) {
+			equipped[i] = 0;
+			if (i < SLOT_ARTIFACT) changed_equipment = true;
+			if (i == SLOT_ARTIFACT) changed_artifact = true;
+			return;
+		}
+	}
+}
 
 MenuInventory::~MenuInventory() {
 	SDL_FreeSurface(background);

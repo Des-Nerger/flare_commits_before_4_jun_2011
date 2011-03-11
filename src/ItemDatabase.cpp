@@ -508,28 +508,6 @@ void ItemDatabase::applyEquipment(StatBlock *stats, int equipped[4]) {
 		
 }
 
-/**
- * Handle items that have special powers when activated
- * e.g. potions that restore health or mana
- *
- * @param item The id of the item to activate
- * @param stats The statblock of the hero
- * return true if the item was used
- */
-bool ItemDatabase::activate(int item, StatBlock *stats) {
-	if (items[item].effect == "hp_restore" && stats->hp < stats->maxhp) {
-		stats->hp = stats->maxhp;
-		playSound(item);
-		return true;
-	}
-	else if (items[item].effect == "mp_restore" && stats->mp < stats->maxmp) {
-		stats->mp = stats->maxmp;
-		playSound(item);
-		return true;
-	}
-	return false;
-}
-
 ItemDatabase::~ItemDatabase() {
 	SDL_FreeSurface(icons);
 	for (int i=0; i<12; i++) {

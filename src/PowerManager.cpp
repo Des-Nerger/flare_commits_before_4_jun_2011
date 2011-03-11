@@ -38,6 +38,7 @@ PowerManager::PowerManager() {
 	powers[POWER_VENGEANCE].face = true;
 	powers[POWER_VENGEANCE].requires_mana = true;
 	
+	used_item=-1;
 	
 	loadGraphics();
 	loadSounds();
@@ -120,6 +121,9 @@ void PowerManager::loadPowers() {
 					}
 					else if (key == "requires_empty_target") {
 						if (val == "true") powers[input_id].requires_empty_target = true;
+					}
+					else if (key == "requires_item") {
+						powers[input_id].requires_item = atoi(val.c_str());
 					}
 					
 					// animation info
@@ -654,10 +658,11 @@ bool PowerManager::effect(int power_index, StatBlock *src_stats, Point target) {
 	// If there's a sound effect, play it here
 	playSound(power_index, src_stats);
 
-	// if all else succeeded, mana is spent
+	// if all else succeeded, pay costs
 	if (powers[power_index].requires_mana) {
 		src_stats->mp--;
 	}
+	used_item = powers[power_index].requires_item;
 
 	return true;
 }
@@ -698,10 +703,11 @@ bool PowerManager::missile(int power_index, StatBlock *src_stats, Point target) 
 	// Hazard memory is now the responsibility of HazardManager
 	hazards.push(haz);
 
-	// if all else succeeded, mana is spent
+	// if all else succeeded, pay costs
 	if (powers[power_index].requires_mana) {
 		src_stats->mp--;
 	}
+	used_item = powers[power_index].requires_item;
 
 	return true;
 }
@@ -718,9 +724,12 @@ bool PowerManager::missileX3(int power_index, StatBlock *src_stats, Point target
 		initHazard(power_index, src_stats, target, haz[i]);
 	}
 	playSound(power_index, src_stats);
+	
+	// pay costs
 	if (powers[power_index].requires_mana) {
 		src_stats->mp--;
 	}
+	used_item = powers[power_index].requires_item;
 
 	int missile_speed = haz[0]->base_speed;
 	
@@ -768,7 +777,9 @@ bool PowerManager::missileX3(int power_index, StatBlock *src_stats, Point target
  */
 bool PowerManager::groundRay(int power_index, StatBlock *src_stats, Point target) {
 
+	// pay costs
 	src_stats->mp--;
+	used_item = powers[power_index].requires_item;
 
 	Hazard *haz[10];
 	FPoint location_iterator;

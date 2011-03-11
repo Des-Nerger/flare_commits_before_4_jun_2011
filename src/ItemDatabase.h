@@ -100,7 +100,6 @@ public:
 	TooltipData getTooltip(int item, StatBlock *stats, bool vendor_view);
 	TooltipData getShortTooltip(int item);
 	void applyEquipment(StatBlock *stats, int equipped[4]);
-	bool activate(int item, StatBlock *stats);
 
 	Item items[1024];
 	int vendor_ratio;

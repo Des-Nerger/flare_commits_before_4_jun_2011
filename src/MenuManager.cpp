@@ -13,15 +13,16 @@ MenuManager::MenuManager(PowerManager *_powers, SDL_Surface *_screen, InputState
 	inp = _inp;
 	font = _font;
 	stats = _stats;
+	powers = _powers;
 
 	loadIcons();
 
 	items = new ItemDatabase(screen, icons);
-	inv = new MenuInventory(screen, font, items, stats);
+	inv = new MenuInventory(screen, font, items, stats, powers);
 	pow = new MenuPowers(screen, font, stats, powers);
 	chr = new MenuCharacter(screen, font, stats);
 	log = new MenuLog(screen, font);
-	act = new MenuActionBar(powers, screen, inp, icons);
+	act = new MenuActionBar(screen, font, inp, powers, icons);
 	hpmp = new MenuHealthMana(screen, font);
 	tip = new MenuTooltip(font, screen);
 	mini = new MenuMiniMap(screen);
@@ -174,11 +175,12 @@ void MenuManager::logic() {
 	
 	int offset_x = (VIEW_W - 320);
 	int offset_y = (VIEW_H - 416)/2;
-	
+
 	// handle right-click activate inventory item (must be alive)
 	if (!dragging && inp->pressing[MAIN2] && !inp->mouse2_lock) {
 		if (inp->mouse.x >= offset_x && inp->mouse.y >= offset_y && inp->mouse.y <= offset_y+416) {
 			if (inv->visible) {
+
 				inv->activate(inp->mouse);
 				inp->mouse2_lock = true;
 			}
@@ -341,6 +343,30 @@ void MenuManager::logic() {
 		inv->changed_artifact = false;
 		// the equipment flag is reset after the new sprites are loaded
 	}
+
+	// for action-bar powers that represent items, lookup the current item count
+	for (int i=0; i<12; i++) {
+		act->slot_enabled[i] = true;
+		act->slot_item_count[i] = -1;
+		
+		if (act->hotkeys[i] != -1) {
+			int item_id = powers->powers[act->hotkeys[i]].requires_item;
+			if (item_id != -1 && items->items[item_id].type == ITEM_TYPE_CONSUMABLE) {
+				act->slot_item_count[i] = inv->getItemCountCarried(item_id);
+				if (act->slot_item_count[i] == 0) {
+					act->slot_enabled[i] = false;
+				}
+			}
+			else if (item_id != -1) {
+			
+				// if a non-consumable item power is unequipped, disable that slot
+				if (!inv->isItemEquipped(item_id)) {
+					act->slot_enabled[i] = false;
+				}
+			}
+		}
+	}
+
 }
 
 void MenuManager::render() {

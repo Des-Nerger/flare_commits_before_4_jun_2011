@@ -16,6 +16,9 @@
 #include "InputState.h"
 #include "MenuTooltip.h"
 #include "PowerManager.h"
+#include "FontEngine.h"
+#include <string>
+#include <sstream>
 
 const int MENU_CHARACTER = 0;
 const int MENU_INVENTORY = 1;
@@ -28,9 +31,11 @@ private:
 	SDL_Surface *background;
 	SDL_Surface *emptyslot;
 	SDL_Surface *icons;
+	SDL_Surface *disabled;
 	
 	PowerManager *powers;
 	InputState *inp;
+	FontEngine *font;
 	SDL_Rect src;
 	SDL_Rect label_src;
 	
@@ -38,12 +43,14 @@ private:
 	SDL_Surface *labels;
 	
 public:
-	MenuActionBar(PowerManager *_powers, SDL_Surface *_screen, InputState *_inp, SDL_Surface *icons);
+
+	MenuActionBar(SDL_Surface *_screen, FontEngine *_font, InputState *_inp, PowerManager *_powers, SDL_Surface *icons);
 	~MenuActionBar();
 	void loadGraphics();
 	void renderIcon(int icon_id, int x, int y);
 	void logic();
 	void render();
+	void renderItemCounts();
 	int checkAction(Point mouse);
 	int checkDrag(Point mouse);
 	void checkMenu(Point mouse, bool &menu_c, bool &menu_i, bool &menu_p, bool &menu_l);
@@ -56,6 +63,8 @@ public:
 	int hotkeys[12]; // refer to power_index in PowerManager
 	SDL_Rect slots[12]; // the location of hotkey slots
 	SDL_Rect menus[4]; // the location of the menu buttons
+	int slot_item_count[12]; // -1 means this power isn't item based.  0 means out of items.  1+ means sufficient items.
+	bool slot_enabled[12];
 	
 	// these store the area occupied by these hotslot sections.
 	// useful for detecting mouse interactions on those locations

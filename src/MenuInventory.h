@@ -16,6 +16,7 @@
 #include "ItemDatabase.h"
 #include "MenuTooltip.h"
 #include "StatBlock.h"
+#include "PowerManager.h"
 #include <string>
 #include <sstream>
 
@@ -36,12 +37,13 @@ private:
 	ItemDatabase *items;
 	FontEngine *font;
 	StatBlock *stats;
+	PowerManager *powers;
 
 	void loadGraphics();
 	SDL_Surface *background;
 	
 public:
-	MenuInventory(SDL_Surface *screen, FontEngine *font, ItemDatabase *items, StatBlock *stats);
+	MenuInventory(SDL_Surface *screen, FontEngine *font, ItemDatabase *items, StatBlock *stats, PowerManager *powers);
 	~MenuInventory();
 	void logic();
 	void render();
@@ -55,6 +57,9 @@ public:
 	bool full();
 	void add(int item);
 	void addGold(int count);
+	int getItemCountCarried(int item);
+	bool isItemEquipped(int item);
+	void remove(int item);
 	
 	bool visible;
 

@@ -318,6 +318,7 @@ slow_duration=60
 post_power=126
 wall_power=126
 
+
 [power]
 id=31
 name=Fireshot
@@ -392,6 +393,56 @@ slow_duration=15
 post_power=125
 
 [power]
+id=114
+name=Boots of Testing Really Large Maps
+type=effect
+icon=113
+description=Blink to a nearby location
+new_state=cast
+requires_empty_target=true
+gfx=runes.png
+sfx=teleport.ogg
+use_hazard=true
+rendered=true
+no_attack=true
+lifespan=16
+frame_duration=4
+frame_size=64,64
+frame_offset=32,32
+frame_loop=0
+floor=true
+starting_pos=source
+buff_teleport=true
+requires_item=1022
+
+[power]
+id=115
+name=Lightning Rod
+type=missile
+icon=101
+description=Channel a bolt of magic through your magic weapon
+new_state=cast
+face=true
+directional=true
+gfx=lightning.png
+sfx=shock.ogg
+use_hazard=true
+rendered=true
+aim_assist=32
+base_damage=magic
+lifespan=32
+radius=64
+speed=20
+frame_loop=4
+frame_duration=1
+frame_size=64,64
+frame_offset=32,64
+trait_elemental=wind
+post_power=126
+wall_power=126
+requires_item=1021
+
+[power]
 id=116
 type=effect
 icon=40
@@ -399,7 +450,7 @@ name=Health Potion
 sfx=potion.ogg
 new_state=cast
 requires_item=1
-buff_restore_hp=100
+buff_restore_hp=50
 
 [power]
 id=117
@@ -408,8 +459,8 @@ icon=41
 name=Mana Potion
 new_state=cast
 sfx=potion.ogg
-requires_item=1
-buff_restore_mp=100
+requires_item=2
+buff_restore_mp=50
 
 [power]
 id=118

@@ -52,7 +52,8 @@ private:
 	void checkTeleport();
 	void checkCancel();
 	void checkLog();
-	void checkEquipmentChange();	
+	void checkEquipmentChange();
+	void checkConsumable();
 	
 public:
 	bool done;
