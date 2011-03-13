@@ -95,7 +95,7 @@ void NPC::load(string npc_id) {
 					}
 					else if (key == "constant_stock") {
 						val = val + ",";
-						while (val != "") {
+						while (val != "" && stock_count < NPC_VENDOR_MAX_STOCK) {
 							stock[stock_count++] = eatFirstInt(val, ',');
 						}
 
