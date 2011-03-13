@@ -23,7 +23,7 @@ GameEngine::GameEngine(SDL_Surface *_screen, InputState *_inp) {
 	hazards = new HazardManager(powers, pc, enemies);
 	menu = new MenuManager(powers, _screen, _inp, font, &pc->stats);
 	loot = new LootManager(menu->items, menu->tip, enemies, map);
-	npcs = new NPCManager(map);
+	npcs = new NPCManager(map, menu->tip);
 		
 	cancel_lock = false;
 	npc_id = -1;
@@ -341,8 +341,9 @@ void GameEngine::render() {
 	// display the name of the map in the upper-right hand corner
 	font->render(map->title, VIEW_W-2, 2, JUSTIFY_RIGHT, screen, FONT_WHITE);
 	
-	// mouseover loot tooltips
+	// mouseover tooltips
 	loot->renderTooltips(map->cam);
+	npcs->renderTooltips(map->cam, inp->mouse);
 	
 	menu->log->renderHUDMessages();
 	menu->mini->render(&map->collider, pc->stats.pos, map->w, map->h);

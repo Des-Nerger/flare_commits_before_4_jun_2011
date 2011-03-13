@@ -17,6 +17,7 @@
 #include "SDL_mixer.h"
 #include "NPC.h"
 #include "MapIso.h"
+#include "MenuTooltip.h"
 
 using namespace std;
 
@@ -26,15 +27,17 @@ const int MAX_NPC_COUNT = 32;
 class NPCManager {
 private:
 	MapIso *map;
+	MenuTooltip *tip;
 public:
-	NPCManager(MapIso *_map);
+	NPCManager(MapIso *_map, MenuTooltip *_tip);
 	~NPCManager();
 	NPC *npcs[MAX_NPC_COUNT];
 	void handleNewMap();
 	void logic();
 	int checkNPCClick(Point mouse, Point cam);
-
+	void renderTooltips(Point cam, Point mouse);
 	int npc_count;
+	int tooltip_margin;
 };
 
 #endif
