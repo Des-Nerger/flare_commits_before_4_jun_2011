@@ -93,6 +93,7 @@ static void mainLoop () {
 int main(int argc, char *argv[])
 {
 
+	srand(time(0));
 	for (int i=0; i<argc; i++) {
 		if (strcmp(argv[i], "-f") == 0 || strcmp(argv[i], "--fullscreen") == 0) {
 			FULLSCREEN = true;

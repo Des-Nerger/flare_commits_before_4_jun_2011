@@ -23,7 +23,7 @@ GameEngine::GameEngine(SDL_Surface *_screen, InputState *_inp) {
 	hazards = new HazardManager(powers, pc, enemies);
 	menu = new MenuManager(powers, _screen, _inp, font, &pc->stats);
 	loot = new LootManager(menu->items, menu->tip, enemies, map);
-	npcs = new NPCManager(map, menu->tip);
+	npcs = new NPCManager(map, menu->tip, loot);
 		
 	cancel_lock = false;
 	npc_id = -1;

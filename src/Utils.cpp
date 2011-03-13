@@ -197,3 +197,42 @@ void drawPixel(SDL_Surface *screen, int x, int y, Uint32 color) {
 	pixmem32 = (Uint32*) screen->pixels + (y * ((screen->pitch)/4)) + x;
 	*pixmem32 = color;
 }
+
+/**
+ * As implemented here:
+ * http://www.algolist.net/Algorithms/Sorting/Bubble_sort
+ */
+void bubbleSort(int arr[], int n) {
+      bool swapped = true;
+      int j = 0;
+      int tmp;
+      while (swapped) {
+            swapped = false;
+            j++;
+            for (int i = 0; i < n - j; i++) {
+                  if (arr[i] > arr[i + 1]) {
+                        tmp = arr[i];
+                        arr[i] = arr[i + 1];
+                        arr[i + 1] = tmp;
+                        swapped = true;
+                  }
+            }
+      }
+}
+
+void remove(int arr[], int &n, int index) {
+	for (int i=index; i<n-1; i++) {
+		arr[i] = arr[i+1];
+	}
+	n--;
+}
+
+void removeDupes(int arr[], int &n) {
+	int i = n;
+	while (i>0) {
+		if (arr[i] == arr[i-1]) {
+			remove(arr, n, i);
+		}
+		i--;
+	}
+}

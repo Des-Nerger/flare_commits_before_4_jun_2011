@@ -33,16 +33,18 @@ icon=36
 type=gem
 sfx=gem
 loot=gem
+price=500
 
 [item]
 id=8
 name=Emerald
-level=7
+level=8
 quality=high
 icon=37
 type=gem
 sfx=gem
 loot=gem
+price=400
 
 [item]
 id=9
@@ -53,16 +55,18 @@ icon=38
 type=gem
 sfx=gem
 loot=gem
+price=450
 
 [item]
 id=10
 name=Sapphire
-level=8
+level=7
 quality=high
 icon=39
 type=gem
 sfx=gem
 loot=gem
+price=350
 
 
 [item]

@@ -40,6 +40,7 @@ public:
 	// general info
 	string name;
 	Point pos; // map position
+	int level; // used in determining item quality
 	
 	// public animation info
 	Point render_size;
@@ -49,6 +50,7 @@ public:
 	bool vendor;
 	int stock[NPC_VENDOR_MAX_STOCK];
 	int stock_count;
+	int random_stock;
 };
 
 #endif

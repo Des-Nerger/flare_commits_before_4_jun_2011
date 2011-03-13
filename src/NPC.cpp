@@ -27,6 +27,7 @@ NPC::NPC() {
 		stock[i] = -1;
 	}
 	stock_count = 0;
+	random_stock = 0;
 }
 
 /**
@@ -65,6 +66,9 @@ void NPC::load(string npc_id) {
 					if (key == "name") {
 						name = val;
 					}
+					else if (key == "level") {
+						level = atoi(val.c_str());
+					}
 					else if (key == "gfx") {
 						loadGraphics(val);
 					}
@@ -95,6 +99,9 @@ void NPC::load(string npc_id) {
 							stock[stock_count++] = eatFirstInt(val, ',');
 						}
 
+					}
+					else if (key == "random_stock") {
+						random_stock = atoi(val.c_str());
 					}
 					
 				}

@@ -18,6 +18,7 @@
 #include "NPC.h"
 #include "MapIso.h"
 #include "MenuTooltip.h"
+#include "LootManager.h"
 
 using namespace std;
 
@@ -28,8 +29,9 @@ class NPCManager {
 private:
 	MapIso *map;
 	MenuTooltip *tip;
+	LootManager *loot;
 public:
-	NPCManager(MapIso *_map, MenuTooltip *_tip);
+	NPCManager(MapIso *_map, MenuTooltip *_tip, LootManager *_loot);
 	~NPCManager();
 	NPC *npcs[MAX_NPC_COUNT];
 	void handleNewMap();

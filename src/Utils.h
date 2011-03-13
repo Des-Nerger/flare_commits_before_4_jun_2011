@@ -56,5 +56,8 @@ bool isWithin(SDL_Rect r, Point target);
 void zsort(Renderable r[], int rnum);
 void sort_by_tile(Renderable r[], int rnum);
 void drawPixel(SDL_Surface *screen, int x, int y, Uint32 color);
+void bubbleSort(int arr[], int n);
+void remove(int arr[], int &n, int index);
+void removeDupes(int arr[], int &n);
 
 #endif

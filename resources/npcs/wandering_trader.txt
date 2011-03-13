@@ -1,9 +1,11 @@
 # wandering trader
 name=Kenrik, Trade Guild
+level=5
 
 # shop info
 vendor=true
 constant_stock=1,2,100,150,300,350,500,550,700,750
+random_stock=70
 
 # animation info
 gfx=wandering_trader2

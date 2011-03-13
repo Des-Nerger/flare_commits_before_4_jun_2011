@@ -82,6 +82,7 @@ public:
 	void checkMapForLoot();
 	bool isFlying(int loot_index);
 	void determineLoot(int base_level, Point pos);
+	int randomItem(int base_level);
 	void addLoot(int item_id, Point pos);
 	void addGold(int count, Point pos);
 	void removeLoot(int index);

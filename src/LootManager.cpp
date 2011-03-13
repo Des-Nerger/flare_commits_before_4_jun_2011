@@ -304,6 +304,19 @@ void LootManager::determineLoot(int base_level, Point pos) {
 	}
 }
 
+/**
+ * Choose a random item.
+ * Useful for filling in a Vendor's wares.
+ */
+int LootManager::randomItem(int base_level) {
+	int level = lootLevel(base_level);
+	if (level > 0 && loot_table_count[level] > 0) {
+		int roll = rand() % loot_table_count[level];
+		return loot_table[level][roll];
+	}
+	return 0;
+}
+
 void LootManager::addLoot(int item_id, Point pos) {
 	// TODO: z-sort insert?
 	loot[loot_count].item = item_id;
