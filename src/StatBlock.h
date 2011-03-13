@@ -190,6 +190,9 @@ public:
 	
 	// for purchasing tracking
 	int gold;
+	
+	// marked for death
+	bool death_penalty;
 };
 
 #endif

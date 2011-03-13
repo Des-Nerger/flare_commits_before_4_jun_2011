@@ -97,6 +97,7 @@ StatBlock::StatBlock() {
 	attunement_ice = 100;
 
 	gold = 0;
+	death_penalty = false;
 }
 
 /**

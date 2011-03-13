@@ -60,6 +60,14 @@ void MenuInventory::loadGraphics() {
 }
 
 void MenuInventory::logic() {
+	
+	// if the player has just died, the penalty is half his current gold.
+	if (stats->death_penalty) {
+		gold = gold/2;
+		stats->death_penalty = false;
+	}
+	
+	// a copy of gold is kept in stats, to help with various situations
 	stats->gold = gold;
 }
 

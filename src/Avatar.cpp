@@ -508,7 +508,7 @@ void Avatar::logic(int actionbar_power, bool restrictPowerUse) {
 
 			if (stats.cur_frame == 1) {
 				Mix_PlayChannel(-1, sound_die, 0);
-				log_msg = "You are defeated.  Press Enter to continue.";
+				log_msg = "You are defeated.  You lose half your gold.  Press Enter to continue.";
 			}
 			
 			// allow respawn with Accept
@@ -622,7 +622,10 @@ bool Avatar::takeHit(Hazard h) {
 		if (stats.hp <= 0) {
 			stats.cur_frame = 0;
 			stats.disp_frame = 18;
-			stats.cur_state = AVATAR_DEAD;		
+			stats.cur_state = AVATAR_DEAD;
+			
+			// raise the death penalty flag.  Another module will read this and reset.
+			stats.death_penalty = true;
 		}
 		else if (prev_hp > stats.hp) { // only interrupt if damage was taken
 			Mix_PlayChannel(-1, sound_hit, 0);
