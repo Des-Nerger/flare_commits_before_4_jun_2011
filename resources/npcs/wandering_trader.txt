@@ -1,6 +1,6 @@
 # wandering trader
 name=Kenrik, Trade Guild
-level=5
+level=4
 
 # shop info
 vendor=true

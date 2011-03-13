@@ -329,6 +329,11 @@ type=teleport
 location=2,12,1,2
 intermap=goblin_warrens.txt,51,13
 
+# Trader in the goblin room
+[npc]
+id=captured_trader
+position=72,31
+
 # mine cart in large pillar room
 [event]
 type=run_once
@@ -538,13 +543,13 @@ spawnpoint=73,32,1
 # ritual message
 type=run_once
 location=65,27,3,5
-msg=Human bones are carefully arranged around the pillar in preparation for a goblin ritual.
+msg=These goblins have captured a human trader.  Human bones are carefully arranged around the pillar in preparation for a goblin ritual.  
 
 [event]
-# loot the bones on the floor
+# reward for being saved
 type=run_once
-location=71,29,3,3
-msg=You find an item still clutched in the fingers of a skeleton.
+location=71,29,3,4
+msg=Talrych says, "You arrived just in time.  Please, take this."
 loot=random,73,32,6
 
 #first south room
