@@ -23,6 +23,19 @@ MenuInventory::MenuInventory(SDL_Surface *_screen, FontEngine *_font, ItemDataba
 	for (int i=0; i<64; i++)
 		carried[i] = 0;
 	
+	int offset_x = (VIEW_W - 320);
+	int offset_y = (VIEW_H - 416)/2;
+
+	equipped_area.x = offset_x+32;
+	equipped_area.y = offset_y+48;
+	equipped_area.w = 256;
+	equipped_area.h = 64;
+	
+	carried_area.x = offset_x+32;
+	carried_area.y = offset_y+128;
+	carried_area.w = 256;
+	carried_area.h = 256;
+	
 	gold = 0;
 	
 	drag_prev_slot = -1;
@@ -44,6 +57,10 @@ void MenuInventory::loadGraphics() {
 	background = SDL_DisplayFormatAlpha(background);
 	SDL_FreeSurface(cleanup);	
 	
+}
+
+void MenuInventory::logic() {
+	stats->gold = gold;
 }
 
 void MenuInventory::render() {
@@ -107,7 +124,8 @@ int MenuInventory::click(Point mouse) {
 	int offset_x = (VIEW_W - 320);
 	int offset_y = (VIEW_H - 416)/2;
 	
-	if (mouse.x >= offset_x+32 && mouse.y >= offset_y+48 && mouse.x < offset_x+288 && mouse.y < offset_y+112) {
+	if (isWithin(equipped_area, mouse)) {
+	
 		// clicked an equipped item
 		drag_prev_slot = (mouse.x - (offset_x+32)) / 64;
 		drag_prev_src = SRC_EQUIPPED;
@@ -117,7 +135,7 @@ int MenuInventory::click(Point mouse) {
 
 		return item;
 	}
-	else if (mouse.x >= offset_x+32 && mouse.y >= offset_y+128 && mouse.x < offset_x+288 && mouse.y < offset_y+384) {
+	else if (isWithin(carried_area, mouse)) {
 		// clicked a carried item
 		drag_prev_slot = (mouse.x - (offset_x+32)) / 32 + ((mouse.y - (offset_y+128)) / 32) * 8;
 		drag_prev_src = SRC_CARRIED;
@@ -145,7 +163,7 @@ void MenuInventory::sell(Point mouse) {
 	int value;
 	int slot;
 	
-	if (mouse.x >= offset_x+32 && mouse.y >= offset_y+128 && mouse.x < offset_x+288 && mouse.y < offset_y+384) {
+	if (isWithin(carried_area, mouse)) {
 		// clicked a carried item
 		slot = (mouse.x - (offset_x+32)) / 32 + ((mouse.y - (offset_y+128)) / 32) * 8;
 		
@@ -162,7 +180,15 @@ void MenuInventory::sell(Point mouse) {
 
 }
 
-
+/**
+ * Sell a specific item (called when dragging an item to the vendor screen)
+ */
+void MenuInventory::sell(int item_id) {
+	int value = items->items[item_id].price / items->vendor_ratio;
+	if (value == 0) value = 1;
+	gold += value;
+	items->playCoinsSound();
+}
 
 /**
  * Return dragged item to previous slot
@@ -207,7 +233,7 @@ void MenuInventory::drop(Point mouse, int item) {
 	int offset_x = (VIEW_W - 320);
 	int offset_y = (VIEW_H - 416)/2;
 
-	if (mouse.x >= offset_x+32 && mouse.y >= offset_y+48 && mouse.x < offset_x+288 && mouse.y < offset_y+112) {
+	if (isWithin(equipped_area, mouse)) {
 	
 		// dropped onto equipped item
 		index = (mouse.x - (offset_x+32)) / 64;	
@@ -232,7 +258,7 @@ void MenuInventory::drop(Point mouse, int item) {
 			equipped[drag_prev_slot] = item; // cancel
 		}
 	}
-	else if (mouse.x >= offset_x+32 && mouse.y >= offset_y+128 && mouse.x < offset_x+288 && mouse.y < offset_y+384) {
+	else if (isWithin(carried_area, mouse)) {
 	
 		// dropped onto carried item
 		index = (mouse.x - (offset_x+32)) / 32 + ((mouse.y - (offset_y+128)) / 32) * 8;
@@ -282,7 +308,8 @@ void MenuInventory::activate(Point mouse) {
 	int equip_slot;
 	Point nullpt;
 	
-	if (mouse.x >= offset_x+32 && mouse.y >= offset_y+128 && mouse.x < offset_x+576 && mouse.y < offset_y+384) {
+	if (isWithin(carried_area, mouse)) {
+
 		// clicked a carried item
 		slot = (mouse.x - (offset_x+32)) / 32 + ((mouse.y - (offset_y+128)) / 32) * 8;
 	
@@ -325,15 +352,15 @@ TooltipData MenuInventory::checkTooltip(Point mouse) {
 	int offset_y = (VIEW_H - 416)/2;
 	TooltipData tip;
 	
-	if (mouse.x >= offset_x+32 && mouse.y >= offset_y+48 && mouse.x < offset_x+288 && mouse.y < offset_y+112) {
+	if (isWithin(equipped_area, mouse)) {
 		
 		// equipped item
 		index = (mouse.x - (offset_x+32)) / 64;	
 		return items->getTooltip(equipped[index], stats, false);
 		
 	}
-	else if (mouse.x >= offset_x+32 && mouse.y >= offset_y+128 && mouse.x < offset_x+288 && mouse.y < offset_y+384) {
-	
+	else if (isWithin(carried_area, mouse)) {
+		
 		// carried item
 		index = (mouse.x - (offset_x+32)) / 32 + ((mouse.y - (offset_y+128)) / 32) * 8;
 		return items->getTooltip(carried[index], stats, false);
@@ -426,6 +453,34 @@ void MenuInventory::remove(int item) {
 	}
 }
 
+/**
+ * Attempt to purchase item dragged to the inventory
+ */
+bool MenuInventory::purchase(Point mouse, int item_id) {
+
+	if (full() || gold < items->items[item_id].price)
+		return false;
+
+	int offset_x = (VIEW_W - 320);
+	int offset_y = (VIEW_H - 416)/2;
+	int slot;
+	
+	if (isWithin(carried_area, mouse)) {
+		slot = (mouse.x - (offset_x+32)) / 32 + ((mouse.y - (offset_y+128)) / 32) * 8;
+		if (carried[slot] == 0) {
+			carried[slot] = item_id;
+			items->playSound(item_id);
+		}
+		else add(item_id);
+	}
+	else add(item_id);
+	
+	gold -= items->items[item_id].price;
+	items->playCoinsSound();
+	
+	return true;
+}
+		
 MenuInventory::~MenuInventory() {
 	SDL_FreeSurface(background);
 }

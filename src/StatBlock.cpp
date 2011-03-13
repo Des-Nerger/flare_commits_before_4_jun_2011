@@ -96,6 +96,7 @@ StatBlock::StatBlock() {
 	attunement_fire = 100;
 	attunement_ice = 100;
 
+	gold = 0;
 }
 
 /**

@@ -29,6 +29,11 @@ MenuVendor::MenuVendor(SDL_Surface *_screen, FontEngine *_font, ItemDatabase *_i
 		slots[i].y = (i/8) * 32 + offset_y + 64;
 	}
 	
+	slots_area.x = 32;
+	slots_area.y = offset_y + 64;
+	slots_area.w = 256;
+	slots_area.h = 320;
+	
 	visible = false;
 	loadGraphics();
 	loadMerchant("");
@@ -84,6 +89,7 @@ void MenuVendor::render() {
 	// text overlay
 	// TODO: translate()
 	font->render("Vendor", 160, offset_y+8, JUSTIFY_CENTER, screen, FONT_WHITE);
+	font->render(npc->name, 160, offset_y+24, JUSTIFY_CENTER, screen, FONT_WHITE);
 	
 	// show stock
 	for (int i=0; i<VENDOR_SLOTS; i++) {
@@ -119,6 +125,21 @@ int MenuVendor::buy(Point mouse, int &gold) {
 	return -1;
 }
 
+/**
+ * Start dragging a vendor item
+ * Players can drag an item to their inventory to purchase.
+ */
+int MenuVendor::click(Point mouse) {
+	for (int i=0; i<VENDOR_SLOTS; i++) {
+		if (isWithin(slots[i], mouse)) {
+			if (stock[i] != -1) {
+				return stock[i];
+			}
+		}
+	}
+	return -1;
+}
+
 TooltipData MenuVendor::checkTooltip(Point mouse) {
 
 	TooltipData tip;
@@ -130,6 +151,12 @@ TooltipData MenuVendor::checkTooltip(Point mouse) {
 		}
 	}
 	return tip;
+}
+
+void MenuVendor::setInventory() {
+	for (int i=0; i<VENDOR_SLOTS; i++) {
+		stock[i] = npc->stock[i];
+	}
 }
 
 MenuVendor::~MenuVendor() {

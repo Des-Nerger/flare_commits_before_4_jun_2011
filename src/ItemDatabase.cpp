@@ -380,6 +380,7 @@ TooltipData ItemDatabase::getTooltip(int item, StatBlock *stats, bool vendor_vie
 		tip.lines[tip.num_lines++] = ss.str();
 	}
 	
+	// buy or sell price
 	ss.str("");
 	if (items[item].price > 0) {
 		if (vendor_view) {
@@ -391,7 +392,12 @@ TooltipData ItemDatabase::getTooltip(int item, StatBlock *stats, bool vendor_vie
 			if (sell_price == 0) sell_price=1;
 			ss << "Sell price: " << sell_price << " gold";
 		}
+
+		if (vendor_view && stats->gold < items[item].price)
+			tip.colors[tip.num_lines] = FONT_RED;
+
 		tip.lines[tip.num_lines++] = ss.str();
+		
 	}
 	
 	return tip;

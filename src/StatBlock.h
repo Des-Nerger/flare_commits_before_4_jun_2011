@@ -187,6 +187,9 @@ public:
 	int ranged_weapon_power;
 	
 	bool mouse_move;
+	
+	// for purchasing tracking
+	int gold;
 };
 
 #endif

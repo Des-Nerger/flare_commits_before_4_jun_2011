@@ -81,8 +81,13 @@ void EnemyManager::handleNewMap () {
 	
 	Map_Enemy me;
 	
+	// delete existing enemies
+	for (int i=0; i<enemy_count; i++) {
+		delete(enemies[i]);
+	}
 	enemy_count = 0;
 	
+	// free shared resources
 	for (int j=0; j<gfx_count; j++) {
 		SDL_FreeSurface(sprites[j]);
 	}
@@ -96,6 +101,7 @@ void EnemyManager::handleNewMap () {
 	gfx_count = 0;
 	sfx_count = 0;
 	
+	// load new enemies
 	while (!map->enemies.empty()) {
 		me = map->enemies.front();
 		map->enemies.pop();
@@ -185,6 +191,8 @@ void EnemyManager::checkEnemiesforXP(StatBlock *stats) {
  * getRender()
  * Map objects need to be drawn in Z order, so we allow a parent object (GameEngine)
  * to collect all mobile sprites each frame.
+ * 
+ * This wrapper function is necessary because EnemyManager holds shared sprites for identical-looking enemies
  */
 Renderable EnemyManager::getRender(int enemyIndex) {
 	Renderable r = enemies[enemyIndex]->getRender();

@@ -38,11 +38,10 @@ const int MAIN1 = 20;
 const int MAIN2 = 21;
 const int CTRL = 22;
 const int SHIFT = 23;
-const int VENDOR = 24;
 
 class InputState {
 private:
-	static const int key_count = 25;
+	static const int key_count = 24;
 	int binding[key_count];
 	int binding2[key_count];
 public:

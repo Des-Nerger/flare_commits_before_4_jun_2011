@@ -89,10 +89,9 @@ void MenuManager::logic() {
 	
 	log->logic();
 	enemy->logic();
+	inv->logic();
 
-	// TEMP v0.12
-	//if (!inp->pressing[INVENTORY] && !inp->pressing[POWERS] && !inp->pressing[CHARACTER] && !inp->pressing[LOG])
-	if (!inp->pressing[INVENTORY] && !inp->pressing[POWERS] && !inp->pressing[CHARACTER] && !inp->pressing[LOG] && !inp->pressing[VENDOR])	
+	if (!inp->pressing[INVENTORY] && !inp->pressing[POWERS] && !inp->pressing[CHARACTER] && !inp->pressing[LOG])
 		key_lock = false;
 	
 	// check if mouse-clicking a menu button
@@ -151,23 +150,7 @@ void MenuManager::logic() {
 		else
 			Mix_PlayChannel(-1, sfx_close, 0);
 	}
-	
-	// TEMP v0.12
-	// vendor menu toggle.
-	if ((inp->pressing[VENDOR] && !key_lock && !dragging)) {
-		key_lock = true;
-		vendor->visible = !vendor->visible;
-		if (vendor->visible) {
-			Mix_PlayChannel(-1, sfx_open, 0);
-			chr->visible = false;
-			log->visible = false;
-			pow->visible = false;
-			inv->visible = true;
-		}
-		else
-			Mix_PlayChannel(-1, sfx_close, 0);
-	}
-	
+		
 	if (MENUS_PAUSE) {
 		pause = (inv->visible || pow->visible || chr->visible || log->visible || vendor->visible);
 	}
@@ -221,6 +204,12 @@ void MenuManager::logic() {
 				else {
 					
 					// start dragging a vendor item
+					drag_item = vendor->click(inp->mouse);
+					if (drag_item > 0) {
+						dragging = true;
+						drag_src = DRAG_SRC_VENDOR;
+						inp->mouse_lock=true;
+					}
 				}
 			
 			}
@@ -298,6 +287,7 @@ void MenuManager::logic() {
 	
 		// rearranging inventory or dropping items
 		else if (drag_src == DRAG_SRC_INVENTORY) {
+		
 			if (inv->visible && inp->mouse.x >= offset_x && inp->mouse.y >= offset_y && inp->mouse.y <= offset_y+416) {
 				inv->drop(inp->mouse, drag_item);
 				drag_item = 0;
@@ -312,9 +302,13 @@ void MenuManager::logic() {
 					act->drop(inp->mouse, items->items[drag_item].power, false);
 				}
 			
-			
-			void drop(Point mouse, int power_index, bool rearranging);
-			
+			}
+			else if (isWithin(vendor->slots_area, inp->mouse)) {
+				
+				// vendor sell item
+				inv->sell(drag_item);
+				drag_item = 0;
+				
 			}
 			else if (stats->hp > 0) {
 				// if dragging and the source was inventory, drop item to the floor
@@ -332,6 +326,16 @@ void MenuManager::logic() {
 			else { // prevent dropping items while dead
 				inv->itemReturn(drag_item);
 			}
+		}
+		
+		else if (drag_src == DRAG_SRC_VENDOR) {
+
+			if (inv->visible && inp->mouse.x >= offset_x && inp->mouse.y >= offset_y && inp->mouse.y <= offset_y+416) {
+				inv->purchase(inp->mouse, drag_item);
+				drag_item = 0;
+			}
+
+		
 		}
 
 		dragging = false;
@@ -411,7 +415,7 @@ void MenuManager::render() {
 	
 	// draw icon under cursor if dragging
 	if (dragging) {
-		if (drag_src == DRAG_SRC_INVENTORY)
+		if (drag_src == DRAG_SRC_INVENTORY || drag_src == DRAG_SRC_VENDOR)
 			items->renderIcon(drag_item, inp->mouse.x - 16, inp->mouse.y - 16, ICON_SIZE_32);
 		else if (drag_src == DRAG_SRC_POWERS || drag_src == DRAG_SRC_ACTIONBAR)
 			renderIcon(powers->powers[drag_power].icon, inp->mouse.x-16, inp->mouse.y-16);

@@ -19,10 +19,12 @@ MapIso::MapIso(SDL_Surface *_screen) {
 	cam.y = 0;
 	
 	new_music = false;
-	
-	clear_enemy(new_enemy);
+
 	clearEvents();
 	enemy_awaiting_queue = false;
+	npc_awaiting_queue = false;
+	clearEnemy(new_enemy);
+	clearNPC(new_npc);
 	
 	sfx = NULL;
 	sfx_filename = "";
@@ -64,11 +66,17 @@ void MapIso::removeEvent(int eid) {
 	event_count--;
 }
 
-void MapIso::clear_enemy(Map_Enemy e) {
+void MapIso::clearEnemy(Map_Enemy e) {
 	e.pos.x = 0;
 	e.pos.y = 0;
 	e.direction = 0;
 	e.type = "";
+}
+
+void MapIso::clearNPC(Map_NPC n) {
+	n.id = "";
+	n.pos.x = 0;
+	n.pos.y = 0;
 }
 
 void MapIso::playSFX(string filename) {
@@ -121,11 +129,19 @@ int MapIso::load(string filename) {
 						enemies.push(new_enemy);
 						enemy_awaiting_queue = false;
 					}
+					if (npc_awaiting_queue) {
+						npcs.push(new_npc);
+						npc_awaiting_queue = false;
+					}
 					
 					// for sections that are stored in collections, add a new object here
 					if (section == "enemy") {
-						clear_enemy(new_enemy);
+						clearEnemy(new_enemy);
 						enemy_awaiting_queue = true;
+					}
+					else if (section == "npc") {
+						clearNPC(new_npc);
+						npc_awaiting_queue = true;
 					}
 					else if (section == "event") {
 						event_count++;
@@ -213,6 +229,17 @@ int MapIso::load(string filename) {
 							new_enemy.direction = eatFirstInt(val, ',');
 						}
 					}
+					else if (section == "npc") {
+						if (key == "id") {
+							new_npc.id = val;
+						}
+						else if (key == "position") {
+							val = val + ",";
+							new_npc.pos.x = eatFirstInt(val, ',') * UNITS_PER_TILE + UNITS_PER_TILE/2;
+							new_npc.pos.y = eatFirstInt(val, ',') * UNITS_PER_TILE + UNITS_PER_TILE/2;
+						}
+					
+					}
 					else if (section == "event") {
 						if (key == "type") {
 							events[event_count-1].type = val;
@@ -268,10 +295,16 @@ int MapIso::load(string filename) {
 					}
 				}
 			}
-		} // eof
+		}
+		
+		// reached end of file.  Handle any final sections.
 		if (enemy_awaiting_queue) {
 			enemies.push(new_enemy);
 			enemy_awaiting_queue = false;
+		}
+		if (npc_awaiting_queue) {
+			npcs.push(new_npc);
+			npc_awaiting_queue = false;
 		}
 	}
 
@@ -316,9 +349,10 @@ void MapIso::render(Renderable r[], int rnum) {
 
 	// r will become a list of renderables.  Everything not on the map already:
 	// - hero
-	// - npcs and monsters
+	// - npcs
+	// - monsters
 	// - loot
-	// maybe, special effects
+	// - special effects
 	// we want to sort these by map draw order.  Then, we use a cursor to move through the 
 	// renderables while we're also moving through the map tiles.  After we draw each map tile we
 	// check to see if it's time to draw the next renderable yet.

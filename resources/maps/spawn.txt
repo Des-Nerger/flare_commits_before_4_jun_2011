@@ -9,4 +9,4 @@ spawnpoint=0,0,3
 [event]
 type=teleport
 location=0,0,1,1
-intermap=goblin_warrens.txt,28,76
+intermap=goblin_warrens.txt,28,74

@@ -26,6 +26,7 @@ NPC::NPC() {
 	for (int i=0; i<NPC_VENDOR_MAX_STOCK; i++) {
 		stock[i] = -1;
 	}
+	stock_count = 0;
 }
 
 /**
@@ -52,6 +53,9 @@ void NPC::load(string npc_id) {
 				
 				if (starts_with == "#") {
 					// skip comments
+				}
+				else if (starts_with == "[") {
+					// skip headers
 				}
 				else { // this is data.  treatment depends on key
 					parse_key_pair(line, key, val);          
@@ -81,6 +85,18 @@ void NPC::load(string npc_id) {
 						anim_duration = atoi(val.c_str());
 					}
 					
+					// handle vendors
+					else if (key == "vendor") {
+						if (val == "true") vendor=true;
+					}
+					else if (key == "constant_stock") {
+						val = val + ",";
+						while (val != "") {
+							stock[stock_count++] = eatFirstInt(val, ',');
+						}
+
+					}
+					
 				}
 			}
 		}
@@ -95,7 +111,9 @@ void NPC::loadGraphics(string filename) {
 	if(!sprites) {
 		fprintf(stderr, "Couldn't load NPC sprites: %s\n", IMG_GetError());
 	}
-		
+	
+	SDL_SetColorKey( sprites, SDL_SRCCOLORKEY, SDL_MapRGB(sprites->format, 255, 0, 255) );
+	
 	// optimize
 	SDL_Surface *cleanup = sprites;
 	sprites = SDL_DisplayFormatAlpha(sprites);

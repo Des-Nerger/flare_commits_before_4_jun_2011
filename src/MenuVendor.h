@@ -16,6 +16,7 @@
 #include "ItemDatabase.h"
 #include "MenuTooltip.h"
 #include "StatBlock.h"
+#include "NPC.h"
 #include <string>
 #include <sstream>
 
@@ -34,16 +35,21 @@ private:
 public:
 	MenuVendor(SDL_Surface *screen, FontEngine *font, ItemDatabase *items, StatBlock *stats);
 	~MenuVendor();
+
+	NPC *npc;
 	
 	void loadMerchant(string filename);
 	void logic();
 	void render();
 	int buy(Point mouse, int &gold);
+	int click(Point mouse);
 	TooltipData checkTooltip(Point mouse);
+	void setInventory();
 	
 	bool visible;
 	int stock[VENDOR_SLOTS]; // items the vendor currently has in stock
 	SDL_Rect slots[VENDOR_SLOTS];
+	SDL_Rect slots_area;
 	
 };
 

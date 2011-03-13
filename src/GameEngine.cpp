@@ -23,8 +23,10 @@ GameEngine::GameEngine(SDL_Surface *_screen, InputState *_inp) {
 	hazards = new HazardManager(powers, pc, enemies);
 	menu = new MenuManager(powers, _screen, _inp, font, &pc->stats);
 	loot = new LootManager(menu->items, menu->tip, enemies, map);
+	npcs = new NPCManager(map);
 		
 	cancel_lock = false;
+	npc_id = -1;
 	loadGame();
 }
 
@@ -114,6 +116,10 @@ void GameEngine::checkTeleport() {
 			loot->handleNewMap();
 			powers->handleNewMap(&map->collider);
 			menu->enemy->handleNewMap();
+			npcs->handleNewMap();
+			menu->vendor->npc = NULL;
+			menu->vendor->visible = false;
+			npc_id = -1;
 			
 			// store this as the new respawn point
 			map->respawn_map = map->teleport_mapname;
@@ -195,6 +201,54 @@ void GameEngine::checkConsumable() {
 }
 
 /**
+ * If the player has clicked on an NPC, the game mode might be changed.
+ * If a player walks away from an NPC, end the interaction with that NPC
+ */
+void GameEngine::checkNPCInteraction() {
+
+	int npc_click = -1;
+	int interact_distance = 65535;
+	int max_interact_distance = UNITS_PER_TILE * 4;
+	
+	// check for clicking on an NPC
+	if (inp->pressing[MAIN1] && !inp->mouse_lock) {
+		npc_click = npcs->checkNPCClick(inp->mouse, map->cam);
+		npc_id = npc_click;
+	}
+	
+	// check distance to this npc
+	if (npc_id != -1) {
+		interact_distance = calcDist(pc->stats.pos, npcs->npcs[npc_id]->pos);
+	}
+	
+	// if close enough to the NPC, open the appropriate interaction screen
+	if (npc_click != -1 && interact_distance < max_interact_distance) {
+		inp->mouse_lock = true;
+		
+		if (npcs->npcs[npc_id]->vendor) {
+			menu->vendor->npc = npcs->npcs[npc_id];
+			menu->vendor->setInventory();
+			menu->vendor->visible = true;
+			menu->inv->visible = true;
+			Mix_PlayChannel(-1, menu->sfx_open, 0);
+		}
+	}
+	
+	// check for walking away from an NPC
+	if (npc_id != -1) {
+		if (interact_distance > max_interact_distance) {
+			menu->vendor->npc = NULL;
+			if (menu->vendor->visible) {
+				menu->vendor->visible = false;
+				menu->inv->visible = false;
+				Mix_PlayChannel(-1, menu->sfx_close, 0);
+			}
+			npc_id = -1;
+		}
+	}
+}
+
+/**
  * Process all actions for a single frame
  * This includes some message passing between child object
  */
@@ -211,6 +265,8 @@ void GameEngine::logic() {
 		// these actions only occur when the game isn't paused		
 		checkLoot();
 		checkEnemyFocus();
+		checkNPCInteraction();
+		
 		pc->logic(menu->act->checkAction(inp->mouse), restrictPowerUse());
 		
 		enemies->heroPos = pc->stats.pos;
@@ -218,6 +274,7 @@ void GameEngine::logic() {
 		hazards->logic();
 		loot->logic();
 		enemies->checkEnemiesforXP(&pc->stats);
+		npcs->logic();
 		
 	}
 	
@@ -250,6 +307,10 @@ void GameEngine::render() {
 			r[renderableCount] = enemies->enemies[i]->stats.getEffectRender(STAT_EFFECT_SHIELD);
 			r[renderableCount++].sprite = powers->gfx[powers->powers[POWER_SHIELD].gfx_index]; // TODO: parameter
 		}
+	}
+
+	for (int i=0; i<npcs->npc_count; i++) { // NPCs
+		r[renderableCount++] = npcs->npcs[i]->getRender();
 	}
 	
 	for (int i=0; i<loot->loot_count; i++) { // Loot
@@ -296,6 +357,7 @@ void GameEngine::showFPS(int fps) {
 }
 
 GameEngine::~GameEngine() {
+	delete(npcs);
 	delete(hazards);
 	delete(enemies);
 	delete(pc);

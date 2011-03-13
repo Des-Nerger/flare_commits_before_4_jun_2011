@@ -49,6 +49,7 @@ public:
 	void render();
 	int click(Point mouse);
 	void sell(Point mouse);
+	void sell(int item_id);
 	void itemReturn(int item);
 	bool requirementsMet(int item);
 	void drop(Point mouse, int src);
@@ -60,8 +61,12 @@ public:
 	int getItemCountCarried(int item);
 	bool isItemEquipped(int item);
 	void remove(int item);
+	bool purchase(Point mouse, int item);
 	
 	bool visible;
+
+	SDL_Rect carried_area;
+	SDL_Rect equipped_area;
 
 	int carried[64];
 	int equipped[4];

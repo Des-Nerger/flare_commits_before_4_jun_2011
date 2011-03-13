@@ -32,12 +32,11 @@
 const int DRAG_SRC_POWERS = 1;
 const int DRAG_SRC_INVENTORY = 2;
 const int DRAG_SRC_ACTIONBAR = 3;
+const int DRAG_SRC_VENDOR = 4;
 
 class MenuManager {
 private:
 	
-	Mix_Chunk *sfx_open;
-	Mix_Chunk *sfx_close;
 	SDL_Surface *icons;
 
 	PowerManager *powers;
@@ -82,6 +81,9 @@ public:
 	bool menus_open;
 	int drop_item;	
 
+	Mix_Chunk *sfx_open;
+	Mix_Chunk *sfx_close;
+	
 };
 
 #endif

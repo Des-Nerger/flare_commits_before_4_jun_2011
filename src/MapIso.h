@@ -30,7 +30,10 @@ struct Map_Enemy {
 	int direction;
 };
 
-
+struct Map_NPC {
+	string id;
+	Point pos;
+};
 
 struct Map_Event {
 	string type;
@@ -62,7 +65,9 @@ public:
 	// functions
 	MapIso(SDL_Surface *_screen);
 	~MapIso();
-	void clear_enemy(Map_Enemy e);
+	void clearEnemy(Map_Enemy e);
+	void clearNPC(Map_NPC n);
+
 	int load(string filename);
 	void loadMusic();
 	void logic();
@@ -92,6 +97,11 @@ public:
 	queue<Map_Enemy> enemies;
 	Map_Enemy new_enemy;
 	bool enemy_awaiting_queue;
+	
+	// npc load handling
+	queue<Map_NPC> npcs;
+	Map_NPC new_npc;
+	bool npc_awaiting_queue;
 	
 	// event-created loot or items
 	queue<Event_Component> loot;

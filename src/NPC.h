@@ -25,8 +25,6 @@ private:
 
 	// animation info
 	SDL_Surface *sprites;
-	Point render_size;
-	Point render_offset;
 	int anim_frames;
 	int anim_duration;
 	int current_frame;
@@ -42,10 +40,15 @@ public:
 	// general info
 	string name;
 	Point pos; // map position
+	
+	// public animation info
+	Point render_size;
+	Point render_offset;
 
 	// vendor info
 	bool vendor;
 	int stock[NPC_VENDOR_MAX_STOCK];
+	int stock_count;
 };
 
 #endif

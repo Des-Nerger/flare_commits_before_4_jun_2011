@@ -1,0 +1,13 @@
+# wandering trader
+name=Kenrik, Trade Guild
+
+# shop info
+vendor=true
+constant_stock=1,2,100,150,300,350,500,550,700,750
+
+# animation info
+gfx=wandering_trader2
+render_size=32,64
+render_offset=14,56
+anim_frames=6
+anim_duration=30

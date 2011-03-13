@@ -24,6 +24,7 @@
 #include "MenuManager.h"
 #include "LootManager.h"
 #include "PowerManager.h"
+#include "NPCManager.h"
 
 class GameEngine {
 private:
@@ -41,6 +42,7 @@ private:
 	MenuManager *menu;
 	LootManager *loot;
 	PowerManager *powers;
+	NPCManager *npcs;
 	
 	bool cancel_lock;
 	void saveGame();
@@ -54,9 +56,11 @@ private:
 	void checkLog();
 	void checkEquipmentChange();
 	void checkConsumable();
+	void checkNPCInteraction();
 	
 public:
 	bool done;
+	int npc_id;
 	GameEngine(SDL_Surface *screen, InputState *inp);
 	~GameEngine();
 	
