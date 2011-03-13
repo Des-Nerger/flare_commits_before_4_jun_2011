@@ -667,11 +667,10 @@ Renderable Enemy::getRender() {
 	Renderable r;
 	r.map_pos.x = stats.pos.x;
 	r.map_pos.y = stats.pos.y;
-	r.src = new SDL_Rect();
-	r.src->x = stats.render_size.x * stats.disp_frame;
-	r.src->y = stats.render_size.y * stats.direction;
-	r.src->w = stats.render_size.x;
-	r.src->h = stats.render_size.y;
+	r.src.x = stats.render_size.x * stats.disp_frame;
+	r.src.y = stats.render_size.y * stats.direction;
+	r.src.w = stats.render_size.x;
+	r.src.h = stats.render_size.y;
 	r.offset.x = stats.render_offset.x;
 	r.offset.y = stats.render_offset.y;
 	

@@ -646,11 +646,10 @@ Renderable Avatar::getRender() {
 	r.map_pos.x = stats.pos.x;
 	r.map_pos.y = stats.pos.y;
 	r.sprite = sprites;
-	r.src = new SDL_Rect();
-	r.src->x = 128 * stats.disp_frame;
-	r.src->y = 128 * stats.direction;
-	r.src->w = 128;
-	r.src->h = 128;
+	r.src.x = 128 * stats.disp_frame;
+	r.src.y = 128 * stats.direction;
+	r.src.w = 128;
+	r.src.h = 128;
 	r.offset.x = 64;
 	r.offset.y = 96; // 112
 	r.object_layer = true;

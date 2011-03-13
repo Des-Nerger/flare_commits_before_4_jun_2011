@@ -30,7 +30,7 @@ struct FPoint {
 struct Renderable {
 	Point map_pos;
 	SDL_Surface *sprite;
-	SDL_Rect *src;
+	SDL_Rect src;
 	Point offset;
 	bool object_layer;
 	Point tile;

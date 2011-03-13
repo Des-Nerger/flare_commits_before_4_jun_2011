@@ -359,22 +359,21 @@ Renderable StatBlock::getEffectRender(int effect_type) {
 	Renderable r;
 	r.map_pos.x = pos.x;
 	r.map_pos.y = pos.y;
-	r.src = new SDL_Rect();
 	
 	if (effect_type == STAT_EFFECT_SHIELD) {
-		r.src->x = (shield_frame/3) * 128;
-		r.src->y = 0;
-		r.src->w = 128;
-		r.src->h = 128;
+		r.src.x = (shield_frame/3) * 128;
+		r.src.y = 0;
+		r.src.w = 128;
+		r.src.h = 128;
 		r.offset.x = 64;
 		r.offset.y = 96; 
 		r.object_layer = true;
 	}
 	else if (effect_type == STAT_EFFECT_VENGEANCE) {
-		r.src->x = (vengeance_frame/6) * 64;
-		r.src->y = 128;
-		r.src->w = 64;
-		r.src->h = 64;
+		r.src.x = (vengeance_frame/6) * 64;
+		r.src.y = 128;
+		r.src.w = 64;
+		r.src.h = 64;
 		r.offset.x = 32;
 		r.offset.y = 32; 
 		r.object_layer = false;	

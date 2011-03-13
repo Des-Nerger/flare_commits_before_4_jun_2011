@@ -398,11 +398,10 @@ Renderable LootManager::getRender(int index) {
 	// Right now the animation settings (number of frames, speed, frame size)
 	// are hard coded.  At least move these to consts in the header.
 
-	r.src = new SDL_Rect();
-	r.src->x = (loot[index].frame / 4) * 64;
-	r.src->y = 0;
-	r.src->w = 64;
-	r.src->h = 128;
+	r.src.x = (loot[index].frame / 4) * 64;
+	r.src.y = 0;
+	r.src.w = 64;
+	r.src.h = 128;
 	r.offset.x = 32;
 	r.offset.y = 112;
 	r.object_layer = true;
