@@ -213,7 +213,7 @@ void GameEngine::checkNPCInteraction() {
 	// check for clicking on an NPC
 	if (inp->pressing[MAIN1] && !inp->mouse_lock) {
 		npc_click = npcs->checkNPCClick(inp->mouse, map->cam);
-		npc_id = npc_click;
+		if (npc_click != -1) npc_id = npc_click;
 	}
 	
 	// check distance to this npc
