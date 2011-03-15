@@ -13,3 +13,10 @@ render_size=32,64
 render_offset=14,56
 anim_frames=6
 anim_duration=30
+
+# voiceover files
+vox_intro=male_merchant_01.ogg
+vox_intro=male_merchant_02.ogg
+vox_intro=male_merchant_03.ogg
+vox_intro=male_merchant_04.ogg
+
