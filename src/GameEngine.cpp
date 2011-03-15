@@ -230,6 +230,10 @@ void GameEngine::checkNPCInteraction() {
 			menu->vendor->setInventory();
 			menu->vendor->visible = true;
 			menu->inv->visible = true;
+			menu->chr->visible = false;
+			menu->log->visible = false;
+			menu->pow->visible = false;
+			
 			if (!npcs->npcs[npc_id]->playSound(NPC_VOX_INTRO))
 				Mix_PlayChannel(-1, menu->sfx_open, 0);
 		}
