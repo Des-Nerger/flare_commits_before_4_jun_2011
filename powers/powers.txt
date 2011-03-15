@@ -571,6 +571,29 @@ trait_elemental=water
 post_power=126
 wall_power=126
 
+[power]
+id=128
+name=Necrotic Bolt
+type=missile
+new_state=shoot
+face=true
+gfx=plasmaball.png
+sfx=shock.ogg
+use_hazard=true
+rendered=true
+aim_assist=32
+base_damage=magic
+lifespan=32
+radius=64
+speed=20
+frame_loop=12
+frame_duration=3
+frame_size=64,64
+frame_offset=32,64
+trait_elemental=shadow
+post_power=126
+wall_power=126
+
 
 [power]
 id=124
