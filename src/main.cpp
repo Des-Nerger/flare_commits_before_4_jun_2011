@@ -3,16 +3,18 @@
  *
  */
    
-#include <stdio.h>
-#include <stdlib.h>
-#include <string.h>
-#include <math.h>
+#include <cstdio>
+#include <cstdlib>
+#include <cstring>
+#include <cmath>
+#include <ctime>
 #include "SDL.h"
 #include "SDL_image.h"
 #include "SDL_mixer.h"
 
-#include "Settings.h"
+using namespace std;
 
+#include "Settings.h"
 #include "InputState.h"
 #include "GameEngine.h"
 
@@ -93,7 +95,7 @@ static void mainLoop () {
 int main(int argc, char *argv[])
 {
 
-	srand(time(0));
+	srand((unsigned int)time(NULL));
 	for (int i=0; i<argc; i++) {
 		if (strcmp(argv[i], "-f") == 0 || strcmp(argv[i], "--fullscreen") == 0) {
 			FULLSCREEN = true;

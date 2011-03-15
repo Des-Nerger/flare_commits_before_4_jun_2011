@@ -89,10 +89,10 @@ bool MapCollision::is_wall(int x, int y) {
  * Line can be arbitrary angles.
  */
 bool MapCollision::line_check(int x1, int y1, int x2, int y2, int checktype) {
-	float x = x1;
-	float y = y1;
-	float dx = abs(x2 - x1);
-	float dy = abs(y2 - y1);
+	float x = (float)x1;
+	float y = (float)y1;
+	float dx = (float)abs(x2 - x1);
+	float dy = (float)abs(y2 - y1);
 	float step_x;
 	float step_y;
 	int steps = (int)max(dx, dy);

@@ -19,6 +19,8 @@
 using namespace std;
 
 const int NPC_VENDOR_MAX_STOCK = 80;
+const int NPC_MAX_VOX = 8;
+const int NPC_VOX_INTRO = 0;
 
 class NPC {
 private:
@@ -34,7 +36,9 @@ public:
 	~NPC();
 	void load(string npc_id);
 	void loadGraphics(string filename);
+	void loadSound(string filename, int type);
 	void logic();
+	bool playSound(int type);
 	Renderable getRender();
 	
 	// general info
@@ -51,6 +55,11 @@ public:
 	int stock[NPC_VENDOR_MAX_STOCK];
 	int stock_count;
 	int random_stock;
+	
+	// vocals
+	Mix_Chunk *vox_intro[NPC_MAX_VOX];
+	int vox_intro_count;
+	
 };
 
 #endif

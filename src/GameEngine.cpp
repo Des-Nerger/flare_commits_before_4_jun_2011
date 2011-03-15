@@ -218,7 +218,7 @@ void GameEngine::checkNPCInteraction() {
 	
 	// check distance to this npc
 	if (npc_id != -1) {
-		interact_distance = calcDist(pc->stats.pos, npcs->npcs[npc_id]->pos);
+		interact_distance = (int)calcDist(pc->stats.pos, npcs->npcs[npc_id]->pos);
 	}
 	
 	// if close enough to the NPC, open the appropriate interaction screen
@@ -230,7 +230,8 @@ void GameEngine::checkNPCInteraction() {
 			menu->vendor->setInventory();
 			menu->vendor->visible = true;
 			menu->inv->visible = true;
-			Mix_PlayChannel(-1, menu->sfx_open, 0);
+			if (!npcs->npcs[npc_id]->playSound(NPC_VOX_INTRO))
+				Mix_PlayChannel(-1, menu->sfx_open, 0);
 		}
 	}
 	

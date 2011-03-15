@@ -38,7 +38,7 @@ FPoint calcVector(Point pos, int direction, int dist) {
 	p.y = (float)(pos.y);
 
 	float dist_straight = (float)dist;
-	float dist_diag = ((float)dist) * 0.7071; //  1/sqrt(2)
+	float dist_diag = ((float)dist) * (float)(0.7071); //  1/sqrt(2)
 	
 	switch (direction) {
 		case 0:

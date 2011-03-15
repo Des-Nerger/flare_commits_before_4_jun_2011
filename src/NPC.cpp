@@ -28,6 +28,11 @@ NPC::NPC() {
 	}
 	stock_count = 0;
 	random_stock = 0;
+	vox_intro_count = 0;
+	
+	for (int i=0; i<NPC_MAX_VOX; i++) {
+		vox_intro[i] = NULL;
+	}
 }
 
 /**
@@ -104,6 +109,10 @@ void NPC::load(string npc_id) {
 						random_stock = atoi(val.c_str());
 					}
 					
+					// handle vocals
+					else if (key == "vox_intro") {
+						loadSound(val, NPC_VOX_INTRO);
+					}
 				}
 			}
 		}
@@ -128,6 +137,24 @@ void NPC::loadGraphics(string filename) {
 	
 }
 
+/**
+ * filename assumes the file is in soundfx/npcs/
+ * type is a const int enum, see NPC.h
+ */
+void NPC::loadSound(string filename, int type) {
+
+	if (type == NPC_VOX_INTRO) {
+	
+		// if too many already loaded, skip this one
+		if (vox_intro_count == NPC_MAX_VOX) return;
+		vox_intro[vox_intro_count] = Mix_LoadWAV(("soundfx/npcs/" + filename).c_str());
+		
+		if (vox_intro[vox_intro_count])
+			vox_intro_count++;
+	}
+
+}
+
 void NPC::logic() {
 
 	// animate
@@ -136,6 +163,20 @@ void NPC::logic() {
 		current_frame = 0;
 	}
 
+}
+
+/**
+ * type is a const int enum, see NPC.h
+ */
+bool NPC::playSound(int type) {
+	int roll;
+	if (type == NPC_VOX_INTRO) {
+		if (vox_intro_count == 0) return false;
+		roll = rand() % vox_intro_count;
+		Mix_PlayChannel(-1, vox_intro[roll], 0);
+		return true;
+	}
+	return false;
 }
 
 Renderable NPC::getRender() {
@@ -156,4 +197,7 @@ Renderable NPC::getRender() {
 
 NPC::~NPC() {
 	if (sprites != NULL) SDL_FreeSurface(sprites);
+	for (int i=0; i<NPC_MAX_VOX; i++) {
+		Mix_FreeChunk(vox_intro[i]);
+	}
 }

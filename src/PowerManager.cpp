@@ -514,12 +514,12 @@ void PowerManager::initHazard(int power_index, StatBlock *src_stats, Point targe
 	
 	// hazard starting position
 	if (powers[power_index].starting_pos == STARTING_POS_SOURCE) {
-		haz->pos.x = src_stats->pos.x;
-		haz->pos.y = src_stats->pos.y;
+		haz->pos.x = (float)src_stats->pos.x;
+		haz->pos.y = (float)src_stats->pos.y;
 	}
 	else if (powers[power_index].starting_pos == STARTING_POS_TARGET) {
-		haz->pos.x = target.x;
-		haz->pos.y = target.y;	
+		haz->pos.x = (float)target.x;
+		haz->pos.y = (float)target.y;	
 	}
 	else if (powers[power_index].starting_pos == STARTING_POS_MELEE) {
 		haz->pos = calcVector(src_stats->pos, src_stats->direction, src_stats->melee_range);
@@ -750,8 +750,8 @@ bool PowerManager::missileX3(int power_index, StatBlock *src_stats, Point target
 	hazards.push(haz[0]);
 	
 	// side missile
-	haz[1]->speed.x = (float)missile_speed * cos(theta + angle);
-	haz[1]->speed.y = (float)missile_speed * sin(theta + angle);
+	haz[1]->speed.x = (float)missile_speed * cos(theta + (float)angle);
+	haz[1]->speed.y = (float)missile_speed * sin(theta + (float)angle);
 	if (dx > 0.0 && haz[1]->speed.x < 0.0 || dx < 0.0 && haz[1]->speed.x > 0.0)
 		haz[1]->speed.x *= -1.0;
 	if (dy > 0.0 && haz[1]->speed.y < 0.0 || dy < 0.0 && haz[1]->speed.y > 0.0)
@@ -759,8 +759,8 @@ bool PowerManager::missileX3(int power_index, StatBlock *src_stats, Point target
 	hazards.push(haz[1]);	
 
 	// side missile
-	haz[2]->speed.x = (float)missile_speed * cos(theta - angle);
-	haz[2]->speed.y = (float)missile_speed * sin(theta - angle);
+	haz[2]->speed.x = (float)missile_speed * cos(theta - (float)angle);
+	haz[2]->speed.y = (float)missile_speed * sin(theta - (float)angle);
 	if (dx > 0.0 && haz[2]->speed.x < 0.0 || dx < 0.0 && haz[2]->speed.x > 0.0)
 		haz[2]->speed.x *= -1.0;
 	if (dy > 0.0 && haz[2]->speed.y < 0.0 || dy < 0.0 && haz[2]->speed.y > 0.0)
@@ -788,8 +788,8 @@ bool PowerManager::groundRay(int power_index, StatBlock *src_stats, Point target
 	int map_speed = 64;
 
 	// calculate speed
-	float dx = target.x - src_stats->pos.x;
-	float dy = target.y - src_stats->pos.y;
+	float dx = (float)(target.x - src_stats->pos.x);
+	float dy = (float)(target.y - src_stats->pos.y);
 	float theta = atan(dy/dx);
 	speed.x = (float)map_speed * cos(theta);
 	speed.y = (float)map_speed * sin(theta);
@@ -866,8 +866,8 @@ bool PowerManager::single(int power_index, StatBlock *src_stats, Point target) {
 	Hazard *haz = new Hazard();
 	
 	// common to all singles
-	haz->pos.x = target.x;
-	haz->pos.y = target.y;
+	haz->pos.x = (float)target.x;
+	haz->pos.y = (float)target.y;
 	haz->lifespan = 1;
 	haz->crit_chance = src_stats->crit;
 	haz->accuracy = src_stats->accuracy;

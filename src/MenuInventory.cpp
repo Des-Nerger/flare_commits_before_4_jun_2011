@@ -315,6 +315,7 @@ void MenuInventory::activate(Point mouse) {
 	int swap;
 	int equip_slot;
 	Point nullpt;
+	nullpt.x = nullpt.y = 0;
 	
 	if (isWithin(carried_area, mouse)) {
 
