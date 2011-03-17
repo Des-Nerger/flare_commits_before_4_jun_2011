@@ -233,21 +233,36 @@ void GameEngine::checkNPCInteraction() {
 			menu->chr->visible = false;
 			menu->log->visible = false;
 			menu->pow->visible = false;
+			menu->talker->visible = false;
 			
 			if (!npcs->npcs[npc_id]->playSound(NPC_VOX_INTRO))
 				Mix_PlayChannel(-1, menu->sfx_open, 0);
 		}
+		else if(npcs->npcs[npc_id]->talker) {
+			menu->talker->npc = npcs->npcs[npc_id];
+			menu->vendor->visible = false;
+			menu->inv->visible = false;
+			menu->chr->visible = false;
+			menu->log->visible = false;
+			menu->pow->visible = false;
+			menu->talker->visible = true;
+			
+			if (!npcs->npcs[npc_id]->playSound(NPC_VOX_INTRO))
+				Mix_PlayChannel(-1, menu->sfx_open, 0);             
+        }		
 	}
 	
 	// check for walking away from an NPC
 	if (npc_id != -1) {
 		if (interact_distance > max_interact_distance) {
 			menu->vendor->npc = NULL;
-			if (menu->vendor->visible) {
-				menu->vendor->visible = false;
-				menu->inv->visible = false;
-				Mix_PlayChannel(-1, menu->sfx_close, 0);
-			}
+			menu->talker->npc = NULL;
+			if (menu->vendor->visible || menu->talker->visible) {
+ 				menu->vendor->visible = false;
+				menu->talker->visible = false;
+ 				menu->inv->visible = false;
+ 				Mix_PlayChannel(-1, menu->sfx_close, 0);
+ 			}
 			npc_id = -1;
 		}
 	}

@@ -56,6 +56,7 @@ Set (FLARE_SOURCES
 	../src/MenuManager.cpp
 	../src/MenuMiniMap.cpp
 	../src/MenuPowers.cpp
+	../src/MenuTalker.cpp
 	../src/MenuTooltip.cpp
 	../src/MenuVendor.cpp
 	../src/NPC.cpp

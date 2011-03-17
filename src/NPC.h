@@ -50,6 +50,10 @@ public:
 	Point render_size;
 	Point render_offset;
 
+    // talker info
+    bool talker;
+	string txt;
+
 	// vendor info
 	bool vendor;
 	int stock[NPC_VENDOR_MAX_STOCK];

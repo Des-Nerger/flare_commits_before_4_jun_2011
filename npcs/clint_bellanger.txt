@@ -1,0 +1,16 @@
+# clint bellanger
+name=Clint Bellanger
+
+# talker info
+talker=true
+txt=Thanks for playing the game. Although it is still early alpha, I hope you enjoy it. Feel free to send me any suggestions or bug reports.
+
+# animation info
+gfx=wandering_trader2
+render_size=32,64
+render_offset=14,56
+anim_frames=6
+anim_duration=30
+
+# voiceover files
+

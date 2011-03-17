@@ -29,6 +29,7 @@ MenuManager::MenuManager(PowerManager *_powers, SDL_Surface *_screen, InputState
 	xp = new MenuExperience(screen, font);
 	enemy = new MenuEnemy(screen, font);
 	vendor = new MenuVendor(screen, font, items, stats);
+	talker = new MenuTalker(screen, font);
 	
 	pause = false;
 	dragging = false;
@@ -133,6 +134,7 @@ void MenuManager::logic() {
 			Mix_PlayChannel(-1, sfx_open, 0);
 			log->visible = false;
 			vendor->visible = false;
+			talker->visible = false;
 		}
 		else
 			Mix_PlayChannel(-1, sfx_close, 0);
@@ -146,15 +148,16 @@ void MenuManager::logic() {
 			Mix_PlayChannel(-1, sfx_open, 0);
 			chr->visible = false;
 			vendor->visible = false;
+			talker->visible = false;
 		}
 		else
 			Mix_PlayChannel(-1, sfx_close, 0);
 	}
 		
 	if (MENUS_PAUSE) {
-		pause = (inv->visible || pow->visible || chr->visible || log->visible || vendor->visible);
+		pause = (inv->visible || pow->visible || chr->visible || log->visible || vendor->visible || talker->visible);
 	}
-	menus_open = (inv->visible || pow->visible || chr->visible || log->visible || vendor->visible);
+	menus_open = (inv->visible || pow->visible || chr->visible || log->visible || vendor->visible || talker->visible);
 	
 	int offset_x = (VIEW_W - 320);
 	int offset_y = (VIEW_H - 416)/2;
@@ -186,6 +189,9 @@ void MenuManager::logic() {
 					stats->hp = stats->maxhp;
 					stats->mp = stats->maxmp;
 				}
+			}
+			else if (talker->visible) {
+			
 			}
 			else if (vendor->visible) {
 			
@@ -382,6 +388,7 @@ void MenuManager::render() {
 	chr->render();
 	log->render();
 	vendor->render();
+	talker->render();
 	enemy->render();
 	
 	TooltipData tooltip;
@@ -430,6 +437,7 @@ void MenuManager::closeAll() {
 		chr->visible = false;
 		log->visible = false;
 		vendor->visible = false; 
+		talker->visible = false;
 		
 		Mix_PlayChannel(-1, sfx_close, 0);
 	}
@@ -446,6 +454,8 @@ MenuManager::~MenuManager() {
 	delete(act);
 	delete(tip);
 	delete(vendor);
+	delete(talker);
+	
 	Mix_FreeChunk(sfx_open);
 	Mix_FreeChunk(sfx_close);
 }

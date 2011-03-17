@@ -11,6 +11,7 @@ NPC::NPC() {
 
 	// init general vars
 	name = "";
+	txt = "";
 	pos.x = pos.y = 0;
 	
 	// init animation info
@@ -20,6 +21,9 @@ NPC::NPC() {
 	anim_frames = 0;
 	anim_duration = 0;
 	current_frame = 0;
+
+	// init talker info
+	talker = false;
 	
 	// init vendor info
 	vendor = false;
@@ -92,6 +96,14 @@ void NPC::load(string npc_id) {
 					}
 					else if (key == "anim_duration") {
 						anim_duration = atoi(val.c_str());
+					}
+
+					// handle talkers
+					else if (key == "talker") {
+						if (val == "true") talker=true;
+					}		
+					else if (key == "txt") {
+						txt=val;
 					}
 					
 					// handle vendors

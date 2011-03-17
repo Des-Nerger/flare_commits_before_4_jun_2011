@@ -28,6 +28,7 @@
 #include "MenuExperience.h"
 #include "MenuEnemy.h"
 #include "MenuVendor.h"
+#include "MenuTalker.h"
 
 const int DRAG_SRC_POWERS = 1;
 const int DRAG_SRC_INVENTORY = 2;
@@ -74,6 +75,7 @@ public:
 	MenuExperience *xp;
 	MenuEnemy *enemy;
 	MenuVendor *vendor;
+	MenuTalker *talker;
 	ItemDatabase *items;
 	
 	

@@ -422,3 +422,7 @@ spawnpoint=45,48,1
 [npc]
 id=wandering_trader
 position=28,77
+
+[npc]
+id=clint_bellanger
+position=28,71
