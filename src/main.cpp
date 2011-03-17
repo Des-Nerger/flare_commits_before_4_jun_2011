@@ -16,11 +16,11 @@ using namespace std;
 
 #include "Settings.h"
 #include "InputState.h"
-#include "GameEngine.h"
+#include "GameSwitcher.h"
 
 SDL_Surface *screen;
 InputState *inps;
-GameEngine *eng;
+GameSwitcher *gswitch;
 
 bool FULLSCREEN;
 
@@ -56,7 +56,7 @@ static void init() {
 	
 	/* Shared game units setup */
 	inps = new InputState();
-	eng = new GameEngine(screen, inps);
+	gswitch = new GameSwitcher(screen, inps);
 }
 
 static void mainLoop () {
@@ -74,21 +74,19 @@ static void mainLoop () {
 
 		SDL_PumpEvents();
 		inps->handle();
-		eng->logic();
-		eng->render();
+		gswitch->logic();
+		gswitch->render();
 		
 		// Engine done means the user escapes the main game menu.
 		// Input done means the user closes the window.
-		done = eng->done || inps->done;
+		done = gswitch->done || inps->done;
 		
 		nowTicks = SDL_GetTicks();
 		if (nowTicks - prevTicks < delay) SDL_Delay(delay - (nowTicks - prevTicks));
 		
 		prevTicks = nowTicks;
 				
-		SDL_Flip(screen);
-		
-		done = eng->done;
+		SDL_Flip(screen);		
 	}
 }
 
@@ -107,7 +105,7 @@ int main(int argc, char *argv[])
 	
 	// cleanup
 	// TODO: halt all sounds here before freeing music/chunks
-	delete(eng);
+	delete(gswitch);
 	delete(inps);
 	SDL_FreeSurface(screen);
 	Mix_CloseAudio();

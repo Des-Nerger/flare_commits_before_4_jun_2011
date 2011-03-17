@@ -39,6 +39,7 @@ Set (FLARE_SOURCES
 	../src/EnemyManager.cpp
 	../src/FontEngine.cpp
 	../src/GameEngine.cpp
+	../src/GameSwitcher.cpp
 	../src/Hazard.cpp
 	../src/HazardManager.cpp
 	../src/InputState.cpp
