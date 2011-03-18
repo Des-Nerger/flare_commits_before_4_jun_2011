@@ -561,7 +561,9 @@ bool Avatar::takeHit(Hazard h) {
 		stats.targeted = 5;	
 	
 		// check miss
-	    if (rand() % 100 > (h.accuracy - stats.avoidance + 25)) return false; 
+		int avoidance = stats.avoidance;
+		if (stats.blocking) avoidance *= 2;
+	    if (rand() % 100 > (h.accuracy - avoidance + 25)) return false; 
 	
 		int dmg;
 		if (h.dmg_min == h.dmg_max) dmg = h.dmg_min;
@@ -582,7 +584,7 @@ bool Avatar::takeHit(Hazard h) {
 			if (stats.absorb_min == stats.absorb_max) absorption = stats.absorb_min;
 			else absorption = stats.absorb_min + (rand() % (stats.absorb_max - stats.absorb_min + 1));
 			
-			if (stats.blocking) absorption += absorption; // blocking doubles your absorb amount
+			if (stats.blocking) absorption += absorption + stats.absorb_max; // blocking doubles your absorb amount
 			
 			dmg = dmg - absorption;
 			if (dmg < 1 && !stats.blocking) dmg = 1; // when blocking, dmg can be reduced to 0
@@ -599,7 +601,7 @@ bool Avatar::takeHit(Hazard h) {
 		stats.takeDamage(dmg);
 		
 		// after effects
-		if (stats.hp > 0 && stats.immunity_duration == 0) {
+		if (stats.hp > 0 && stats.immunity_duration == 0 && dmg > 0) {
 			if (h.stun_duration > stats.stun_duration) stats.stun_duration = h.stun_duration;
 			if (h.slow_duration > stats.slow_duration) stats.slow_duration = h.slow_duration;
 			if (h.bleed_duration > stats.bleed_duration) stats.bleed_duration = h.bleed_duration;
