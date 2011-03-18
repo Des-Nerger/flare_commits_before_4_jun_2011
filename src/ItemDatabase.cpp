@@ -423,8 +423,8 @@ void ItemDatabase::applyEquipment(StatBlock *stats, int equipped[4]) {
 	stats->dmg_melee_max = stats->dmg_magic_max = 4;
 	stats->dmg_ranged_min = stats->dmg_ranged_max = 0;
 	stats->absorb_min = stats->absorb_max = 0;
-	stats->speed = 10;
-	stats->dspeed = 7;
+	stats->speed = 14;
+	stats->dspeed = 10;
 	stats->attunement_fire = 100;
 	stats->attunement_ice = 100;
 	stats->ammo_stones = false;

@@ -83,10 +83,11 @@ static void mainLoop () {
 		
 		nowTicks = SDL_GetTicks();
 		if (nowTicks - prevTicks < delay) SDL_Delay(delay - (nowTicks - prevTicks));
+		prevTicks = SDL_GetTicks();
 		
-		prevTicks = nowTicks;
-				
 		SDL_Flip(screen);		
+		
+		
 	}
 }
 

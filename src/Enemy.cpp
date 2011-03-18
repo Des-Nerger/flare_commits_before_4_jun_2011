@@ -41,26 +41,35 @@ Enemy::Enemy(PowerManager *_powers, MapIso *_map) {
  */
 bool Enemy::move() {
 
-	int speed_factor = 1;
-	if (stats.slow_duration > 0) speed_factor = 2;
+	int speed_diagonal = stats.dspeed;
+	int speed_straight = stats.speed;
+	
+	if (stats.slow_duration > 0) {
+		speed_diagonal /= 2;
+		speed_straight /= 2;
+	}
+	else if (stats.haste_duration > 0) {
+		speed_diagonal *= 2;
+		speed_straight *= 2;
+	}
 	
 	switch (stats.direction) {
 		case 0:
-			return map->collider.move(stats.pos.x, stats.pos.y, -1, 1, stats.dspeed/speed_factor);
+			return map->collider.move(stats.pos.x, stats.pos.y, -1, 1, speed_diagonal);
 		case 1:
-			return map->collider.move(stats.pos.x, stats.pos.y, -1, 0, stats.speed/speed_factor);
+			return map->collider.move(stats.pos.x, stats.pos.y, -1, 0, speed_straight);
 		case 2:
-			return map->collider.move(stats.pos.x, stats.pos.y, -1, -1, stats.dspeed/speed_factor);
+			return map->collider.move(stats.pos.x, stats.pos.y, -1, -1, speed_diagonal);
 		case 3:
-			return map->collider.move(stats.pos.x, stats.pos.y, 0, -1, stats.speed/speed_factor);
+			return map->collider.move(stats.pos.x, stats.pos.y, 0, -1, speed_straight);
 		case 4:
-			return map->collider.move(stats.pos.x, stats.pos.y, 1, -1, stats.dspeed/speed_factor);
+			return map->collider.move(stats.pos.x, stats.pos.y, 1, -1, speed_diagonal);
 		case 5:
-			return map->collider.move(stats.pos.x, stats.pos.y, 1, 0, stats.speed/speed_factor);
+			return map->collider.move(stats.pos.x, stats.pos.y, 1, 0, speed_straight);
 		case 6:
-			return map->collider.move(stats.pos.x, stats.pos.y, 1, 1, stats.dspeed/speed_factor);
+			return map->collider.move(stats.pos.x, stats.pos.y, 1, 1, speed_diagonal);
 		case 7:
-			return map->collider.move(stats.pos.x, stats.pos.y, 0, 1, stats.speed/speed_factor);
+			return map->collider.move(stats.pos.x, stats.pos.y, 0, 1, speed_straight);
 	}
 	return true;
 }

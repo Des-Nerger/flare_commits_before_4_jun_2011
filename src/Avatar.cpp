@@ -35,8 +35,8 @@ Avatar::Avatar(PowerManager *_powers, InputState *_inp, MapIso *_map) {
 	stats.magical = 1;
 	stats.offense = 1;
 	stats.defense = 1;
-	stats.speed = 10;
-	stats.dspeed = 7;
+	stats.speed = 14;
+	stats.dspeed = 10;
 	stats.mouse_move = false;
 	stats.recalc();
 	
@@ -47,6 +47,32 @@ Avatar::Avatar(PowerManager *_powers, InputState *_inp, MapIso *_map) {
 	haz = NULL;
 
 	loadSounds();
+	
+	// default hero animation data
+	stats.anim_stance_position = 0;
+	stats.anim_stance_frames = 4;
+	stats.anim_stance_duration = 6;
+	stats.anim_run_position = 4;
+	stats.anim_run_frames = 8;
+	stats.anim_run_duration = 2;
+	stats.anim_melee_position = 12;
+	stats.anim_melee_frames = 4;
+	stats.anim_melee_duration = 3;
+	stats.anim_magic_position = 24;
+	stats.anim_magic_frames = 4;
+	stats.anim_magic_duration = 3;
+	stats.anim_ranged_position = 28;
+	stats.anim_ranged_frames = 4;
+	stats.anim_ranged_duration = 2;
+	stats.anim_block_position = 16;
+	stats.anim_block_frames = 2;
+	stats.anim_block_duration = 2;
+	stats.anim_hit_position = 18;
+	stats.anim_hit_frames = 2;
+	stats.anim_hit_duration = 3;
+	stats.anim_die_position = 18;
+	stats.anim_die_frames = 6;
+	stats.anim_die_duration = 3;
 }
 
 void Avatar::loadGraphics(string img_main, string img_body, string img_off) {
@@ -125,26 +151,35 @@ bool Avatar::pressing_move() {
  */
 bool Avatar::move() {
 
-	int speed_factor = 1;
-	if (stats.slow_duration > 0) speed_factor = 2;
+	int speed_diagonal = stats.dspeed;
+	int speed_straight = stats.speed;
+	
+	if (stats.slow_duration > 0) {
+		speed_diagonal /= 2;
+		speed_straight /= 2;
+	}
+	else if (stats.haste_duration > 0) {
+		speed_diagonal *= 2;
+		speed_straight *= 2;
+	}
 	
 	switch (stats.direction) {
 		case 0:
-			return map->collider.move(stats.pos.x, stats.pos.y, -1, 1, stats.dspeed/speed_factor);
+			return map->collider.move(stats.pos.x, stats.pos.y, -1, 1, speed_diagonal);
 		case 1:
-			return map->collider.move(stats.pos.x, stats.pos.y, -1, 0, stats.speed/speed_factor);
+			return map->collider.move(stats.pos.x, stats.pos.y, -1, 0, speed_straight);
 		case 2:
-			return map->collider.move(stats.pos.x, stats.pos.y, -1, -1, stats.dspeed/speed_factor);
+			return map->collider.move(stats.pos.x, stats.pos.y, -1, -1, speed_diagonal);
 		case 3:
-			return map->collider.move(stats.pos.x, stats.pos.y, 0, -1, stats.speed/speed_factor);
+			return map->collider.move(stats.pos.x, stats.pos.y, 0, -1, speed_straight);
 		case 4:
-			return map->collider.move(stats.pos.x, stats.pos.y, 1, -1, stats.dspeed/speed_factor);
+			return map->collider.move(stats.pos.x, stats.pos.y, 1, -1, speed_diagonal);
 		case 5:
-			return map->collider.move(stats.pos.x, stats.pos.y, 1, 0, stats.speed/speed_factor);
+			return map->collider.move(stats.pos.x, stats.pos.y, 1, 0, speed_straight);
 		case 6:
-			return map->collider.move(stats.pos.x, stats.pos.y, 1, 1, stats.dspeed/speed_factor);
+			return map->collider.move(stats.pos.x, stats.pos.y, 1, 1, speed_diagonal);
 		case 7:
-			return map->collider.move(stats.pos.x, stats.pos.y, 0, 1, stats.speed/speed_factor);
+			return map->collider.move(stats.pos.x, stats.pos.y, 0, 1, speed_straight);
 	}
 	return true;
 }
@@ -213,12 +248,15 @@ int Avatar::face(int mapx, int mapy) {
  * @param power_index The actionbar power activated.  -1 means no power.
  */
 void Avatar::logic(int actionbar_power, bool restrictPowerUse) {
+
 	Point target;
 	int stepfx;
 	stats.logic();
 	if (stats.stun_duration > 0) return;
 	bool allowed_to_move;
 	bool allowed_to_use_power;
+	int max_frame;
+	int mid_frame;
 	
 	// check level up
 	if (stats.level < 17 && stats.xp >= stats.xp_table[stats.level]) {
@@ -247,11 +285,14 @@ void Avatar::logic(int actionbar_power, bool restrictPowerUse) {
 		
 			// handle animation
 		    stats.cur_frame++;
-			if (stats.cur_frame >= 48) stats.cur_frame = 0;
-			if (stats.cur_frame >= 24)
-				stats.disp_frame = (47 - stats.cur_frame) / 6;
+			// stance is a back/forth animation
+			mid_frame = stats.anim_stance_frames * stats.anim_stance_duration;
+			max_frame = mid_frame + mid_frame;
+			if (stats.cur_frame >= max_frame) stats.cur_frame = 0;
+			if (stats.cur_frame >= mid_frame)
+				stats.disp_frame = (max_frame -1 - stats.cur_frame) / stats.anim_stance_duration + stats.anim_stance_position;
 			else
-				stats.disp_frame = stats.cur_frame / 6;
+				stats.disp_frame = stats.cur_frame / stats.anim_stance_duration + stats.anim_stance_position;
 			
 			// allowed to move or use powers?
 			if (stats.mouse_move) {
@@ -335,12 +376,14 @@ void Avatar::logic(int actionbar_power, bool restrictPowerUse) {
 		
 			// handle animation
 			stats.cur_frame++;
-			if (stats.cur_frame >= 24) stats.cur_frame = 0;
-			stats.disp_frame = (stats.cur_frame /3) + 4;
+			// run is a looped animation
+			max_frame = stats.anim_run_frames * stats.anim_run_duration;
+			if (stats.cur_frame >= max_frame) stats.cur_frame = 0;
+			stats.disp_frame = (stats.cur_frame / stats.anim_run_duration) + stats.anim_run_position;
 			
 			stepfx = rand() % 4;
 			
-			if (stats.cur_frame == 4 || stats.cur_frame == 16) {
+			if (stats.cur_frame == 0 || stats.cur_frame == max_frame/2) {
 				Mix_PlayChannel(-1, sound_steps[stepfx], 0);
 			}
 
@@ -421,21 +464,23 @@ void Avatar::logic(int actionbar_power, bool restrictPowerUse) {
 
 			// handle animation
 			stats.cur_frame++;
-			stats.disp_frame = (stats.cur_frame / 4) + 12;
+			// melee is a play-once animation
+			max_frame = stats.anim_melee_frames * stats.anim_melee_duration;
+			stats.disp_frame = (stats.cur_frame / stats.anim_melee_duration) + stats.anim_melee_position;
 			
 			if (stats.cur_frame == 1) {
 				Mix_PlayChannel(-1, sound_melee, 0);
 			}
 			
 			// do power
-			if (stats.cur_frame == 8) {
+			if (stats.cur_frame == max_frame/2) {
 				powers->activate(current_power, &stats, act_target);
 			}
 			
-			if (stats.cur_frame == 15) {
+			if (stats.cur_frame == max_frame-1) {
 				stats.cur_frame = 0;
 				stats.cur_state = AVATAR_STANCE;
-				stats.cooldown_ticks = 8;
+				if (stats.haste_duration == 0) stats.cooldown_ticks = 8;
 			}
 			break;
 
@@ -443,17 +488,18 @@ void Avatar::logic(int actionbar_power, bool restrictPowerUse) {
 		
 			// handle animation
 			stats.cur_frame++;
-			stats.disp_frame = (stats.cur_frame / 4) + 24;
+			max_frame = stats.anim_magic_frames * stats.anim_magic_duration;
+			stats.disp_frame = (stats.cur_frame / stats.anim_magic_duration) + stats.anim_magic_position;
 
 			// do power
-			if (stats.cur_frame == 8) {
+			if (stats.cur_frame == max_frame/2) {
 				powers->activate(current_power, &stats, act_target);
 			}
 
-			if (stats.cur_frame == 15) {
+			if (stats.cur_frame == max_frame-1) {
 				stats.cur_frame = 0;
 				stats.cur_state = AVATAR_STANCE;
-				stats.cooldown_ticks = 8;
+				if (stats.haste_duration == 0) stats.cooldown_ticks = 8;
 			}
 			break;
 
@@ -462,49 +508,57 @@ void Avatar::logic(int actionbar_power, bool restrictPowerUse) {
 		
 			// handle animation
 			stats.cur_frame++;
-			stats.disp_frame = (stats.cur_frame / 4) + 28;
+			max_frame = stats.anim_ranged_frames * stats.anim_ranged_duration;
+			stats.disp_frame = (stats.cur_frame / stats.anim_ranged_duration) + stats.anim_ranged_position;
 
 			// do power
-			if (stats.cur_frame == 8) {
+			if (stats.cur_frame == max_frame/2) {
 				powers->activate(current_power, &stats, act_target);
 			}
 
-			if (stats.cur_frame == 15) {
+			if (stats.cur_frame == max_frame-1) {
 				stats.cur_frame = 0;
 				stats.cur_state = AVATAR_STANCE;
-				stats.cooldown_ticks = 8;
+				if (stats.haste_duration == 0) stats.cooldown_ticks = 8;
 			}
 			break;
 
 		case AVATAR_BLOCK:
-			if (stats.cur_frame < 4) stats.cur_frame++;
-			stats.disp_frame = (stats.cur_frame / 4) + 16;
+		
+			max_frame = stats.anim_block_frames * stats.anim_block_duration -1;
+			if (stats.cur_frame < max_frame) stats.cur_frame++;
+			stats.disp_frame = (stats.cur_frame / stats.anim_block_duration) + stats.anim_block_position;			
 			
 			if (powers->powers[actionbar_power].new_state != POWSTATE_BLOCK) {
 				stats.cur_frame = 0;
 				stats.cur_state = AVATAR_STANCE;
-				stats.cooldown_ticks = 8;
 				stats.blocking = false;
 			}
 			break;
 			
 		case AVATAR_HIT:
 			stats.cur_frame++;
+						
+			// hit is a back/forth animation
+			mid_frame = stats.anim_hit_frames * stats.anim_hit_duration;
+			max_frame = mid_frame + mid_frame;
+			if (stats.cur_frame >= mid_frame)
+				stats.disp_frame = (max_frame -1 - stats.cur_frame) / stats.anim_hit_duration + stats.anim_hit_position;
+			else
+				stats.disp_frame = stats.cur_frame / stats.anim_hit_duration + stats.anim_hit_position;
 			
-			
-			if (stats.cur_frame < 3) stats.disp_frame = 18;
-			else if (stats.cur_frame < 6) stats.disp_frame = 19;
-			else stats.disp_frame = 18;
-			
-			if (stats.cur_frame >= 8) {
+			if (stats.cur_frame >= max_frame-1) {
 				stats.cur_state = AVATAR_STANCE;
 				stats.cur_frame = 0;
 			}
 			
 			break;
 		case AVATAR_DEAD:
-			if (stats.cur_frame < 17) stats.cur_frame++;
-			stats.disp_frame = (stats.cur_frame /3) + 18;
+				
+			max_frame = (stats.anim_die_frames-1) * stats.anim_die_duration;
+			if (stats.cur_frame < max_frame) stats.cur_frame++;
+			if (stats.cur_frame == max_frame) stats.corpse = true;
+			stats.disp_frame = (stats.cur_frame / stats.anim_die_duration) + stats.anim_die_position;
 
 			if (stats.cur_frame == 1) {
 				Mix_PlayChannel(-1, sound_die, 0);

@@ -237,6 +237,9 @@ void PowerManager::loadPowers() {
 					else if (key == "immunity_duration") {
 						powers[input_id].immunity_duration = atoi(val.c_str());
 					}
+					else if (key == "haste_duration") {
+						powers[input_id].haste_duration = atoi(val.c_str());
+					}
 					
 					// buffs
 					else if (key == "buff_heal") {
@@ -600,6 +603,11 @@ void PowerManager::buff(int power_index, StatBlock *src_stats, Point target) {
 	// immunity_duration makes one immune to new debuffs
 	if (src_stats->immunity_duration < powers[power_index].immunity_duration) {
 		src_stats->immunity_duration = powers[power_index].immunity_duration;
+	}
+	
+	// haste doubles run speed and removes power cooldowns
+	if (src_stats->haste_duration < powers[power_index].haste_duration) {
+		src_stats->haste_duration = powers[power_index].haste_duration;
 	}
 	
 }

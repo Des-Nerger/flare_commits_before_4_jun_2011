@@ -46,6 +46,7 @@ StatBlock::StatBlock() {
 	stun_duration = 0;
 	immobilize_duration = 0;
 	immunity_duration = 0;	
+	haste_duration = 0;
 	shield_hp = 0;
 	shield_frame = 0;
 	vengeance_stacks = 0;
@@ -309,7 +310,7 @@ void StatBlock::logic() {
 		}
 	}
 	
-	// handle debuff durations
+	// handle buff/debuff durations
 	if (slow_duration > 0)
 		slow_duration--;
 	if (bleed_duration > 0)
@@ -320,6 +321,8 @@ void StatBlock::logic() {
 		immobilize_duration--;
 	if (immunity_duration > 0)
 		immunity_duration--;
+	if (haste_duration > 0)
+		haste_duration--;		
 	
 	// apply bleed
 	if (bleed_duration % FRAMES_PER_SEC == 1) {

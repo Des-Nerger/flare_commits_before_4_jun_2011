@@ -70,7 +70,11 @@ private:
 	// currently loot can range from levels 0-20
 	int loot_table[21][1024]; // level, number.  the int is an item id
 	int loot_table_count[21]; // total number per level
-
+	
+	// animation vars
+	int anim_loot_frames;
+	int anim_loot_duration;
+	
 public:
 	LootManager(ItemDatabase *_items, MenuTooltip *_tip, EnemyManager *_enemies, MapIso *_map);
 	~LootManager();

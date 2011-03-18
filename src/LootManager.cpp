@@ -49,6 +49,9 @@ LootManager::LootManager(ItemDatabase *_items, MenuTooltip *_tip, EnemyManager *
 	loot_flip = Mix_LoadWAV("soundfx/flying_loot.ogg");
 	full_msg = false;
 	
+	anim_loot_frames = 6;
+	anim_loot_duration = 3;
+	
 }
 
 /**
@@ -154,13 +157,15 @@ void LootManager::handleNewMap() {
 }
 
 void LootManager::logic() {
+	int max_frame = anim_loot_frames * anim_loot_duration - 1;
+	
 	for (int i=0; i<loot_count; i++) {
 	
 		// animate flying loot
-		if (loot[i].frame < 23)
+		if (loot[i].frame < max_frame)
 			loot[i].frame++;
 
-		if (loot[i].frame == 20) {
+		if (loot[i].frame == max_frame-1) {
 			if (loot[i].item > 0)
 				items->playSound(loot[i].item);
 			else
@@ -177,7 +182,8 @@ void LootManager::logic() {
  * Only allow loot to be picked up if it is grounded.
  */
 bool LootManager::isFlying(int loot_index) {
-	if (loot[loot_index].frame == 23) return false;
+	int max_frame = anim_loot_frames * anim_loot_duration - 1;
+	if (loot[loot_index].frame == max_frame) return false;
 	return true;
 }
 
@@ -197,8 +203,10 @@ void LootManager::renderTooltips(Point cam) {
 	TooltipData td;
 	stringstream ss;
 	
+	int max_frame = anim_loot_frames * anim_loot_duration - 1;
+	
 	for (int i = 0; i < loot_count; i++) {			
-		if (loot[i].frame >= 23) {
+		if (loot[i].frame == max_frame) {
 			dest.x = VIEW_W_HALF + (loot[i].pos.x/UNITS_PER_PIXEL_X - xcam.x) - (loot[i].pos.y/UNITS_PER_PIXEL_X - xcam.y);
 			dest.y = VIEW_H_HALF + (loot[i].pos.x/UNITS_PER_PIXEL_Y - ycam.x) + (loot[i].pos.y/UNITS_PER_PIXEL_Y - ycam.y) + (TILE_H/2);
 		
@@ -411,7 +419,7 @@ Renderable LootManager::getRender(int index) {
 	// Right now the animation settings (number of frames, speed, frame size)
 	// are hard coded.  At least move these to consts in the header.
 
-	r.src.x = (loot[index].frame / 4) * 64;
+	r.src.x = (loot[index].frame / anim_loot_duration) * 64;
 	r.src.y = 0;
 	r.src.w = 64;
 	r.src.h = 128;
