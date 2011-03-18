@@ -131,6 +131,7 @@ public:
 	int melee_range;
 	int threat_range;
 	Point hero_pos;
+	bool hero_alive;
 	Point last_seen; 
 	int dir_favor;
 	int dir_ticks;

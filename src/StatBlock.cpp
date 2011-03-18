@@ -13,6 +13,8 @@ StatBlock::StatBlock() {
 	alive = true;
 	corpse = false;
 	hero = false;
+	hero_pos.x = hero_pos.y = -1;
+	hero_alive = true;
 	targeted = 0;
 	
 	// core stats

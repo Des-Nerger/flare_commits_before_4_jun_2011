@@ -14,6 +14,8 @@ EnemyManager::EnemyManager(PowerManager *_powers, MapIso *_map) {
 	enemy_count = 0;
 	sfx_count = 0;
 	gfx_count = 0;
+	hero_pos.x = hero_pos.y = -1;
+	hero_alive = true;
 	handleNewMap();
 }
 
@@ -147,7 +149,8 @@ void EnemyManager::logic() {
 		enemies[i]->sfx_critdie = false;
 		
 		// new actions this round
-		enemies[i]->stats.hero_pos = heroPos;
+		enemies[i]->stats.hero_pos = hero_pos;
+		enemies[i]->stats.hero_alive = hero_alive;
 		enemies[i]->logic();
 
 	}

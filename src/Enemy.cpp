@@ -197,19 +197,22 @@ void Enemy::logic() {
 	
 	// SECTION 1: Steering and Vision
 	// ------------------------------
-		
-	// check distance and line of sight between enemy and hero
-	dist = getDistance(stats.hero_pos);
 	
-	// if the hero is too far away, abandon combat and do nothing
-	if (dist > stats.threat_range+stats.threat_range) {
+	// check distance and line of sight between enemy and hero
+	if (stats.hero_alive)
+		dist = getDistance(stats.hero_pos);
+	else
+		dist = 0;
+	
+	// if the hero is too far away or dead, abandon combat and do nothing
+	if (dist > stats.threat_range+stats.threat_range || !stats.hero_alive) {
 		stats.in_combat = false;
 		stats.patrol_ticks = 0;
 		stats.last_seen.x = -1;
 		stats.last_seen.y = -1;
 	}
-	
-	if (dist < stats.threat_range)
+
+	if (dist < stats.threat_range && stats.hero_alive)
 		los = map->collider.line_of_sight(stats.pos.x, stats.pos.y, stats.hero_pos.x, stats.hero_pos.y);
 	else
 		los = false;

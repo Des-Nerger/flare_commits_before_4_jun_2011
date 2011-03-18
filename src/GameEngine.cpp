@@ -289,7 +289,10 @@ void GameEngine::logic() {
 		
 		pc->logic(menu->act->checkAction(inp->mouse), restrictPowerUse());
 		
-		enemies->heroPos = pc->stats.pos;
+		// transfer hero data to enemies, for AI use
+		enemies->hero_pos = pc->stats.pos;
+		enemies->hero_alive = pc->stats.alive;
+		
 		enemies->logic();
 		hazards->logic();
 		loot->logic();

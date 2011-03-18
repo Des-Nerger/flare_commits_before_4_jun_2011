@@ -49,7 +49,8 @@ public:
 
 	// vars
 	Enemy *enemies[256]; // TODO: change to dynamic list without limits
-	Point heroPos;
+	Point hero_pos;
+	bool hero_alive;
 	int enemy_count;
 };
 
