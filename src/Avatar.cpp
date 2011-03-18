@@ -63,13 +63,13 @@ Avatar::Avatar(PowerManager *_powers, InputState *_inp, MapIso *_map) {
 	stats.anim_magic_duration = 3;
 	stats.anim_ranged_position = 28;
 	stats.anim_ranged_frames = 4;
-	stats.anim_ranged_duration = 2;
+	stats.anim_ranged_duration = 3;
 	stats.anim_block_position = 16;
 	stats.anim_block_frames = 2;
 	stats.anim_block_duration = 2;
 	stats.anim_hit_position = 18;
 	stats.anim_hit_frames = 2;
-	stats.anim_hit_duration = 3;
+	stats.anim_hit_duration = 2;
 	stats.anim_die_position = 18;
 	stats.anim_die_frames = 6;
 	stats.anim_die_duration = 3;
