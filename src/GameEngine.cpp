@@ -222,7 +222,7 @@ void GameEngine::checkNPCInteraction() {
 	}
 	
 	// if close enough to the NPC, open the appropriate interaction screen
-	if (npc_click != -1 && interact_distance < max_interact_distance) {
+	if (npc_click != -1 && interact_distance < max_interact_distance && pc->stats.alive) {
 		inp->mouse_lock = true;
 		
 		if (npcs->npcs[npc_id]->vendor) {
@@ -254,7 +254,7 @@ void GameEngine::checkNPCInteraction() {
 	
 	// check for walking away from an NPC
 	if (npc_id != -1) {
-		if (interact_distance > max_interact_distance) {
+		if (interact_distance > max_interact_distance || !pc->stats.alive) {
 			menu->vendor->npc = NULL;
 			menu->talker->npc = NULL;
 			if (menu->vendor->visible || menu->talker->visible) {
