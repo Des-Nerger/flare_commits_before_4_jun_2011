@@ -28,7 +28,7 @@ avoidance=34
 dmg_magic_min=3
 dmg_magic_max=9
 absorb_min=1
-absorb_max=2
+absorb_max=1
 cooldown=25
 cooldown_ranged_phys=90
 

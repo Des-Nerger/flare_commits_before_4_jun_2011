@@ -24,7 +24,7 @@ power_melee_mag=4
 accuracy=87
 avoidance=37
 abs_min=1
-abs_max=3
+abs_max=2
 
 dmg_melee_min=4
 dmg_melee_max=10

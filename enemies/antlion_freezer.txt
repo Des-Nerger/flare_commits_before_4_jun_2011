@@ -27,7 +27,7 @@ dmg_melee_max=6
 dmg_magic_min=4
 dmg_magic_max=10
 absorb_min=1
-absorb_max=3
+absorb_max=2
 attunement_fire=200
 attunement_ice=50
 

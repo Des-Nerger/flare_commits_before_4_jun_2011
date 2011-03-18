@@ -29,7 +29,7 @@ dmg_melee_max=11
 dmg_magic_min=2
 dmg_magic_max=6
 absorb_min=1
-absorb_max=3
+absorb_max=2
 cooldown=20
 
 # animation info
