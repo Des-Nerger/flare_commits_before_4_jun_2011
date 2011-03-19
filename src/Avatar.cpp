@@ -49,6 +49,7 @@ Avatar::Avatar(PowerManager *_powers, InputState *_inp, MapIso *_map) {
 	loadSounds();
 	
 	// default hero animation data
+	stats.cooldown = 4;
 	stats.anim_stance_position = 0;
 	stats.anim_stance_frames = 4;
 	stats.anim_stance_duration = 6;
@@ -480,7 +481,7 @@ void Avatar::logic(int actionbar_power, bool restrictPowerUse) {
 			if (stats.cur_frame == max_frame-1) {
 				stats.cur_frame = 0;
 				stats.cur_state = AVATAR_STANCE;
-				if (stats.haste_duration == 0) stats.cooldown_ticks = 8;
+				if (stats.haste_duration == 0) stats.cooldown_ticks += stats.cooldown;
 			}
 			break;
 
@@ -499,7 +500,7 @@ void Avatar::logic(int actionbar_power, bool restrictPowerUse) {
 			if (stats.cur_frame == max_frame-1) {
 				stats.cur_frame = 0;
 				stats.cur_state = AVATAR_STANCE;
-				if (stats.haste_duration == 0) stats.cooldown_ticks = 8;
+				if (stats.haste_duration == 0) stats.cooldown_ticks += stats.cooldown;
 			}
 			break;
 
@@ -519,7 +520,7 @@ void Avatar::logic(int actionbar_power, bool restrictPowerUse) {
 			if (stats.cur_frame == max_frame-1) {
 				stats.cur_frame = 0;
 				stats.cur_state = AVATAR_STANCE;
-				if (stats.haste_duration == 0) stats.cooldown_ticks = 8;
+				if (stats.haste_duration == 0) stats.cooldown_ticks += stats.cooldown;
 			}
 			break;
 
@@ -553,6 +554,7 @@ void Avatar::logic(int actionbar_power, bool restrictPowerUse) {
 			}
 			
 			break;
+			
 		case AVATAR_DEAD:
 				
 			max_frame = (stats.anim_die_frames-1) * stats.anim_die_duration;
