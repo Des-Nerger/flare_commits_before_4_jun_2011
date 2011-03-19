@@ -120,6 +120,8 @@ struct Power {
 	int immobilize_duration;
 	int immunity_duration;
 	int haste_duration;
+	int hot_duration;
+	int hot_value;
 	
 	// special effects
 	bool buff_heal;
@@ -179,6 +181,8 @@ struct Power {
 		immobilize_duration = 0;
 		immunity_duration = 0;
 		haste_duration = 0;
+		hot_duration = 0;
+		hot_value = 0;
 		
 		buff_heal = false;
 		buff_shield = false;

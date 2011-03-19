@@ -49,6 +49,8 @@ StatBlock::StatBlock() {
 	immobilize_duration = 0;
 	immunity_duration = 0;	
 	haste_duration = 0;
+	hot_duration = 0;
+	hot_value = 0;
 	shield_hp = 0;
 	shield_frame = 0;
 	vengeance_stacks = 0;
@@ -324,11 +326,19 @@ void StatBlock::logic() {
 	if (immunity_duration > 0)
 		immunity_duration--;
 	if (haste_duration > 0)
-		haste_duration--;		
+		haste_duration--;
+	if (hot_duration > 0)
+		hot_duration--;
 	
 	// apply bleed
 	if (bleed_duration % FRAMES_PER_SEC == 1) {
 		takeDamage(1);
+	}
+	
+	// apply healing over time
+	if (hot_duration % FRAMES_PER_SEC == 1) {
+		hp += hot_value;
+		if (hp > maxhp) hp = maxhp;
 	}
 	
 	// handle targeted
@@ -341,6 +351,7 @@ void StatBlock::logic() {
 	
 	vengeance_frame+= vengeance_stacks;
 	if (vengeance_frame >= 24) vengeance_frame -= 24;
+	
 
 }
 

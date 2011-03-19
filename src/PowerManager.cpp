@@ -240,6 +240,12 @@ void PowerManager::loadPowers() {
 					else if (key == "haste_duration") {
 						powers[input_id].haste_duration = atoi(val.c_str());
 					}
+					else if (key == "hot_duration") {
+						powers[input_id].hot_duration = atoi(val.c_str());
+					}
+					else if (key == "hot_value") {
+						powers[input_id].hot_value = atoi(val.c_str());
+					}
 					
 					// buffs
 					else if (key == "buff_heal") {
@@ -610,6 +616,13 @@ void PowerManager::buff(int power_index, StatBlock *src_stats, Point target) {
 		src_stats->haste_duration = powers[power_index].haste_duration;
 	}
 	
+	// hot is healing over time
+	if (src_stats->hot_duration < powers[power_index].hot_duration) {
+		src_stats->hot_duration = powers[power_index].hot_duration;
+		src_stats->hot_value = powers[power_index].hot_value;
+	}
+	
+	
 }
 
 /**
@@ -847,7 +860,7 @@ bool PowerManager::groundRay(int power_index, StatBlock *src_stats, Point target
 			haz[i]->active_frame = 0;
 			haz[i]->frame = 16; // start at bottom frame
 			haz[i]->frame_loop = 20;
-			haz[i]->frame_duration = 4;
+			haz[i]->frame_duration = 3;
 			haz[i]->radius = 64;
 			haz[i]->dmg_min = src_stats->dmg_magic_min;
 			haz[i]->dmg_max = src_stats->dmg_magic_max;

@@ -108,6 +108,9 @@ public:
 	int immobilize_duration;
 	int immunity_duration;	
 	int haste_duration;
+	int hot_duration;
+	int hot_value;
+	
 	int shield_hp; // shield
 	int shield_frame;
 	bool blocking;
