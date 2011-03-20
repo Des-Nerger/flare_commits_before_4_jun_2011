@@ -265,8 +265,8 @@ void StatBlock::takeDamage(int dmg) {
  */
 void StatBlock::recalc() {
 
-	hp = maxhp = 12 + physical * 4;
-	mp = maxmp = magical * 4;
+	hp = maxhp = 4 + physical * 8;
+	mp = maxmp = 4 + magical * 8;
 			
 	accuracy = 70 + offense * 5;
 	avoidance = 20 + defense * 5;
@@ -275,8 +275,8 @@ void StatBlock::recalc() {
 	magoff = magical + offense;
 	magdef = magical + defense;
 	crit = physical + magical + offense + defense;
-	hp_per_minute = 9 + physical;
-	mp_per_minute = 9 + magical;
+	hp_per_minute = 6 + physical * 4;
+	mp_per_minute = 6 + magical * 4;
 	
 	for (int i=1; i<17; i++) {
 		if (xp >= xp_table[i])

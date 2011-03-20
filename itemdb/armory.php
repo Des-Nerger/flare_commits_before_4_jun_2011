@@ -33,7 +33,9 @@ sfx,
 gfx,
 loot,
 base_price,
-price_mod
+price_mod,
+power_mod,
+power_desc
 from (items inner join base_items on items.base_type = base_items.id)
 inner join item_mods on items.item_mod = item_mods.id
 order by items.id
@@ -69,7 +71,7 @@ order by items.id
 	  // level
 	  echo "<td>" . $row["level"] . "</td>\n";
 	
-      // stats
+          // stats
 	  if (!is_null($row["dmg_min"])) {
 	    echo "<td>" . $row["dmg_min"] . "-" . $row["dmg_max"] . " damage</td>\n";
 	  }
@@ -99,10 +101,16 @@ order by items.id
 	    echo " " . $row["bonus_stat"];
 	  }
 	  else echo "-";
-      echo "</td>\n";
+          echo "</td>\n";
 	 
-
-	  // requirement
+          // power
+          echo "<td>";
+          if (!is_null($row["power_desc"]))
+            echo " <span class=\"high\">" . $row["power_desc"] . "</span>";
+          else echo "-";
+          echo "</td>\n";
+	  
+          // requirement
 	  echo "<td>";
 	  if (!is_null($row["req_stat"])) {
 	    if ($row["req_val"] > 1) {
@@ -116,15 +124,15 @@ order by items.id
 	    else echo "-";
 	  }
 	  else echo "-";	
-      echo "</td>\n";
+          echo "</td>\n";
     
-	
 	  // value
 	  echo "<td>";
 	  $value = floor(($row["base_price"] * $row["price_mod"]) / 100);
 	  echo $value;
 	  echo " <span class=\"low\">(" . max(floor($value/4),1) . ")</span>";
 	  echo "</td>\n";
+
 
 	  echo "</tr>\n";
     }
@@ -143,8 +151,9 @@ order by items.id
     <th>level</th>
     <th>stats</th>
     <th>bonus</th>
-	<th>requirement</th>
-	<th>price</th>
+    <th>power</th>
+    <th>requirement</th>
+    <th>price</th>
   </tr>
 <?php list_items(); ?>
 </table>

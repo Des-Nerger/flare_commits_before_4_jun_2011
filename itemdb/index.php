@@ -1,5 +1,7 @@
 <?php
 
+  header('Content-type: text/plain');
+
   include('inc_config.php');
 
   function list_items() {
@@ -31,7 +33,11 @@ bonus_dval,
 bonus_art,
 sfx,
 gfx,
-loot
+loot,
+base_price,
+price_mod,
+power_mod,
+power_desc
 from (items inner join base_items on items.base_type = base_items.id)
 inner join item_mods on items.item_mod = item_mods.id
 order by items.id
@@ -40,80 +46,86 @@ order by items.id
     $stmt = $db->prepare($sql);
     $stmt->execute();
     while ($row = $stmt->fetch()) {
-	echo "<tr>\n";
 
-        $name = "";
-        if (!is_null($row["proper_name"]))
-          $name = $row["proper_name"];
-        else {
-          if (!is_null($row["prefix"]))
-            $name = $row["prefix"] . $row["base_name"];
-          else
-            $name = $row["base_name"] . $row["suffix"];
-        }
+      echo "[item]\n";  
+      echo "id=" . $row["id"] . "\n";
+      $name = "";
+      if (!is_null($row["proper_name"]))
+        $name = $row["proper_name"];
+      else {
+        if (!is_null($row["prefix"]))
+          $name = $row["prefix"] . $row["base_name"];
+        else
+          $name = $row["base_name"] . $row["suffix"];
+      }
 
-	echo "<td>" . $row["id"] . "</td>\n";
-	echo "<td>" . $name . "</td>\n";
-	echo "<td>" . $row["level"] . "</td>\n";
-	echo "<td>" . $row["quality"] . "</td>\n";
-	echo "<td>" . $row["type"] . "</td>\n";
-        if ($row["icon64"] != NULL) {
-	  echo "<td>" . $row["icon32"] . "," . $row["icon64"] . "</td>\n";
-	}
-        else {
-	  echo "<td>" . $row["icon32"] . "</td>\n";
-        }
-	echo "<td>" . $row["dmg_min"] . "," . $row["dmg_max"] . "</td>\n";
-	echo "<td>" . $row["abs_min"] . "," . $row["abs_max"] . "</td>\n";
-	echo "<td>" . $row["req_stat"] . "," . $row["req_val"] . "</td>\n";
-	echo "<td>" . $row["bonus_stat"] . ",";
-	if ($row["req_stat"] == "p")
-	  echo $row["bonus_pval"];
-	else if ($row["req_stat"] == "m")
-	  echo $row["bonus_mval"];
-	else if ($row["req_stat"] == "o")
-	  echo $row["bonus_oval"];
-	else if ($row["req_stat"] == "d")
-	  echo $row["bonus_dval"];
-	else
-	  echo $row["bonus_art"];
+      echo "name=" . $name . "\n";
+      echo "level=" . $row["level"] . "\n";
+      echo "quality=" . $row["quality"] . "\n";
+      echo "type=" . $row["type"] . "\n";
+      if ($row["icon64"] != NULL) {
+        echo "icon=" . $row["icon32"] . "," . $row["icon64"] . "\n";
+      }
+      else {
+        echo "icon=" . $row["icon32"] . "\n";
+      }
+      
+      if (!is_null($row["dmg_min"])) {
+        echo "dmg=" . $row["dmg_min"] . "," . $row["dmg_max"] . "\n";
+      }
+      if (!is_null($row["abs_max"])) {
+        if ($row["abs_min"] < $row["abs_max"])
+          echo "abs=" . $row["abs_min"] . "," . $row["abs_max"] . "\n";
+        else if ($row["abs_min"] == $row["abs_max"] && $row["abs_max"] > 0)
+          echo "abs=" . $row["abs_min"] . "\n";
+      }
 
-	echo "</td>\n";
-	echo "<td>" . $row["sfx"] . "</td>\n";
-	echo "<td>" . $row["gfx"] . "</td>\n";
-	echo "<td>" . $row["loot"] . "</td>\n";
+      // display bonus
+      if (!is_null($row["bonus_stat"])) {
+        echo "bonus=" . $row["bonus_stat"] . ",";
 
-	echo "</tr>\n";
+        if ($row["req_stat"] == "p")
+          echo $row["bonus_pval"];
+        else if ($row["req_stat"] == "m")
+          echo $row["bonus_mval"];
+        else if ($row["req_stat"] == "o")
+          echo $row["bonus_oval"];
+        else if ($row["req_stat"] == "d")
+          echo $row["bonus_dval"];
+        else
+          echo $row["bonus_art"];
+        echo "\n";
+      }
+
+      // display power
+      if (!is_null($row["power_mod"]))
+        echo "power_mod=" . $row["power_mod"] . "\n";
+      if (!is_null($row["power_desc"])) 
+        echo "power_desc=" . $row["power_desc"] . "\n";
+
+
+      // display requirement
+      if (!is_null($row["req_val"]) && $row["req_val"] > 1)
+        echo "req=" . $row["req_stat"] . "," . $row["req_val"] . "\n";
+
+      if (!is_null($row["sfx"]))
+        echo "sfx=" . $row["sfx"] . "\n";
+
+      if (!is_null($row["gfx"]))
+        echo "gfx=" . $row["gfx"] . "\n";
+
+      if (!is_null($row["loot"]))
+        echo "loot=" . $row["loot"] . "\n";
+
+      if (!is_null($row["base_price"]) && !is_null($row["price_mod"]))
+        echo "price=" . floor(($row["base_price"] * $row["price_mod"]) / 100) . "\n";
+
+
+      echo "\n";
     }
     $stmt = null;
     $db = null;
   }
-?><html>
-<head>
-  <style>
-table {border-collapse: collapse;}
-table, th, td {border: solid 1px #666; font-size: 9pt; font-family: sans-serif;}
-
-  </style>
-</head>
-<body>
-<table>
-  <tr>
-    <th>id</th>
-    <th>name</th>
-    <th>level</th>
-    <th>quality</th>
-    <th>type</th>
-    <th>icon</th>
-    <th>dmg</th>
-    <th>abs</th>
-    <th>req</th>
-    <th>bonus</th>
-    <th>sfx</th>
-    <th>gfx</th>
-    <th>loot</th>
-  </tr>
-<?php list_items(); ?>
-</table>
-</body>
-</html>
+  
+  list_items();
+?>

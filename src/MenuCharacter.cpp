@@ -286,12 +286,12 @@ TooltipData MenuCharacter::checkTooltip(Point mouse) {
 		return tip;
 	}
 	if (mouse.x >= 64 && mouse.x <= 184 && mouse.y >= offset_y+104 && mouse.y <= offset_y+120) {
-		tip.lines[tip.num_lines++] = "Each point of Physical grants +4 health";
+		tip.lines[tip.num_lines++] = "Each point of Physical grants +8 health";
 		return tip;
 	}
 	if (mouse.x >= 208 && mouse.x <= 280 && mouse.y >= offset_y+104 && mouse.y <= offset_y+120) {
 		tip.lines[tip.num_lines++] = "Ticks of health regen per minute";
-		tip.lines[tip.num_lines++] = "Each point of Physical grants +1 health regen";
+		tip.lines[tip.num_lines++] = "Each point of Physical grants +4 health regen";
 		return tip;
 	}
 
@@ -322,12 +322,12 @@ TooltipData MenuCharacter::checkTooltip(Point mouse) {
 		return tip;
 	}		
 	if (mouse.x >= 64 && mouse.x <= 184 && mouse.y >= offset_y+168 && mouse.y <= offset_y+184) {
-		tip.lines[tip.num_lines++] = "Each point of Magical grants +4 mana";
+		tip.lines[tip.num_lines++] = "Each point of Magical grants +8 mana";
 		return tip;
 	}
 	if (mouse.x >= 208 && mouse.x <= 280 && mouse.y >= offset_y+168 && mouse.y <= offset_y+184) {
 		tip.lines[tip.num_lines++] = "Ticks of mana regen per minute";
-		tip.lines[tip.num_lines++] = "Each point of Magical grants +1 mana regen";
+		tip.lines[tip.num_lines++] = "Each point of Magical grants +4 mana regen";
 		return tip;
 	}
 		
