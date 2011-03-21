@@ -4,7 +4,7 @@ level=7
 
 # shop info
 vendor=true
-constant_stock=1,2
+constant_stock=1,2,3,4
 random_stock=78
 
 # animation info

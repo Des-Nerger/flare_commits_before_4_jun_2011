@@ -399,6 +399,47 @@ slow_duration=15
 post_power=125
 
 [power]
+id=100
+type=effect
+icon=32
+name=Health Potion
+sfx=potion.ogg
+new_state=cast
+requires_item=1
+buff_restore_hp=25
+
+[power]
+id=101
+type=effect
+icon=33
+name=Mana Potion
+new_state=cast
+sfx=potion.ogg
+requires_item=2
+buff_restore_mp=25
+
+[power]
+id=102
+type=effect
+icon=34
+name=Health Flask
+sfx=potion.ogg
+new_state=cast
+requires_item=3
+buff_restore_hp=75
+
+[power]
+id=103
+type=effect
+icon=35
+name=Mana Flask
+new_state=cast
+sfx=potion.ogg
+requires_item=4
+buff_restore_mp=75
+
+
+[power]
 id=114
 name=Boots of Testing Really Large Maps
 type=effect
@@ -447,26 +488,6 @@ trait_elemental=wind
 post_power=126
 wall_power=126
 requires_item=1021
-
-[power]
-id=116
-type=effect
-icon=40
-name=Health Potion
-sfx=potion.ogg
-new_state=cast
-requires_item=1
-buff_restore_hp=50
-
-[power]
-id=117
-type=effect
-icon=41
-name=Mana Potion
-new_state=cast
-sfx=potion.ogg
-requires_item=2
-buff_restore_mp=50
 
 [power]
 id=118
@@ -577,29 +598,6 @@ trait_elemental=water
 post_power=126
 wall_power=126
 
-[power]
-id=128
-name=Necrotic Bolt
-type=missile
-new_state=shoot
-face=true
-gfx=plasmaball.png
-sfx=shock.ogg
-use_hazard=true
-rendered=true
-aim_assist=32
-base_damage=magic
-lifespan=32
-radius=64
-speed=30
-frame_loop=12
-frame_duration=3
-frame_size=64,64
-frame_offset=32,64
-trait_elemental=shadow
-post_power=126
-wall_power=126
-
 
 [power]
 id=124
@@ -664,4 +662,27 @@ frame_offset=32,64
 frame_loop=100
 starting_pos=source
 visual_random=2
+
+[power]
+id=128
+name=Necrotic Bolt
+type=missile
+new_state=shoot
+face=true
+gfx=plasmaball.png
+sfx=shock.ogg
+use_hazard=true
+rendered=true
+aim_assist=32
+base_damage=magic
+lifespan=32
+radius=64
+speed=30
+frame_loop=12
+frame_duration=3
+frame_size=64,64
+frame_offset=32,64
+trait_elemental=shadow
+post_power=126
+wall_power=126
 

@@ -1,28 +1,53 @@
 [item]
 id=1
 name=Health Potion
-level=5
-icon=40
+level=3
+icon=32
 effect=hp_restore
-power=116
-power_desc=Restore 50 Health
+power=100
+power_desc=Restore 25 Health
 type=consumable
 sfx=potion
 loot=health_potion
-price=100
+price=25
 
 [item]
 id=2
 name=Mana Potion
-level=6
-icon=41
+level=4
+icon=33
 effect=mp_restore
-power=117
-power_desc=Restore 50 Mana
+power=101
+power_desc=Restore 25 Mana
 type=consumable
 sfx=potion
 loot=mana_potion
-price=100
+price=25
+
+[item]
+id=3
+name=Health Flask
+level=6
+icon=34
+power=102
+power_desc=Restore 75 Health
+type=consumable
+sfx=potion
+loot=health_potion
+price=75
+
+[item]
+id=4
+name=Mana Flask
+level=7
+icon=35
+power=103
+power_desc=Restore 75 Mana
+type=consumable
+sfx=potion
+loot=mana_potion
+price=75
+
 
 [item]
 id=7
