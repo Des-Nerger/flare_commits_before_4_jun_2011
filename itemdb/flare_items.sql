@@ -37,6 +37,7 @@ CREATE TABLE `base_items` (
   `gfx` varchar(32) default NULL,
   `loot` varchar(32) default NULL,
   `base_price` int(11) default NULL,
+  `base_mod` int(11) default NULL,
   PRIMARY KEY  (`id`)
 ) ENGINE=MyISAM DEFAULT CHARSET=latin1;
 
@@ -46,7 +47,7 @@ CREATE TABLE `base_items` (
 
 LOCK TABLES `base_items` WRITE;
 /*!40000 ALTER TABLE `base_items` DISABLE KEYS */;
-INSERT INTO `base_items` VALUES (1,'Dagger',2,'main',96,0,2,6,NULL,NULL,'p',2,'metal','dagger','dagger',10),(2,'Shortsword',4,'main',97,1,3,8,NULL,NULL,'p',3,'metal','shortsword','shortsword',20),(3,'Longsword',6,'main',98,2,4,10,NULL,NULL,'p',4,'metal','longsword','longsword',50),(4,'Greatsword',8,'main',99,3,5,12,NULL,NULL,'p',5,'metal','greatsword','greatsword',100),(5,'Wand',2,'main',100,4,2,6,NULL,NULL,'m',2,'wood','wand','wand',14),(6,'Rod',4,'main',101,5,3,8,NULL,NULL,'m',3,'wood','rod','rod',26),(7,'Staff',6,'main',102,6,4,10,NULL,NULL,'m',4,'wood','staff','staff',65),(8,'Greatstaff',8,'main',103,7,5,12,NULL,NULL,'m',5,'wood','greatstaff','greatstaff',115),(9,'Slingshot',2,'off',104,8,2,6,NULL,NULL,'o',2,'wood','slingshot','slingshot',8),(10,'Shortbow',4,'off',105,9,3,8,NULL,NULL,'o',3,'wood','shortbow','shortbow',24),(11,'Longbow',6,'off',106,10,4,10,NULL,NULL,'o',4,'wood','longbow','longbow',60),(12,'Greatbow',8,'off',107,11,5,12,NULL,NULL,'o',5,'wood','greatbow','greatbow',110),(14,'Leather Armor',2,'body',108,12,NULL,NULL,1,1,'d',2,'leather','leather_armor','leather_armor',17),(15,'Buckler',4,'off',109,13,NULL,NULL,0,2,'d',3,'wood','buckler','buckler',30),(16,'Steel Armor',6,'body',110,14,NULL,NULL,2,2,'d',4,'maille','steel_armor','steel_armor',75),(17,'Shield',8,'off',111,15,NULL,NULL,1,3,'d',5,'heavy','shield','shield',90),(18,'Belt',3,'artifact',115,19,NULL,NULL,NULL,NULL,NULL,NULL,'leather',NULL,'belt',15),(19,'Boots',4,'artifact',113,17,NULL,NULL,NULL,NULL,NULL,NULL,'leather',NULL,'boots',25),(20,'Ring',7,'artifact',114,18,NULL,NULL,NULL,NULL,NULL,NULL,'gem',NULL,'ring',80),(13,'Clothes',1,'body',112,16,NULL,NULL,0,0,'d',1,'cloth','clothes','clothes',7);
+INSERT INTO `base_items` VALUES (1,'Dagger',2,'main',96,0,2,6,NULL,NULL,'p',2,'metal','dagger','dagger',10,NULL),(2,'Shortsword',4,'main',97,1,3,8,NULL,NULL,'p',3,'metal','shortsword','shortsword',20,NULL),(3,'Longsword',6,'main',98,2,4,10,NULL,NULL,'p',4,'metal','longsword','longsword',50,NULL),(4,'Greatsword',8,'main',99,3,5,12,NULL,NULL,'p',5,'metal','greatsword','greatsword',100,NULL),(5,'Wand',2,'main',100,4,2,6,NULL,NULL,'m',2,'wood','wand','wand',14,NULL),(6,'Rod',4,'main',101,5,3,8,NULL,NULL,'m',3,'wood','rod','rod',26,NULL),(7,'Staff',6,'main',102,6,4,10,NULL,NULL,'m',4,'wood','staff','staff',65,NULL),(8,'Greatstaff',8,'main',103,7,5,12,NULL,NULL,'m',5,'wood','greatstaff','greatstaff',115,NULL),(9,'Slingshot',2,'off',104,8,2,6,NULL,NULL,'o',2,'wood','slingshot','slingshot',8,120),(10,'Shortbow',4,'off',105,9,3,8,NULL,NULL,'o',3,'wood','shortbow','shortbow',24,121),(11,'Longbow',6,'off',106,10,4,10,NULL,NULL,'o',4,'wood','longbow','longbow',60,121),(12,'Greatbow',8,'off',107,11,5,12,NULL,NULL,'o',5,'wood','greatbow','greatbow',110,121),(14,'Leather Armor',2,'body',108,12,NULL,NULL,1,1,'d',2,'leather','leather_armor','leather_armor',17,NULL),(15,'Buckler',4,'off',109,13,NULL,NULL,0,2,'d',3,'wood','buckler','buckler',30,NULL),(16,'Steel Armor',6,'body',110,14,NULL,NULL,2,2,'d',4,'maille','steel_armor','steel_armor',75,NULL),(17,'Shield',8,'off',111,15,NULL,NULL,1,3,'d',5,'heavy','shield','shield',90,NULL),(18,'Belt',3,'artifact',115,19,NULL,NULL,NULL,NULL,NULL,NULL,'leather',NULL,'belt',15,NULL),(19,'Boots',4,'artifact',113,17,NULL,NULL,NULL,NULL,NULL,NULL,'leather',NULL,'boots',25,NULL),(20,'Ring',7,'artifact',114,18,NULL,NULL,NULL,NULL,NULL,NULL,'gem',NULL,'ring',80,NULL),(13,'Clothes',1,'body',112,16,NULL,NULL,0,0,'d',1,'cloth','clothes','clothes',7,NULL);
 /*!40000 ALTER TABLE `base_items` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -120,4 +121,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2011-03-20 23:29:20
+-- Dump completed on 2011-03-21  1:06:51

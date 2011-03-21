@@ -36,6 +36,7 @@ gfx,
 loot,
 base_price,
 price_mod,
+base_mod,
 power_mod,
 power_desc
 from (items inner join base_items on items.base_type = base_items.id)
@@ -100,6 +101,9 @@ order by items.id
       // display power
       if (!is_null($row["power_mod"]))
         echo "power_mod=" . $row["power_mod"] . "\n";
+      else if (!is_null($row["base_mod"]))
+        echo "power_mod=" . $row["base_mod"] . "\n";       
+
       if (!is_null($row["power_desc"])) 
         echo "power_desc=" . $row["power_desc"] . "\n";
 
