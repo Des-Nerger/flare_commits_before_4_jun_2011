@@ -125,6 +125,9 @@ void GameEngine::checkTeleport() {
 			map->respawn_map = map->teleport_mapname;
 			map->respawn_point.x = pc->stats.pos.x;
 			map->respawn_point.y = pc->stats.pos.y;
+			
+			// auto-save
+			saveGame();
 		}
 
 		map->teleportation = false;
