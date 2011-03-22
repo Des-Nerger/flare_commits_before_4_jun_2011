@@ -455,6 +455,8 @@ MenuManager::~MenuManager() {
 	delete(tip);
 	delete(vendor);
 	delete(talker);
+	delete(enemy);
+	delete(hpmp);
 	
 	Mix_FreeChunk(sfx_open);
 	Mix_FreeChunk(sfx_close);
