@@ -51,7 +51,7 @@ Set (FLARE_SOURCES
 	../src/MenuCharacter.cpp
 	../src/MenuEnemy.cpp
 	../src/MenuExperience.cpp
-	../src/MenuHealthMana.cpp
+	../src/MenuHPMP.cpp
 	../src/MenuInventory.cpp
 	../src/MenuLog.cpp
 	../src/MenuManager.cpp

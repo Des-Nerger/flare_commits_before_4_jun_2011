@@ -1,14 +1,14 @@
 /**
- * MenuHealthMana
+ * MenuHPMP
  *
- * Handles the display of the Health and Mana bars at the top/left of the screen
+ * Handles the display of the HP and MP bars at the top/left of the screen
  *
  * @author Clint Bellanger
  * @license GPL
  */
 
-#ifndef MENU_HEALTH_MANA_H
-#define MENU_HEALTH_MANA_H
+#ifndef MENU_HP_MP_H
+#define MENU_HP_MP_H
 
 #include "SDL.h"
 #include "SDL_image.h"
@@ -20,7 +20,7 @@
 
 using namespace std;
 
-class MenuHealthMana {
+class MenuHPMP {
 private:
 	SDL_Surface *screen;
 	FontEngine *font;
@@ -28,8 +28,8 @@ private:
 	SDL_Surface *bar_hp;
 	SDL_Surface *bar_mp;
 public:
-	MenuHealthMana(SDL_Surface *_screen, FontEngine *_font);
-	~MenuHealthMana();
+	MenuHPMP(SDL_Surface *_screen, FontEngine *_font);
+	~MenuHPMP();
 	void loadGraphics();
 	void render(StatBlock *stats, Point mouse);
 };

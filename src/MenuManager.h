@@ -20,7 +20,7 @@
 #include "MenuLog.h"
 #include "StatBlock.h"
 #include "MenuActionBar.h"
-#include "MenuHealthMana.h"
+#include "MenuHPMP.h"
 #include "MenuTooltip.h"
 #include "ItemDatabase.h"
 #include "PowerManager.h"
@@ -69,7 +69,7 @@ public:
 	MenuCharacter *chr;
 	MenuLog *log;
 	MenuActionBar *act;
-	MenuHealthMana *hpmp;
+	MenuHPMP *hpmp;
 	MenuTooltip *tip;
 	MenuMiniMap *mini;
 	MenuExperience *xp;

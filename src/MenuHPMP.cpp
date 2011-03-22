@@ -1,22 +1,22 @@
 /**
- * MenuHealthMana
+ * MenuHPMP
  *
- * Handles the display of the Health and Mana bars at the top/left of the screen
+ * Handles the display of the HP and MP bars at the top/left of the screen
  *
  * @author Clint Bellanger
  * @license GPL
  */
 
-#include "MenuHealthMana.h"
+#include "MenuHPMP.h"
 
-MenuHealthMana::MenuHealthMana(SDL_Surface *_screen, FontEngine *_font) {
+MenuHPMP::MenuHPMP(SDL_Surface *_screen, FontEngine *_font) {
 	screen = _screen;
 	font = _font;
 	
 	loadGraphics();
 }
 
-void MenuHealthMana::loadGraphics() {
+void MenuHPMP::loadGraphics() {
 
 	background = IMG_Load("images/menus/bar_hp_mp.png");
 	bar_hp = IMG_Load("images/menus/bar_hp.png");
@@ -42,7 +42,7 @@ void MenuHealthMana::loadGraphics() {
 	
 }
 
-void MenuHealthMana::render(StatBlock *stats, Point mouse) {
+void MenuHPMP::render(StatBlock *stats, Point mouse) {
 	SDL_Rect src;
 	SDL_Rect dest;
 	int hp_bar_length;
@@ -93,7 +93,7 @@ void MenuHealthMana::render(StatBlock *stats, Point mouse) {
 	}
 }
 
-MenuHealthMana::~MenuHealthMana() {
+MenuHPMP::~MenuHPMP() {
 	SDL_FreeSurface(background);
 	SDL_FreeSurface(bar_hp);
 	SDL_FreeSurface(bar_mp);

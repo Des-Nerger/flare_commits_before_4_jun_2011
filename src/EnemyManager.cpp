@@ -66,7 +66,7 @@ void EnemyManager::loadSounds(string type_id) {
 	}
 	
 	sound_phys[sfx_count] = Mix_LoadWAV(("soundfx/enemies/" + type_id + "_phys.ogg").c_str());
-	sound_mag[sfx_count] = Mix_LoadWAV(("soundfx/enemies/" + type_id + "_mag.ogg").c_str());
+	sound_ment[sfx_count] = Mix_LoadWAV(("soundfx/enemies/" + type_id + "_ment.ogg").c_str());
 	sound_hit[sfx_count] = Mix_LoadWAV(("soundfx/enemies/" + type_id + "_hit.ogg").c_str());
 	sound_die[sfx_count] = Mix_LoadWAV(("soundfx/enemies/" + type_id + "_die.ogg").c_str());
 	sound_critdie[sfx_count] = Mix_LoadWAV(("soundfx/enemies/" + type_id + "_critdie.ogg").c_str());
@@ -95,7 +95,7 @@ void EnemyManager::handleNewMap () {
 	}
 	for (int j=0; j<sfx_count; j++) {
 		Mix_FreeChunk(sound_phys[j]);
-		Mix_FreeChunk(sound_mag[j]);
+		Mix_FreeChunk(sound_ment[j]);
 		Mix_FreeChunk(sound_hit[j]);
 		Mix_FreeChunk(sound_die[j]);
 		Mix_FreeChunk(sound_critdie[j]);
@@ -136,7 +136,7 @@ void EnemyManager::logic() {
 		}
 		
 		if (enemies[i]->sfx_phys) Mix_PlayChannel(-1, sound_phys[pref_id], 0);
-		if (enemies[i]->sfx_mag) Mix_PlayChannel(-1, sound_mag[pref_id], 0);
+		if (enemies[i]->sfx_ment) Mix_PlayChannel(-1, sound_ment[pref_id], 0);
 		if (enemies[i]->sfx_hit) Mix_PlayChannel(-1, sound_hit[pref_id], 0);
 		if (enemies[i]->sfx_die) Mix_PlayChannel(-1, sound_die[pref_id], 0);		
 		if (enemies[i]->sfx_critdie) Mix_PlayChannel(-1, sound_critdie[pref_id], 0);		
@@ -144,7 +144,7 @@ void EnemyManager::logic() {
 		// clear sound flags
 		enemies[i]->sfx_hit = false;
 		enemies[i]->sfx_phys = false;
-		enemies[i]->sfx_mag = false;
+		enemies[i]->sfx_ment = false;
 		enemies[i]->sfx_die = false;
 		enemies[i]->sfx_critdie = false;
 		
@@ -216,7 +216,7 @@ EnemyManager::~EnemyManager() {
 	}
 	for (int i=0; i<sfx_count; i++) {
 		Mix_FreeChunk(sound_phys[i]);
-		Mix_FreeChunk(sound_mag[i]);
+		Mix_FreeChunk(sound_ment[i]);
 		Mix_FreeChunk(sound_hit[i]);
 		Mix_FreeChunk(sound_die[i]);
 		Mix_FreeChunk(sound_critdie[i]);

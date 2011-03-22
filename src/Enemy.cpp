@@ -25,7 +25,7 @@ Enemy::Enemy(PowerManager *_powers, MapIso *_map) {
 	haz = NULL;
 	
 	sfx_phys = false;
-	sfx_mag = false;
+	sfx_ment = false;
 	sfx_hit = false;
 	sfx_die = false;
 	sfx_critdie = false;
@@ -299,9 +299,9 @@ void Enemy::logic() {
 					}
 					// CHECK: ranged spell!
 					if (!powers->powers[stats.power_index[RANGED_PHYS]].requires_los || los) {					
-						if ((rand() % 100) < stats.power_index[RANGED_MAG] && stats.power_ticks[RANGED_MAG] == 0) {
+						if ((rand() % 100) < stats.power_index[RANGED_MENT] && stats.power_ticks[RANGED_MENT] == 0) {
 							
-							newState(ENEMY_RANGED_MAG);
+							newState(ENEMY_RANGED_MENT);
 							break;
 						}
 					}
@@ -337,11 +337,11 @@ void Enemy::logic() {
 							break;
 						}
 					}
-					// CHECK: melee magic!
-					if (!powers->powers[stats.power_index[MELEE_MAG]].requires_los || los) {
-						if ((rand() % 100) < stats.power_chance[MELEE_MAG] && stats.power_ticks[MELEE_MAG] == 0) {
+					// CHECK: melee ment!
+					if (!powers->powers[stats.power_index[MELEE_MENT]].requires_los || los) {
+						if ((rand() % 100) < stats.power_chance[MELEE_MENT] && stats.power_ticks[MELEE_MENT] == 0) {
 													
-							newState(ENEMY_MELEE_MAG);
+							newState(ENEMY_MELEE_MENT);
 							break;
 						}
 					}
@@ -378,10 +378,10 @@ void Enemy::logic() {
 						}
 					}
 					// CHECK: ranged spell!
-					if (!powers->powers[stats.power_index[RANGED_MAG]].requires_los || los) {
-						if ((rand() % 100) < stats.power_chance[RANGED_MAG] && stats.power_ticks[RANGED_MAG] == 0) {
+					if (!powers->powers[stats.power_index[RANGED_MENT]].requires_los || los) {
+						if ((rand() % 100) < stats.power_chance[RANGED_MENT] && stats.power_ticks[RANGED_MENT] == 0) {
 							
-							newState(ENEMY_RANGED_MAG);
+							newState(ENEMY_RANGED_MENT);
 							break;
 						}
 					}
@@ -457,21 +457,21 @@ void Enemy::logic() {
 			break;
 
 		
-		case ENEMY_MELEE_MAG:
+		case ENEMY_MELEE_MENT:
 	
 			// handle animation
 			stats.cur_frame++;
-			max_frame = stats.anim_magic_frames * stats.anim_magic_duration;
-			stats.disp_frame = (stats.cur_frame / stats.anim_magic_duration) + stats.anim_magic_position;
+			max_frame = stats.anim_ment_frames * stats.anim_ment_duration;
+			stats.disp_frame = (stats.cur_frame / stats.anim_ment_duration) + stats.anim_ment_position;
 
 			if (stats.cur_frame == 1) {
-				sfx_mag = true;
+				sfx_ment = true;
 			}
 			
 			// the attack hazard is alive for a single frame
 			if (stats.cur_frame == max_frame/2 && haz == NULL) {
-				powers->activate(stats.power_index[MELEE_MAG], &stats, pursue_pos);
-				stats.power_ticks[MELEE_MAG] = stats.power_cooldown[MELEE_MAG];
+				powers->activate(stats.power_index[MELEE_MENT], &stats, pursue_pos);
+				stats.power_ticks[MELEE_MENT] = stats.power_cooldown[MELEE_MENT];
 			}
 			
 			if (stats.cur_frame == max_frame-1) {
@@ -480,24 +480,24 @@ void Enemy::logic() {
 			}
 			break;
 
-		case ENEMY_RANGED_MAG:
+		case ENEMY_RANGED_MENT:
 		
 			// monsters turn to keep aim at the hero
 			stats.direction = face(pursue_pos.x, pursue_pos.y);
 	
 			// handle animation
 			stats.cur_frame++;
-			max_frame = stats.anim_magic_frames * stats.anim_magic_duration;
-			stats.disp_frame = (stats.cur_frame / stats.anim_magic_duration) + stats.anim_magic_position;
+			max_frame = stats.anim_ment_frames * stats.anim_ment_duration;
+			stats.disp_frame = (stats.cur_frame / stats.anim_ment_duration) + stats.anim_ment_position;
 
 			if (stats.cur_frame == 1) {
-				sfx_mag = true;
+				sfx_ment = true;
 			}
 			
 			// the attack hazard is alive for a single frame
 			if (stats.cur_frame == max_frame/2 && haz == NULL) {
-				powers->activate(stats.power_index[RANGED_MAG], &stats, pursue_pos);
-				stats.power_ticks[RANGED_MAG] = stats.power_cooldown[RANGED_MAG];
+				powers->activate(stats.power_index[RANGED_MENT], &stats, pursue_pos);
+				stats.power_ticks[RANGED_MENT] = stats.power_cooldown[RANGED_MENT];
 			}
 			
 			if (stats.cur_frame == max_frame-1) {

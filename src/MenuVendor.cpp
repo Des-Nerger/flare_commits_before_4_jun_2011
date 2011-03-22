@@ -57,8 +57,8 @@ void MenuVendor::loadGraphics() {
 
 void MenuVendor::loadMerchant(string filename) {
 	// TEMP: hardcoded items
-	stock[0] = 1; // health potion
-	stock[1] = 2; // mana potion
+	stock[0] = 1; // hp potion
+	stock[1] = 2; // mp potion
 	stock[2] = 100; // dagger
 	stock[3] = 300; // wand
 	stock[4] = 500; // slingshot

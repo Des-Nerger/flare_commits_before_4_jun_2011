@@ -33,7 +33,7 @@ const int ITEM_TYPE_CONSUMABLE = 4;
 const int ITEM_TYPE_GEM = 5;
 
 const int REQUIRES_PHYS = 0;
-const int REQUIRES_MAG = 1;
+const int REQUIRES_MENT = 1;
 const int REQUIRES_OFF = 2;
 const int REQUIRES_DEF = 3;
 

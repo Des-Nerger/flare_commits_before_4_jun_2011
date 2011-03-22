@@ -231,7 +231,7 @@ void LootManager::renderTooltips(Point cam) {
 
 /**
  * Enemies that drop loot raise a "loot_drop" flag to notify this loot
- * manager to create loot based on that creature's level and position.
+ * mpger to create loot based on that creature's level and position.
  */
 void LootManager::checkEnemiesForLoot() {
 	for (int i=0; i<enemies->enemy_count; i++) {

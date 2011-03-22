@@ -22,9 +22,9 @@ const int STAT_EFFECT_VENGEANCE = 1;
 
 const int POWERSLOT_COUNT = 4;
 const int MELEE_PHYS = 0;
-const int MELEE_MAG = 1;
+const int MELEE_MENT = 1;
 const int RANGED_PHYS = 2;
-const int RANGED_MAG = 3;
+const int RANGED_MENT = 3;
 
 
 class StatBlock {
@@ -58,13 +58,13 @@ public:
 	int offense;
 	int defense;
 	int physical;
-	int magical;
+	int mental;
 	
 	// derived stats
 	int physoff;
 	int physdef;
-	int magoff;
-	int magdef;
+	int mentoff;
+	int mentdef;
 	
 	// physical stats
 	int hp;
@@ -72,7 +72,7 @@ public:
 	int hp_per_minute;
 	int hp_ticker;
 
-	// magical stats
+	// mental stats
 	int mp;
 	int maxmp;
 	int mp_per_minute;
@@ -90,8 +90,8 @@ public:
 	// equipment stats	
 	int dmg_melee_min;
 	int dmg_melee_max;
-	int dmg_magic_min;
-	int dmg_magic_max;
+	int dmg_ment_min;
+	int dmg_ment_max;
 	int dmg_ranged_min;
 	int dmg_ranged_max;
 	int absorb_min;
@@ -163,9 +163,9 @@ public:
 	int anim_melee_position;
 	int anim_melee_frames;
 	int anim_melee_duration;
-	int anim_magic_position;
-	int anim_magic_frames;
-	int anim_magic_duration;
+	int anim_ment_position;
+	int anim_ment_frames;
+	int anim_ment_duration;
 	int anim_ranged_position;
 	int anim_ranged_frames;
 	int anim_ranged_duration;
@@ -188,7 +188,7 @@ public:
 	
 	// weapons can modify spells
 	int melee_weapon_power;
-	int magic_weapon_power;
+	int ment_weapon_power;
 	int ranged_weapon_power;
 	
 	bool mouse_move;

@@ -33,7 +33,7 @@ private:
 	
 	SDL_Surface *sprites[max_gfx];	
 	Mix_Chunk *sound_phys[max_sfx];
-	Mix_Chunk *sound_mag[max_sfx];
+	Mix_Chunk *sound_ment[max_sfx];
 	Mix_Chunk *sound_hit[max_sfx];
 	Mix_Chunk *sound_die[max_sfx];
 	Mix_Chunk *sound_critdie[max_sfx];

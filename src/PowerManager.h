@@ -1,7 +1,7 @@
 /**
  * class PowerManager
  *
- * Special code for handling spells, special powers, magic item effects, etc.
+ * Special code for handling spells, special powers, item effects, etc.
  *
  * @author Clint Bellanger
  * @license GPL
@@ -40,7 +40,7 @@ const int POWSTATE_BLOCK = 3;
 const int BASE_DAMAGE_NONE = 0;
 const int BASE_DAMAGE_MELEE = 1;
 const int BASE_DAMAGE_RANGED = 2;
-const int BASE_DAMAGE_MAGIC = 3;
+const int BASE_DAMAGE_MENT = 3;
 
 // this elemental list covers the western 4, eastern 5, and classic rpg light vs. shadow
 // TODO: user-defined element list?
@@ -80,7 +80,7 @@ struct Power {
 
 	// power requirements
 	bool requires_ammo;
-	bool requires_mana;
+	bool requires_mp;
 	bool requires_los; // line of sight
 	bool requires_empty_target; // target square must be empty
 	int requires_item;
@@ -107,7 +107,7 @@ struct Power {
 	bool use_hazard;
 	bool no_attack;
 	int radius;
-	int base_damage; // enum.  damage is powered by melee, ranged, magical weapon
+	int base_damage; // enum.  damage is powered by melee, ranged, mental weapon
 	int starting_pos; // enum. (source, target, or melee)
 	bool multitarget;
 	
@@ -144,7 +144,7 @@ struct Power {
 		face=false;
 		
 		requires_ammo = false;
-		requires_mana = false;
+		requires_mp = false;
 		requires_los = false;
 		requires_empty_target = false;
 		requires_item = -1;

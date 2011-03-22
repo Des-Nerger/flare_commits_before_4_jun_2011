@@ -29,9 +29,9 @@ const int ENEMY_STANCE = 0;
 const int ENEMY_MOVE = 1;
 const int ENEMY_CHARGE = 2;
 const int ENEMY_MELEE_PHYS = 3;
-const int ENEMY_MELEE_MAG = 4;
+const int ENEMY_MELEE_MENT = 4;
 const int ENEMY_RANGED_PHYS = 5;
-const int ENEMY_RANGED_MAG = 6;
+const int ENEMY_RANGED_MENT = 6;
 
 // interrupt states
 const int ENEMY_BLOCK = 7;
@@ -65,7 +65,7 @@ public:
 
 	// sound effects flags
 	bool sfx_phys;
-	bool sfx_mag;
+	bool sfx_ment;
 	
 	bool sfx_hit;
 	bool sfx_die;

@@ -32,7 +32,7 @@ Avatar::Avatar(PowerManager *_powers, InputState *_inp, MapIso *_map) {
 	stats.level = 1;
 	stats.xp = 0;
 	stats.physical = 1;
-	stats.magical = 1;
+	stats.mental = 1;
 	stats.offense = 1;
 	stats.defense = 1;
 	stats.speed = 14;
@@ -59,9 +59,9 @@ Avatar::Avatar(PowerManager *_powers, InputState *_inp, MapIso *_map) {
 	stats.anim_melee_position = 12;
 	stats.anim_melee_frames = 4;
 	stats.anim_melee_duration = 3;
-	stats.anim_magic_position = 24;
-	stats.anim_magic_frames = 4;
-	stats.anim_magic_duration = 3;
+	stats.anim_ment_position = 24;
+	stats.anim_ment_frames = 4;
+	stats.anim_ment_duration = 3;
 	stats.anim_ranged_position = 28;
 	stats.anim_ranged_frames = 4;
 	stats.anim_ranged_duration = 3;
@@ -327,7 +327,7 @@ void Avatar::logic(int actionbar_power, bool restrictPowerUse) {
 				target = screen_to_map(inp->mouse.x,  inp->mouse.y + powers->powers[actionbar_power].aim_assist, stats.pos.x, stats.pos.y);
 			
 				// check requirements
-				if (powers->powers[actionbar_power].requires_mana && stats.mp <= 0)
+				if (powers->powers[actionbar_power].requires_mp && stats.mp <= 0)
 					break;
 				if (powers->powers[actionbar_power].requires_ammo && !(stats.ammo_arrows || stats.ammo_stones))
 					break;
@@ -357,7 +357,7 @@ void Avatar::logic(int actionbar_power, bool restrictPowerUse) {
 					stats.cur_state = AVATAR_SHOOT;
 					break;
 				}
-				// handle magic powers
+				// handle ment powers
 				if (powers->powers[current_power].new_state == POWSTATE_CAST) {
 					stats.cur_frame = 0;
 					stats.cur_state = AVATAR_CAST;
@@ -415,7 +415,7 @@ void Avatar::logic(int actionbar_power, bool restrictPowerUse) {
 				target = screen_to_map(inp->mouse.x,  inp->mouse.y + powers->powers[actionbar_power].aim_assist, stats.pos.x, stats.pos.y);
 			
 				// check requirements
-				if (powers->powers[actionbar_power].requires_mana && stats.mp <= 0)
+				if (powers->powers[actionbar_power].requires_mp && stats.mp <= 0)
 					break;
 				if (powers->powers[actionbar_power].requires_ammo && !(stats.ammo_arrows || stats.ammo_stones))
 					break;
@@ -445,7 +445,7 @@ void Avatar::logic(int actionbar_power, bool restrictPowerUse) {
 					stats.cur_state = AVATAR_SHOOT;
 					break;
 				}
-				// handle magic powers
+				// handle ment powers
 				if (powers->powers[current_power].new_state == POWSTATE_CAST) {
 					stats.cur_frame = 0;
 					stats.cur_state = AVATAR_CAST;
@@ -489,8 +489,8 @@ void Avatar::logic(int actionbar_power, bool restrictPowerUse) {
 		
 			// handle animation
 			stats.cur_frame++;
-			max_frame = stats.anim_magic_frames * stats.anim_magic_duration;
-			stats.disp_frame = (stats.cur_frame / stats.anim_magic_duration) + stats.anim_magic_position;
+			max_frame = stats.anim_ment_frames * stats.anim_ment_duration;
+			stats.disp_frame = (stats.cur_frame / stats.anim_ment_duration) + stats.anim_ment_position;
 
 			// do power
 			if (stats.cur_frame == max_frame/2) {

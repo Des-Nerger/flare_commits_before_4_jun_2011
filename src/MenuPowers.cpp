@@ -66,10 +66,10 @@ bool MenuPowers::requirementsMet(int power_index) {
 			return (stats->physdef >= required_val);
 			break;
 		case 2:
-			return (stats->magoff >= required_val);
+			return (stats->mentoff >= required_val);
 			break;
 		case 3:
-			return (stats->magdef >= required_val);
+			return (stats->mentdef >= required_val);
 			break;			
 	}
 	return false;
@@ -112,8 +112,8 @@ void MenuPowers::render() {
 	font->render("Powers", offset_x+160, offset_y+8, JUSTIFY_CENTER, screen, FONT_WHITE);
 	font->render("Physical", offset_x+64, offset_y+50, JUSTIFY_CENTER, screen, FONT_WHITE);
 	font->render("Physical", offset_x+128, offset_y+50, JUSTIFY_CENTER, screen, FONT_WHITE);
-	font->render("Magical", offset_x+192, offset_y+50, JUSTIFY_CENTER, screen, FONT_WHITE);
-	font->render("Magical", offset_x+256, offset_y+50, JUSTIFY_CENTER, screen, FONT_WHITE);
+	font->render("Mental", offset_x+192, offset_y+50, JUSTIFY_CENTER, screen, FONT_WHITE);
+	font->render("Mental", offset_x+256, offset_y+50, JUSTIFY_CENTER, screen, FONT_WHITE);
 	font->render("Offense", offset_x+64, offset_y+66, JUSTIFY_CENTER, screen, FONT_WHITE);
 	font->render("Defense", offset_x+128, offset_y+66, JUSTIFY_CENTER, screen, FONT_WHITE);
 	font->render("Offense", offset_x+192, offset_y+66, JUSTIFY_CENTER, screen, FONT_WHITE);
@@ -128,17 +128,17 @@ void MenuPowers::render() {
 	ss << stats->physdef;
 	font->render(ss.str(), offset_x+128, offset_y+34, JUSTIFY_CENTER, screen, FONT_WHITE);
 	ss.str("");
-	ss << stats->magoff;
+	ss << stats->mentoff;
 	font->render(ss.str(), offset_x+192, offset_y+34, JUSTIFY_CENTER, screen, FONT_WHITE);
 	ss.str("");
-	ss << stats->magdef;
+	ss << stats->mentdef;
 	font->render(ss.str(), offset_x+256, offset_y+34, JUSTIFY_CENTER, screen, FONT_WHITE);
 	
 	// highlighting
 	displayBuild(stats->physoff, offset_x+48);
 	displayBuild(stats->physdef, offset_x+112);
-	displayBuild(stats->magoff, offset_x+176);
-	displayBuild(stats->magdef, offset_x+240);	
+	displayBuild(stats->mentoff, offset_x+176);
+	displayBuild(stats->mentdef, offset_x+240);	
 }
 
 /**
@@ -196,11 +196,11 @@ TooltipData MenuPowers::checkTooltip(Point mouse) {
 			return tip;
 		}
 		if (mouse.x >= offset_x+176 && mouse.x <= offset_x+208) {
-			tip.lines[tip.num_lines++] = "Magical + Offense grants elemental spell attacks";
+			tip.lines[tip.num_lines++] = "Mental + Offense grants elemental spell attacks";
 			return tip;
 		}
 		if (mouse.x >= offset_x+240 && mouse.x <= offset_x+272) {
-			tip.lines[tip.num_lines++] = "Magical + Defense grants healing and magic protection";
+			tip.lines[tip.num_lines++] = "Mental + Defense grants healing and magical protection";
 			return tip;
 		}
 	}
@@ -219,8 +219,8 @@ TooltipData MenuPowers::checkTooltip(Point mouse) {
 				if (required_val > 1) {
 					if (required_stat == 0) ss << "Physical Offense ";
 					else if (required_stat == 1) ss << "Physical Defense ";
-					else if (required_stat == 2) ss << "Magical Offense ";
-					else ss << "Magical Defense ";
+					else if (required_stat == 2) ss << "Mental Offense ";
+					else ss << "Mental Defense ";
 					ss << required_val;
 
 					if (!requirementsMet(i))

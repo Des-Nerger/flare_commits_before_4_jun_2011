@@ -15,9 +15,9 @@ threat_range=512
 dir_favor=12
 chance_pursue=10
 chance_melee_phys=8
-chance_melee_mag=0
+chance_melee_ment=0
 chance_ranged_phys=0
-chance_ranged_mag=0
+chance_ranged_ment=0
 power_melee_phys=1
 
 accuracy=69
@@ -25,8 +25,8 @@ avoidance=19
 
 dmg_melee_min=1
 dmg_melee_max=4
-dmg_magic_min=2
-dmg_magic_max=5
+dmg_ment_min=2
+dmg_ment_max=5
 cooldown=40
 
 # animation info
@@ -43,9 +43,9 @@ anim_run_duration=4
 anim_melee_position=12
 anim_melee_frames=4
 anim_melee_duration=6
-anim_magic_position=16
-anim_magic_frames=4
-anim_magic_duration=4
+anim_ment_position=16
+anim_ment_frames=4
+anim_ment_duration=4
 anim_ranged_position=16
 anim_ranged_frames=4
 anim_ranged_duration=4

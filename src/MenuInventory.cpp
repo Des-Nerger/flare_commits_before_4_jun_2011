@@ -216,8 +216,8 @@ bool MenuInventory::requirementsMet(int item) {
 		return (stats->physical >= items->items[item].req_val);
 		
 	}
-	else if (items->items[item].req_stat == REQUIRES_MAG) {
-		return (stats->magical >= items->items[item].req_val);
+	else if (items->items[item].req_stat == REQUIRES_MENT) {
+		return (stats->mental >= items->items[item].req_val);
 	}
 	else if (items->items[item].req_stat == REQUIRES_OFF) {
 		return (stats->offense >= items->items[item].req_val);

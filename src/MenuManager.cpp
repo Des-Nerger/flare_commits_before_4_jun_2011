@@ -23,7 +23,7 @@ MenuManager::MenuManager(PowerManager *_powers, SDL_Surface *_screen, InputState
 	chr = new MenuCharacter(screen, font, stats);
 	log = new MenuLog(screen, font);
 	act = new MenuActionBar(screen, font, inp, powers, icons);
-	hpmp = new MenuHealthMana(screen, font);
+	hpmp = new MenuHPMP(screen, font);
 	tip = new MenuTooltip(font, screen);
 	mini = new MenuMiniMap(screen);
 	xp = new MenuExperience(screen, font);
@@ -309,7 +309,7 @@ void MenuManager::logic() {
 				}
 			
 			}
-			else if (isWithin(vendor->slots_area, inp->mouse)) {
+			else if (vendor->visible && isWithin(vendor->slots_area, inp->mouse)) {
 				
 				// vendor sell item
 				inv->sell(drag_item);

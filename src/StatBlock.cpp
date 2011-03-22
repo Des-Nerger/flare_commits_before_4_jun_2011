@@ -18,8 +18,8 @@ StatBlock::StatBlock() {
 	targeted = 0;
 	
 	// core stats
-	offense = defense = physical = magical = 0;
-	physoff = physdef = magoff = magdef = 0;
+	offense = defense = physical = mental = 0;
+	physoff = physdef = mentoff = mentdef = 0;
 	level = 0;
 	hp = maxhp = hp_per_minute = hp_ticker = 0;
 	mp = maxmp = mp_per_minute = mp_ticker = 0;
@@ -33,8 +33,8 @@ StatBlock::StatBlock() {
 	// equipment stats	
 	dmg_melee_min = 1;
 	dmg_melee_max = 4;
-	dmg_magic_min = 0;
-	dmg_magic_max = 0;
+	dmg_ment_min = 0;
+	dmg_ment_max = 0;
 	dmg_ranged_min = 0;
 	dmg_ranged_max = 0;
 	absorb_min = 0;
@@ -96,7 +96,7 @@ StatBlock::StatBlock() {
 	
 	melee_weapon_power = -1;
 	ranged_weapon_power = -1;
-	magic_weapon_power = -1;
+	ment_weapon_power = -1;
 	
 	attunement_fire = 100;
 	attunement_ice = 100;
@@ -163,8 +163,8 @@ void StatBlock::load(string filename) {
 					else if (key == "avoidance") avoidance = num;
 					else if (key == "dmg_melee_min") dmg_melee_min = num;
 					else if (key == "dmg_melee_max") dmg_melee_max = num;
-					else if (key == "dmg_magic_min") dmg_magic_min = num;
-					else if (key == "dmg_magic_max") dmg_magic_max = num;
+					else if (key == "dmg_ment_min") dmg_ment_min = num;
+					else if (key == "dmg_ment_max") dmg_ment_max = num;
 					else if (key == "dmg_ranged_min") dmg_ranged_min = num;
 					else if (key == "dmg_ranged_max") dmg_ranged_max = num;
 					else if (key == "absorb_min") absorb_min = num;
@@ -178,17 +178,17 @@ void StatBlock::load(string filename) {
 					else if (key == "chance_flee") chance_flee = num;
 
 					else if (key == "chance_melee_phys") power_chance[MELEE_PHYS] = num;
-					else if (key == "chance_melee_mag") power_chance[MELEE_MAG] = num;
+					else if (key == "chance_melee_ment") power_chance[MELEE_MENT] = num;
 					else if (key == "chance_ranged_phys") power_chance[RANGED_PHYS] = num;
-					else if (key == "chance_ranged_mag") power_chance[RANGED_MAG] = num;
+					else if (key == "chance_ranged_ment") power_chance[RANGED_MENT] = num;
 					else if (key == "power_melee_phys") power_index[MELEE_PHYS] = num;
-					else if (key == "power_melee_mag") power_index[MELEE_MAG] = num;
+					else if (key == "power_melee_ment") power_index[MELEE_MENT] = num;
 					else if (key == "power_ranged_phys") power_index[RANGED_PHYS] = num;
-					else if (key == "power_ranged_mag") power_index[RANGED_MAG] = num;
+					else if (key == "power_ranged_ment") power_index[RANGED_MENT] = num;
 					else if (key == "cooldown_melee_phys") power_cooldown[MELEE_PHYS] = num;
-					else if (key == "cooldown_melee_mag") power_cooldown[MELEE_MAG] = num;
+					else if (key == "cooldown_melee_ment") power_cooldown[MELEE_MENT] = num;
 					else if (key == "cooldown_ranged_phys") power_cooldown[RANGED_PHYS] = num;
-					else if (key == "cooldown_ranged_mag") power_cooldown[RANGED_MAG] = num;
+					else if (key == "cooldown_ranged_ment") power_cooldown[RANGED_MENT] = num;
 					
 					else if (key == "melee_range") melee_range = num;
 					else if (key == "threat_range") threat_range = num;
@@ -210,9 +210,9 @@ void StatBlock::load(string filename) {
 					else if (key == "anim_melee_position") anim_melee_position = num;
 					else if (key == "anim_melee_frames") anim_melee_frames = num;
 					else if (key == "anim_melee_duration") anim_melee_duration = num;
-					else if (key == "anim_magic_position") anim_magic_position = num;
-					else if (key == "anim_magic_frames") anim_magic_frames = num;
-					else if (key == "anim_magic_duration") anim_magic_duration = num;
+					else if (key == "anim_ment_position") anim_ment_position = num;
+					else if (key == "anim_ment_frames") anim_ment_frames = num;
+					else if (key == "anim_ment_duration") anim_ment_duration = num;
 					else if (key == "anim_ranged_position")anim_ranged_position = num;
 					else if (key == "anim_ranged_frames") anim_ranged_frames = num;
 					else if (key == "anim_ranged_duration")anim_ranged_duration = num;
@@ -229,7 +229,7 @@ void StatBlock::load(string filename) {
 					else if (key == "anim_critdie_frames") anim_critdie_frames = num;
 					else if (key == "anim_critdie_duration") anim_critdie_duration = num;
 					else if (key == "melee_weapon_power") melee_weapon_power = num;
-					else if (key == "magic_weapon_power") magic_weapon_power = num;
+					else if (key == "ment_weapon_power") ment_weapon_power = num;
 					else if (key == "ranged_weapon_power") ranged_weapon_power = num;
 	
 				}
@@ -266,17 +266,17 @@ void StatBlock::takeDamage(int dmg) {
 void StatBlock::recalc() {
 
 	hp = maxhp = 4 + physical * 8;
-	mp = maxmp = 4 + magical * 8;
+	mp = maxmp = 4 + mental * 8;
 			
 	accuracy = 70 + offense * 5;
 	avoidance = 20 + defense * 5;
 	physoff = physical + offense;
 	physdef = physical + defense;
-	magoff = magical + offense;
-	magdef = magical + defense;
-	crit = physical + magical + offense + defense;
+	mentoff = mental + offense;
+	mentdef = mental + defense;
+	crit = physical + mental + offense + defense;
 	hp_per_minute = 6 + physical * 4;
-	mp_per_minute = 6 + magical * 4;
+	mp_per_minute = 6 + mental * 4;
 	
 	for (int i=1; i<17; i++) {
 		if (xp >= xp_table[i])
@@ -296,7 +296,7 @@ void StatBlock::logic() {
 		if (power_ticks[i] > 0) power_ticks[i]--;
 	}
 
-	// health regen
+	// HP regen
 	if (hp_per_minute > 0 && hp < maxhp && hp > 0) {
 		hp_ticker++;
 		if (hp_ticker >= (60 * FRAMES_PER_SEC)/hp_per_minute) {
@@ -305,7 +305,7 @@ void StatBlock::logic() {
 		}
 	}
 
-	// mana regen
+	// MP regen
 	if (mp_per_minute > 0 && mp < maxmp && hp > 0) {
 		mp_ticker++;
 		if (mp_ticker >= (60 * FRAMES_PER_SEC)/mp_per_minute) {

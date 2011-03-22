@@ -28,7 +28,7 @@ PowerManager::PowerManager() {
 	powers[POWER_FREEZE].description = "Create a ray of piercing cold that slows enemies";
 	powers[POWER_FREEZE].new_state = POWSTATE_CAST;
 	powers[POWER_FREEZE].face = true;
-	powers[POWER_FREEZE].requires_mana = true;
+	powers[POWER_FREEZE].requires_mp = true;
 	
 	powers[POWER_VENGEANCE].name = "Vengeance";
 	powers[POWER_VENGEANCE].type = POWTYPE_SINGLE;
@@ -36,7 +36,7 @@ PowerManager::PowerManager() {
 	powers[POWER_VENGEANCE].description = "After blocking, unlease a deadly and accurate counter-attack";
 	powers[POWER_VENGEANCE].new_state = POWSTATE_SWING;
 	powers[POWER_VENGEANCE].face = true;
-	powers[POWER_VENGEANCE].requires_mana = true;
+	powers[POWER_VENGEANCE].requires_mp = true;
 	
 	used_item=-1;
 	
@@ -113,8 +113,8 @@ void PowerManager::loadPowers() {
 					else if (key == "requires_ammo") {
 						if (val == "true") powers[input_id].requires_ammo = true;
 					}
-					else if (key == "requires_mana") {
-						if (val == "true") powers[input_id].requires_mana = true;
+					else if (key == "requires_mp") {
+						if (val == "true") powers[input_id].requires_mp = true;
 					}
 					else if (key == "requires_los") {
 						if (val == "true") powers[input_id].requires_los = true;
@@ -194,8 +194,8 @@ void PowerManager::loadPowers() {
 							powers[input_id].base_damage = BASE_DAMAGE_MELEE;
 						else if (val == "ranged")
 							powers[input_id].base_damage = BASE_DAMAGE_RANGED;
-						else if (val == "magic")
-							powers[input_id].base_damage = BASE_DAMAGE_MAGIC;
+						else if (val == "ment")
+							powers[input_id].base_damage = BASE_DAMAGE_MENT;
 					}
 					else if (key == "starting_pos") {
 						if (val == "source")
@@ -444,9 +444,9 @@ void PowerManager::initHazard(int power_index, StatBlock *src_stats, Point targe
 		haz->dmg_min = src_stats->dmg_ranged_min;
 		haz->dmg_max = src_stats->dmg_ranged_max;
 	}
-	else if (powers[power_index].base_damage == BASE_DAMAGE_MAGIC) {
-		haz->dmg_min = src_stats->dmg_magic_min;
-		haz->dmg_max = src_stats->dmg_magic_max;
+	else if (powers[power_index].base_damage == BASE_DAMAGE_MENT) {
+		haz->dmg_min = src_stats->dmg_ment_min;
+		haz->dmg_max = src_stats->dmg_ment_max;
 	}	
 	
 	// Only apply stats from powers that are not defaults
@@ -548,9 +548,9 @@ void PowerManager::initHazard(int power_index, StatBlock *src_stats, Point targe
 			haz->equipment_modified = true;
 			initHazard(src_stats->melee_weapon_power, src_stats, target, haz);
 		}
-		else if (powers[power_index].base_damage == BASE_DAMAGE_MAGIC && src_stats->magic_weapon_power != -1) {
+		else if (powers[power_index].base_damage == BASE_DAMAGE_MENT && src_stats->ment_weapon_power != -1) {
 			haz->equipment_modified = true;
-			initHazard(src_stats->magic_weapon_power, src_stats, target, haz);
+			initHazard(src_stats->ment_weapon_power, src_stats, target, haz);
 		}
 		else if (powers[power_index].base_damage == BASE_DAMAGE_RANGED && src_stats->ranged_weapon_power != -1) {
 			haz->equipment_modified = true;
@@ -565,30 +565,30 @@ void PowerManager::initHazard(int power_index, StatBlock *src_stats, Point targe
  */
 void PowerManager::buff(int power_index, StatBlock *src_stats, Point target) {
 
-	// heal for magic weapon damage
+	// heal for ment weapon damage
 	if (powers[power_index].buff_heal) {
-		if (src_stats->dmg_magic_max > src_stats->dmg_magic_min)
-			src_stats->hp += rand() % (src_stats->dmg_magic_max - src_stats->dmg_magic_min) + src_stats->dmg_magic_min;
+		if (src_stats->dmg_ment_max > src_stats->dmg_ment_min)
+			src_stats->hp += rand() % (src_stats->dmg_ment_max - src_stats->dmg_ment_min) + src_stats->dmg_ment_min;
 		else // avoid div by 0
-			src_stats->hp += src_stats->dmg_magic_min;
+			src_stats->hp += src_stats->dmg_ment_min;
 		if (src_stats->hp > src_stats->maxhp) src_stats->hp = src_stats->maxhp;
 	}
 	
-	// health restore
+	// hp restore
 	if (powers[power_index].buff_restore_hp > 0) {
 		src_stats->hp += powers[power_index].buff_restore_hp;
 		if (src_stats->hp > src_stats->maxhp) src_stats->hp = src_stats->maxhp;
 	}
 
-	// mana restore
+	// mp restore
 	if (powers[power_index].buff_restore_mp > 0) {
 		src_stats->mp += powers[power_index].buff_restore_mp;
 		if (src_stats->mp > src_stats->maxmp) src_stats->mp = src_stats->maxmp;
 	}
 	
-	// charge shield to max magic weapon damage
+	// charge shield to max ment weapon damage
 	if (powers[power_index].buff_shield) {
-		src_stats->shield_hp = src_stats->dmg_magic_max;	
+		src_stats->shield_hp = src_stats->dmg_ment_max;	
 	}
 	
 	// teleport to the target location
@@ -637,9 +637,9 @@ void PowerManager::playSound(int power_index, StatBlock *src_stats) {
 				&& powers[src_stats->melee_weapon_power].sfx_index != -1) {
 			Mix_PlayChannel(-1,sfx[powers[src_stats->melee_weapon_power].sfx_index],0);
 		}
-		else if (powers[power_index].base_damage == BASE_DAMAGE_MAGIC && src_stats->magic_weapon_power != -1 
-				&& powers[src_stats->magic_weapon_power].sfx_index != -1) {
-			Mix_PlayChannel(-1,sfx[powers[src_stats->magic_weapon_power].sfx_index],0);
+		else if (powers[power_index].base_damage == BASE_DAMAGE_MENT && src_stats->ment_weapon_power != -1 
+				&& powers[src_stats->ment_weapon_power].sfx_index != -1) {
+			Mix_PlayChannel(-1,sfx[powers[src_stats->ment_weapon_power].sfx_index],0);
 		}
 		else if (powers[power_index].base_damage == BASE_DAMAGE_RANGED && src_stats->ranged_weapon_power != -1 
 				&& powers[src_stats->ranged_weapon_power].sfx_index != -1) {
@@ -680,7 +680,7 @@ bool PowerManager::effect(int power_index, StatBlock *src_stats, Point target) {
 	playSound(power_index, src_stats);
 
 	// if all else succeeded, pay costs
-	if (powers[power_index].requires_mana) {
+	if (powers[power_index].requires_mp) {
 		src_stats->mp--;
 	}
 	used_item = powers[power_index].requires_item;
@@ -725,7 +725,7 @@ bool PowerManager::missile(int power_index, StatBlock *src_stats, Point target) 
 	hazards.push(haz);
 
 	// if all else succeeded, pay costs
-	if (powers[power_index].requires_mana) {
+	if (powers[power_index].requires_mp) {
 		src_stats->mp--;
 	}
 	used_item = powers[power_index].requires_item;
@@ -747,7 +747,7 @@ bool PowerManager::missileX3(int power_index, StatBlock *src_stats, Point target
 	playSound(power_index, src_stats);
 	
 	// pay costs
-	if (powers[power_index].requires_mana) {
+	if (powers[power_index].requires_mp) {
 		src_stats->mp--;
 	}
 	used_item = powers[power_index].requires_item;
@@ -862,8 +862,8 @@ bool PowerManager::groundRay(int power_index, StatBlock *src_stats, Point target
 			haz[i]->frame_loop = 20;
 			haz[i]->frame_duration = 3;
 			haz[i]->radius = 64;
-			haz[i]->dmg_min = src_stats->dmg_magic_min;
-			haz[i]->dmg_max = src_stats->dmg_magic_max;
+			haz[i]->dmg_min = src_stats->dmg_ment_min;
+			haz[i]->dmg_max = src_stats->dmg_ment_max;
 			haz[i]->sprites = freeze;
 			haz[i]->direction = rand() % 3;
 			haz[i]->complete_animation = true;

@@ -33,7 +33,7 @@ void GameEngine::saveGame() {
 		outfile << "xp=" << pc->stats.xp << "\n";
 		
 		// stat spec
-		outfile << "build=" << pc->stats.physical << "," << pc->stats.magical << "," << pc->stats.offense << "," << pc->stats.defense << "\n";
+		outfile << "build=" << pc->stats.physical << "," << pc->stats.mental << "," << pc->stats.offense << "," << pc->stats.defense << "\n";
 		
 		// current gold
 		outfile << "gold=" << menu->inv->gold << "\n";
@@ -121,7 +121,7 @@ void GameEngine::loadGame() {
 					else if (key == "build") {
 						val = val + ",";
 						pc->stats.physical = eatFirstInt(val, ',');
-						pc->stats.magical = eatFirstInt(val, ',');
+						pc->stats.mental = eatFirstInt(val, ',');
 						pc->stats.offense = eatFirstInt(val, ',');
 						pc->stats.defense = eatFirstInt(val, ',');
 					}

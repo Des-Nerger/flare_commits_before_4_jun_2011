@@ -132,7 +132,7 @@ void ItemDatabase::load() {
 						if (s == "p")
 							items[id].req_stat = REQUIRES_PHYS;
 						else if (s == "m")
-							items[id].req_stat = REQUIRES_MAG;
+							items[id].req_stat = REQUIRES_MENT;
 						else if (s == "o")
 							items[id].req_stat = REQUIRES_OFF;
 						else if (s == "d")
@@ -309,8 +309,8 @@ TooltipData ItemDatabase::getTooltip(int item, StatBlock *stats, bool vendor_vie
 		if (items[item].req_stat == REQUIRES_PHYS) {
 			ss << "Melee ";
 		}
-		else if (items[item].req_stat == REQUIRES_MAG) {
-			ss << "Magic ";
+		else if (items[item].req_stat == REQUIRES_MENT) {
+			ss << "Mental ";
 		}
 		else if (items[item].req_stat == REQUIRES_OFF) {
 			ss << "Ranged ";
@@ -365,9 +365,9 @@ TooltipData ItemDatabase::getTooltip(int item, StatBlock *stats, bool vendor_vie
 			ss << "Requires Physical " << items[item].req_val;
 			if (stats->physical < items[item].req_val) tip.colors[tip.num_lines] = FONT_RED;
 		}
-		else if (items[item].req_stat == REQUIRES_MAG) {
-			ss << "Requires Magical " << items[item].req_val;
-			if (stats->magical < items[item].req_val) tip.colors[tip.num_lines] = FONT_RED;
+		else if (items[item].req_stat == REQUIRES_MENT) {
+			ss << "Requires Mental " << items[item].req_val;
+			if (stats->mental < items[item].req_val) tip.colors[tip.num_lines] = FONT_RED;
 		}
 		else if (items[item].req_stat == REQUIRES_OFF) {
 			ss << "Requires Offense " << items[item].req_val;
@@ -419,8 +419,8 @@ void ItemDatabase::applyEquipment(StatBlock *stats, int equipped[4]) {
 
 	// defaults
 	stats->recalc();
-	stats->dmg_melee_min = stats->dmg_magic_min = 1;
-	stats->dmg_melee_max = stats->dmg_magic_max = 4;
+	stats->dmg_melee_min = stats->dmg_ment_min = 1;
+	stats->dmg_melee_max = stats->dmg_ment_max = 4;
 	stats->dmg_ranged_min = stats->dmg_ranged_max = 0;
 	stats->absorb_min = stats->absorb_max = 0;
 	stats->speed = 14;
@@ -438,10 +438,10 @@ void ItemDatabase::applyEquipment(StatBlock *stats, int equipped[4]) {
 			stats->dmg_melee_max = items[item_id].dmg_max;
 			stats->melee_weapon_power = items[item_id].power_mod;	
 		}
-		else if (items[item_id].req_stat == REQUIRES_MAG) {
-			stats->dmg_magic_min = items[item_id].dmg_min;
-			stats->dmg_magic_max = items[item_id].dmg_max;						
-			stats->magic_weapon_power = items[item_id].power_mod;	
+		else if (items[item_id].req_stat == REQUIRES_MENT) {
+			stats->dmg_ment_min = items[item_id].dmg_min;
+			stats->dmg_ment_max = items[item_id].dmg_max;						
+			stats->ment_weapon_power = items[item_id].power_mod;	
 		}
 	}
 	// off hand item
@@ -475,13 +475,13 @@ void ItemDatabase::applyEquipment(StatBlock *stats, int equipped[4]) {
 	for (int i=0; i<4; i++) {
 		item_id = equipped[i];
 		
-		if (items[item_id].bonus_stat == "health")
+		if (items[item_id].bonus_stat == "HP")
 			stats->maxhp += items[item_id].bonus_val;
-		else if (items[item_id].bonus_stat == "health regen")
+		else if (items[item_id].bonus_stat == "HP regen")
 			stats->hp_per_minute += items[item_id].bonus_val;
-		else if (items[item_id].bonus_stat == "mana")
+		else if (items[item_id].bonus_stat == "MP")
 			stats->maxmp += items[item_id].bonus_val;
-		else if (items[item_id].bonus_stat == "mana regen")
+		else if (items[item_id].bonus_stat == "MP regen")
 			stats->mp_per_minute += items[item_id].bonus_val;
 		else if (items[item_id].bonus_stat == "accuracy")
 			stats->accuracy += items[item_id].bonus_val;

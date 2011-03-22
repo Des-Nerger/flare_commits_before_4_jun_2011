@@ -64,12 +64,12 @@ void MenuCharacter::render() {
 	font->render("Name", 72, offset_y+34, JUSTIFY_RIGHT, screen, FONT_WHITE);
 	font->render("Level", 248, offset_y+34, JUSTIFY_RIGHT, screen, FONT_WHITE);
 	font->render("Physical", 40, offset_y+74, JUSTIFY_LEFT, screen, FONT_WHITE);
-	font->render("Magical", 40, offset_y+138, JUSTIFY_LEFT, screen, FONT_WHITE);
+	font->render("Mental", 40, offset_y+138, JUSTIFY_LEFT, screen, FONT_WHITE);
 	font->render("Offense", 40, offset_y+202, JUSTIFY_LEFT, screen, FONT_WHITE);
 	font->render("Defense", 40, offset_y+266, JUSTIFY_LEFT, screen, FONT_WHITE);
-	font->render("Total Health", 152, offset_y+106, JUSTIFY_RIGHT, screen, FONT_WHITE);
+	font->render("Total HP", 152, offset_y+106, JUSTIFY_RIGHT, screen, FONT_WHITE);
 	font->render("Regen", 248, offset_y+106, JUSTIFY_RIGHT, screen, FONT_WHITE);
-	font->render("Total Mana", 152, offset_y+170, JUSTIFY_RIGHT, screen, FONT_WHITE);
+	font->render("Total MP", 152, offset_y+170, JUSTIFY_RIGHT, screen, FONT_WHITE);
 	font->render("Regen", 248, offset_y+170, JUSTIFY_RIGHT, screen, FONT_WHITE);
 	font->render("Accuracy vs. Def 1", 152, offset_y+234, JUSTIFY_RIGHT, screen, FONT_WHITE);
 	font->render("vs. Def 5", 248, offset_y+234, JUSTIFY_RIGHT, screen, FONT_WHITE);
@@ -92,7 +92,7 @@ void MenuCharacter::render() {
 	ss << stats->physical;
 	font->render(ss.str(), 24, offset_y+74, JUSTIFY_CENTER, screen, FONT_WHITE);
 	ss.str("");
-	ss << stats->magical;
+	ss << stats->mental;
 	font->render(ss.str(), 24, offset_y+138, JUSTIFY_CENTER, screen, FONT_WHITE);
 	ss.str("");
 	ss << stats->offense;
@@ -125,10 +125,10 @@ void MenuCharacter::render() {
 	ss << (stats->avoidance - 20) << "%";
 	font->render(ss.str(), 268, offset_y+298, JUSTIFY_CENTER, screen, FONT_WHITE);	
 	ss.str("");
-	if (stats->dmg_melee_max >= stats->dmg_magic_max)
+	if (stats->dmg_melee_max >= stats->dmg_ment_max)
 		ss << stats->dmg_melee_min << "-" << stats->dmg_melee_max;
 	else
-		ss << stats->dmg_magic_min << "-" << stats->dmg_magic_max;
+		ss << stats->dmg_ment_min << "-" << stats->dmg_ment_max;
 	font->render(ss.str(), 144, offset_y+338, JUSTIFY_CENTER, screen, FONT_WHITE);	
 	ss.str("");
 	if (stats->dmg_ranged_max > 0)
@@ -154,14 +154,14 @@ void MenuCharacter::render() {
 	
 	// highlight proficiencies
 	displayProficiencies(stats->physical, offset_y+64);
-	displayProficiencies(stats->magical, offset_y+128);
+	displayProficiencies(stats->mental, offset_y+128);
 	displayProficiencies(stats->offense, offset_y+192);
 	displayProficiencies(stats->defense, offset_y+256);	
 	
 	
 	// if points are available, show the upgrade buttons
 	
-	int spent = stats->physical + stats->magical + stats->offense + stats->defense -4;
+	int spent = stats->physical + stats->mental + stats->offense + stats->defense -4;
 	
 	// check to see if there are skill points available
 	if (spent < stats->level-1) {
@@ -177,8 +177,8 @@ void MenuCharacter::render() {
 			dest.y = offset_y + 96;
 			SDL_BlitSurface(upgrade, &src, screen, &dest);
 		}
-		// magical
-		if (stats->magical < 5) { // && mouse.x >= 16 && mouse.y >= offset_y+160
+		// mental
+		if (stats->mental < 5) { // && mouse.x >= 16 && mouse.y >= offset_y+160
 			dest.y = offset_y + 160;
 			SDL_BlitSurface(upgrade, &src, screen, &dest);
 		}
@@ -244,15 +244,15 @@ TooltipData MenuCharacter::checkTooltip(Point mouse) {
 		return tip;
 	}
 	if (mouse.x >= 16 && mouse.x <= 80 && mouse.y >= offset_y+72 && mouse.y <= offset_y+88) {
-		tip.lines[tip.num_lines++] = "Physical (P) increases melee proficiency and total health";
+		tip.lines[tip.num_lines++] = "Physical (P) increases melee weapon proficiency and total HP";
 		return tip;
 	}
 	if (mouse.x >= 16 && mouse.x <= 80 && mouse.y >= offset_y+136 && mouse.y <= offset_y+152) {
-		tip.lines[tip.num_lines++] = "Magical (M) increases magic proficiency and total mana";
+		tip.lines[tip.num_lines++] = "Mental (M) increases mental weapon proficiency and total MP";
 		return tip;
 	}
 	if (mouse.x >= 16 && mouse.x <= 80 && mouse.y >= offset_y+200 && mouse.y <= offset_y+216) {
-		tip.lines[tip.num_lines++] = "Offense (O) increases ranged proficiency and accuracy";
+		tip.lines[tip.num_lines++] = "Offense (O) increases ranged weapon proficiency and accuracy";
 		return tip;
 	}
 	if (mouse.x >= 16 && mouse.x <= 80 && mouse.y >= offset_y+264 && mouse.y <= offset_y+280) {
@@ -286,48 +286,48 @@ TooltipData MenuCharacter::checkTooltip(Point mouse) {
 		return tip;
 	}
 	if (mouse.x >= 64 && mouse.x <= 184 && mouse.y >= offset_y+104 && mouse.y <= offset_y+120) {
-		tip.lines[tip.num_lines++] = "Each point of Physical grants +8 health";
+		tip.lines[tip.num_lines++] = "Each point of Physical grants +8 HP";
 		return tip;
 	}
 	if (mouse.x >= 208 && mouse.x <= 280 && mouse.y >= offset_y+104 && mouse.y <= offset_y+120) {
-		tip.lines[tip.num_lines++] = "Ticks of health regen per minute";
-		tip.lines[tip.num_lines++] = "Each point of Physical grants +4 health regen";
+		tip.lines[tip.num_lines++] = "Ticks of HP regen per minute";
+		tip.lines[tip.num_lines++] = "Each point of Physical grants +4 HP regen";
 		return tip;
 	}
 
 		
-	// Magical
+	// Mental
 	if (mouse.x >= 128 && mouse.x <= 160 && mouse.y >= offset_y+128 && mouse.y <= offset_y+160) {
 		tip.lines[tip.num_lines++] = "Wand Proficiency";
-		if (stats->magical < 2) tip.colors[tip.num_lines] = FONT_RED;
-		tip.lines[tip.num_lines++] = "Requires Magical 2";
+		if (stats->mental < 2) tip.colors[tip.num_lines] = FONT_RED;
+		tip.lines[tip.num_lines++] = "Requires Mental 2";
 		return tip;
 	}
 	if (mouse.x >= 176 && mouse.x <= 208 && mouse.y >= offset_y+128 && mouse.y <= offset_y+160) {
 		tip.lines[tip.num_lines++] = "Rod Proficiency";
-		if (stats->magical < 3) tip.colors[tip.num_lines] = FONT_RED;
-		tip.lines[tip.num_lines++] = "Requires Magical 3";
+		if (stats->mental < 3) tip.colors[tip.num_lines] = FONT_RED;
+		tip.lines[tip.num_lines++] = "Requires Mental 3";
 		return tip;
 	}
 	if (mouse.x >= 224 && mouse.x <= 256 && mouse.y >= offset_y+128 && mouse.y <= offset_y+160) {
 		tip.lines[tip.num_lines++] = "Staff Proficiency";
-		if (stats->magical < 4) tip.colors[tip.num_lines] = FONT_RED;
-		tip.lines[tip.num_lines++] = "Requires Magical 4";
+		if (stats->mental < 4) tip.colors[tip.num_lines] = FONT_RED;
+		tip.lines[tip.num_lines++] = "Requires Mental 4";
 		return tip;
 	}
 	if (mouse.x >= 272 && mouse.x <= 304 && mouse.y >= offset_y+128 && mouse.y <= offset_y+160) {
 		tip.lines[tip.num_lines++] = "Greatstaff Proficiency";
-		if (stats->magical < 5) tip.colors[tip.num_lines] = FONT_RED;
-		tip.lines[tip.num_lines++] = "Requires Magical 5";
+		if (stats->mental < 5) tip.colors[tip.num_lines] = FONT_RED;
+		tip.lines[tip.num_lines++] = "Requires Mental 5";
 		return tip;
 	}		
 	if (mouse.x >= 64 && mouse.x <= 184 && mouse.y >= offset_y+168 && mouse.y <= offset_y+184) {
-		tip.lines[tip.num_lines++] = "Each point of Magical grants +8 mana";
+		tip.lines[tip.num_lines++] = "Each point of Mental grants +8 MP";
 		return tip;
 	}
 	if (mouse.x >= 208 && mouse.x <= 280 && mouse.y >= offset_y+168 && mouse.y <= offset_y+184) {
-		tip.lines[tip.num_lines++] = "Ticks of mana regen per minute";
-		tip.lines[tip.num_lines++] = "Each point of Magical grants +4 mana regen";
+		tip.lines[tip.num_lines++] = "Ticks of MP regen per minute";
+		tip.lines[tip.num_lines++] = "Each point of Mental grants +4 MP regen";
 		return tip;
 	}
 		
@@ -404,7 +404,7 @@ TooltipData MenuCharacter::checkTooltip(Point mouse) {
  */
 bool MenuCharacter::checkUpgrade(Point mouse) {
 
-	int spent = stats->physical + stats->magical + stats->offense + stats->defense -4;
+	int spent = stats->physical + stats->mental + stats->offense + stats->defense -4;
 	
 	// check to see if there are skill points available
 	if (spent < stats->level-1) {
@@ -418,9 +418,9 @@ bool MenuCharacter::checkUpgrade(Point mouse) {
 			stats->recalc(); // equipment applied by MenuManager
 			return true;
 		}
-		// magical
-		else if (stats->magical < 5 && mouse.x >= 16 && mouse.x <= 48 && mouse.y >= offset_y+160 && mouse.y <= offset_y+176) {
-			stats->magical++;
+		// mental
+		else if (stats->mental < 5 && mouse.x >= 16 && mouse.x <= 48 && mouse.y >= offset_y+160 && mouse.y <= offset_y+176) {
+			stats->mental++;
 			stats->recalc(); // equipment applied by MenuManager
 			return true;		
 		}
