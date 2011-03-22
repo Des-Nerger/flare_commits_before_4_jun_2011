@@ -39,8 +39,9 @@ StatBlock::StatBlock() {
 	dmg_ranged_max = 0;
 	absorb_min = 0;
 	absorb_max = 0;
-	ammo_stones = false;
-	ammo_arrows = false;
+	wielding_physical = false;
+	wielding_mental = false;
+	wielding_offense = false;
 	
 	// buff and debuff stats
 	slow_duration = 0;
@@ -96,7 +97,7 @@ StatBlock::StatBlock() {
 	
 	melee_weapon_power = -1;
 	ranged_weapon_power = -1;
-	ment_weapon_power = -1;
+	mental_weapon_power = -1;
 	
 	attunement_fire = 100;
 	attunement_ice = 100;
@@ -229,7 +230,7 @@ void StatBlock::load(string filename) {
 					else if (key == "anim_critdie_frames") anim_critdie_frames = num;
 					else if (key == "anim_critdie_duration") anim_critdie_duration = num;
 					else if (key == "melee_weapon_power") melee_weapon_power = num;
-					else if (key == "ment_weapon_power") ment_weapon_power = num;
+					else if (key == "mental_weapon_power") mental_weapon_power = num;
 					else if (key == "ranged_weapon_power") ranged_weapon_power = num;
 	
 				}

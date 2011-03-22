@@ -79,7 +79,9 @@ struct Power {
 	bool face; // does the user turn to face the mouse cursor when using this power?
 
 	// power requirements
-	bool requires_ammo;
+	bool requires_physical_weapon;
+	bool requires_offense_weapon;
+	bool requires_mental_weapon;
 	bool requires_mp;
 	bool requires_los; // line of sight
 	bool requires_empty_target; // target square must be empty
@@ -113,6 +115,7 @@ struct Power {
 	
 	int trait_elemental; // enum. of elements
 	bool trait_armor_penetration;
+	int trait_crits_impaired; // crit bonus vs. movement impaired enemies (slowed, immobilized, stunned)
 	
 	int bleed_duration;
 	int stun_duration;
@@ -143,7 +146,10 @@ struct Power {
 		new_state = -1;
 		face=false;
 		
-		requires_ammo = false;
+		requires_physical_weapon = false;
+		requires_offense_weapon = false;
+		requires_mental_weapon = false;
+		
 		requires_mp = false;
 		requires_los = false;
 		requires_empty_target = false;
@@ -174,6 +180,7 @@ struct Power {
 
 		trait_elemental = -1;
 		trait_armor_penetration = false;
+		trait_crits_impaired = 0;
 		
 		bleed_duration = 0;
 		stun_duration = 0;

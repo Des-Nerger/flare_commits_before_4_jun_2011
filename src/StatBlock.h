@@ -96,7 +96,9 @@ public:
 	int dmg_ranged_max;
 	int absorb_min;
 	int absorb_max;	
-	bool ammo_stones;
+	bool wielding_physical;
+	bool wielding_mental;
+	bool wielding_offense;
 	bool ammo_arrows;
 	int attunement_fire;
 	int attunement_ice;
@@ -188,7 +190,7 @@ public:
 	
 	// weapons can modify spells
 	int melee_weapon_power;
-	int ment_weapon_power;
+	int mental_weapon_power;
 	int ranged_weapon_power;
 	
 	bool mouse_move;

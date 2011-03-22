@@ -77,6 +77,7 @@ public:
 	int bleed_duration;
 	
 	bool trait_armor_penetration;
+	int trait_crits_impaired;
 	int trait_elemental;
 	
 	// pre/post power effects

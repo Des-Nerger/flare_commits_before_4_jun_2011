@@ -110,8 +110,14 @@ void PowerManager::loadPowers() {
 					}
 					
 					// power requirements
-					else if (key == "requires_ammo") {
-						if (val == "true") powers[input_id].requires_ammo = true;
+					else if (key == "requires_physical_weapon") {
+						if (val == "true") powers[input_id].requires_physical_weapon = true;
+					}
+					else if (key == "requires_mental_weapon") {
+						if (val == "true") powers[input_id].requires_mental_weapon = true;
+					}
+					else if (key == "requires_offense_weapon") {
+						if (val == "true") powers[input_id].requires_offense_weapon = true;
 					}
 					else if (key == "requires_mp") {
 						if (val == "true") powers[input_id].requires_mp = true;
@@ -210,6 +216,9 @@ void PowerManager::loadPowers() {
 					}
 					else if (key == "trait_armor_penetration") {
 						if (val == "true") powers[input_id].trait_armor_penetration = true;
+					}
+					else if (key == "trait_crits_impaired") {
+						powers[input_id].trait_crits_impaired = atoi(val.c_str());
 					}
 					else if (key == "trait_elemental") {
 						if (val == "wood") powers[input_id].trait_elemental = ELEMENT_WOOD;
@@ -510,6 +519,7 @@ void PowerManager::initHazard(int power_index, StatBlock *src_stats, Point targe
 	if (powers[power_index].trait_armor_penetration) {
 		haz->trait_armor_penetration = true;
 	}
+	haz->trait_crits_impaired = powers[power_index].trait_crits_impaired;
 	if (powers[power_index].trait_elemental) {
 		haz->trait_elemental = powers[power_index].trait_elemental;
 	}
@@ -548,9 +558,9 @@ void PowerManager::initHazard(int power_index, StatBlock *src_stats, Point targe
 			haz->equipment_modified = true;
 			initHazard(src_stats->melee_weapon_power, src_stats, target, haz);
 		}
-		else if (powers[power_index].base_damage == BASE_DAMAGE_MENT && src_stats->ment_weapon_power != -1) {
+		else if (powers[power_index].base_damage == BASE_DAMAGE_MENT && src_stats->mental_weapon_power != -1) {
 			haz->equipment_modified = true;
-			initHazard(src_stats->ment_weapon_power, src_stats, target, haz);
+			initHazard(src_stats->mental_weapon_power, src_stats, target, haz);
 		}
 		else if (powers[power_index].base_damage == BASE_DAMAGE_RANGED && src_stats->ranged_weapon_power != -1) {
 			haz->equipment_modified = true;
@@ -637,9 +647,9 @@ void PowerManager::playSound(int power_index, StatBlock *src_stats) {
 				&& powers[src_stats->melee_weapon_power].sfx_index != -1) {
 			Mix_PlayChannel(-1,sfx[powers[src_stats->melee_weapon_power].sfx_index],0);
 		}
-		else if (powers[power_index].base_damage == BASE_DAMAGE_MENT && src_stats->ment_weapon_power != -1 
-				&& powers[src_stats->ment_weapon_power].sfx_index != -1) {
-			Mix_PlayChannel(-1,sfx[powers[src_stats->ment_weapon_power].sfx_index],0);
+		else if (powers[power_index].base_damage == BASE_DAMAGE_MENT && src_stats->mental_weapon_power != -1 
+				&& powers[src_stats->mental_weapon_power].sfx_index != -1) {
+			Mix_PlayChannel(-1,sfx[powers[src_stats->mental_weapon_power].sfx_index],0);
 		}
 		else if (powers[power_index].base_damage == BASE_DAMAGE_RANGED && src_stats->ranged_weapon_power != -1 
 				&& powers[src_stats->ranged_weapon_power].sfx_index != -1) {

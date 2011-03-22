@@ -41,6 +41,8 @@ Enemy::Enemy(PowerManager *_powers, MapIso *_map) {
  */
 bool Enemy::move() {
 
+	if (stats.immobilize_duration > 0) return false;
+
 	int speed_diagonal = stats.dspeed;
 	int speed_straight = stats.speed;
 	
@@ -605,7 +607,11 @@ bool Enemy::takeHit(Hazard h) {
 		}
 
 		// check for crits
-		bool crit = (rand() % 100) < h.crit_chance;
+		int true_crit_chance = h.crit_chance;
+		if (stats.stun_duration > 0 || stats.immobilize_duration > 0 || stats.slow_duration > 0)
+			true_crit_chance += h.trait_crits_impaired;
+			
+		bool crit = (rand() % 100) < true_crit_chance;
 		if (crit) {
 			dmg = dmg + h.dmg_max;
 			map->shaky_cam_ticks = FRAMES_PER_SEC/2;

@@ -8,7 +8,7 @@ icon=0
 description=Basic ranged attack (requires a ranged weapon)
 new_state=shoot
 face=true
-requires_ammo=true
+requires_offense_weapon=true
 base_damage=ranged
 aim_assist=32
 allow_power_mod=true
@@ -30,24 +30,58 @@ radius=64
 starting_pos=melee
 allow_power_mod=true
 
-
 [power]
 id=2
-name=Lore
+name=Channel
+type=missile
 icon=2
-description=Reveal hidden information about an object or area (NYI)
+description=Channel a bolt of magic through your mental weapon for zero MP
+new_state=swing
+requires_mental_weapon=true
+face=true
+directional=true
+gfx=channel.png
+use_hazard=true
+rendered=true
+aim_assist=32
+base_damage=ment
+lifespan=8
+radius=64
+speed=24
+frame_loop=0
+frame_duration=2
+frame_size=64,64
+frame_offset=32,64
+starting_pos=melee
 
 [power]
 id=3
-name=Return
+name=Block
 icon=3
-description=Warp to your chosen Sanctuary (NYI)
+description=Raise your shield to double your avoidance and absorb
+new_state=block
+face=true
 
 [power]
 id=4
+name=Immobilize
+type=missile
+icon=4
+description=Pin an enemy down for 3 seconds
+new_state=shoot
+face=true
+requires_offense_weapon=true
+requires_mp=true
+base_damage=ranged
+aim_assist=32
+allow_power_mod=true
+immobilize_duration=90
+
+[power]
+id=5
 name=Blood Strike
 type=effect
-icon=4
+icon=5
 description=Inflict a bleeding wound that causes additional damage over 5 seconds
 new_state=swing
 face=true
@@ -63,19 +97,11 @@ post_power=127
 allow_power_mod=true
 
 [power]
-id=5
-name=Block
-icon=5
-description=Raise your shield to double your avoidance and absorb
-new_state=block
-face=true
-
-[power]
 id=6
 name=Shock
 type=missile
 icon=6
-description=Channel a bolt of magic through your mental weapon
+description=Electrocute an enemy from a distance; +25% crit chance against movement-impaired enemies.
 new_state=cast
 requires_mp=true
 face=true
@@ -94,6 +120,7 @@ frame_duration=1
 frame_size=64,64
 frame_offset=32,64
 trait_elemental=wind
+trait_crits_impaired=25
 post_power=126
 wall_power=126
 
@@ -121,16 +148,18 @@ buff_heal=true
 
 [power]
 id=8
-name=Multishot
-type=missileX3
+name=Piercing Shot
+type=missile
 icon=8
-description=Shoot three projectiles simultaneously (requires a ranged weapon)
+description=Fire a shot that ignores armor and goes through multiple enemies
 new_state=shoot
 face=true
-requires_ammo=true
+requires_offense_weapon=true
 requires_mp=true
+multitarget=true
 base_damage=ranged
 aim_assist=32
+trait_armor_penetrating=true
 allow_power_mod=true
 
 [power]
@@ -186,9 +215,20 @@ buff_shield=true
 
 [power]
 id=12
+name=Haste
+icon=12
+description=Double run and attack speed for 8 seconds
+type=effect
+new_state=cast
+face=false
+requires_mp=true
+haste_duration=240
+
+[power]
+id=13
 name=Cleave
 type=effect
-icon=12
+icon=13
 description=Attack all enemies in a wide arc
 new_state=swing
 face=true
@@ -201,17 +241,6 @@ lifespan=1
 radius=128
 starting_pos=melee
 allow_power_mod=true
-
-[power]
-id=13
-name=Haste
-icon=13
-description=Double run and attack speed for 8 seconds
-type=effect
-new_state=cast
-face=false
-requires_mp=true
-haste_duration=240
 
 [power]
 id=15
@@ -238,19 +267,19 @@ buff_teleport=true
 
 [power]
 id=16
-name=Piercing Shot
-type=missile
+name=Multishot
+type=missileX3
 icon=16
-description=Fire a shot that ignores armor and goes through multiple enemies
+description=Shoot three projectiles simultaneously (requires a ranged weapon)
 new_state=shoot
 face=true
-requires_ammo=true
+requires_offense_weapon=true
 requires_mp=true
-multitarget=true
-trait_armor_penetrating=true
 base_damage=ranged
 aim_assist=32
 allow_power_mod=true
+
+
 
 
 [power]
@@ -519,7 +548,7 @@ sfx=shoot.ogg
 use_hazard=true
 rendered=true
 aim_assist=32
-requires_ammo=true
+requires_offense_weapon=true
 base_damage=ranged
 lifespan=20
 radius=64
@@ -541,7 +570,7 @@ sfx=shoot.ogg
 use_hazard=true
 rendered=true
 aim_assist=32
-requires_ammo=true
+requires_offense_weapon=true
 base_damage=ranged
 lifespan=20
 radius=64

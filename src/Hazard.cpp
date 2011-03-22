@@ -40,6 +40,7 @@ Hazard::Hazard() {
 	slow_duration=0;
 	bleed_duration=0;
 	trait_armor_penetration = false;
+	trait_crits_impaired = 0;
 	trait_elemental = -1;
 	remove_now = false;
 	post_power = -1;

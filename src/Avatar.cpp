@@ -152,6 +152,8 @@ bool Avatar::pressing_move() {
  */
 bool Avatar::move() {
 
+	if (stats.immobilize_duration > 0) return false;
+
 	int speed_diagonal = stats.dspeed;
 	int speed_straight = stats.speed;
 	
@@ -329,7 +331,11 @@ void Avatar::logic(int actionbar_power, bool restrictPowerUse) {
 				// check requirements
 				if (powers->powers[actionbar_power].requires_mp && stats.mp <= 0)
 					break;
-				if (powers->powers[actionbar_power].requires_ammo && !(stats.ammo_arrows || stats.ammo_stones))
+				if (powers->powers[actionbar_power].requires_physical_weapon && !stats.wielding_physical)
+					break;
+				if (powers->powers[actionbar_power].requires_mental_weapon && !stats.wielding_mental)
+					break;
+				if (powers->powers[actionbar_power].requires_offense_weapon && !stats.wielding_offense)
 					break;
 				if (powers->powers[actionbar_power].requires_los && !map->collider.line_of_sight(stats.pos.x, stats.pos.y, target.x, target.y))
 					break;
@@ -417,7 +423,11 @@ void Avatar::logic(int actionbar_power, bool restrictPowerUse) {
 				// check requirements
 				if (powers->powers[actionbar_power].requires_mp && stats.mp <= 0)
 					break;
-				if (powers->powers[actionbar_power].requires_ammo && !(stats.ammo_arrows || stats.ammo_stones))
+				if (powers->powers[actionbar_power].requires_physical_weapon && !stats.wielding_physical)
+					break;
+				if (powers->powers[actionbar_power].requires_mental_weapon && !stats.wielding_mental)
+					break;
+				if (powers->powers[actionbar_power].requires_offense_weapon && !stats.wielding_offense)
 					break;
 				if (powers->powers[actionbar_power].requires_los && !map->collider.line_of_sight(stats.pos.x, stats.pos.y, target.x, target.y))
 					break;

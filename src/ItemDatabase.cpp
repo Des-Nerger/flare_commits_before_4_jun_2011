@@ -427,8 +427,7 @@ void ItemDatabase::applyEquipment(StatBlock *stats, int equipped[4]) {
 	stats->dspeed = 10;
 	stats->attunement_fire = 100;
 	stats->attunement_ice = 100;
-	stats->ammo_stones = false;
-	stats->ammo_arrows = false;
+
 
 	// main hand weapon
 	int item_id = equipped[SLOT_MAIN];
@@ -436,12 +435,14 @@ void ItemDatabase::applyEquipment(StatBlock *stats, int equipped[4]) {
 		if (items[item_id].req_stat == REQUIRES_PHYS) {
 			stats->dmg_melee_min = items[item_id].dmg_min;
 			stats->dmg_melee_max = items[item_id].dmg_max;
-			stats->melee_weapon_power = items[item_id].power_mod;	
+			stats->melee_weapon_power = items[item_id].power_mod;
+			stats->wielding_physical = true;
 		}
 		else if (items[item_id].req_stat == REQUIRES_MENT) {
 			stats->dmg_ment_min = items[item_id].dmg_min;
 			stats->dmg_ment_max = items[item_id].dmg_max;						
-			stats->ment_weapon_power = items[item_id].power_mod;	
+			stats->mental_weapon_power = items[item_id].power_mod;	
+			stats->wielding_mental = true;
 		}
 	}
 	// off hand item
@@ -450,14 +451,8 @@ void ItemDatabase::applyEquipment(StatBlock *stats, int equipped[4]) {
 		if (items[item_id].req_stat == REQUIRES_OFF) {
 			stats->dmg_ranged_min = items[item_id].dmg_min;
 			stats->dmg_ranged_max = items[item_id].dmg_max;
-			stats->ranged_weapon_power = items[item_id].power_mod;	
-			
-			// setup ammo so that PowerManager knows what animation to use
-			if (items[item_id].req_val == 2) // slingshot
-				stats->ammo_stones = true;
-			else
-				stats->ammo_arrows = true;
-				
+			stats->ranged_weapon_power = items[item_id].power_mod;
+			stats->wielding_offense = true;
 		}
 		else if (items[item_id].req_stat == REQUIRES_DEF) {
 			stats->absorb_min += items[item_id].abs_min;
