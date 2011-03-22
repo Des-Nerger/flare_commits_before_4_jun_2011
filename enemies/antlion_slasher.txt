@@ -15,7 +15,7 @@ threat_range=512
 dir_favor=8
 chance_pursue=10
 chance_melee_phys=10
-power_melee_phys=4
+power_melee_phys=5
 
 accuracy=84
 avoidance=34

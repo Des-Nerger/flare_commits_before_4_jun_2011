@@ -17,7 +17,7 @@ chance_pursue=30
 chance_melee_phys=12
 chance_melee_ment=4
 power_melee_phys=1
-power_melee_ment=4
+power_melee_ment=5
 
 accuracy=78
 avoidance=28
