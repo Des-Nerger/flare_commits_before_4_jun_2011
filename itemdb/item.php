@@ -128,7 +128,7 @@ where items.id = ?
           echo "Requires ";
           
           if ($row["req_stat"] == "p") echo "Physical";
-          else if ($row["req_stat"] == "m") echo "Magical";
+          else if ($row["req_stat"] == "m") echo "Mental";
           else if ($row["req_stat"] == "o") echo "Offense";
           else if ($row["req_stat"] == "d") echo "Defense";
         

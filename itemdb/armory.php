@@ -115,7 +115,7 @@ order by items.id
 	  if (!is_null($row["req_stat"])) {
 	    if ($row["req_val"] > 1) {
 	      if ($row["req_stat"] == "p") echo "Physical";
-	      if ($row["req_stat"] == "m") echo "Magical";
+	      if ($row["req_stat"] == "m") echo "Mental";
 	      if ($row["req_stat"] == "o") echo "Offense";
 	      if ($row["req_stat"] == "d") echo "Defense";
 		
