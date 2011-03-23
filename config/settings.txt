@@ -1,0 +1,17 @@
+#
+# Global Settings
+#
+
+# fullscreen mode.  0 for windowed, 1 for fullscreen
+fullscreen=1
+
+# screen resolution.  This increases field of view; the art does not scale.
+# The menus assume a minimum viewport of 640x480.
+resolution_w=720
+resolution_h=480
+
+# upper limit for frames per second.  All animations assume this fps.
+frames_per_sec=30
+
+# background music volume.  Ranged is 0 (silent) to 128 (max)
+music_volume=128

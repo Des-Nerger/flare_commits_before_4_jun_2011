@@ -22,10 +22,9 @@ SDL_Surface *screen;
 InputState *inps;
 GameSwitcher *gswitch;
 
-bool FULLSCREEN;
-
 static void init() {
-	/* SDL Inits */
+
+	// SDL Inits
 	if ( SDL_Init (SDL_INIT_VIDEO | SDL_INIT_AUDIO) < 0 ) {		
         fprintf(stderr, "Couldn't initialize SDL: %s\n", SDL_GetError());
 		exit(1);
@@ -36,18 +35,17 @@ static void init() {
 	flags = SDL_HWSURFACE | SDL_DOUBLEBUF;
     if (FULLSCREEN) flags = flags | SDL_FULLSCREEN;
 	
-	
 	// Create window
 	screen = SDL_SetVideoMode (VIEW_W, VIEW_H, 0, flags);
 	if (screen == NULL) {
 		
-        fprintf (stderr, "Couldn't set OpenGL video mode: %s\n", SDL_GetError());
+        fprintf (stderr, "Error during SDL_SetVideoMode: %s\n", SDL_GetError());
 		SDL_Quit();
-		exit(2);
+		exit(1);
 	}
 	
 	if (Mix_OpenAudio(22050, AUDIO_S16, 2, 1024)) {
-		fprintf (stderr, "Unable to OpenAudio: %s\n", SDL_GetError());
+		fprintf (stderr, "Error during Mix_OpenAudio: %s\n", SDL_GetError());
 		SDL_Quit();
 		exit(1);
 	}
@@ -93,16 +91,16 @@ static void mainLoop () {
 
 int main(int argc, char *argv[])
 {
-
+	
 	srand((unsigned int)time(NULL));
-	for (int i=0; i<argc; i++) {
-		if (strcmp(argv[i], "-f") == 0 || strcmp(argv[i], "--fullscreen") == 0) {
-			FULLSCREEN = true;
-		}
-	}
 
+	if (!loadSettings()) {
+		fprintf(stderr, "Error: could not load config/settings.txt. Check your permissions and working directory.");
+		return 1;
+	}
+	
 	init();
-	mainLoop ();
+	mainLoop();
 	
 	// cleanup
 	// TODO: halt all sounds here before freeing music/chunks

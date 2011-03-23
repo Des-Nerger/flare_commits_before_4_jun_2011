@@ -64,6 +64,7 @@ Set (FLARE_SOURCES
 	../src/NPCManager.cpp
 	../src/PowerManager.cpp
 	../src/SaveLoad.cpp
+	../src/Settings.cpp
 	../src/StatBlock.cpp
 	../src/TileSet.cpp
 	../src/Utils.cpp

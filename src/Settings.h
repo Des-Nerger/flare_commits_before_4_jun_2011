@@ -8,22 +8,28 @@
 #ifndef SETTINGS_H
 #define SETTINGS_H
 
-const int UNITS_PER_TILE = 64;
-const int TILE_SHIFT = 6; // for fast bitshift divides
-const int UNITS_PER_PIXEL_X = 2;
-const int UNITS_PER_PIXEL_Y = 4;
-const int TILE_W = 64;
-const int TILE_H = 32;
-const int TILE_W_HALF = TILE_W/2;
-const int TILE_H_HALF = TILE_H/2;
+// Audio and Video Settings
+extern int MUSIC_VOLUME;
+extern bool FULLSCREEN;
+extern int FRAMES_PER_SEC;
+extern int VIEW_W;
+extern int VIEW_H;
+extern int VIEW_W_HALF;
+extern int VIEW_H_HALF;
 
-const int FRAMES_PER_SEC = 30;
-const int VIEW_W = 720;
-const int VIEW_H = 480;
-const int VIEW_W_HALF = VIEW_W/2;
-const int VIEW_H_HALF = VIEW_H/2;
+// Engine Settings
+extern bool MENUS_PAUSE;
 
-const int MUSIC_VOLUME = 64;
-const bool MENUS_PAUSE = false;
+// Tile Settings
+extern int UNITS_PER_TILE;
+extern int TILE_SHIFT;
+extern int UNITS_PER_PIXEL_X;
+extern int UNITS_PER_PIXEL_Y;
+extern int TILE_W;
+extern int TILE_H;
+extern int TILE_W_HALF;
+extern int TILE_H_HALF;
+
+bool loadSettings();
 
 #endif
