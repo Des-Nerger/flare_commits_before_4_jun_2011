@@ -287,11 +287,13 @@ TooltipData MenuCharacter::checkTooltip(Point mouse) {
 	}
 	if (mouse.x >= 64 && mouse.x <= 184 && mouse.y >= offset_y+104 && mouse.y <= offset_y+120) {
 		tip.lines[tip.num_lines++] = "Each point of Physical grants +8 HP";
+		tip.lines[tip.num_lines++] = "Each level grants +2 HP";
 		return tip;
 	}
 	if (mouse.x >= 208 && mouse.x <= 280 && mouse.y >= offset_y+104 && mouse.y <= offset_y+120) {
 		tip.lines[tip.num_lines++] = "Ticks of HP regen per minute";
 		tip.lines[tip.num_lines++] = "Each point of Physical grants +4 HP regen";
+		tip.lines[tip.num_lines++] = "Each level grants +1 HP regen";
 		return tip;
 	}
 
@@ -323,11 +325,13 @@ TooltipData MenuCharacter::checkTooltip(Point mouse) {
 	}		
 	if (mouse.x >= 64 && mouse.x <= 184 && mouse.y >= offset_y+168 && mouse.y <= offset_y+184) {
 		tip.lines[tip.num_lines++] = "Each point of Mental grants +8 MP";
+		tip.lines[tip.num_lines++] = "Each level grants +2 MP";		
 		return tip;
 	}
 	if (mouse.x >= 208 && mouse.x <= 280 && mouse.y >= offset_y+168 && mouse.y <= offset_y+184) {
 		tip.lines[tip.num_lines++] = "Ticks of MP regen per minute";
 		tip.lines[tip.num_lines++] = "Each point of Mental grants +4 MP regen";
+		tip.lines[tip.num_lines++] = "Each level grants +1 MP regen";		
 		return tip;
 	}
 		
@@ -359,6 +363,7 @@ TooltipData MenuCharacter::checkTooltip(Point mouse) {
 	}
 	if (mouse.x >= 64 && mouse.x <= 280 && mouse.y >= offset_y+232 && mouse.y <= offset_y+248) {
 		tip.lines[tip.num_lines++] = "Each point of Offense grants +5 accuracy";
+		tip.lines[tip.num_lines++] = "Each level grants +2 accuracy";
 		return tip;
 	}
 		
@@ -390,6 +395,7 @@ TooltipData MenuCharacter::checkTooltip(Point mouse) {
 	}		
 	if (mouse.x >= 64 && mouse.x <= 280 && mouse.y >= offset_y+296 && mouse.y <= offset_y+312) {
 		tip.lines[tip.num_lines++] = "Each point of Defense grants +5 avoidance";
+		tip.lines[tip.num_lines++] = "Each level grants +2 avoidance";
 		return tip;
 	}
 

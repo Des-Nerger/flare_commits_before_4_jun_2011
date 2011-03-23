@@ -266,18 +266,46 @@ void StatBlock::takeDamage(int dmg) {
  */
 void StatBlock::recalc() {
 
-	hp = maxhp = 4 + physical * 8;
-	mp = maxmp = 4 + mental * 8;
-			
-	accuracy = 70 + offense * 5;
-	avoidance = 20 + defense * 5;
+	// these formulas should be moved to a config file
+	int hp_base = 10;
+	int hp_per_level = 2;
+	int hp_per_physical = 8;
+	int hp_regen_base = 10;
+	int hp_regen_per_level = 1;
+	int hp_regen_per_physical = 4;	
+	int mp_base = 10;
+	int mp_per_level = 2;
+	int mp_per_mental = 8;
+	int mp_regen_base = 10;
+	int mp_regen_per_level = 1;
+	int mp_regen_per_mental = 4;	
+	int accuracy_base = 75;
+	int accuracy_per_level = 2;
+	int accuracy_per_offense = 5;
+	int avoidance_base = 25;
+	int avoidance_per_level = 2;
+	int avoidance_per_defense = 5;
+	int crit_base = 5;
+	int crit_per_level = 1;
+
+	int lev0 = level -1;
+	int phys0 = physical -1;
+	int ment0 = mental -1;
+	int off0 = offense -1;
+	int def0 = defense -1;
+	
+	hp = maxhp = hp_base + (hp_per_level * lev0) + (hp_per_physical * phys0);
+	mp = maxmp = mp_base + (mp_per_level * lev0) + (mp_per_mental * ment0);
+	hp_per_minute = hp_regen_base + (hp_regen_per_level * lev0) + (hp_regen_per_physical * phys0);
+	mp_per_minute = mp_regen_base + (mp_regen_per_level * lev0) + (mp_regen_per_mental * ment0);
+	accuracy = accuracy_base + (accuracy_per_level * lev0) + (accuracy_per_offense * off0);
+	avoidance = avoidance_base + (avoidance_per_level * lev0) + (avoidance_per_defense * def0);
+	crit = crit_base + (crit_per_level * lev0);
+	
 	physoff = physical + offense;
 	physdef = physical + defense;
 	mentoff = mental + offense;
 	mentdef = mental + defense;
-	crit = physical + mental + offense + defense;
-	hp_per_minute = 6 + physical * 4;
-	mp_per_minute = 6 + mental * 4;
 	
 	for (int i=1; i<17; i++) {
 		if (xp >= xp_table[i])

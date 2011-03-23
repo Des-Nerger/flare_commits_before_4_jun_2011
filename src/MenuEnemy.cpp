@@ -88,7 +88,7 @@ void MenuEnemy::render() {
 		ss << enemy->stats.hp << "/" << enemy->stats.maxhp;
 	else
 		ss << "Dead";
-	font->render(ss.str(), VIEW_W_HALF, 20, JUSTIFY_CENTER, screen, FONT_WHITE);
+	font->render(ss.str(), VIEW_W_HALF, 19, JUSTIFY_CENTER, screen, FONT_WHITE);
 	
 	//SDL_UpdateRects(screen, 1, &dest);
 }

@@ -267,6 +267,7 @@ void Avatar::logic(int actionbar_power, bool restrictPowerUse) {
 		stringstream ss;
 		ss << "Congratulations, you have reached level " << stats.level << "! You may increase one attribute through the Character Menu.";
 		log_msg = ss.str();
+		stats.recalc();
 		Mix_PlayChannel(-1, level_up, 0);
 	}
 
