@@ -43,12 +43,14 @@ class InputState {
 private:
 	static const int key_count = 24;
 	int binding[key_count];
-	int binding2[key_count];
+	int binding_alt[key_count];
 public:
 	InputState(void);
 	~InputState();
-	bool pressing[key_count];
+	void loadKeyBindings();
 	void handle();
+
+	bool pressing[key_count];
 	bool done;
 	Point mouse;
 	bool mouse_lock;

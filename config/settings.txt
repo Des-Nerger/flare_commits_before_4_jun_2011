@@ -3,7 +3,7 @@
 #
 
 # fullscreen mode.  0 for windowed, 1 for fullscreen
-fullscreen=1
+fullscreen=0
 
 # screen resolution.  This increases field of view; the art does not scale.
 # The menus assume a minimum viewport of 640x480.
