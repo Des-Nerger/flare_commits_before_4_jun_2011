@@ -145,7 +145,7 @@ void GameEngine::checkCancel() {
 	else if (inp->pressing[CANCEL] && !cancel_lock) {
 		cancel_lock = true;
 		if (menu->menus_open) {
-			menu->closeAll();
+			menu->closeAll(true);
 		}
 		else {
 			saveGame();
@@ -231,27 +231,18 @@ void GameEngine::checkNPCInteraction() {
 		if (npcs->npcs[npc_id]->vendor) {
 			menu->vendor->npc = npcs->npcs[npc_id];
 			menu->vendor->setInventory();
+			menu->closeAll(false);
 			menu->vendor->visible = true;
-			menu->inv->visible = true;
-			menu->chr->visible = false;
-			menu->log->visible = false;
-			menu->pow->visible = false;
-			menu->talker->visible = false;
 			
 			if (!npcs->npcs[npc_id]->playSound(NPC_VOX_INTRO))
 				Mix_PlayChannel(-1, menu->sfx_open, 0);
 		}
 		else if(npcs->npcs[npc_id]->talker) {
 			menu->talker->npc = npcs->npcs[npc_id];
-			menu->vendor->visible = false;
-			menu->inv->visible = false;
-			menu->chr->visible = false;
-			menu->log->visible = false;
-			menu->pow->visible = false;
+			menu->closeAll(false);
 			menu->talker->visible = true;
 			
-			if (!npcs->npcs[npc_id]->playSound(NPC_VOX_INTRO))
-				Mix_PlayChannel(-1, menu->sfx_open, 0);             
+			npcs->npcs[npc_id]->playSound(NPC_VOX_INTRO);           
         }		
 	}
 	
@@ -263,8 +254,6 @@ void GameEngine::checkNPCInteraction() {
 			if (menu->vendor->visible || menu->talker->visible) {
  				menu->vendor->visible = false;
 				menu->talker->visible = false;
- 				menu->inv->visible = false;
- 				Mix_PlayChannel(-1, menu->sfx_close, 0);
  			}
 			npc_id = -1;
 		}

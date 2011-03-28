@@ -19,9 +19,9 @@ MenuTalker::MenuTalker(SDL_Surface *_screen, FontEngine *_font) {
 
 void MenuTalker::loadGraphics() {
 
-	background = IMG_Load("images/menus/talker.png");
+	background = IMG_Load("images/menus/dialog_box.png");
 	if(!background) {
-		fprintf(stderr, "Couldn't load image: %s\n", IMG_GetError());
+		fprintf(stderr, "Couldn't load image dialog_box.png: %s\n", IMG_GetError());
 		SDL_Quit();
 	}
 	
@@ -45,22 +45,26 @@ void MenuTalker::render() {
 	if (!visible) return;
 	SDL_Rect src;
 	SDL_Rect dest;
+	string line;
 	
+	int offset_x = (VIEW_W - 640)/2;
 	int offset_y = (VIEW_H - 416)/2;
 	
-	// background
+	// dialog box
 	src.x = 0;
 	src.y = 0;
-	dest.x = 0;
-	dest.y = offset_y;
-	src.w = dest.w = 320;
-	src.h = dest.h = 416;
+	dest.x = offset_x;
+	dest.y = offset_y + 320;
+	src.w = dest.w = 640;
+	src.h = dest.h = 96;
 	SDL_BlitSurface(background, &src, screen, &dest);
-		
+	
+	// show active portrait
+	
 	// text overlay
 	// TODO: translate()
-	font->render(npc->name, 160, offset_y+8, JUSTIFY_CENTER, screen, FONT_WHITE);
-	font->render(npc->txt, 40, offset_y+40, JUSTIFY_LEFT, screen, 224, FONT_WHITE);
+	line = npc->name + ": " + npc->txt;
+	font->render(line, offset_x+48, offset_y+336, JUSTIFY_LEFT, screen, 544, FONT_WHITE);
 }
 
 

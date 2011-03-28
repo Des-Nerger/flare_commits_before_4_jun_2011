@@ -101,14 +101,13 @@ void MenuManager::logic() {
 	// inventory menu toggle
 	if ((inp->pressing[INVENTORY] && !key_lock && !dragging) || clicking_inventory) {
 		key_lock = true;
-		inv->visible = !inv->visible;
 		if (inv->visible) {
-			Mix_PlayChannel(-1, sfx_open, 0);
-			pow->visible = false;
+			closeRight(true);
 		}
 		else {
-			Mix_PlayChannel(-1, sfx_close, 0);
-			vendor->visible = false;
+			closeRight(false);
+			inv->visible = true;
+			Mix_PlayChannel(-1, sfx_open, 0);
 		}
 		
 	}
@@ -116,42 +115,40 @@ void MenuManager::logic() {
 	// powers menu toggle
 	if ((inp->pressing[POWERS] && !key_lock && !dragging) || clicking_powers) {
 		key_lock = true;
-		pow->visible = !pow->visible;
 		if (pow->visible) {
-			Mix_PlayChannel(-1, sfx_open, 0);
-			inv->visible = false;
-			vendor->visible = false;
+			closeRight(true);
 		}
-		else
-			Mix_PlayChannel(-1, sfx_close, 0);
+		else {
+			closeRight(false);
+			pow->visible = true;
+			Mix_PlayChannel(-1, sfx_open, 0);
+		}
 	}
 
 	// character menu toggle
 	if ((inp->pressing[CHARACTER] && !key_lock && !dragging) || clicking_character) {
 		key_lock = true;
-		chr->visible = !chr->visible;
 		if (chr->visible) {
-			Mix_PlayChannel(-1, sfx_open, 0);
-			log->visible = false;
-			vendor->visible = false;
-			talker->visible = false;
+			closeLeft(true);
 		}
-		else
-			Mix_PlayChannel(-1, sfx_close, 0);
+		else {
+			closeLeft(false);
+			chr->visible = true;
+			Mix_PlayChannel(-1, sfx_open, 0);
+		}
 	}
 	
 	// log menu toggle
 	if ((inp->pressing[LOG] && !key_lock && !dragging) || clicking_log) {
 		key_lock = true;
-		log->visible = !log->visible;
 		if (log->visible) {
-			Mix_PlayChannel(-1, sfx_open, 0);
-			chr->visible = false;
-			vendor->visible = false;
-			talker->visible = false;
+			closeLeft(true);
 		}
-		else
-			Mix_PlayChannel(-1, sfx_close, 0);
+		else {
+			closeLeft(false);
+			log->visible = true;
+			Mix_PlayChannel(-1, sfx_open, 0);
+		}
 	}
 		
 	if (MENUS_PAUSE) {
@@ -430,16 +427,32 @@ void MenuManager::render() {
 	
 }
 
-void MenuManager::closeAll() {
+void MenuManager::closeAll(bool play_sound) {
 	if (!dragging) {
-		inv->visible = false;
-		pow->visible = false;
+		closeLeft(play_sound);
+		closeRight(false);
+	}
+}
+
+void MenuManager::closeLeft(bool play_sound) {
+	if (!dragging) {
 		chr->visible = false;
 		log->visible = false;
 		vendor->visible = false; 
 		talker->visible = false;
+
+		if (play_sound) Mix_PlayChannel(-1, sfx_close, 0);
 		
-		Mix_PlayChannel(-1, sfx_close, 0);
+	}
+}
+
+void MenuManager::closeRight(bool play_sound) {
+	if (!dragging) {
+		inv->visible = false;
+		pow->visible = false;	
+		talker->visible = false;
+
+		if (play_sound) Mix_PlayChannel(-1, sfx_close, 0);
 	}
 }
 

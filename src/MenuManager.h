@@ -62,7 +62,9 @@ public:
 	void logic();
 	void render();
 	void renderIcon(int icon_id, int x, int y);
-	void closeAll();
+	void closeAll(bool play_sound);
+	void closeLeft(bool play_sound);
+	void closeRight(bool play_sound);
 
 	MenuInventory *inv;
 	MenuPowers *pow;
