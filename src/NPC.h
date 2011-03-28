@@ -35,7 +35,7 @@ public:
 	NPC();
 	~NPC();
 	void load(string npc_id);
-	void loadGraphics(string filename);
+	void loadGraphics(string filename_sprites, string filename_portrait);
 	void loadSound(string filename, int type);
 	void logic();
 	bool playSound(int type);
@@ -51,6 +51,7 @@ public:
 	Point render_offset;
 
     // talker info
+	SDL_Surface *portrait;
     bool talker;
 	string txt;
 

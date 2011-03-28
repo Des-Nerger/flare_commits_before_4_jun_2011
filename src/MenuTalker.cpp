@@ -60,6 +60,13 @@ void MenuTalker::render() {
 	SDL_BlitSurface(background, &src, screen, &dest);
 	
 	// show active portrait
+	if (npc->portrait != NULL) {
+		src.w = dest.w = 320;
+		src.h = dest.h = 320;
+		dest.x = offset_x + 48;
+		dest.y = offset_y;
+		SDL_BlitSurface(npc->portrait, &src, screen, &dest);	
+	}
 	
 	// text overlay
 	// TODO: translate()

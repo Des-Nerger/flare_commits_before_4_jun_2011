@@ -210,8 +210,8 @@ void GameEngine::checkConsumable() {
 void GameEngine::checkNPCInteraction() {
 
 	int npc_click = -1;
-	int interact_distance = 65535;
 	int max_interact_distance = UNITS_PER_TILE * 4;
+	int interact_distance = max_interact_distance+1;
 	
 	// check for clicking on an NPC
 	if (inp->pressing[MAIN1] && !inp->mouse_lock) {

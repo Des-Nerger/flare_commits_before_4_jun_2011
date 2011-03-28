@@ -23,6 +23,7 @@ NPC::NPC() {
 	current_frame = 0;
 
 	// init talker info
+	portrait = NULL;
 	talker = false;
 	
 	// init vendor info
@@ -54,6 +55,9 @@ void NPC::load(string npc_id) {
 	
 	infile.open(("npcs/" + npc_id + ".txt").c_str(), ios::in);
 
+	string filename_sprites = "";
+	string filename_portrait = "";
+
 	if (infile.is_open()) {
 		while (!infile.eof()) {
 			line = getLine(infile);
@@ -79,7 +83,7 @@ void NPC::load(string npc_id) {
 						level = atoi(val.c_str());
 					}
 					else if (key == "gfx") {
-						loadGraphics(val);
+						filename_sprites = val;
 					}
 					else if (key == "render_size") {
 						val = val + ",";
@@ -101,7 +105,10 @@ void NPC::load(string npc_id) {
 					// handle talkers
 					else if (key == "talker") {
 						if (val == "true") talker=true;
-					}		
+					}
+					else if (key == "portrait") {
+						filename_portrait = val;
+					}
 					else if (key == "txt") {
 						txt=val;
 					}
@@ -130,22 +137,37 @@ void NPC::load(string npc_id) {
 		}
 	}
 	infile.close();
-	
+	loadGraphics(filename_sprites, filename_portrait);
 }
 
-void NPC::loadGraphics(string filename) {
+void NPC::loadGraphics(string filename_sprites, string filename_portrait) {
 
-	sprites = IMG_Load(("images/npcs/" + filename + ".png").c_str());
-	if(!sprites) {
-		fprintf(stderr, "Couldn't load NPC sprites: %s\n", IMG_GetError());
+	if (filename_sprites != "") {
+		sprites = IMG_Load(("images/npcs/" + filename_sprites + ".png").c_str());
+		if(!sprites) {
+			fprintf(stderr, "Couldn't load NPC sprites: %s\n", IMG_GetError());
+		}
+	
+		SDL_SetColorKey( sprites, SDL_SRCCOLORKEY, SDL_MapRGB(sprites->format, 255, 0, 255) );
+	
+		// optimize
+		SDL_Surface *cleanup = sprites;
+		sprites = SDL_DisplayFormatAlpha(sprites);
+		SDL_FreeSurface(cleanup);
 	}
+	if (filename_portrait != "") {
+		portrait = IMG_Load(("images/portraits/" + filename_portrait + ".png").c_str());
+		if(!portrait) {
+			fprintf(stderr, "Couldn't load NPC portrait: %s\n", IMG_GetError());
+		}
 	
-	SDL_SetColorKey( sprites, SDL_SRCCOLORKEY, SDL_MapRGB(sprites->format, 255, 0, 255) );
+		SDL_SetColorKey( portrait, SDL_SRCCOLORKEY, SDL_MapRGB(portrait->format, 255, 0, 255) );
 	
-	// optimize
-	SDL_Surface *cleanup = sprites;
-	sprites = SDL_DisplayFormatAlpha(sprites);
-	SDL_FreeSurface(cleanup);
+		// optimize
+		SDL_Surface *cleanup = portrait;
+		portrait = SDL_DisplayFormatAlpha(portrait);
+		SDL_FreeSurface(cleanup);
+	}
 	
 }
 
@@ -209,6 +231,7 @@ Renderable NPC::getRender() {
 
 NPC::~NPC() {
 	if (sprites != NULL) SDL_FreeSurface(sprites);
+	if (portrait != NULL) SDL_FreeSurface(portrait);
 	for (int i=0; i<NPC_MAX_VOX; i++) {
 		Mix_FreeChunk(vox_intro[i]);
 	}
