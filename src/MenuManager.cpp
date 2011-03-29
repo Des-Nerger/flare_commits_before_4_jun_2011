@@ -187,9 +187,6 @@ void MenuManager::logic() {
 					stats->mp = stats->maxmp;
 				}
 			}
-			else if (talker->visible) {
-			
-			}
 			else if (vendor->visible) {
 			
 				if (inp->pressing[CTRL]) {
@@ -311,6 +308,14 @@ void MenuManager::logic() {
 				// vendor sell item
 				inv->sell(drag_item);
 				drag_item = 0;
+				
+				// if selling equipment, prepare to change stats/sprites
+				if (inv->drag_prev_src == SRC_EQUIPPED) {
+					if (inv->drag_prev_slot < 3)
+						inv->changed_equipment = true;
+					else
+						inv->changed_artifact = true;
+				}
 				
 			}
 			else if (stats->hp > 0) {
