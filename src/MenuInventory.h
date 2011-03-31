@@ -60,7 +60,7 @@ public:
 	TooltipData checkTooltip(Point mouse);
 	bool full();
 	void add(int item, int quantity = 1, int slot = -1, int from_slot = -1);
-	void substract( int slot, int quantity = 1);
+	void subtract( int slot, int quantity = 1);
 	void addGold(int count);
 	int getItemCountCarried(int item);
 	bool isItemEquipped(int item);

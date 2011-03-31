@@ -154,7 +154,7 @@ ItemStack MenuInventory::click(Point mouse) {
 		drag_prev_src = SRC_CARRIED;
 		
 		item = carried[drag_prev_slot];
-		substract( drag_prev_slot, item.quantity);
+		subtract( drag_prev_slot, item.quantity);
 	}
 
 	return item;
@@ -183,7 +183,7 @@ void MenuInventory::sell(Point mouse) {
 				value = items->items[carried[slot].item].price / items->vendor_ratio;
 				if (value == 0) value = 1;
 				gold += value;
-				substract( slot);
+				subtract( slot);
 				items->playCoinsSound();
 			}
 		}
@@ -252,7 +252,7 @@ void MenuInventory::drop(Point mouse, ItemStack stack) {
 			// note: equipment slots 0-3 correspond with item types 0-3
 			// also check to see if the hero meets the requirements
 			if (index == items->items[stack.item].type && requirementsMet(stack.item)) {
-				substract( drag_prev_slot);
+				subtract( drag_prev_slot);
 				add( equipped[index], 1, drag_prev_slot); // add the previously equipped item
 				equipped[index] = stack.item;
 				if (index < SLOT_ARTIFACT) changed_equipment = true;
@@ -292,7 +292,7 @@ void MenuInventory::drop(Point mouse, ItemStack stack) {
 			// also check to see if the hero meets the requirements
 			if (carried[index].item == 0 || (carried[index].item != equipped[drag_prev_slot] && items->items[carried[index].item].type == drag_prev_slot && requirementsMet(carried[index].item))) {
 				equipped[drag_prev_slot] = carried[index].item;
-				substract( index);
+				subtract( index);
 				add( stack.item, 1, index);
 				if (drag_prev_slot < SLOT_ARTIFACT) changed_equipment = true;
 				else changed_artifact = true;
@@ -334,7 +334,7 @@ void MenuInventory::activate(Point mouse) {
 			powers->activate(items->items[carried[slot].item].power, stats, nullpt);
 			// intercept used_item flag.  We will destroy the item here.
 			powers->used_item = -1;
-			substract(slot);
+			subtract(slot);
 			
 		}
 		// equip an item
@@ -346,7 +346,7 @@ void MenuInventory::activate(Point mouse) {
 				equip_slot = items->items[carried[slot].item].type;
 				swap = equipped[equip_slot];
 				equipped[equip_slot] = carried[slot].item;
-				substract( slot);
+				subtract( slot);
 				add( swap, 1, slot); // add the previously equipped item
 				items->playSound(equipped[equip_slot]);
 			
@@ -405,7 +405,7 @@ bool MenuInventory::full() {
 }
 
 /**
- * Insert item into first available carried slot, preferably in the optionnal specified slot
+ * Insert item into first available carried slot, preferably in the optional specified slot
  *
  * @param item Item ID
  * @param slot Slot number where it will try to store the item
@@ -453,11 +453,11 @@ void MenuInventory::add(int item, int quantity, int slot, int from_slot) {
 }
 
 /**
- * Substract an item from the specified slot, or remove it if it's the last
+ * Subtract an item from the specified slot, or remove it if it's the last
  *
  * @param slot Slot number
  */
-void MenuInventory::substract(int slot, int quantity) {
+void MenuInventory::subtract(int slot, int quantity) {
 	carried[slot].quantity -= quantity;
 	if (carried[slot].quantity <= 0) {
 		carried[slot].item = 0;
@@ -503,7 +503,7 @@ void MenuInventory::remove(int item) {
 	int i;
 	for (i=0; i<MAX_CARRIED; i++) {
 		if (carried[i].item == item) {
-			substract(i);
+			subtract(i);
 			return;
 		}
 	}
