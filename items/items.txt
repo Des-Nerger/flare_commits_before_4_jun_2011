@@ -10,6 +10,7 @@ type=consumable
 sfx=potion
 loot=hp_potion
 price=25
+max_quantity=10
 
 [item]
 id=2
@@ -23,6 +24,7 @@ type=consumable
 sfx=potion
 loot=mp_potion
 price=25
+max_quantity=10
 
 [item]
 id=3
@@ -35,6 +37,7 @@ type=consumable
 sfx=potion
 loot=hp_potion
 price=75
+max_quantity=10
 
 [item]
 id=4
@@ -47,6 +50,7 @@ type=consumable
 sfx=potion
 loot=mp_potion
 price=75
+max_quantity=10
 
 
 [item]
@@ -59,6 +63,7 @@ type=gem
 sfx=gem
 loot=gem
 price=500
+max_quantity=100
 
 [item]
 id=8
@@ -70,6 +75,7 @@ type=gem
 sfx=gem
 loot=gem
 price=400
+max_quantity=100
 
 [item]
 id=9
@@ -81,6 +87,7 @@ type=gem
 sfx=gem
 loot=gem
 price=450
+max_quantity=100
 
 [item]
 id=10
@@ -92,6 +99,7 @@ type=gem
 sfx=gem
 loot=gem
 price=350
+max_quantity=100
 
 [item]
 id=50

@@ -76,13 +76,14 @@ bool GameEngine::restrictPowerUse() {
 void GameEngine::checkLoot() {
 	if (inp->pressing[MAIN1] && !inp->mouse_lock && pc->stats.alive) {
 
-		int pickup;
+		ItemStack pickup;
 		int gold;
 		
 		pickup = loot->checkPickup(inp->mouse, map->cam, pc->stats.pos, gold, menu->inv->full());
-		if (pickup > 0) {
+		if (pickup.item > 0) {
 			inp->mouse_lock = true;
-			menu->inv->add(pickup);
+			menu->inv->add(pickup.item, pickup.quantity);
+			// TODO: play a little sound. Not the item's sound, in anticipation of a "Pickup all loots" key.
 		}
 		else if (gold > 0) {
 			inp->mouse_lock = true;
@@ -185,9 +186,10 @@ void GameEngine::checkEquipmentChange() {
 
 void GameEngine::checkLootDrop() {
 	// if the player has dropped an item from the inventory
-	if (menu->drop_item > 0) {
+	if (menu->drop_item.item > 0) {
 		loot->addLoot(menu->drop_item, pc->stats.pos);
-		menu->drop_item = 0;
+		menu->drop_item.item = 0;
+		menu->drop_item.quantity = 0;
 	}
 }
 

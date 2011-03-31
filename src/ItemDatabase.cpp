@@ -34,7 +34,7 @@ ItemDatabase::ItemDatabase(SDL_Surface *_screen, SDL_Surface *_icons) {
 		items[i].power_mod = -1;
 		items[i].power_desc = "";
 		items[i].price = 0;
-		
+		items[i].max_quantity = 1;
 	}
 	
 	vendor_ratio = 4; // this means scrap/vendor pays 1/4th price to buy items from hero
@@ -183,6 +183,8 @@ void ItemDatabase::load() {
 						items[id].power_desc = val;
 					else if (key == "price")
 						items[id].price = atoi(val.c_str());
+					else if (key == "max_quantity")
+						items[id].max_quantity = atoi(val.c_str());
 				}
 			}
 		}
@@ -234,23 +236,28 @@ void ItemDatabase::playCoinsSound() {
 	Mix_PlayChannel(-1, sfx[SFX_COINS], 0);
 }
 
-TooltipData ItemDatabase::getShortTooltip(int item) {
+TooltipData ItemDatabase::getShortTooltip( ItemStack stack) {
 	stringstream ss;
 	TooltipData tip;
 	
-	if (item == 0) return tip;
+	if (stack.item == 0) return tip;
 	
 	// name
-	tip.lines[tip.num_lines++] = items[item].name;
+	if( stack.quantity > 1) {
+		ss << stack.quantity << " " << items[stack.item].name;
+	} else {
+		ss << items[stack.item].name;
+	}
+	tip.lines[tip.num_lines++] = ss.str();
 	
 	// color quality
-	if (items[item].quality == ITEM_QUALITY_LOW) {
+	if (items[stack.item].quality == ITEM_QUALITY_LOW) {
 		tip.colors[0] = FONT_GRAY;
 	}
-	else if (items[item].quality == ITEM_QUALITY_HIGH) {
+	else if (items[stack.item].quality == ITEM_QUALITY_HIGH) {
 		tip.colors[0] = FONT_GREEN;
 	}
-	else if (items[item].quality == ITEM_QUALITY_EPIC) {
+	else if (items[stack.item].quality == ITEM_QUALITY_EPIC) {
 		tip.colors[0] = FONT_BLUE;
 	}
 	

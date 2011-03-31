@@ -17,11 +17,13 @@ MenuInventory::MenuInventory(SDL_Surface *_screen, FontEngine *_font, ItemDataba
 	visible = false;
 	loadGraphics();
 	
-	for (int i=0; i<4; i++)
+	for (int i=0; i<MAX_EQUIPPED; i++)
 		equipped[i] = 0;
 		
-	for (int i=0; i<64; i++)
-		carried[i] = 0;
+	for (int i=0; i<MAX_CARRIED; i++) {
+		carried[i].item = 0;
+		carried[i].quantity = 0;
+	}
 	
 	int offset_x = (VIEW_W - 320);
 	int offset_y = (VIEW_H - 416)/2;
@@ -29,7 +31,7 @@ MenuInventory::MenuInventory(SDL_Surface *_screen, FontEngine *_font, ItemDataba
 	equipped_area.x = offset_x+32;
 	equipped_area.y = offset_y+48;
 	equipped_area.w = 256;
-	equipped_area.h = 64;
+	equipped_area.h = MAX_CARRIED;
 	
 	carried_area.x = offset_x+32;
 	carried_area.y = offset_y+128;
@@ -75,6 +77,7 @@ void MenuInventory::render() {
 	if (!visible) return;
 	SDL_Rect src;
 	SDL_Rect dest;
+	stringstream ss;
 	
 	int offset_x = (VIEW_W - 320);
 	int offset_y = (VIEW_H - 416)/2;
@@ -97,12 +100,11 @@ void MenuInventory::render() {
 	font->render("Off Hand", offset_x+192, offset_y+34, JUSTIFY_CENTER, screen, FONT_WHITE);
 	font->render("Artifact", offset_x+256, offset_y+34, JUSTIFY_CENTER, screen, FONT_WHITE);
 	
-	stringstream ss;
 	ss << gold << " Gold";
 	font->render(ss.str(), offset_x+288, offset_y+114, JUSTIFY_RIGHT, screen, FONT_WHITE);
 	
 	// equipped items
-	for (int i=0; i<4; i++) {
+	for (int i=0; i<MAX_EQUIPPED; i++) {
 		if (equipped[i] > 0) {
 			dest.x = offset_x+32 + i * 64;
 			dest.y = offset_y+48;
@@ -111,11 +113,17 @@ void MenuInventory::render() {
 	}
 	
 	// carried items
-	for (int i=0; i<64; i++) {
-		if (carried[i] > 0) {
+	for (int i=0; i<MAX_CARRIED; i++) {
+		if (carried[i].item > 0) {
 			dest.x = offset_x+32 + (i % 8 * 32);
 			dest.y = offset_y+128 + (i / 8 * 32);
-			items->renderIcon(carried[i], dest.x, dest.y, ICON_SIZE_32);
+			items->renderIcon(carried[i].item, dest.x, dest.y, ICON_SIZE_32);
+			if( items->items[carried[i].item].max_quantity > 1) {
+				// stackable item : show the quantity
+				ss.str("");
+				ss << carried[i].quantity;
+				font->render(ss.str(), dest.x, dest.y, JUSTIFY_LEFT, screen, FONT_WHITE);
+			}
 		}	
 	}
 }
@@ -123,25 +131,22 @@ void MenuInventory::render() {
 /**
  * Click-start dragging in the inventory
  */
-int MenuInventory::click(Point mouse) {
-
-	// can't use items while dead
-	if (stats->hp <= 0) return 0;
-
-	int item;
+ItemStack MenuInventory::click(Point mouse) {
+	ItemStack item = {0, 0};
 	int offset_x = (VIEW_W - 320);
 	int offset_y = (VIEW_H - 416)/2;
-	
+
+	// can't use items while dead
+	if (stats->hp <= 0) return item;
+
 	if (isWithin(equipped_area, mouse)) {
-	
 		// clicked an equipped item
 		drag_prev_slot = (mouse.x - (offset_x+32)) / 64;
 		drag_prev_src = SRC_EQUIPPED;
 		
-		item = equipped[drag_prev_slot];
+		item.item = equipped[drag_prev_slot];
+		item.quantity = 1;
 		equipped[drag_prev_slot] = 0;
-
-		return item;
 	}
 	else if (isWithin(carried_area, mouse)) {
 		// clicked a carried item
@@ -149,12 +154,10 @@ int MenuInventory::click(Point mouse) {
 		drag_prev_src = SRC_CARRIED;
 		
 		item = carried[drag_prev_slot];
-		carried[drag_prev_slot] = 0;
-		
-		return item;
+		substract( drag_prev_slot, item.quantity);
 	}
 
-	return 0;
+	return item;
 }
 
 
@@ -175,24 +178,23 @@ void MenuInventory::sell(Point mouse) {
 		// clicked a carried item
 		slot = (mouse.x - (offset_x+32)) / 32 + ((mouse.y - (offset_y+128)) / 32) * 8;
 		
-		if (carried[slot] > 0) {
-			if (items->items[carried[slot]].price > 0) {
-				value = items->items[carried[slot]].price / items->vendor_ratio;
+		if (carried[slot].item > 0) {
+			if (items->items[carried[slot].item].price > 0) {
+				value = items->items[carried[slot].item].price / items->vendor_ratio;
 				if (value == 0) value = 1;
 				gold += value;
-				carried[slot] = 0;
+				substract( slot);
 				items->playCoinsSound();
 			}
 		}
 	}
-
 }
 
 /**
  * Sell a specific item (called when dragging an item to the vendor screen)
  */
-void MenuInventory::sell(int item_id) {
-	int value = items->items[item_id].price / items->vendor_ratio;
+void MenuInventory::sell(ItemStack item) {
+	int value = items->items[item.item].price * item.quantity / items->vendor_ratio;
 	if (value == 0) value = 1;
 	gold += value;
 	items->playCoinsSound();
@@ -201,11 +203,11 @@ void MenuInventory::sell(int item_id) {
 /**
  * Return dragged item to previous slot
  */
-void MenuInventory::itemReturn(int item) {
+void MenuInventory::itemReturn( ItemStack stack) {
 	if (drag_prev_src == SRC_CARRIED)
-		carried[drag_prev_slot] = item;
+		carried[drag_prev_slot] = stack;
 	else if (drag_prev_src == SRC_EQUIPPED)
-		equipped[drag_prev_slot] = item;
+		equipped[drag_prev_slot] = stack.item;
 }
 
 /**
@@ -214,7 +216,6 @@ void MenuInventory::itemReturn(int item) {
 bool MenuInventory::requirementsMet(int item) {
 	if (items->items[item].req_stat == REQUIRES_PHYS) {
 		return (stats->physical >= items->items[item].req_val);
-		
 	}
 	else if (items->items[item].req_stat == REQUIRES_MENT) {
 		return (stats->mental >= items->items[item].req_val);
@@ -227,19 +228,18 @@ bool MenuInventory::requirementsMet(int item) {
 	}
 	// otherwise there is no requirement, so it is usable.
 	return true;
-	
 }
 
 /**
  * Dragging and dropping an item can be used to rearrange the inventory
  * and equip items
  */
-void MenuInventory::drop(Point mouse, int item) {
-	items->playSound(item);
-
+void MenuInventory::drop(Point mouse, ItemStack stack) {
 	int index;
 	int offset_x = (VIEW_W - 320);
 	int offset_y = (VIEW_H - 416)/2;
+
+	items->playSound(stack.item);
 
 	if (isWithin(equipped_area, mouse)) {
 	
@@ -251,19 +251,20 @@ void MenuInventory::drop(Point mouse, int item) {
 			// make sure the item is going to the correct slot
 			// note: equipment slots 0-3 correspond with item types 0-3
 			// also check to see if the hero meets the requirements
-			if (index == items->items[item].type && requirementsMet(item)) {
-				carried[drag_prev_slot] = equipped[index];
-				equipped[index] = item;
-				if (index < 3) changed_equipment = true;
+			if (index == items->items[stack.item].type && requirementsMet(stack.item)) {
+				substract( drag_prev_slot);
+				add( equipped[index], 1, drag_prev_slot); // add the previously equipped item
+				equipped[index] = stack.item;
+				if (index < SLOT_ARTIFACT) changed_equipment = true;
 				else changed_artifact = true;
 			}
 			else {
-				carried[drag_prev_slot] = item; // cancel
+				itemReturn( stack); // cancel
 			}
 		}
 		else {
 			// equippable items only belong to one slot
-			equipped[drag_prev_slot] = item; // cancel
+			itemReturn( stack); // cancel
 		}
 	}
 	else if (isWithin(carried_area, mouse)) {
@@ -273,31 +274,36 @@ void MenuInventory::drop(Point mouse, int item) {
 		
 		if (drag_prev_src == SRC_CARRIED) {
 			if (index != drag_prev_slot) {
-				carried[drag_prev_slot] = carried[index];
-				carried[index] = item;
+				if( carried[index].item == stack.item && items->items[stack.item].max_quantity > 1) {
+					add( stack.item, stack.quantity, index, drag_prev_slot);
+				}
+				else {
+					carried[drag_prev_slot] = carried[index];
+					carried[index] = stack;
+				}
 			}
-			else
-				carried[drag_prev_slot] = item; // cancel
+			else {
+				itemReturn( stack); // cancel
+			}
 		}
 		else {
 		
 		    // note: equipment slots 0-3 correspond with item types 0-3
 			// also check to see if the hero meets the requirements
-			if (carried[index] == 0 || (items->items[carried[index]].type == drag_prev_slot && requirementsMet(carried[index]))) {
-				equipped[drag_prev_slot] = carried[index];
-				carried[index] = item;
-				if (drag_prev_slot < 3) changed_equipment = true;
+			if (carried[index].item == 0 || (carried[index].item != equipped[drag_prev_slot] && items->items[carried[index].item].type == drag_prev_slot && requirementsMet(carried[index].item))) {
+				equipped[drag_prev_slot] = carried[index].item;
+				substract( index);
+				add( stack.item, 1, index);
+				if (drag_prev_slot < SLOT_ARTIFACT) changed_equipment = true;
 				else changed_artifact = true;
 			}
 			else {
-				equipped[drag_prev_slot] = item; // cancel
+				itemReturn( stack); // cancel
 			}
 		}
 	}
 	else {
-	
-		// not dropped in a slot.  Just return it to the previous slot
-		itemReturn(item);
+		itemReturn( stack); // not dropped in a slot. Just return it to the previous slot
 	}
  
 }
@@ -323,27 +329,28 @@ void MenuInventory::activate(Point mouse) {
 		slot = (mouse.x - (offset_x+32)) / 32 + ((mouse.y - (offset_y+128)) / 32) * 8;
 	
 		// use a consumable item, but only if alive
-		if (items->items[carried[slot]].type == ITEM_TYPE_CONSUMABLE && stats->alive) {
+		if (items->items[carried[slot].item].type == ITEM_TYPE_CONSUMABLE && stats->alive) {
 		
-			powers->activate(items->items[carried[slot]].power, stats, nullpt);
+			powers->activate(items->items[carried[slot].item].power, stats, nullpt);
 			// intercept used_item flag.  We will destroy the item here.
 			powers->used_item = -1;
-			carried[slot] = 0;
+			substract(slot);
 			
 		}
 		// equip an item
-		else if (items->items[carried[slot]].type == ITEM_TYPE_MAIN ||
-		         items->items[carried[slot]].type == ITEM_TYPE_BODY ||
-				 items->items[carried[slot]].type == ITEM_TYPE_OFF ||
-				 items->items[carried[slot]].type == ITEM_TYPE_ARTIFACT) {
-			if (requirementsMet(carried[slot])) {
-				equip_slot = items->items[carried[slot]].type;
+		else if (items->items[carried[slot].item].type == ITEM_TYPE_MAIN ||
+		         items->items[carried[slot].item].type == ITEM_TYPE_BODY ||
+				 items->items[carried[slot].item].type == ITEM_TYPE_OFF ||
+				 items->items[carried[slot].item].type == ITEM_TYPE_ARTIFACT) {
+			if (requirementsMet(carried[slot].item)) {
+				equip_slot = items->items[carried[slot].item].type;
 				swap = equipped[equip_slot];
-				equipped[equip_slot] = carried[slot];
-				carried[slot] = swap;
+				equipped[equip_slot] = carried[slot].item;
+				substract( slot);
+				add( swap, 1, slot); // add the previously equipped item
 				items->playSound(equipped[equip_slot]);
 			
-				if (equip_slot < 3) changed_equipment = true;
+				if (equip_slot < SLOT_ARTIFACT) changed_equipment = true;
 				else changed_artifact = true;
 			}
 		}
@@ -372,7 +379,7 @@ TooltipData MenuInventory::checkTooltip(Point mouse) {
 		
 		// carried item
 		index = (mouse.x - (offset_x+32)) / 32 + ((mouse.y - (offset_y+128)) / 32) * 8;
-		return items->getTooltip(carried[index], stats, false);
+		return items->getTooltip(carried[index].item, stats, false);
 		
 	}
 
@@ -386,27 +393,74 @@ TooltipData MenuInventory::checkTooltip(Point mouse) {
 /**
  * Cannot pick up new items if the inventory is full.
  * Full means no more carrying capacity (equipped capacity is ignored)
+ *
+ * TODO: handle stackable items
  */
 bool MenuInventory::full() {
 	bool result = true;
-	for (int i=0; i<64; i++) {
-		if (carried[i] == 0) result = false;
+	for (int i=0; i<MAX_CARRIED; i++) {
+		if (carried[i].item == 0) result = false;
 	}
 	return result;
 }
 
 /**
- * Insert item into first available carried slot
+ * Insert item into first available carried slot, preferably in the optionnal specified slot
  *
  * @param item Item ID
+ * @param slot Slot number where it will try to store the item
  */
-void MenuInventory::add(int item) {
-	for (int i=0; i<64; i++) {
-		if (carried[i] == 0) {
-			carried[i] = item;
-			items->playSound(item);
-			return;
+void MenuInventory::add(int item, int quantity, int slot, int from_slot) {
+	int max_quantity;
+	int quantity_added;
+	int i;
+	if( item != 0) {
+		max_quantity = items->items[item].max_quantity;
+		if( slot > -1 && carried[slot].item != 0 && carried[slot].item != item) {
+			// the proposed slot isn't available, search for another one
+			slot = -1;
 		}
+		// first search of stack to complete if the item is stackable
+		i = 0;
+		while( max_quantity > 1 && slot == -1 && i < MAX_CARRIED) {
+			if (carried[i].item == item && carried[i].quantity < max_quantity) {
+				slot = i;
+			}
+			i++;
+		}
+		// then an empty slot
+		i = 0;
+		while( slot == -1 && i < MAX_CARRIED) {
+			if (carried[i].item == 0) {
+				slot = i;
+			}
+			i++;
+		}
+		if( slot != -1) {
+			// add
+			quantity_added = min( quantity, max_quantity - carried[slot].quantity);
+			carried[slot].item = item;
+			carried[slot].quantity += quantity_added;
+			if( quantity > quantity_added) {
+				add( item, quantity - quantity_added, from_slot);
+			}
+		}
+		else {
+			// No available slot, drop
+			// TODO: We should drop on the floor an item we can't store
+		}
+	}
+}
+
+/**
+ * Substract an item from the specified slot, or remove it if it's the last
+ *
+ * @param slot Slot number
+ */
+void MenuInventory::substract(int slot, int quantity) {
+	carried[slot].quantity -= quantity;
+	if (carried[slot].quantity <= 0) {
+		carried[slot].item = 0;
 	}
 }
 
@@ -423,9 +477,10 @@ void MenuInventory::addGold(int count) {
  */
 int MenuInventory::getItemCountCarried(int item) {
 	int count=0;
-	for (int i=0; i<64; i++) {
-		if (carried[i] == item)
-			count++;	
+	for (int i=0; i<MAX_CARRIED; i++) {
+		if (carried[i].item == item) {
+			count += carried[i].quantity;
+		}
 	}
 	return count;
 }
@@ -434,7 +489,7 @@ int MenuInventory::getItemCountCarried(int item) {
  * Check to see if the given item is equipped
  */
 bool MenuInventory::isItemEquipped(int item) {
-	for (int i=0; i<4; i++) {
+	for (int i=0; i<MAX_EQUIPPED; i++) {
 		if (equipped[i] == item)
 			return true;
 	}
@@ -442,17 +497,17 @@ bool MenuInventory::isItemEquipped(int item) {
 }
 
 /**
- * Remove the given item from the player's inventory.
+ * Remove one given item from the player's inventory.
  */
 void MenuInventory::remove(int item) {
 	int i;
-	for (i=0; i<64; i++) {
-		if (carried[i] == item) {
-			carried[i] = 0;
+	for (i=0; i<MAX_CARRIED; i++) {
+		if (carried[i].item == item) {
+			substract(i);
 			return;
 		}
 	}
-	for (i=0; i<4; i++) {
+	for (i=0; i<MAX_EQUIPPED; i++) {
 		if (equipped[i] == item) {
 			equipped[i] = 0;
 			if (i < SLOT_ARTIFACT) changed_equipment = true;
@@ -472,16 +527,8 @@ bool MenuInventory::purchase(Point mouse, int item_id) {
 
 	int offset_x = (VIEW_W - 320);
 	int offset_y = (VIEW_H - 416)/2;
-	int slot;
 	
-	if (isWithin(carried_area, mouse)) {
-		slot = (mouse.x - (offset_x+32)) / 32 + ((mouse.y - (offset_y+128)) / 32) * 8;
-		if (carried[slot] == 0) {
-			carried[slot] = item_id;
-			items->playSound(item_id);
-		}
-		else add(item_id);
-	}
+	if (isWithin(carried_area, mouse)) add(item_id, 1, (mouse.x - (offset_x+32)) / 32 + ((mouse.y - (offset_y+128)) / 32) * 8);
 	else add(item_id);
 	
 	gold -= items->items[item_id].price;

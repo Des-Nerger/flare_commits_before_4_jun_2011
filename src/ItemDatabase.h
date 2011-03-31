@@ -79,6 +79,12 @@ struct Item {
 	int power_mod;
 	string power_desc;
 	int price;
+	int max_quantity;
+};
+
+struct ItemStack {
+	int item;
+	int quantity;
 };
 
 class ItemDatabase {
@@ -98,7 +104,7 @@ public:
 	void playSound(int item);
 	void playCoinsSound();	
 	TooltipData getTooltip(int item, StatBlock *stats, bool vendor_view);
-	TooltipData getShortTooltip(int item);
+	TooltipData getShortTooltip(ItemStack item);
 	void applyEquipment(StatBlock *stats, int equipped[4]);
 
 	Item items[1024];

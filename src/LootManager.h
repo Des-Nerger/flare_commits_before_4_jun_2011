@@ -22,7 +22,7 @@
 #include "EnemyManager.h"
 
 struct LootDef {
-	int item;
+	ItemStack stack;
 	int frame;
 	Point pos;
 	int gold;
@@ -87,10 +87,10 @@ public:
 	bool isFlying(int loot_index);
 	void determineLoot(int base_level, Point pos);
 	int randomItem(int base_level);
-	void addLoot(int item_id, Point pos);
+	void addLoot(ItemStack stack, Point pos);
 	void addGold(int count, Point pos);
 	void removeLoot(int index);
-	int checkPickup(Point mouse, Point cam, Point hero_pos, int &gold, bool inv_full);
+	ItemStack checkPickup(Point mouse, Point cam, Point hero_pos, int &gold, bool inv_full);
 	
 	Renderable getRender(int index);
 	

@@ -3,6 +3,8 @@
  *
  * I put these in a separate cpp file just to keep GameEngine.cpp devoted to its core.
  *
+ * TODO: handle stackable items
+ *
  * class GameEngine
  *
  * @author Clint Bellanger
@@ -54,7 +56,14 @@ void GameEngine::saveGame() {
 		// carried items
 		outfile << "carried=";
 		for (int i=0; i<64; i++) {
-			outfile << menu->inv->carried[i];
+			outfile << menu->inv->carried[i].item;
+			if (i<63) outfile << ",";
+			else outfile << "\n";
+		}
+		// carried item quantity
+		outfile << "quantity=";
+		for (int i=0; i<64; i++) {
+			outfile << menu->inv->carried[i].quantity;
 			if (i<63) outfile << ",";
 			else outfile << "\n";
 		}
@@ -90,6 +99,7 @@ void GameEngine::loadGame() {
 	for (int i=0; i<12; i++) {
 		hotkeys[i] = -1;
 	}
+
 
 	// TODO: change to hero name?
 	infile.open("saves/save1.txt", ios::in);
@@ -137,7 +147,14 @@ void GameEngine::loadGame() {
 					else if (key == "carried") {
 						val = val + ",";
 						for (int i=0; i<64; i++) {
-							menu->inv->carried[i] = eatFirstInt(val, ',');					
+							menu->inv->carried[i].item = eatFirstInt(val, ',');
+							if (menu->inv->carried[i].item != 0) menu->inv->carried[i].quantity = 1;
+						}
+					}
+					else if (key == "quantity") {
+						val = val + ",";
+						for (int i=0; i<64; i++) {
+							menu->inv->carried[i].quantity = eatFirstInt(val, ',');
 						}
 					}
 					else if (key == "spawn") {

@@ -33,10 +33,13 @@ MenuManager::MenuManager(PowerManager *_powers, SDL_Surface *_screen, InputState
 	
 	pause = false;
 	dragging = false;
-	drag_item = 0;
+	drag_item.item = 0;
+	drag_item.quantity = 0;
+
 	drag_power = -1;
 	drag_src = 0;
-	drop_item = 0;
+	drop_item.item = 0;
+	drop_item.quantity = 0;
 	
 	loadSounds();
 
@@ -204,8 +207,10 @@ void MenuManager::logic() {
 				else {
 					
 					// start dragging a vendor item
-					drag_item = vendor->click(inp->mouse);
-					if (drag_item > 0) {
+					drag_item.item = vendor->click(inp->mouse);
+					drag_item.quantity = 1;
+					
+					if (drag_item.item > 0) {
 						dragging = true;
 						drag_src = DRAG_SRC_VENDOR;
 						inp->mouse_lock=true;
@@ -227,7 +232,7 @@ void MenuManager::logic() {
 				}
 				else {
 					drag_item = inv->click(inp->mouse);
-					if (drag_item > 0) {
+					if (drag_item.item > 0) {
 						dragging = true;
 						drag_src = DRAG_SRC_INVENTORY;
 						inp->mouse_lock=true;
@@ -290,7 +295,7 @@ void MenuManager::logic() {
 		
 			if (inv->visible && inp->mouse.x >= offset_x && inp->mouse.y >= offset_y && inp->mouse.y <= offset_y+416) {
 				inv->drop(inp->mouse, drag_item);
-				drag_item = 0;
+				drag_item.item = 0;
 			}
 			else if (isWithin(act->numberArea,inp->mouse) || isWithin(act->mouseArea,inp->mouse)) {
 				
@@ -298,8 +303,8 @@ void MenuManager::logic() {
 				inv->itemReturn(drag_item);
 
 				// put an item with a power on the action bar
-				if (items->items[drag_item].power != -1) {
-					act->drop(inp->mouse, items->items[drag_item].power, false);
+				if (items->items[drag_item.item].power != -1) {
+					act->drop(inp->mouse, items->items[drag_item.item].power, false);
 				}
 			
 			}
@@ -307,7 +312,7 @@ void MenuManager::logic() {
 				
 				// vendor sell item
 				inv->sell(drag_item);
-				drag_item = 0;
+				drag_item.item = 0;
 				
 				// if selling equipment, prepare to change stats/sprites
 				if (inv->drag_prev_src == SRC_EQUIPPED) {
@@ -318,10 +323,10 @@ void MenuManager::logic() {
 				}
 				
 			}
-			else if (stats->hp > 0) {
+			else if (stats->alive) {
 				// if dragging and the source was inventory, drop item to the floor
 				drop_item = drag_item;
-				drag_item = 0;
+				drag_item.item = 0;
 			
 				// if dropping equipment, prepare to change stats/sprites
 				if (inv->drag_prev_src == SRC_EQUIPPED) {
@@ -339,8 +344,8 @@ void MenuManager::logic() {
 		else if (drag_src == DRAG_SRC_VENDOR) {
 
 			if (inv->visible && inp->mouse.x >= offset_x && inp->mouse.y >= offset_y && inp->mouse.y <= offset_y+416) {
-				inv->purchase(inp->mouse, drag_item);
-				drag_item = 0;
+				inv->purchase(inp->mouse, drag_item.item);
+				drag_item.item = 0;
 			}
 
 		
@@ -425,7 +430,7 @@ void MenuManager::render() {
 	// draw icon under cursor if dragging
 	if (dragging) {
 		if (drag_src == DRAG_SRC_INVENTORY || drag_src == DRAG_SRC_VENDOR)
-			items->renderIcon(drag_item, inp->mouse.x - 16, inp->mouse.y - 16, ICON_SIZE_32);
+			items->renderIcon(drag_item.item, inp->mouse.x - 16, inp->mouse.y - 16, ICON_SIZE_32);
 		else if (drag_src == DRAG_SRC_POWERS || drag_src == DRAG_SRC_ACTIONBAR)
 			renderIcon(powers->powers[drag_power].icon, inp->mouse.x-16, inp->mouse.y-16);
 	}

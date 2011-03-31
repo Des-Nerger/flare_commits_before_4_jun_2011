@@ -32,7 +32,8 @@ LootManager::LootManager(ItemDatabase *_items, MenuTooltip *_tip, EnemyManager *
 		loot[i].pos.x = 0;
 		loot[i].pos.y = 0;
 		loot[i].frame = 0;
-		loot[i].item = 0;
+		loot[i].stack.item = 0;
+		loot[i].stack.quantity = 0;
 		loot[i].gold = 0;
 	}
 
@@ -166,8 +167,8 @@ void LootManager::logic() {
 			loot[i].frame++;
 
 		if (loot[i].frame == max_frame-1) {
-			if (loot[i].item > 0)
-				items->playSound(loot[i].item);
+			if (loot[i].stack.item > 0)
+				items->playSound(loot[i].stack.item);
 			else
 				items->playCoinsSound();
 		}
@@ -212,8 +213,9 @@ void LootManager::renderTooltips(Point cam) {
 		
 			// adjust dest.y so that the tooltip floats above the item
 			dest.y -= tooltip_margin;
-			if (loot[i].item > 0)
-				td = items->getShortTooltip(loot[i].item);
+			if (loot[i].stack.item > 0) {
+				td = items->getShortTooltip(loot[i].stack);
+			}
 			else {
 				td.num_lines = 1;
 				td.colors[0] = FONT_WHITE;
@@ -259,7 +261,7 @@ void LootManager::checkMapForLoot() {
 			determineLoot(ec->z, p);
 		}
 		else if (ec->s == "id") {
-			addLoot(ec->z, p);
+			addLoot( (ItemStack){ec->z, 1}, p);
 		}
 		map->loot.pop();
 	}
@@ -303,7 +305,7 @@ void LootManager::determineLoot(int base_level, Point pos) {
 		// coin flip whether the treasure is cash or items
 		if (rand() % 2 == 0) {
 			int roll = rand() % loot_table_count[level];
-			addLoot(loot_table[level][roll], pos);
+			addLoot( (ItemStack){loot_table[level][roll],1}, pos);
 		}
 		else {
 			// gold range is level to 3x level
@@ -325,9 +327,9 @@ int LootManager::randomItem(int base_level) {
 	return 0;
 }
 
-void LootManager::addLoot(int item_id, Point pos) {
+void LootManager::addLoot(ItemStack stack, Point pos) {
 	// TODO: z-sort insert?
-	loot[loot_count].item = item_id;
+	loot[loot_count].stack = stack;
 	loot[loot_count].pos.x = pos.x;
 	loot[loot_count].pos.y = pos.y;
 	loot[loot_count].frame = 0;
@@ -337,7 +339,8 @@ void LootManager::addLoot(int item_id, Point pos) {
 }
 
 void LootManager::addGold(int count, Point pos) {
-	loot[loot_count].item = 0;
+	loot[loot_count].stack.item = 0;
+	loot[loot_count].stack.quantity = 0;
 	loot[loot_count].pos.x = pos.x;
 	loot[loot_count].pos.y = pos.y;
 	loot[loot_count].frame = 0;
@@ -352,7 +355,7 @@ void LootManager::addGold(int count, Point pos) {
  */
 void LootManager::removeLoot(int index) {
 	for (int i=index; i<loot_count-1; i++) {
-		loot[i].item = loot[i+1].item;
+		loot[i].stack = loot[i+1].stack;
 		loot[i].pos.x = loot[i+1].pos.x;
 		loot[i].pos.y = loot[i+1].pos.y;
 		loot[i].frame = loot[i+1].frame;
@@ -366,11 +369,13 @@ void LootManager::removeLoot(int index) {
  * screen coordinates to map locations.  We need the hero position because
  * the hero has to be within range to pick up an item.
  */
-int LootManager::checkPickup(Point mouse, Point cam, Point hero_pos, int &gold, bool inv_full) {
+ItemStack LootManager::checkPickup(Point mouse, Point cam, Point hero_pos, int &gold, bool inv_full) {
 	Point p;
 	SDL_Rect r;
-	int loot_id;
-	gold = 0;	
+	ItemStack loot_stack;
+	loot_stack.item = 0;
+	loot_stack.quantity = 0;
+	gold = 0;
 	
 	// I'm starting at the end of the loot list so that more recently-dropped
 	// loot is picked up first.  If a player drops several loot in the same
@@ -391,23 +396,23 @@ int LootManager::checkPickup(Point mouse, Point cam, Point hero_pos, int &gold, 
 			if (mouse.x > r.x && mouse.x < r.x+r.w &&
 				mouse.y > r.y && mouse.y < r.y+r.h) {
 				
-				if (loot[i].item > 0 && !inv_full) {
-					loot_id = loot[i].item;
+				if (loot[i].stack.item > 0 && !inv_full) {
+					loot_stack = loot[i].stack;
 					removeLoot(i);
-					return loot_id;			
+					return loot_stack;
 				}
-				else if (loot[i].item > 0) {
+				else if (loot[i].stack.item > 0) {
 					full_msg = true;
 				}
 				else if (loot[i].gold > 0) {
 					gold = loot[i].gold;
 					removeLoot(i);
-					return 0;
+					return loot_stack;
 				}
 			}
 		}
 	}
-	return 0;
+	return loot_stack;
 }
 
 Renderable LootManager::getRender(int index) {
@@ -427,10 +432,10 @@ Renderable LootManager::getRender(int index) {
 	r.offset.y = 112;
 	r.object_layer = true;
 
-	if (loot[index].item > 0) {
+	if (loot[index].stack.item > 0) {
 		// item
 		for (int i=0; i<animation_count; i++) {
-			if (items->items[loot[index].item].loot == animation_id[i])
+			if (items->items[loot[index].stack.item].loot == animation_id[i])
 				r.sprite = flying_loot[i];
 		}
 	}

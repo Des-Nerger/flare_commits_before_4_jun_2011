@@ -22,6 +22,9 @@
 
 using namespace std;
 
+const int MAX_EQUIPPED = 4;
+const int MAX_CARRIED = 64;
+
 // note: if you change these, also change them in ItemDatabase::applyEquipment
 const int SLOT_MAIN = 0;
 const int SLOT_BODY = 1;
@@ -47,16 +50,17 @@ public:
 	~MenuInventory();
 	void logic();
 	void render();
-	int click(Point mouse);
+	ItemStack click(Point mouse);
 	void sell(Point mouse);
-	void sell(int item_id);
-	void itemReturn(int item);
+	void sell(ItemStack item);
+	void itemReturn(ItemStack stack);
 	bool requirementsMet(int item);
-	void drop(Point mouse, int src);
+	void drop(Point mouse, ItemStack stack);
 	void activate(Point mouse);
 	TooltipData checkTooltip(Point mouse);
 	bool full();
-	void add(int item);
+	void add(int item, int quantity = 1, int slot = -1, int from_slot = -1);
+	void substract( int slot, int quantity = 1);
 	void addGold(int count);
 	int getItemCountCarried(int item);
 	bool isItemEquipped(int item);
@@ -68,7 +72,7 @@ public:
 	SDL_Rect carried_area;
 	SDL_Rect equipped_area;
 
-	int carried[64];
+	ItemStack carried[64];
 	int equipped[4];
 	int gold;
 	int drag_prev_slot;
