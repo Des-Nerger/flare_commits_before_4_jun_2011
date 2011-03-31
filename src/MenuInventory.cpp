@@ -414,6 +414,9 @@ void MenuInventory::add(int item, int quantity, int slot, int from_slot) {
 	int max_quantity;
 	int quantity_added;
 	int i;
+	
+	items->playSound(item);
+	
 	if( item != 0) {
 		max_quantity = items->items[item].max_quantity;
 		if( slot > -1 && carried[slot].item != 0 && carried[slot].item != item) {
