@@ -51,7 +51,7 @@ private:
 	void loadIcons();
 	
 	bool dragging;
-	ItemStack drag_item;
+	ItemStack drag_stack;
 	int drag_power;
 	int drag_src;
 
@@ -83,7 +83,7 @@ public:
 	
 	bool pause;
 	bool menus_open;
-	ItemStack drop_item;	
+	ItemStack drop_stack;	
 
 	Mix_Chunk *sfx_open;
 	Mix_Chunk *sfx_close;

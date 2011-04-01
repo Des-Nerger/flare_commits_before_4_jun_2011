@@ -597,7 +597,7 @@ bool Enemy::takeHit(Hazard h) {
 			dmg = (dmg * stats.attunement_ice) / 100;			
 		}
 		
-		// subtract absorption from armor
+		// substract absorption from armor
 		int absorption;
 		if (!h.trait_armor_penetration) { // armor penetration ignores all absorption
 			if (stats.absorb_min == stats.absorb_max) absorption = stats.absorb_min;

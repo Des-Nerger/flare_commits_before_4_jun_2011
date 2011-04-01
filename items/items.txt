@@ -8796,4 +8796,15 @@ sfx=gem
 loot=ring
 bonus=HP regen,1000
 
+[item]
+id=999
+name=Arrows
+level=4
+quality=normal
+type=artifact
+icon=113,17
+sfx=leather
+loot=boots
+price=4
+max_quantity=100
 

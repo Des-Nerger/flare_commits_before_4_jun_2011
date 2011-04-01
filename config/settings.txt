@@ -14,4 +14,4 @@ resolution_h=480
 frames_per_sec=30
 
 # background music volume.  Ranged is 0 (silent) to 128 (max)
-music_volume=128
+music_volume=32

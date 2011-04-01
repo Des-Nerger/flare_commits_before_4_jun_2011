@@ -413,7 +413,7 @@ TooltipData ItemDatabase::getTooltip(int item, StatBlock *stats, bool vendor_vie
 /**
  * Given the equipped items, calculate the hero's stats
  */
-void ItemDatabase::applyEquipment(StatBlock *stats, int equipped[4]) {
+void ItemDatabase::applyEquipment(StatBlock *stats, ItemStack * equipped) {
 
 	// note: these are also defined in MenuInventory.h
 	int SLOT_MAIN = 0;
@@ -437,7 +437,7 @@ void ItemDatabase::applyEquipment(StatBlock *stats, int equipped[4]) {
 
 
 	// main hand weapon
-	int item_id = equipped[SLOT_MAIN];
+	int item_id = equipped[SLOT_MAIN].item;
 	if (item_id > 0) {
 		if (items[item_id].req_stat == REQUIRES_PHYS) {
 			stats->dmg_melee_min = items[item_id].dmg_min;
@@ -453,7 +453,7 @@ void ItemDatabase::applyEquipment(StatBlock *stats, int equipped[4]) {
 		}
 	}
 	// off hand item
-	item_id = equipped[SLOT_OFF];
+	item_id = equipped[SLOT_OFF].item;
 	if (item_id > 0) {
 		if (items[item_id].req_stat == REQUIRES_OFF) {
 			stats->dmg_ranged_min = items[item_id].dmg_min;
@@ -467,7 +467,7 @@ void ItemDatabase::applyEquipment(StatBlock *stats, int equipped[4]) {
 		}
 	}		
 	// body item
-	item_id = equipped[SLOT_BODY];
+	item_id = equipped[SLOT_BODY].item;
 	if (item_id > 0) {
 		stats->absorb_min += items[item_id].abs_min;
 		stats->absorb_max += items[item_id].abs_max;						
@@ -475,7 +475,7 @@ void ItemDatabase::applyEquipment(StatBlock *stats, int equipped[4]) {
 
 	// apply bonuses from all items
 	for (int i=0; i<4; i++) {
-		item_id = equipped[i];
+		item_id = equipped[i].item;
 		
 		if (items[item_id].bonus_stat == "HP")
 			stats->maxhp += items[item_id].bonus_val;

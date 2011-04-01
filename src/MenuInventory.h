@@ -22,6 +22,9 @@
 
 using namespace std;
 
+const int EQUIPMENT = 0;
+const int CARRIED = 1;
+
 const int MAX_EQUIPPED = 4;
 const int MAX_CARRIED = 64;
 
@@ -30,9 +33,6 @@ const int SLOT_MAIN = 0;
 const int SLOT_BODY = 1;
 const int SLOT_OFF = 2;
 const int SLOT_ARTIFACT = 3;
-
-const int SRC_EQUIPPED = 0;
-const int SRC_CARRIED = 1;
 
 class MenuInventory {
 private:
@@ -51,29 +51,31 @@ public:
 	void logic();
 	void render();
 	ItemStack click(Point mouse);
+	int areaClicked(Point mouse);
+	int slotClicked(int area, Point mouse);
 	void sell(Point mouse);
-	void sell(ItemStack item);
+	void sell(ItemStack stack);
 	void itemReturn(ItemStack stack);
 	bool requirementsMet(int item);
 	void drop(Point mouse, ItemStack stack);
 	void activate(Point mouse);
 	TooltipData checkTooltip(Point mouse);
 	bool full();
-	void add(int item, int quantity = 1, int slot = -1, int from_slot = -1);
-	void subtract( int slot, int quantity = 1);
+	void add( ItemStack stack, int area = CARRIED, int slot = -1);
+	void substract( int area, int slot, int quantity = 1);
 	void addGold(int count);
 	int getItemCountCarried(int item);
 	bool isItemEquipped(int item);
 	void remove(int item);
 	bool purchase(Point mouse, int item);
+	void update_equipment( int slot);
 	
 	bool visible;
 
 	SDL_Rect carried_area;
 	SDL_Rect equipped_area;
 
-	ItemStack carried[64];
-	int equipped[4];
+	ItemStack * inventory[2];
 	int gold;
 	int drag_prev_slot;
 	int drag_prev_src;

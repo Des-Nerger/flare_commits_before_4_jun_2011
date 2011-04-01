@@ -373,9 +373,9 @@ ItemStack LootManager::checkPickup(Point mouse, Point cam, Point hero_pos, int &
 	Point p;
 	SDL_Rect r;
 	ItemStack loot_stack;
+	gold = 0;	
 	loot_stack.item = 0;
 	loot_stack.quantity = 0;
-	gold = 0;
 	
 	// I'm starting at the end of the loot list so that more recently-dropped
 	// loot is picked up first.  If a player drops several loot in the same
@@ -407,6 +407,7 @@ ItemStack LootManager::checkPickup(Point mouse, Point cam, Point hero_pos, int &
 				else if (loot[i].gold > 0) {
 					gold = loot[i].gold;
 					removeLoot(i);
+
 					return loot_stack;
 				}
 			}

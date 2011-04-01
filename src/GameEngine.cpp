@@ -82,7 +82,7 @@ void GameEngine::checkLoot() {
 		pickup = loot->checkPickup(inp->mouse, map->cam, pc->stats.pos, gold, menu->inv->full());
 		if (pickup.item > 0) {
 			inp->mouse_lock = true;
-			menu->inv->add(pickup.item, pickup.quantity);
+			menu->inv->add(pickup);
 			// TODO: play a little sound. Not the item's sound, in anticipation of a "Pickup all loots" key.
 		}
 		else if (gold > 0) {
@@ -177,19 +177,19 @@ void GameEngine::checkLog() {
 
 void GameEngine::checkEquipmentChange() {
 	if (menu->inv->changed_equipment) {
-		pc->loadGraphics(menu->items->items[menu->inv->equipped[0]].gfx, 
-		                 menu->items->items[menu->inv->equipped[1]].gfx, 
-		                 menu->items->items[menu->inv->equipped[2]].gfx);
+		pc->loadGraphics(menu->items->items[menu->inv->inventory[EQUIPMENT][0].item].gfx, 
+		                 menu->items->items[menu->inv->inventory[EQUIPMENT][1].item].gfx, 
+		                 menu->items->items[menu->inv->inventory[EQUIPMENT][2].item].gfx);
 		menu->inv->changed_equipment = false;
 	}
 }
 
 void GameEngine::checkLootDrop() {
 	// if the player has dropped an item from the inventory
-	if (menu->drop_item.item > 0) {
-		loot->addLoot(menu->drop_item, pc->stats.pos);
-		menu->drop_item.item = 0;
-		menu->drop_item.quantity = 0;
+	if (menu->drop_stack.item > 0) {
+		loot->addLoot(menu->drop_stack, pc->stats.pos);
+		menu->drop_stack.item = 0;
+		menu->drop_stack.quantity = 0;
 	}
 }
 

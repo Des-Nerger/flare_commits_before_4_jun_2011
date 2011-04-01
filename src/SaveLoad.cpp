@@ -27,47 +27,56 @@ void GameEngine::saveGame() {
 	outfile.open("saves/save1.txt", ios::out);
 
 	if (outfile.is_open()) {
-	
+
 		// hero name
 		outfile << "name=" << pc->stats.name << "\n";
-		
+
 		// current experience
 		outfile << "xp=" << pc->stats.xp << "\n";
-		
+
 		// stat spec
 		outfile << "build=" << pc->stats.physical << "," << pc->stats.mental << "," << pc->stats.offense << "," << pc->stats.defense << "\n";
-		
+
 		// current gold
 		outfile << "gold=" << menu->inv->gold << "\n";
-		
+
 		// current controls
 		outfile << "mouse_move=";
 		if (pc->stats.mouse_move) outfile << "true\n";
 		else outfile << "false\n";
-		
+
 		// equipped gear
 		outfile << "equipped=";
-		for (int i=0; i<4; i++) {
-			outfile << menu->inv->equipped[i];
-			if (i<3) outfile << ",";
+		for (int i=0; i<MAX_EQUIPPED; i++) {
+			outfile << menu->inv->inventory[EQUIPMENT][i].item;
+			if (i<MAX_EQUIPPED-1) outfile << ",";
 			else outfile << "\n";
 		}
-	
+
+		// equipped gear quantity
+		outfile << "equipped_quantity=";
+		for (int i=0; i<MAX_EQUIPPED; i++) {
+			outfile << menu->inv->inventory[EQUIPMENT][i].quantity;
+			if (i<MAX_EQUIPPED-1) outfile << ",";
+			else outfile << "\n";
+		}
+
 		// carried items
 		outfile << "carried=";
-		for (int i=0; i<64; i++) {
-			outfile << menu->inv->carried[i].item;
-			if (i<63) outfile << ",";
+		for (int i=0; i<MAX_CARRIED; i++) {
+			outfile << menu->inv->inventory[CARRIED][i].item;
+			if (i<MAX_CARRIED-1) outfile << ",";
 			else outfile << "\n";
 		}
-		// carried item quantity
-		outfile << "quantity=";
-		for (int i=0; i<64; i++) {
-			outfile << menu->inv->carried[i].quantity;
-			if (i<63) outfile << ",";
+ 
+		// carried items quantity
+		outfile << "carried_quantity=";
+		for (int i=0; i<MAX_CARRIED; i++) {
+			outfile << menu->inv->inventory[CARRIED][i].quantity;
+			if (i<MAX_CARRIED-1) outfile << ",";
 			else outfile << "\n";
 		}
-		
+
 		// spawn point
 		outfile << "spawn=" << map->respawn_map << "," << map->respawn_point.x/UNITS_PER_TILE << "," << map->respawn_point.y/UNITS_PER_TILE << "\n";
 		
@@ -99,7 +108,6 @@ void GameEngine::loadGame() {
 	for (int i=0; i<12; i++) {
 		hotkeys[i] = -1;
 	}
-
 
 	// TODO: change to hero name?
 	infile.open("saves/save1.txt", ios::in);
@@ -140,21 +148,30 @@ void GameEngine::loadGame() {
 					}
 					else if (key == "equipped") {
 						val = val + ",";
-						for (int i=0; i<4; i++) {
-							menu->inv->equipped[i] = eatFirstInt(val, ',');
+						for (int i=0; i<MAX_EQUIPPED; i++) {
+							menu->inv->inventory[EQUIPMENT][i].item = eatFirstInt(val, ',');
+							if( menu->inv->inventory[EQUIPMENT][i].item != 0) menu->inv->inventory[EQUIPMENT][i].quantity = 1;
+							else menu->inv->inventory[EQUIPMENT][i].quantity = 0;
+						}
+					}
+					else if (key == "equipped_quantity") {
+						val = val + ",";
+						for (int i=0; i<MAX_EQUIPPED; i++) {
+							menu->inv->inventory[EQUIPMENT][i].quantity = eatFirstInt(val, ',');
 						}
 					}
 					else if (key == "carried") {
 						val = val + ",";
-						for (int i=0; i<64; i++) {
-							menu->inv->carried[i].item = eatFirstInt(val, ',');
-							if (menu->inv->carried[i].item != 0) menu->inv->carried[i].quantity = 1;
+						for (int i=0; i<MAX_CARRIED; i++) {
+							menu->inv->inventory[CARRIED][i].item = eatFirstInt(val, ',');
+							if( menu->inv->inventory[CARRIED][i].item != 0) menu->inv->inventory[CARRIED][i].quantity = 1;
+							else menu->inv->inventory[CARRIED][i].quantity = 0;
 						}
 					}
-					else if (key == "quantity") {
+					else if (key == "carried_quantity") {
 						val = val + ",";
-						for (int i=0; i<64; i++) {
-							menu->inv->carried[i].quantity = eatFirstInt(val, ',');
+						for (int i=0; i<MAX_CARRIED; i++) {
+							menu->inv->inventory[CARRIED][i].quantity = eatFirstInt(val, ',');
 						}
 					}
 					else if (key == "spawn") {
@@ -181,7 +198,7 @@ void GameEngine::loadGame() {
 		
 		// initialize vars
 		pc->stats.recalc();
-		menu->items->applyEquipment(&pc->stats, menu->inv->equipped);
+		menu->items->applyEquipment(&pc->stats, menu->inv->inventory[EQUIPMENT]);
 		pc->stats.hp = pc->stats.maxhp;
 		pc->stats.mp = pc->stats.maxmp;
 				
