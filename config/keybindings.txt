@@ -21,12 +21,12 @@ down=115,274
 right=100,275
 
 # action bar 1,2,3,4,5,6,7,8,9,0 (default: numbers)
-bar1=49,97
-bar2=50,122
-bar3=51,101
-bar4=52,114
-bar5=53,116
-bar6=54,121
+bar1=49,49
+bar2=50,50
+bar3=51,51
+bar4=52,52
+bar5=53,53
+bar6=54,54
 bar7=55,55
 bar8=56,56
 bar9=57,57
