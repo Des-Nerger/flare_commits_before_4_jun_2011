@@ -19,7 +19,7 @@ chance_melee_ment=0
 chance_ranged_phys=1
 chance_ranged_ment=0
 power_melee_phys=1
-power_ranged_phys=121
+power_ranged_phys=34
 
 accuracy=69
 avoidance=19

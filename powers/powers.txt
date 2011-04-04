@@ -330,11 +330,12 @@ base_damage=none
 
 [power]
 id=30
-name=Ice Shard
+name=Ice Shard [enemy]
 type=missile
 new_state=cast
 face=true
 directional=true
+requires_los=true
 gfx=icicle.png
 sfx=shock.ogg
 use_hazard=true
@@ -356,11 +357,12 @@ wall_power=126
 
 [power]
 id=31
-name=Fireshot
+name=Fireshot [enemy]
 type=missile
 new_state=cast
 face=true
 directional=true
+requires_los=true
 gfx=fireball.png
 sfx=fireball.ogg
 use_hazard=true
@@ -380,13 +382,14 @@ wall_power=125
 
 [power]
 id=32
-name=Goblin Spear
+name=Goblin Spear [enemy]
 type=missile
 icon=0
 description=Crude goblin spear toss
 new_state=shoot
 face=true
 directional=true
+requires_los=true
 gfx=spear.png
 use_hazard=true
 rendered=true
@@ -402,7 +405,7 @@ frame_loop=32
 
 [power]
 id=33
-name=Fireburst
+name=Fireburst [enemy]
 type=effect
 icon=10
 description=Burn nearby enemies
@@ -426,6 +429,34 @@ multitarget=true
 visual_option=1
 slow_duration=15
 post_power=125
+
+[power]
+id=34
+name=Arrow Shoot [enemy]
+type=missile
+icon=0
+description=Bow shoot
+new_state=shoot
+face=true
+directional=true
+requires_los=true
+gfx=arrows.png
+sfx=shoot.ogg
+use_hazard=true
+rendered=true
+aim_assist=32
+requires_offense_weapon=true
+base_damage=ranged
+lifespan=20
+radius=64
+speed=48
+frame_size=64,64
+frame_offset=32,64
+wall_power=124
+
+
+
+
 
 [power]
 id=100

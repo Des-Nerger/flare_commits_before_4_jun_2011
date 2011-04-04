@@ -15,11 +15,13 @@ threat_range=512
 dir_favor=7
 chance_pursue=30
 chance_melee_phys=10
-chance_melee_ment=3
+chance_melee_ment=25
 chance_ranged_phys=0
 chance_ranged_ment=0
 power_melee_phys=1
 power_melee_ment=10
+
+cooldown_melee_ment=45
 
 accuracy=90
 avoidance=40

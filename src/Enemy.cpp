@@ -15,7 +15,7 @@ Enemy::Enemy(PowerManager *_powers, MapIso *_map) {
 	stats.cur_state = ENEMY_STANCE;
 	stats.cur_frame = 0;
 	stats.disp_frame = 0;	
-	stats.dir_ticks = 0;
+	stats.dir_ticks = FRAMES_PER_SEC;
 	stats.patrol_ticks = 0;
 	stats.cooldown = 0;
 	stats.last_seen.x = -1;
@@ -301,7 +301,7 @@ void Enemy::logic() {
 						}
 					}
 					// CHECK: ranged spell!
-					if (!powers->powers[stats.power_index[RANGED_PHYS]].requires_los || los) {					
+					if (!powers->powers[stats.power_index[RANGED_MENT]].requires_los || los) {					
 						if ((rand() % 100) < stats.power_index[RANGED_MENT] && stats.power_ticks[RANGED_MENT] == 0) {
 							
 							newState(ENEMY_RANGED_MENT);
