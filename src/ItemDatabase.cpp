@@ -450,6 +450,10 @@ void ItemDatabase::applyEquipment(StatBlock *stats, ItemStack * equipped) {
 	stats->attunement_fire = 100;
 	stats->attunement_ice = 100;
 
+	// reset wielding vars
+	stats->wielding_physical = false;
+	stats->wielding_mental = false;
+	stats->wielding_offense = false;
 
 	// main hand weapon
 	int item_id = equipped[SLOT_MAIN].item;
