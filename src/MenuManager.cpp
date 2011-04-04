@@ -337,22 +337,12 @@ void MenuManager::logic() {
 						vendor->add( drag_stack);
 					}
 					drag_stack.item = 0;
-					
-					// if selling equipment, prepare to change stats/sprites
-					if (inv->drag_prev_src == EQUIPMENT) {
-						inv->updateEquipment( inv->drag_prev_src);
-					}
 				}
 				else {
 					// if dragging and the source was inventory, drop item to the floor
 					drop_stack = drag_stack;
 					drag_stack.item = 0;
 					drag_stack.quantity = 0;
-				
-					// if dropping equipment, prepare to change stats/sprites
-					if (inv->drag_prev_src == EQUIPMENT) {
-						inv->updateEquipment( inv->drag_prev_src);
-					}
 				}
 			}
 			

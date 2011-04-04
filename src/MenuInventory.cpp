@@ -138,6 +138,10 @@ ItemStack MenuInventory::click(InputState * input) {
 	drag_prev_src = areaOver(input->mouse);
 	if( drag_prev_src > -1) {
 		item = inventory[drag_prev_src].click(input);
+		// if dragging equipment, prepare to change stats/sprites
+		if (drag_prev_src == EQUIPMENT) {
+			updateEquipment( inventory[EQUIPMENT].drag_prev_slot);
+		}
 	}
 
 	return item;
@@ -148,6 +152,10 @@ ItemStack MenuInventory::click(InputState * input) {
  */
 void MenuInventory::itemReturn( ItemStack stack) {
 	inventory[drag_prev_src].itemReturn( stack);
+	// if returning equipment, prepare to change stats/sprites
+	if (drag_prev_src == EQUIPMENT) {
+		updateEquipment( inventory[EQUIPMENT].drag_prev_slot);
+	}
 	drag_prev_src = -1;
 }
 
@@ -235,7 +243,6 @@ void MenuInventory::drop(Point mouse, ItemStack stack) {
 				// Swap the two stacks
 				itemReturn( inventory[area][slot]);
 				inventory[area][slot] = stack;
-				updateEquipment( drag_prev_slot);
 			}
 			else {
 				itemReturn( stack); // cancel

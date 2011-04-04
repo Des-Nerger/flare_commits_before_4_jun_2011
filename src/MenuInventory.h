@@ -46,6 +46,7 @@ private:
 
 	void loadGraphics();
 	int areaOver(Point mouse);
+	void updateEquipment(int slot);
 
 	SDL_Surface *background;
 	
@@ -71,7 +72,6 @@ public:
 	int getItemCountCarried(int item);
 	bool isItemEquipped(int item);
 	bool requirementsMet(int item);
-	void updateEquipment(int slot);
 	
 	bool visible;
 

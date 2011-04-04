@@ -15,6 +15,7 @@ Avatar::Avatar(PowerManager *_powers, InputState *_inp, MapIso *_map) {
 	map = _map;
 	
 	// other init
+	sprites = 0;
 	stats.cur_state = AVATAR_STANCE;
 	stats.pos.x = map->spawn.x;
 	stats.pos.y = map->spawn.y;
@@ -74,48 +75,60 @@ Avatar::Avatar(PowerManager *_powers, InputState *_inp, MapIso *_map) {
 	stats.anim_die_position = 18;
 	stats.anim_die_frames = 6;
 	stats.anim_die_duration = 3;
+
+	img_main = "";
+	img_armor = "";
+	img_off = "";
 }
 
-void Avatar::loadGraphics(string img_main, string img_body, string img_off) {
+void Avatar::loadGraphics(string _img_main, string _img_armor, string _img_off) {
 	SDL_Surface *gfx_main = NULL;
 	SDL_Surface *gfx_off = NULL;
 	SDL_Rect src;
 	SDL_Rect dest;
 	
-	string img_armor = img_body;
-	if (img_armor == "") img_armor = "clothes";
+	// Default appearance
+	if (_img_armor == "") _img_armor = "clothes";
 	
-	// composite the hero graphic
-	sprites = IMG_Load(("images/avatar/male/" + img_armor + ".png").c_str());
-	if (img_main != "") gfx_main = IMG_Load(("images/avatar/male/" + img_main + ".png").c_str());
-	if (img_off != "") gfx_off = IMG_Load(("images/avatar/male/" + img_off + ".png").c_str());
+	// Check if we really need to change the graphics
+	if (_img_main != img_main || _img_armor != img_armor || _img_off != img_off) {
+		img_main = _img_main;
+		img_armor = _img_armor;
+		img_off = _img_off;
+	
+		// composite the hero graphic
+		if (sprites) SDL_FreeSurface(sprites);
+		sprites = IMG_Load(("images/avatar/male/" + img_armor + ".png").c_str());
+		if (img_main != "") gfx_main = IMG_Load(("images/avatar/male/" + img_main + ".png").c_str());
+		if (img_off != "") gfx_off = IMG_Load(("images/avatar/male/" + img_off + ".png").c_str());
 
-	SDL_SetColorKey( sprites, SDL_SRCCOLORKEY, SDL_MapRGB(sprites->format, 255, 0, 255) ); 
-	if (gfx_main) SDL_SetColorKey( gfx_main, SDL_SRCCOLORKEY, SDL_MapRGB(gfx_main->format, 255, 0, 255) ); 
-	if (gfx_off) SDL_SetColorKey( gfx_off, SDL_SRCCOLORKEY, SDL_MapRGB(gfx_off->format, 255, 0, 255) ); 
-	
-	// assuming the hero is right-handed, we know the layer z-order
-	src.w = dest.w = 4096;
-	src.h = dest.h = 256;
-	src.x = dest.x = 0;
-	src.y = dest.y = 0;
-	if (gfx_main) SDL_BlitSurface(gfx_main, &src, sprites, &dest);
-	src.y = dest.y = 768;
-	if (gfx_main) SDL_BlitSurface(gfx_main, &src, sprites, &dest);
-	src.h = dest.h = 1024;
-	src.y = dest.y = 0;
-	if (gfx_off) SDL_BlitSurface(gfx_off, &src, sprites, &dest);
-	src.h = dest.h = 512;
-	src.y = dest.y = 256;
-	if (gfx_main) SDL_BlitSurface(gfx_main, &src, sprites, &dest);
-	
-	if (gfx_main) SDL_FreeSurface(gfx_main);
-	if (gfx_off) SDL_FreeSurface(gfx_off);
-	
-	// optimize
-	SDL_Surface *cleanup = sprites;
-	sprites = SDL_DisplayFormatAlpha(sprites);
-	SDL_FreeSurface(cleanup);
+		SDL_SetColorKey( sprites, SDL_SRCCOLORKEY, SDL_MapRGB(sprites->format, 255, 0, 255) ); 
+		if (gfx_main) SDL_SetColorKey( gfx_main, SDL_SRCCOLORKEY, SDL_MapRGB(gfx_main->format, 255, 0, 255) ); 
+		if (gfx_off) SDL_SetColorKey( gfx_off, SDL_SRCCOLORKEY, SDL_MapRGB(gfx_off->format, 255, 0, 255) ); 
+		
+		// assuming the hero is right-handed, we know the layer z-order
+		src.w = dest.w = 4096;
+		src.h = dest.h = 256;
+		src.x = dest.x = 0;
+		src.y = dest.y = 0;
+		if (gfx_main) SDL_BlitSurface(gfx_main, &src, sprites, &dest);
+		src.y = dest.y = 768;
+		if (gfx_main) SDL_BlitSurface(gfx_main, &src, sprites, &dest);
+		src.h = dest.h = 1024;
+		src.y = dest.y = 0;
+		if (gfx_off) SDL_BlitSurface(gfx_off, &src, sprites, &dest);
+		src.h = dest.h = 512;
+		src.y = dest.y = 256;
+		if (gfx_main) SDL_BlitSurface(gfx_main, &src, sprites, &dest);
+		
+		if (gfx_main) SDL_FreeSurface(gfx_main);
+		if (gfx_off) SDL_FreeSurface(gfx_off);
+		
+		// optimize
+		SDL_Surface *cleanup = sprites;
+		sprites = SDL_DisplayFormatAlpha(sprites);
+		SDL_FreeSurface(cleanup);
+	}
 }
 
 void Avatar::loadSounds() {

@@ -36,10 +36,11 @@ class Avatar {
 private:
 	
 	PowerManager *powers;
-	SDL_Surface *sprites;
 	InputState *inp;
-	
 	MapIso *map;
+	
+	SDL_Surface *sprites;
+
 	bool lockSwing;
 	bool lockCast;
 	bool lockShoot;
@@ -52,10 +53,14 @@ private:
 	Mix_Chunk *sound_steps[4];
 	Mix_Chunk *level_up;
 
+	string img_main;
+	string img_armor;
+	string img_off;
+
 public:
 	Avatar(PowerManager *_powers, InputState *_inp, MapIso *_map);
 	~Avatar();
-	void loadGraphics(string img_main, string img_body, string img_off);
+	void loadGraphics(string img_main, string img_armor, string img_off);
 	void loadSounds();
 	
 	void logic(int actionbar_power, bool restrictPowerUse);
