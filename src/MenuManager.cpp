@@ -234,14 +234,19 @@ void MenuManager::logic() {
 						inp->mouse_lock = true;
 						stack = inv->click(inp);
 						if( stack.item > -1) {
-							if( vendor->full()) {
-								// Can we say "Not enough place" ?
-								inv->itemReturn( stack);
+							if (vendor->visible) {
+								if( vendor->full()) {
+									// Can we say "Not enough place" ?
+									inv->itemReturn( stack);
+								}
+								else {
+									// The vendor could have a limited amount of money in the future. It will be tested here.
+									inv->sell(stack);
+									vendor->add(stack);
+								}
 							}
 							else {
-								// The vendor could have a limited amount of money in the future. It will be tested here.
 								inv->sell(stack);
-								vendor->add(stack);
 							}
 						}
 					}
