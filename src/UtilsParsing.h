@@ -15,7 +15,9 @@
 #include <fstream>
 using namespace std;
 
+unsigned short xtoi(char c);
 unsigned short xtoi(string hex);
+char btox(bool b1, bool b2, bool b3, bool b4);
 string trim(string s, char c);
 string parse_section_title(string s);
 void parse_key_pair(string s, string &key, string &val);

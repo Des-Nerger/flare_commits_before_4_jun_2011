@@ -37,7 +37,7 @@ void CampaignManager::setHex(char c, int start) {
  * Take the savefile camaign= (256 hex chars) and convert to status array (1024 bools)
  */
 void CampaignManager::setAll(std::string s) {
-	for (int i=0; i<s.length(); i++) {
+	for (unsigned int i=0; i<s.length(); i++) {
 		setHex(s.at(i), i*4); // 4 = bits per hex
 	}
 }

@@ -25,6 +25,7 @@
 #include "LootManager.h"
 #include "PowerManager.h"
 #include "NPCManager.h"
+#include "CampaignManager.h"
 
 class GameEngine {
 private:
@@ -43,6 +44,7 @@ private:
 	LootManager *loot;
 	PowerManager *powers;
 	NPCManager *npcs;
+	CampaignManager *camp;
 	
 	bool cancel_lock;
 	void saveGame();
