@@ -15,6 +15,8 @@
 #include <fstream>
 #include "Utils.h"
 #include "UtilsParsing.h"
+#include "ItemDatabase.h"
+#include "ItemStorage.h"
 
 using namespace std;
 
@@ -32,7 +34,7 @@ private:
 	int current_frame;
 	
 public:
-	NPC();
+	NPC(ItemDatabase *_items);
 	~NPC();
 	void load(string npc_id);
 	void loadGraphics(string filename_sprites, string filename_portrait);
@@ -57,7 +59,7 @@ public:
 
 	// vendor info
 	bool vendor;
-	int stock[NPC_VENDOR_MAX_STOCK];
+	ItemStorage stock;
 	int stock_count;
 	int random_stock;
 	

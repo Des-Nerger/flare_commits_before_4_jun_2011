@@ -35,6 +35,7 @@ EndIf (NOT SDLIMAGE_FOUND)
 
 Set (FLARE_SOURCES 
 	../src/Avatar.cpp
+	../src/CampaignManager.cpp
 	../src/Enemy.cpp
 	../src/EnemyManager.cpp
 	../src/FontEngine.cpp
@@ -44,6 +45,7 @@ Set (FLARE_SOURCES
 	../src/HazardManager.cpp
 	../src/InputState.cpp
 	../src/ItemDatabase.cpp
+	../src/ItemStorage.cpp
 	../src/LootManager.cpp
 	../src/MapCollision.cpp
 	../src/MapIso.cpp
@@ -53,6 +55,7 @@ Set (FLARE_SOURCES
 	../src/MenuExperience.cpp
 	../src/MenuHPMP.cpp
 	../src/MenuInventory.cpp
+	../src/MenuItemStorage.cpp
 	../src/MenuLog.cpp
 	../src/MenuManager.cpp
 	../src/MenuMiniMap.cpp

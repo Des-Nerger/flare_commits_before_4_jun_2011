@@ -7,7 +7,7 @@
 
 #include "NPC.h"
 
-NPC::NPC() {
+NPC::NPC(ItemDatabase *_items) {
 
 	// init general vars
 	name = "";
@@ -28,9 +28,7 @@ NPC::NPC() {
 	
 	// init vendor info
 	vendor = false;
-	for (int i=0; i<NPC_VENDOR_MAX_STOCK; i++) {
-		stock[i] = -1;
-	}
+	stock.init(NPC_VENDOR_MAX_STOCK, _items);
 	stock_count = 0;
 	random_stock = 0;
 	vox_intro_count = 0;
@@ -52,6 +50,7 @@ void NPC::load(string npc_id) {
 	string key;
 	string val;
 	string starts_with;
+	ItemStack stack;
 	
 	infile.open(("npcs/" + npc_id + ".txt").c_str(), ios::in);
 
@@ -119,10 +118,11 @@ void NPC::load(string npc_id) {
 					}
 					else if (key == "constant_stock") {
 						val = val + ",";
-						while (val != "" && stock_count < NPC_VENDOR_MAX_STOCK) {
-							stock[stock_count++] = eatFirstInt(val, ',');
+						stack.quantity = 1;
+						while (val != "") {
+							stack.item = eatFirstInt(val, ',');
+							stock.add(stack);
 						}
-
 					}
 					else if (key == "random_stock") {
 						random_stock = atoi(val.c_str());

@@ -10,11 +10,12 @@
 
 #include "NPCManager.h"
 
-NPCManager::NPCManager(MapIso *_map, MenuTooltip *_tip, LootManager *_loot) {
+NPCManager::NPCManager(MapIso *_map, MenuTooltip *_tip, LootManager *_loot, ItemDatabase *_items) {
 
 	map = _map;
 	tip = _tip;
 	loot = _loot;
+	items = _items;
 
 	npc_count = 0;
 	for (int i=0; i<MAX_NPC_COUNT; i++) {
@@ -27,7 +28,7 @@ NPCManager::NPCManager(MapIso *_map, MenuTooltip *_tip, LootManager *_loot) {
 void NPCManager::handleNewMap() {
 	
 	Map_NPC mn;
-	int item_roll;
+	ItemStack item_roll;
 	
 	// remove existing NPCs
 	for (int i=0; i<npc_count; i++) {
@@ -42,25 +43,20 @@ void NPCManager::handleNewMap() {
 		mn = map->npcs.front();
 		map->npcs.pop();
 		
-		npcs[npc_count] = new NPC();
+		npcs[npc_count] = new NPC(items);
 		npcs[npc_count]->load(mn.id);
 		npcs[npc_count]->pos.x = mn.pos.x;
 		npcs[npc_count]->pos.y = mn.pos.y;
 		
 		// if this NPC needs randomized items
 		while (npcs[npc_count]->random_stock > 0 && npcs[npc_count]->stock_count < NPC_VENDOR_MAX_STOCK) {
-			item_roll = loot->randomItem(npcs[npc_count]->level);
-			if (item_roll != 0) {
-				npcs[npc_count]->stock[npcs[npc_count]->stock_count++] = item_roll;
-			}
+			item_roll.item = loot->randomItem(npcs[npc_count]->level);
+			item_roll.quantity = rand() % items->items[item_roll.item].max_quantity + 1;
+			npcs[npc_count]->stock.add( item_roll);
 			npcs[npc_count]->random_stock--;
 		}
-		bubbleSort(npcs[npc_count]->stock, npcs[npc_count]->stock_count);
-		removeDupes(npcs[npc_count]->stock, npcs[npc_count]->stock_count);
-		for (int i=npcs[npc_count]->stock_count; i<NPC_VENDOR_MAX_STOCK; i++) {
-			npcs[npc_count]->stock[i] = -1;
-		}
-		
+		npcs[npc_count]->stock.sort();
+
 		npc_count++;
 	}
 

@@ -11,12 +11,14 @@
 #include "SDL.h"
 #include "SDL_image.h"
 #include "SDL_mixer.h"
+#include "InputState.h"
 #include "Utils.h"
 #include "FontEngine.h"
 #include "ItemDatabase.h"
 #include "MenuTooltip.h"
 #include "StatBlock.h"
 #include "PowerManager.h"
+#include "MenuItemStorage.h"
 #include <string>
 #include <sstream>
 
@@ -43,6 +45,8 @@ private:
 	PowerManager *powers;
 
 	void loadGraphics();
+	int areaOver(Point mouse);
+
 	SDL_Surface *background;
 	
 public:
@@ -50,34 +54,33 @@ public:
 	~MenuInventory();
 	void logic();
 	void render();
-	ItemStack click(Point mouse);
-	int areaClicked(Point mouse);
-	int slotClicked(int area, Point mouse);
-	void sell(Point mouse);
-	void sell(ItemStack stack);
-	void itemReturn(ItemStack stack);
-	bool requirementsMet(int item);
-	void drop(Point mouse, ItemStack stack);
-	void activate(Point mouse);
 	TooltipData checkTooltip(Point mouse);
-	bool full();
+
+	ItemStack click(InputState * input);
+	void itemReturn(ItemStack stack);
+	void drop(Point mouse, ItemStack stack);
+	void activate(InputState * input);
+
 	void add( ItemStack stack, int area = CARRIED, int slot = -1);
-	void substract( int area, int slot, int quantity = 1);
+	void remove(int item);
 	void addGold(int count);
+	bool buy(ItemStack stack, Point mouse = Point());
+	void sell(ItemStack stack);
+
+	bool full();
 	int getItemCountCarried(int item);
 	bool isItemEquipped(int item);
-	void remove(int item);
-	bool purchase(Point mouse, int item);
-	void update_equipment( int slot);
+	bool requirementsMet(int item);
+	void updateEquipment(int slot);
 	
 	bool visible;
 
+	SDL_Rect window_area;
 	SDL_Rect carried_area;
 	SDL_Rect equipped_area;
 
-	ItemStack * inventory[2];
+	MenuItemStorage inventory[2];
 	int gold;
-	int drag_prev_slot;
 	int drag_prev_src;
 
 	// the following two are separate because artifacts don't display on the hero.

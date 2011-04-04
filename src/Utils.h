@@ -56,8 +56,46 @@ bool isWithin(SDL_Rect r, Point target);
 void zsort(Renderable r[], int rnum);
 void sort_by_tile(Renderable r[], int rnum);
 void drawPixel(SDL_Surface *screen, int x, int y, Uint32 color);
-void bubbleSort(int arr[], int n);
-void remove(int arr[], int &n, int index);
-void removeDupes(int arr[], int &n);
 
+/**
+ * As implemented here:
+ * http://www.algolist.net/Algorithms/Sorting/Bubble_sort
+ */
+template <typename T>
+void bubbleSort(T arr[], int n) {
+      bool swapped = true;
+      int j = 0;
+      T tmp;
+      while (swapped) {
+            swapped = false;
+            j++;
+            for (int i = 0; i < n - j; i++) {
+                  if (arr[i] > arr[i + 1]) {
+                        tmp = arr[i];
+                        arr[i] = arr[i + 1];
+                        arr[i + 1] = tmp;
+                        swapped = true;
+                  }
+            }
+      }
+}
+
+template <typename T>
+void remove(T arr[], int &n, int index) {
+	for (int i=index; i<n-1; i++) {
+		arr[i] = arr[i+1];
+	}
+	n--;
+}
+
+template <typename T>
+void removeDupes(T arr[], int &n) {
+	int i = n;
+	while (i>0) {
+		if (arr[i] == arr[i-1]) {
+			remove(arr, n, i);
+		}
+		i--;
+	}
+}
 #endif

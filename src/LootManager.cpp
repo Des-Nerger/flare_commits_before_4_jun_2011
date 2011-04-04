@@ -251,6 +251,7 @@ void LootManager::checkEnemiesForLoot() {
 void LootManager::checkMapForLoot() {
 	Point p;
 	Event_Component *ec;
+	ItemStack loot;
 	
 	while (!map->loot.empty()) {
 		ec = &map->loot.front();
@@ -261,7 +262,9 @@ void LootManager::checkMapForLoot() {
 			determineLoot(ec->z, p);
 		}
 		else if (ec->s == "id") {
-			addLoot( (ItemStack){ec->z, 1}, p);
+			loot.item = ec->z;
+			loot.quantity = 1;
+			addLoot(loot, p);
 		}
 		map->loot.pop();
 	}
@@ -298,14 +301,17 @@ int LootManager::lootLevel(int base_level) {
  * calls addLoot()
  */
 void LootManager::determineLoot(int base_level, Point pos) {
-
 	int level = lootLevel(base_level);
+	ItemStack loot;
+
 	if (level > 0 && loot_table_count[level] > 0) {
 	
 		// coin flip whether the treasure is cash or items
 		if (rand() % 2 == 0) {
 			int roll = rand() % loot_table_count[level];
-			addLoot( (ItemStack){loot_table[level][roll],1}, pos);
+			loot.item = loot_table[level][roll];
+			loot.quantity = 1;
+			addLoot( loot, pos);
 		}
 		else {
 			// gold range is level to 3x level

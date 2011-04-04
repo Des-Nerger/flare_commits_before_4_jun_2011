@@ -17,7 +17,7 @@ MenuManager::MenuManager(PowerManager *_powers, SDL_Surface *_screen, InputState
 
 	loadIcons();
 
-	items = new ItemDatabase(screen, icons);
+	items = new ItemDatabase(screen, icons, font);
 	inv = new MenuInventory(screen, font, items, stats, powers);
 	pow = new MenuPowers(screen, font, stats, powers);
 	chr = new MenuCharacter(screen, font, stats);
@@ -38,7 +38,7 @@ MenuManager::MenuManager(PowerManager *_powers, SDL_Surface *_screen, InputState
 	drag_power = -1;
 	drag_src = 0;
 	drop_stack.item = 0;
-	drag_stack.quantity = 0;
+	drop_stack.quantity = 0;
 	
 	loadSounds();
 
@@ -89,6 +89,7 @@ void MenuManager::logic() {
 	bool clicking_inventory = false;
 	bool clicking_powers = false;
 	bool clicking_log = false;
+	ItemStack stack;
 	
 	log->logic();
 	enemy->logic();
@@ -158,193 +159,224 @@ void MenuManager::logic() {
 	}
 	menus_open = (inv->visible || pow->visible || chr->visible || log->visible || vendor->visible || talker->visible);
 	
-	int offset_x = (VIEW_W - 320);
-	int offset_y = (VIEW_H - 416)/2;
+	if (stats->alive) {
+		int offset_x = (VIEW_W - 320);
+		int offset_y = (VIEW_H - 416)/2;
 
-	// handle right-click activate inventory item (must be alive)
-	if (!dragging && inp->pressing[MAIN2] && !inp->mouse2_lock) {
-		if (inp->mouse.x >= offset_x && inp->mouse.y >= offset_y && inp->mouse.y <= offset_y+416) {
-			if (inv->visible) {
+		// handle right-click
+		if (!dragging && inp->pressing[MAIN2] && !inp->mouse2_lock) {
 
-				inv->activate(inp->mouse);
+			// activate inventory item
+			if (inv->visible && isWithin( inv->carried_area, inp->mouse)) {
+				inv->activate(inp);
 				inp->mouse2_lock = true;
 			}
-		}	
-	}
-	
-	// handle left-click
-	if (!dragging && inp->pressing[MAIN1] && !inp->mouse_lock) {
-	
-		// left side menu
-		if (inp->mouse.x <= 320 && inp->mouse.y >= offset_y && inp->mouse.y <= offset_y+416) {
-			if (chr->visible) {
-			
-				// applied a level-up
-				if (chr->checkUpgrade(inp->mouse)) {
-					inp->mouse_lock = true;
-					
-					// apply equipment and max hp/mp
-					items->applyEquipment(stats, inv->inventory[EQUIPMENT]);
-					stats->hp = stats->maxhp;
-					stats->mp = stats->maxmp;
+		}
+		
+		// handle left-click
+		if (!dragging && inp->pressing[MAIN1] && !inp->mouse_lock) {
+		
+			// left side menu
+			if (inp->mouse.x <= 320 && inp->mouse.y >= offset_y && inp->mouse.y <= offset_y+416) {
+				if (chr->visible) {
+				
+					// applied a level-up
+					if (chr->checkUpgrade(inp->mouse)) {
+						inp->mouse_lock = true;
+						
+						// apply equipment and max hp/mp
+						items->applyEquipment(stats, inv->inventory[EQUIPMENT].storage);
+						stats->hp = stats->maxhp;
+						stats->mp = stats->maxmp;
+					}
+				}
+				else if (vendor->visible) {
+				
+					if (inp->pressing[CTRL]) {
+						inp->mouse_lock = true;
+						
+						// buy item from a vendor
+						if (!inv->full()) {
+							stack = vendor->click(inp);
+							if (stack.item > -1) {
+								if( inv->full()) {
+									// Can we say "Not enough place" ?
+									vendor->itemReturn( stack);
+								}
+								else if( ! inv->buy( stack)) {
+									// Can we say "Not enough money" ? (here or in MenuInventory::buy())
+									vendor->itemReturn( stack);
+								}
+							}
+						}
+					}
+					else {
+						
+						// start dragging a vendor item
+						drag_stack = vendor->click(inp);
+						if (drag_stack.item > 0) {
+							dragging = true;
+							drag_src = DRAG_SRC_VENDOR;
+							inp->mouse_lock = true;
+						}
+					}
+				
 				}
 			}
-			else if (vendor->visible) {
+		
+			// right side menu
+			else if (inp->mouse.x >= offset_x && inp->mouse.y >= offset_y && inp->mouse.y <= offset_y+416) {
 			
-				if (inp->pressing[CTRL]) {
-					inp->mouse_lock = true;
-					
-					// buy item from a vendor
-					if (!inv->full()) {
-						ItemStack bought_item;
-						bought_item.item = vendor->buy(inp->mouse, inv->gold);
-						if (bought_item.item != -1) {
-							bought_item.quantity = 1;
-							inv->add(bought_item);
+				// pick up an inventory item
+				if (inv->visible) {
+				
+					if (inp->pressing[CTRL]) {
+						inp->mouse_lock = true;
+						stack = inv->click(inp);
+						if( stack.item > -1) {
+							if( vendor->full()) {
+								// Can we say "Not enough place" ?
+								inv->itemReturn( stack);
+							}
+							else {
+								// The vendor could have a limited amount of money in the future. It will be tested here.
+								inv->sell(stack);
+								vendor->add(stack);
+							}
+						}
+					}
+					else {
+						drag_stack = inv->click(inp);
+						if (drag_stack.item > 0) {
+							dragging = true;
+							drag_src = DRAG_SRC_INVENTORY;
+							inp->mouse_lock = true;
 						}
 					}
 				}
-				else {
-					
-					// start dragging a vendor item
-					drag_stack.item = vendor->click(inp->mouse);
-					if (drag_stack.item > 0) {
-						drag_stack.quantity = 1;
+				// pick up a power
+				else if (pow->visible) {
+					drag_power = pow->click(inp->mouse);
+					if (drag_power > -1) {
 						dragging = true;
-						drag_src = DRAG_SRC_VENDOR;
-						inp->mouse_lock=true;
+						drag_src = DRAG_SRC_POWERS;
+						inp->mouse_lock = true;
 					}
 				}
-			
 			}
-		}
-	
-		// right side menu
-		else if (inp->mouse.x >= offset_x && inp->mouse.y >= offset_y && inp->mouse.y <= offset_y+416) {
-		
-			// pick up an inventory item
-			if (inv->visible) {
+			// action bar
+			else if (isWithin(act->numberArea,inp->mouse) || isWithin(act->mouseArea,inp->mouse) || isWithin(act->menuArea, inp->mouse)) {
 			
+				// ctrl-click action bar to clear that slot
 				if (inp->pressing[CTRL]) {
+					act->remove(inp->mouse);
 					inp->mouse_lock = true;
-					inv->sell(inp->mouse);
+				}
+				// allow drag-to-rearrange action bar
+				else if (!isWithin(act->menuArea, inp->mouse)) {
+					drag_power = act->checkDrag(inp->mouse);
+					if (drag_power > -1) {
+						dragging = true;
+						drag_src = DRAG_SRC_ACTIONBAR;
+						inp->mouse_lock = true;
+					}
+				}
+				
+				// else, clicking action bar to use a power?
+				// this check is done by GameEngine when calling Avatar::logic()
+
+
+			}
+		}
+		// handle dropping
+		if (dragging && !inp->pressing[MAIN1]) {
+			
+			// putting a power on the Action Bar
+			if (drag_src == DRAG_SRC_POWERS) {
+				if (isWithin(act->numberArea,inp->mouse) || isWithin(act->mouseArea,inp->mouse)) {
+					act->drop(inp->mouse, drag_power, 0);
+				}
+			}
+			
+			// rearranging the action bar
+			else if (drag_src == DRAG_SRC_ACTIONBAR) {
+				if (isWithin(act->numberArea,inp->mouse) || isWithin(act->mouseArea,inp->mouse)) {
+					act->drop(inp->mouse, drag_power, 1);
+				}
+			}
+		
+			// rearranging inventory or dropping items
+			else if (drag_src == DRAG_SRC_INVENTORY) {
+			
+				if (inv->visible && inp->mouse.x >= offset_x && inp->mouse.y >= offset_y && inp->mouse.y <= offset_y+416) {
+					inv->drop(inp->mouse, drag_stack);
+					drag_stack.item = 0;
+				}
+				else if (isWithin(act->numberArea,inp->mouse) || isWithin(act->mouseArea,inp->mouse)) {
+					// The action bar is not storage!
+					inv->itemReturn(drag_stack);
+
+					// put an item with a power on the action bar
+					if (items->items[drag_stack.item].power != -1) {
+						act->drop(inp->mouse, items->items[drag_stack.item].power, false);
+					}
+				}
+				else if (vendor->visible && isWithin(vendor->slots_area, inp->mouse)) {
+					// vendor sell item
+					if( vendor->full()) {
+						// Can we say "Not enough place" ?
+						inv->itemReturn( drag_stack);
+					}
+					else {
+						inv->sell( drag_stack);
+						vendor->add( drag_stack);
+					}
+					drag_stack.item = 0;
+					
+					// if selling equipment, prepare to change stats/sprites
+					if (inv->drag_prev_src == EQUIPMENT) {
+						inv->updateEquipment( inv->drag_prev_src);
+					}
 				}
 				else {
-					drag_stack = inv->click(inp->mouse);
-					if (drag_stack.item > 0) {
-						dragging = true;
-						drag_src = DRAG_SRC_INVENTORY;
-						inp->mouse_lock=true;
+					// if dragging and the source was inventory, drop item to the floor
+					drop_stack = drag_stack;
+					drag_stack.item = 0;
+					drag_stack.quantity = 0;
+				
+					// if dropping equipment, prepare to change stats/sprites
+					if (inv->drag_prev_src == EQUIPMENT) {
+						inv->updateEquipment( inv->drag_prev_src);
 					}
 				}
 			}
-			// pick up a power
-			else if (pow->visible) {
-				drag_power = pow->click(inp->mouse);
-				if (drag_power > -1) {
-					dragging = true;
-					drag_src = DRAG_SRC_POWERS;
-					inp->mouse_lock=true;
-				}
-			}
-		}
-		// action bar
-		else if (isWithin(act->numberArea,inp->mouse) || isWithin(act->mouseArea,inp->mouse) || isWithin(act->menuArea, inp->mouse)) {
-		
-			// ctrl-click action bar to clear that slot
-			if (inp->pressing[CTRL]) {
-				act->remove(inp->mouse);
-				inp->mouse_lock = true;
-			}
-			// allow drag-to-rearrange action bar
-			else if (!isWithin(act->menuArea, inp->mouse)) {
-				drag_power = act->checkDrag(inp->mouse);
-				if (drag_power > -1) {
-					dragging = true;
-					drag_src = DRAG_SRC_ACTIONBAR;
-					inp->mouse_lock=true;
-				}
-			}
 			
-			// else, clicking action bar to use a power?
-			// this check is done by GameEngine when calling Avatar::logic()
+			else if (drag_src == DRAG_SRC_VENDOR) {
 
-
-		}
-	}
-	// handle dropping
-	if (dragging && !inp->pressing[MAIN1]) {
-		
-		// putting a power on the Action Bar
-		if (drag_src == DRAG_SRC_POWERS) {
-			if (isWithin(act->numberArea,inp->mouse) || isWithin(act->mouseArea,inp->mouse)) {
-				act->drop(inp->mouse, drag_power, 0);
-			}
-		}
-		
-		// rearranging the action bar
-		else if (drag_src == DRAG_SRC_ACTIONBAR) {
-			if (isWithin(act->numberArea,inp->mouse) || isWithin(act->mouseArea,inp->mouse)) {
-				act->drop(inp->mouse, drag_power, 1);
-			}
-		}
-	
-		// rearranging inventory or dropping items
-		else if (drag_src == DRAG_SRC_INVENTORY) {
-		
-			if (inv->visible && inp->mouse.x >= offset_x && inp->mouse.y >= offset_y && inp->mouse.y <= offset_y+416) {
-				inv->drop(inp->mouse, drag_stack);
-				drag_stack.item = 0;
-			}
-			else if (isWithin(act->numberArea,inp->mouse) || isWithin(act->mouseArea,inp->mouse)) {
-				// The action bar is not storage!
-				inv->itemReturn(drag_stack);
-
-				// put an item with a power on the action bar
-				if (items->items[drag_stack.item].power != -1) {
-					act->drop(inp->mouse, items->items[drag_stack.item].power, false);
+				// dropping an item from vendor (we only allow to drop into the carried area)
+				if (inv->visible && isWithin( inv->carried_area, inp->mouse)) {
+					if( inv->full()) {
+						// Can we say "Not enough place" ?
+						vendor->itemReturn( drag_stack);
+					}
+					else if( ! inv->buy( drag_stack, inp->mouse)) {
+						// Can we say "Not enough money" ? (here or in MenuInventory::buy())
+						vendor->itemReturn( drag_stack);
+					}
+					drag_stack.item = 0;
+				}
+				else {
+					vendor->itemReturn(drag_stack);
 				}
 			}
-			else if (vendor->visible && isWithin(vendor->slots_area, inp->mouse)) {
-				// vendor sell item
-				inv->sell( drag_stack);
-				drag_stack.item = 0;
-				drag_stack.quantity = 0;
-				
-				// if selling equipment, prepare to change stats/sprites
-				if (inv->drag_prev_src == EQUIPMENT) {
-					inv->update_equipment( inv->drag_prev_src);
-				}
-			}
-			else if (stats->alive) {
-				// if dragging and the source was inventory, drop item to the floor
-				drop_stack = drag_stack;
-				drag_stack.item = 0;
-				drag_stack.quantity = 0;
-			
-				// if dropping equipment, prepare to change stats/sprites
-				if (inv->drag_prev_src == EQUIPMENT) {
-					inv->update_equipment( inv->drag_prev_src);
-				}
-			}
-			else { // prevent dropping items while dead
-				inv->itemReturn(drag_stack);
-			}
-		}
-		
-		else if (drag_src == DRAG_SRC_VENDOR) {
-			if (inv->visible && inp->mouse.x >= offset_x && inp->mouse.y >= offset_y && inp->mouse.y <= offset_y+416) {
-				inv->purchase(inp->mouse, drag_stack.item);
-				drag_stack.item = 0;
-			}
-		}
 
-		dragging = false;
+			dragging = false;
+		}
 	}
 	
 	// handle equipment changes affecting hero stats
 	if (inv->changed_equipment || inv->changed_artifact) {
-		items->applyEquipment(stats, inv->inventory[EQUIPMENT]);
+		items->applyEquipment(stats, inv->inventory[EQUIPMENT].storage);
 		inv->changed_artifact = false;
 		// the equipment flag is reset after the new sprites are loaded
 	}
@@ -418,7 +450,7 @@ void MenuManager::render() {
 	// draw icon under cursor if dragging
 	if (dragging) {
 		if (drag_src == DRAG_SRC_INVENTORY || drag_src == DRAG_SRC_VENDOR)
-			items->renderIcon(drag_stack.item, inp->mouse.x - 16, inp->mouse.y - 16, ICON_SIZE_32);
+			items->renderIcon(drag_stack, inp->mouse.x - 16, inp->mouse.y - 16, ICON_SIZE_32);
 		else if (drag_src == DRAG_SRC_POWERS || drag_src == DRAG_SRC_ACTIONBAR)
 			renderIcon(powers->powers[drag_power].icon, inp->mouse.x-16, inp->mouse.y-16);
 	}

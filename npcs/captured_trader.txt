@@ -5,7 +5,7 @@ level=7
 # shop info
 vendor=true
 constant_stock=1,2,3,4
-random_stock=78
+random_stock=50
 
 # animation info
 gfx=wandering_trader1

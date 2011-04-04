@@ -87,6 +87,11 @@ void GameEngine::saveGame() {
 			if (i<11) outfile << ",";
 		}
 		outfile << "\n";
+		
+		// campaign data
+		outfile << "campaign=";
+		outfile << camp->getAll();
+		
 		outfile << endl;
 		
 		outfile.close();
@@ -190,6 +195,9 @@ void GameEngine::loadGame() {
 							hotkeys[i] = eatFirstInt(val, ',');
 						menu->act->set(hotkeys);
 					}
+					else if (key == "campaign") {
+						camp->setAll(val);
+					}
 				}
 			}
 		}
@@ -198,7 +206,7 @@ void GameEngine::loadGame() {
 		
 		// initialize vars
 		pc->stats.recalc();
-		menu->items->applyEquipment(&pc->stats, menu->inv->inventory[EQUIPMENT]);
+		menu->items->applyEquipment(&pc->stats, menu->inv->inventory[EQUIPMENT].storage);
 		pc->stats.hp = pc->stats.maxhp;
 		pc->stats.mp = pc->stats.maxmp;
 				

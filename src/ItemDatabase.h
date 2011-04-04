@@ -21,8 +21,8 @@
 
 using namespace std;
 
-const int ICON_SIZE_32 = 0;
-const int ICON_SIZE_64 = 1;
+const int ICON_SIZE_32 = 32;
+const int ICON_SIZE_64 = 64;
 
 const int ITEM_TYPE_OTHER = -1;
 const int ITEM_TYPE_MAIN = 0;
@@ -85,27 +85,29 @@ struct Item {
 struct ItemStack {
 	int item;
 	int quantity;
+	bool operator > (ItemStack param);
 };
 
 class ItemDatabase {
 private:
 	SDL_Surface *screen;
 	SDL_Surface *icons;
+	FontEngine *font;
 	SDL_Rect src;
 	SDL_Rect dest;
 	Mix_Chunk *sfx[12];
 
 public:
-	ItemDatabase(SDL_Surface *_screen, SDL_Surface *_icons);
+	ItemDatabase(SDL_Surface *_screen, SDL_Surface *_icons, FontEngine *_font);
 	~ItemDatabase();
 	void load();
 	void loadSounds();
-	void renderIcon(int item, int x, int y, int size);
+	void renderIcon(ItemStack stack, int x, int y, int size);
 	void playSound(int item);
 	void playCoinsSound();	
 	TooltipData getTooltip(int item, StatBlock *stats, bool vendor_view);
 	TooltipData getShortTooltip(ItemStack item);
-	void applyEquipment(StatBlock *stats, ItemStack * equipped);
+	void applyEquipment(StatBlock *stats, ItemStack *equipped);
 
 	Item items[1024];
 	int vendor_ratio;

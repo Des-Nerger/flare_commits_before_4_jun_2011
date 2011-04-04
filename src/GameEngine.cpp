@@ -23,8 +23,9 @@ GameEngine::GameEngine(SDL_Surface *_screen, InputState *_inp) {
 	hazards = new HazardManager(powers, pc, enemies);
 	menu = new MenuManager(powers, _screen, _inp, font, &pc->stats);
 	loot = new LootManager(menu->items, menu->tip, enemies, map);
-	npcs = new NPCManager(map, menu->tip, loot);
-		
+	npcs = new NPCManager(map, menu->tip, loot, menu->items);
+	camp = new CampaignManager();
+	
 	cancel_lock = false;
 	npc_id = -1;
 	loadGame();
@@ -376,6 +377,7 @@ void GameEngine::showFPS(int fps) {
 }
 
 GameEngine::~GameEngine() {
+	delete(camp);
 	delete(npcs);
 	delete(hazards);
 	delete(enemies);

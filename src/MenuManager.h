@@ -45,7 +45,7 @@ private:
 	InputState *inp;
 	FontEngine *font;
 	SDL_Surface *screen;
-		
+
 	bool key_lock;
 	void loadSounds();
 	void loadIcons();
@@ -79,7 +79,6 @@ public:
 	MenuVendor *vendor;
 	MenuTalker *talker;
 	ItemDatabase *items;
-	
 	
 	bool pause;
 	bool menus_open;

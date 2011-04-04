@@ -30,8 +30,9 @@ private:
 	MapIso *map;
 	MenuTooltip *tip;
 	LootManager *loot;
+	ItemDatabase *items;
 public:
-	NPCManager(MapIso *_map, MenuTooltip *_tip, LootManager *_loot);
+	NPCManager(MapIso *_map, MenuTooltip *_tip, LootManager *_loot, ItemDatabase *_items);
 	~NPCManager();
 	NPC *npcs[MAX_NPC_COUNT];
 	void handleNewMap();

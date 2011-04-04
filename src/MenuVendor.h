@@ -11,9 +11,10 @@
 #include "SDL.h"
 #include "SDL_image.h"
 #include "SDL_mixer.h"
+#include "InputState.h"
 #include "Utils.h"
 #include "FontEngine.h"
-#include "ItemDatabase.h"
+#include "MenuItemStorage.h"
 #include "MenuTooltip.h"
 #include "StatBlock.h"
 #include "NPC.h"
@@ -31,6 +32,7 @@ private:
 
 	void loadGraphics();
 	SDL_Surface *background;
+	MenuItemStorage stock; // items the vendor currently has in stock
 
 public:
 	MenuVendor(SDL_Surface *screen, FontEngine *font, ItemDatabase *items, StatBlock *stats);
@@ -41,16 +43,16 @@ public:
 	void loadMerchant(string filename);
 	void logic();
 	void render();
-	int buy(Point mouse, int &gold);
-	int click(Point mouse);
+	ItemStack click(InputState * input);
+	void itemReturn(ItemStack stack);
+	void add(ItemStack stack);
 	TooltipData checkTooltip(Point mouse);
+	bool full();
 	void setInventory();
+	void saveInventory();
 	
 	bool visible;
-	int stock[VENDOR_SLOTS]; // items the vendor currently has in stock
-	SDL_Rect slots[VENDOR_SLOTS];
 	SDL_Rect slots_area;
-	
 };
 
 

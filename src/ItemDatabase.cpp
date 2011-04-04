@@ -8,9 +8,10 @@
 
 #include "ItemDatabase.h"
 
-ItemDatabase::ItemDatabase(SDL_Surface *_screen, SDL_Surface *_icons) {
+ItemDatabase::ItemDatabase(SDL_Surface *_screen, SDL_Surface *_icons, FontEngine *_font) {
 	screen = _screen;
 	icons = _icons;
+	font = _font;
 	
 	for (int i=0; i<1024; i++) {
 		items[i].name = "";
@@ -209,20 +210,25 @@ void ItemDatabase::loadSounds() {
 	
 }
 
-void ItemDatabase::renderIcon(int item, int x, int y, int size) {
+void ItemDatabase::renderIcon(ItemStack stack, int x, int y, int size) {
+	stringstream ss;
+
 	dest.x = x;
 	dest.y = y;
+	src.w = src.h = dest.w = dest.h = size;
 	if (size == ICON_SIZE_32) {
-		src.w = src.h = dest.w = dest.h = 32;
-		src.x = (items[item].icon32 % 16) * 32;
-		src.y = (items[item].icon32 / 16) * 32;
-		SDL_BlitSurface(icons, &src, screen, &dest);		
+		src.x = (items[stack.item].icon32 % 16) * size;
+		src.y = (items[stack.item].icon32 / 16) * size;
 	}
 	else if (size == ICON_SIZE_64) {
-		src.w = src.h = dest.w = dest.h = 64;
-		src.x = (items[item].icon64 % 8) * 64;
-		src.y = (items[item].icon64 / 8) * 64 + 256;
-		SDL_BlitSurface(icons, &src, screen, &dest);
+		src.x = (items[stack.item].icon64 % 8) * size;
+		src.y = (items[stack.item].icon64 / 8) * size + 256;
+	}
+	SDL_BlitSurface(icons, &src, screen, &dest);
+	if( stack.quantity > 1 || items[stack.item].max_quantity > 1) {
+		// stackable item : show the quantity
+		ss << stack.quantity;
+		font->render(ss.str(), dest.x + 2, dest.y + 2, JUSTIFY_LEFT, screen, FONT_WHITE);
 	}
 }
 
@@ -523,3 +529,19 @@ ItemDatabase::~ItemDatabase() {
 			Mix_FreeChunk(sfx[i]);
 	}
 }
+
+/**
+ * Compare two item stack to be able to sorting them on their item_id in the vendors' stock
+ */
+bool ItemStack::operator > (ItemStack param) {
+	if (item == 0 && param.item > 0) {
+		// Make the empty slots the last while sorting
+		return true;
+	} else if (item > 0 && param.item == 0) {
+		// Make the empty slots the last while sorting
+		return false;
+	} else {
+		return item > param.item;
+	}
+}
+
