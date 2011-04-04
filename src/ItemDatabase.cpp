@@ -406,11 +406,13 @@ TooltipData ItemDatabase::getTooltip(int item, StatBlock *stats, bool vendor_vie
 		if (vendor_view) {
 			int buy_price = items[item].price;
 			ss << "Buy price:: " << buy_price << " gold";
+			if (items[item].max_quantity > 1) ss << " each";
 		}
 		else {
-			int sell_price = items[item].price/vendor_ratio;
-			if (sell_price == 0) sell_price=1;
-			ss << "Sell price: " << sell_price << " gold";
+			int price_per_unit = items[item].price/vendor_ratio;
+			if (price_per_unit == 0) price_per_unit = 1;			
+			ss << "Sell price: " << price_per_unit << " gold";
+			if (items[item].max_quantity > 1) ss << " each";
 		}
 
 		if (vendor_view && stats->gold < items[item].price)

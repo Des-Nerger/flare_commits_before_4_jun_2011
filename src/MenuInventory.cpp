@@ -421,8 +421,9 @@ bool MenuInventory::buy(ItemStack stack, Point mouse) {
  * Sell a specific stack of items
  */
 void MenuInventory::sell(ItemStack stack) {
-	int value = items->items[stack.item].price * stack.quantity / items->vendor_ratio;
-	if (value == 0) value = 1;
+	int value_each = items->items[stack.item].price / items->vendor_ratio;
+	if (value_each == 0) value_each = 1;
+	int value = value_each * stack.quantity;
 	gold += value;
 	items->playCoinsSound();
 }
