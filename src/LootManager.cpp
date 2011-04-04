@@ -310,7 +310,7 @@ void LootManager::determineLoot(int base_level, Point pos) {
 		if (rand() % 2 == 0) {
 			int roll = rand() % loot_table_count[level];
 			loot.item = loot_table[level][roll];
-			loot.quantity = 1;
+			loot.quantity = rand() % items->items[loot.item].rand_loot + 1;
 			addLoot( loot, pos);
 		}
 		else {

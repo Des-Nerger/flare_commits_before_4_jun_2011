@@ -79,7 +79,9 @@ struct Item {
 	int power_mod;
 	string power_desc;
 	int price;
-	int max_quantity;
+	int max_quantity; // max count per stack
+	int rand_loot; // max amount appearing in a loot stack
+	int rand_vendor; // max amount appearing in a vendor stack
 };
 
 struct ItemStack {

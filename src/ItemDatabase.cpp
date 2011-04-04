@@ -36,6 +36,8 @@ ItemDatabase::ItemDatabase(SDL_Surface *_screen, SDL_Surface *_icons, FontEngine
 		items[i].power_desc = "";
 		items[i].price = 0;
 		items[i].max_quantity = 1;
+		items[i].rand_loot = 1;
+		items[i].rand_vendor = 1;
 	}
 	
 	vendor_ratio = 4; // this means scrap/vendor pays 1/4th price to buy items from hero
@@ -186,6 +188,11 @@ void ItemDatabase::load() {
 						items[id].price = atoi(val.c_str());
 					else if (key == "max_quantity")
 						items[id].max_quantity = atoi(val.c_str());
+					else if (key == "rand_loot")
+						items[id].rand_loot = atoi(val.c_str());
+					else if (key == "rand_vendor")
+						items[id].rand_vendor = atoi(val.c_str());
+						
 				}
 			}
 		}

@@ -51,7 +51,7 @@ void NPCManager::handleNewMap() {
 		// if this NPC needs randomized items
 		while (npcs[npc_count]->random_stock > 0 && npcs[npc_count]->stock_count < NPC_VENDOR_MAX_STOCK) {
 			item_roll.item = loot->randomItem(npcs[npc_count]->level);
-			item_roll.quantity = rand() % items->items[item_roll.item].max_quantity + 1;
+			item_roll.quantity = rand() % items->items[item_roll.item].rand_vendor + 1;
 			npcs[npc_count]->stock.add( item_roll);
 			npcs[npc_count]->random_stock--;
 		}
