@@ -50,6 +50,8 @@ void MenuTalker::chooseDialogNode() {
  */
 void MenuTalker::logic(bool pressing_accept) {
 
+	if (!visible || npc==NULL) return;
+	
 	bool more;
 	
 	if (pressing_accept && accept_lock)
