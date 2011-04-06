@@ -11,7 +11,6 @@ NPC::NPC(ItemDatabase *_items) {
 
 	// init general vars
 	name = "";
-	txt = "";
 	pos.x = pos.y = 0;
 	
 	// init animation info
@@ -21,10 +20,6 @@ NPC::NPC(ItemDatabase *_items) {
 	anim_frames = 0;
 	anim_duration = 0;
 	current_frame = 0;
-
-	// init talker info
-	portrait = NULL;
-	talker = false;
 	
 	// init vendor info
 	vendor = false;
@@ -36,6 +31,21 @@ NPC::NPC(ItemDatabase *_items) {
 	for (int i=0; i<NPC_MAX_VOX; i++) {
 		vox_intro[i] = NULL;
 	}
+
+	// init talker info
+	portrait = NULL;
+	talker = false;
+
+	for (int i=0; i<NPC_MAX_DIALOG; i++) {
+		for (int j=0; j<NPC_MAX_EVENTS; j++) {
+			dialog[i][j].type = "";
+			dialog[i][j].s = "";
+			dialog[i][j].x = 0;
+			dialog[i][j].y = 0;
+			dialog[i][j].z = 0;
+		}
+	}
+	dialog_count = 0;
 }
 
 /**
@@ -50,7 +60,9 @@ void NPC::load(string npc_id) {
 	string key;
 	string val;
 	string starts_with;
+	string section = "";
 	ItemStack stack;
+	int event_count = 0;
 	
 	infile.open(("npcs/" + npc_id + ".txt").c_str(), ios::in);
 
@@ -68,69 +80,99 @@ void NPC::load(string npc_id) {
 					// skip comments
 				}
 				else if (starts_with == "[") {
-					// skip headers
+					section = parse_section_title(line);
+					if (section == "dialog") {
+						dialog_count++;
+						event_count = 0;
+					}
 				}
 				else { // this is data.  treatment depends on key
 					parse_key_pair(line, key, val);          
 					key = trim(key, ' ');
 					val = trim(val, ' ');
 				
-					if (key == "name") {
-						name = val;
-					}
-					else if (key == "level") {
-						level = atoi(val.c_str());
-					}
-					else if (key == "gfx") {
-						filename_sprites = val;
-					}
-					else if (key == "render_size") {
-						val = val + ",";
-						render_size.x = eatFirstInt(val, ',');
-						render_size.y = eatFirstInt(val, ',');
-					}
-					else if (key == "render_offset") {
-						val = val + ",";
-						render_offset.x = eatFirstInt(val, ',');
-						render_offset.y = eatFirstInt(val, ',');
-					}
-					else if (key == "anim_frames") {
-						anim_frames = atoi(val.c_str());
-					}
-					else if (key == "anim_duration") {
-						anim_duration = atoi(val.c_str());
-					}
-
-					// handle talkers
-					else if (key == "talker") {
-						if (val == "true") talker=true;
-					}
-					else if (key == "portrait") {
-						filename_portrait = val;
-					}
-					else if (key == "txt") {
-						txt=val;
-					}
+					if (section == "dialog") {
 					
-					// handle vendors
-					else if (key == "vendor") {
-						if (val == "true") vendor=true;
-					}
-					else if (key == "constant_stock") {
-						val = val + ",";
-						stack.quantity = 1;
-						while (val != "") {
-							stack.item = eatFirstInt(val, ',');
-							stock.add(stack);
+						// here we use dialog_count-1 because we've already incremented the dialog count but the array is 0 based
+					
+						dialog[dialog_count-1][event_count].type = key;
+						if (key == "requires_status")
+							dialog[dialog_count-1][event_count].s = val;
+						else if (key == "requires_not")
+							dialog[dialog_count-1][event_count].s = val;
+						else if (key == "him" || key == "her")
+							dialog[dialog_count-1][event_count].s = val;
+						else if (key == "you")
+							dialog[dialog_count-1][event_count].s = val;
+						else if (key == "reward_item") {
+							// id,count
+							dialog[dialog_count-1][event_count].x = eatFirstInt(val, ',');
+							dialog[dialog_count-1][event_count].y = atoi(val.c_str());							
 						}
+						else if (key == "reward_xp")
+							dialog[dialog_count-1][event_count].x = atoi(val.c_str());
+						else if (key == "reward_currency")
+							dialog[dialog_count-1][event_count].x = atoi(val.c_str());
+						else if (key == "set_status")
+							dialog[dialog_count-1][event_count].s = val;						
+						
+						event_count++;
 					}
-					else if (key == "random_stock") {
-						random_stock = atoi(val.c_str());
-					}
-					
-					// handle vocals
-					else if (key == "vox_intro") {
+					else {
+						if (key == "name") {
+							name = val;
+						}
+						else if (key == "level") {
+							level = atoi(val.c_str());
+						}
+						else if (key == "gfx") {
+							filename_sprites = val;
+						}
+						else if (key == "render_size") {
+							val = val + ",";
+							render_size.x = eatFirstInt(val, ',');
+							render_size.y = eatFirstInt(val, ',');
+						}
+						else if (key == "render_offset") {
+							val = val + ",";
+							render_offset.x = eatFirstInt(val, ',');
+							render_offset.y = eatFirstInt(val, ',');
+						}
+						else if (key == "anim_frames") {
+							anim_frames = atoi(val.c_str());
+						}
+						else if (key == "anim_duration") {
+							anim_duration = atoi(val.c_str());
+						}
+	
+						// handle talkers
+						else if (key == "talker") {
+							if (val == "true") talker=true;
+						}
+						else if (key == "portrait") {
+							filename_portrait = val;
+						}
+	
+						// handle vendors
+						else if (key == "vendor") {
+							if (val == "true") vendor=true;
+						}
+						else if (key == "constant_stock") {
+							val = val + ",";
+							stack.quantity = 1;
+							while (val != "") {
+								stack.item = eatFirstInt(val, ',');
+								stock.add(stack);
+							}
+						}
+						else if (key == "random_stock") {
+							random_stock = atoi(val.c_str());
+						}
+						
+						// handle vocals
+						else if (key == "vox_intro") {
 						loadSound(val, NPC_VOX_INTRO);
+						}
 					}
 				}
 			}

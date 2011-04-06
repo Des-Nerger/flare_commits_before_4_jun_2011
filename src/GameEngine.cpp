@@ -16,15 +16,16 @@ GameEngine::GameEngine(SDL_Surface *_screen, InputState *_inp) {
 	done = false;
 
 	powers = new PowerManager();
-	font = new FontEngine();	
+	font = new FontEngine();
+	camp = new CampaignManager();
 	map = new MapIso(_screen);
 	pc = new Avatar(powers, _inp, map);
 	enemies = new EnemyManager(powers, map);
 	hazards = new HazardManager(powers, pc, enemies);
-	menu = new MenuManager(powers, _screen, _inp, font, &pc->stats);
+	menu = new MenuManager(powers, _screen, _inp, font, &pc->stats, camp);
 	loot = new LootManager(menu->items, menu->tip, enemies, map);
 	npcs = new NPCManager(map, menu->tip, loot, menu->items);
-	camp = new CampaignManager();
+	
 	
 	cancel_lock = false;
 	npc_id = -1;
@@ -174,6 +175,10 @@ void GameEngine::checkLog() {
 		menu->log->add(pc->log_msg);
 		pc->log_msg = "";
 	}
+	if (camp->log_msg != "") {
+		menu->log->add(camp->log_msg);
+		camp->log_msg = "";
+	}
 }
 
 void GameEngine::checkEquipmentChange() {
@@ -186,6 +191,7 @@ void GameEngine::checkEquipmentChange() {
 }
 
 void GameEngine::checkLootDrop() {
+	
 	// if the player has dropped an item from the inventory
 	if (menu->drop_stack.item > 0) {
 		loot->addLoot(menu->drop_stack, pc->stats.pos);
@@ -209,6 +215,7 @@ void GameEngine::checkConsumable() {
 /**
  * If the player has clicked on an NPC, the game mode might be changed.
  * If a player walks away from an NPC, end the interaction with that NPC
+ * If an NPC is giving a reward, process it
  */
 void GameEngine::checkNPCInteraction() {
 
@@ -243,6 +250,7 @@ void GameEngine::checkNPCInteraction() {
 		}
 		else if(npcs->npcs[npc_id]->talker) {
 			menu->talker->npc = npcs->npcs[npc_id];
+			menu->talker->chooseDialogNode();
 			menu->closeAll(false);
 			menu->talker->visible = true;
 			
@@ -262,6 +270,36 @@ void GameEngine::checkNPCInteraction() {
 			npc_id = -1;
 		}
 	}
+	
+	// check for NPC giving a reward
+	if (camp->xp_amount > 0) {
+		pc->stats.xp += camp->xp_amount;
+	}
+	if (camp->currency_amount > 0) {
+		menu->inv->gold += camp->currency_amount;
+	}
+	if (camp->item_amount > 0) {
+	
+		ItemStack istack;
+		istack.item = camp->item_id;
+		istack.quantity = camp->item_amount;
+		
+		if (!menu->inv->full()) {
+			menu->inv->add(istack, CARRIED, -1);
+			
+			stringstream ss;
+			ss.str("");
+			ss << "You receive " + menu->items->items[istack.item].name;
+			if (istack.quantity > 1) ss << " x" + istack.quantity << ".";
+			else ss << ".";
+			menu->log->add(ss.str());
+		}
+		else {
+			loot->addLoot(istack, pc->stats.pos);
+		}
+	}
+	
+	camp->clearRewards();
 }
 
 /**

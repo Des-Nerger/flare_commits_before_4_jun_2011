@@ -7,14 +7,21 @@
 
 #include "MenuTalker.h"
 
-MenuTalker::MenuTalker(SDL_Surface *_screen, FontEngine *_font) {
+MenuTalker::MenuTalker(SDL_Surface *_screen, FontEngine *_font, CampaignManager *_camp) {
 	screen = _screen;
 	font = _font;
+	camp = _camp;
+	npc = NULL;
 	
 	visible = false;
+
+	// step through NPC dialog nodes
+	dialog_node = 0;
+	event_cursor = 0;
+	accept_lock = false;
+
 	loadGraphics();
-	loadTalker("");
-	
+
 }
 
 void MenuTalker::loadGraphics() {
@@ -32,13 +39,36 @@ void MenuTalker::loadGraphics() {
 	
 }
 
-void MenuTalker::loadTalker(string filename) {
-
+void MenuTalker::chooseDialogNode() {
+	event_cursor = 0;
+	dialog_node = camp->chooseDialogNode(npc);
+	camp->processDialog(npc, dialog_node, event_cursor);
 }
 
+/**
+ * Menu interaction (enter/space/click to continue)
+ */
+void MenuTalker::logic(bool pressing_accept) {
 
-void MenuTalker::logic() {
-
+	bool more;
+	
+	if (pressing_accept && accept_lock)
+		return;
+	else if (!pressing_accept) {
+		accept_lock = false;
+		return;
+	}
+	else accept_lock = true;
+	
+	// pressed next/more
+	event_cursor++;
+	more = camp->processDialog(npc, dialog_node, event_cursor);
+	
+	if (!more) {
+		// end dialog
+		npc = NULL;
+		visible = false;
+	}
 }
 
 void MenuTalker::render() {
@@ -70,7 +100,8 @@ void MenuTalker::render() {
 	
 	// text overlay
 	// TODO: translate()
-	line = npc->name + ": " + npc->txt;
+	line = npc->name + ": ";
+	line = line + npc->dialog[dialog_node][event_cursor].s;
 	font->render(line, offset_x+48, offset_y+336, JUSTIFY_LEFT, screen, 544, FONT_WHITE);
 }
 

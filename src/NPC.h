@@ -24,6 +24,9 @@ const int NPC_VENDOR_MAX_STOCK = 80;
 const int NPC_MAX_VOX = 8;
 const int NPC_VOX_INTRO = 0;
 
+const int NPC_MAX_DIALOG = 32;
+const int NPC_MAX_EVENTS = 16;
+
 class NPC {
 private:
 
@@ -55,7 +58,6 @@ public:
     // talker info
 	SDL_Surface *portrait;
     bool talker;
-	string txt;
 
 	// vendor info
 	bool vendor;
@@ -66,6 +68,10 @@ public:
 	// vocals
 	Mix_Chunk *vox_intro[NPC_MAX_VOX];
 	int vox_intro_count;
+	
+	// story and dialog options
+	Event_Component dialog[NPC_MAX_DIALOG][NPC_MAX_EVENTS];
+	int dialog_count;
 	
 };
 

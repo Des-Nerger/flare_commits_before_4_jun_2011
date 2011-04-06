@@ -7,13 +7,14 @@
 
 #include "MenuManager.h"
 
-MenuManager::MenuManager(PowerManager *_powers, SDL_Surface *_screen, InputState *_inp, FontEngine *_font, StatBlock *_stats) {
+MenuManager::MenuManager(PowerManager *_powers, SDL_Surface *_screen, InputState *_inp, FontEngine *_font, StatBlock *_stats, CampaignManager *_camp) {
 	powers = _powers;
 	screen = _screen;
 	inp = _inp;
 	font = _font;
 	stats = _stats;
 	powers = _powers;
+	camp = _camp;
 
 	loadIcons();
 
@@ -29,7 +30,7 @@ MenuManager::MenuManager(PowerManager *_powers, SDL_Surface *_screen, InputState
 	xp = new MenuExperience(screen, font);
 	enemy = new MenuEnemy(screen, font);
 	vendor = new MenuVendor(screen, font, items, stats);
-	talker = new MenuTalker(screen, font);
+	talker = new MenuTalker(screen, font, camp);
 	
 	pause = false;
 	dragging = false;
@@ -94,6 +95,7 @@ void MenuManager::logic() {
 	log->logic();
 	enemy->logic();
 	inv->logic();
+	talker->logic(inp->pressing[ACCEPT]);
 
 	if (!inp->pressing[INVENTORY] && !inp->pressing[POWERS] && !inp->pressing[CHARACTER] && !inp->pressing[LOG])
 		key_lock = false;

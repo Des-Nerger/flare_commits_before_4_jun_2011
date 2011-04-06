@@ -14,6 +14,7 @@
 #include "Utils.h"
 #include "FontEngine.h"
 #include "NPC.h"
+#include "CampaignManager.h"
 #include <string>
 #include <sstream>
 
@@ -22,23 +23,26 @@ class MenuTalker {
 private:
 	SDL_Surface *screen;
 	FontEngine *font;
+	CampaignManager *camp;
 
 	void loadGraphics();
 	SDL_Surface *background;
 
+	int dialog_node;
+
 public:
-	MenuTalker(SDL_Surface *screen, FontEngine *font);
+	MenuTalker(SDL_Surface *screen, FontEngine *font, CampaignManager *camp);
 	~MenuTalker();
 
 	NPC *npc;
 	
-	void loadTalker(string filename);
-	void logic();
+	void chooseDialogNode();
+	void logic(bool pressing_accept);
 	void render();
-
 	
 	bool visible;
-
+	int event_cursor;
+	bool accept_lock;
 	
 };
 

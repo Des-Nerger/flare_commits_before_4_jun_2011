@@ -29,6 +29,7 @@
 #include "MenuEnemy.h"
 #include "MenuVendor.h"
 #include "MenuTalker.h"
+#include "CampaignManager.h"
 
 const int DRAG_SRC_POWERS = 1;
 const int DRAG_SRC_INVENTORY = 2;
@@ -45,6 +46,7 @@ private:
 	InputState *inp;
 	FontEngine *font;
 	SDL_Surface *screen;
+	CampaignManager *camp;
 
 	bool key_lock;
 	void loadSounds();
@@ -57,7 +59,7 @@ private:
 
 	
 public:
-	MenuManager(PowerManager *powers, SDL_Surface *screen, InputState *inp, FontEngine *font, StatBlock *stats);
+	MenuManager(PowerManager *powers, SDL_Surface *screen, InputState *inp, FontEngine *font, StatBlock *stats, CampaignManager *camp);
 	~MenuManager();
 	void logic();
 	void render();
