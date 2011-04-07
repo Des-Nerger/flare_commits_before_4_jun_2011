@@ -18,7 +18,7 @@ MenuManager::MenuManager(PowerManager *_powers, SDL_Surface *_screen, InputState
 
 	loadIcons();
 
-	items = new ItemDatabase(screen, icons, font);
+	items = new ItemDatabase(screen, font);
 	inv = new MenuInventory(screen, font, items, stats, powers);
 	pow = new MenuPowers(screen, font, stats, powers);
 	chr = new MenuCharacter(screen, font, stats);
@@ -46,11 +46,11 @@ MenuManager::MenuManager(PowerManager *_powers, SDL_Surface *_screen, InputState
 }
 
 /**
- * Icon set shared throughout the game
+ * Icon set shared by all menus
  */
 void MenuManager::loadIcons() {
 	
-	icons = IMG_Load("images/icons/icons.png");
+	icons = IMG_Load("images/icons/icons32.png");
 	if(!icons) {
 		fprintf(stderr, "Couldn't load icons: %s\n", IMG_GetError());
 		SDL_Quit();

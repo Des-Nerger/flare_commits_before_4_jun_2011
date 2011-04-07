@@ -21,6 +21,8 @@
 
 using namespace std;
 
+const int MAX_ITEM_ID = 8192;
+
 const int ICON_SIZE_32 = 32;
 const int ICON_SIZE_64 = 64;
 
@@ -93,17 +95,19 @@ struct ItemStack {
 class ItemDatabase {
 private:
 	SDL_Surface *screen;
-	SDL_Surface *icons;
+	SDL_Surface *icons32;
+	SDL_Surface *icons64; // item db is the only module that currently uses the 64px icons
 	FontEngine *font;
 	SDL_Rect src;
 	SDL_Rect dest;
 	Mix_Chunk *sfx[12];
 
 public:
-	ItemDatabase(SDL_Surface *_screen, SDL_Surface *_icons, FontEngine *_font);
+	ItemDatabase(SDL_Surface *_screen, FontEngine *_font);
 	~ItemDatabase();
 	void load();
 	void loadSounds();
+	void loadIcons();
 	void renderIcon(ItemStack stack, int x, int y, int size);
 	void playSound(int item);
 	void playCoinsSound();	
@@ -111,7 +115,7 @@ public:
 	TooltipData getShortTooltip(ItemStack item);
 	void applyEquipment(StatBlock *stats, ItemStack *equipped);
 
-	Item items[1024];
+	Item items[MAX_ITEM_ID];
 	int vendor_ratio;
 };
 

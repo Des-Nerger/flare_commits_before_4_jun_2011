@@ -119,6 +119,48 @@ rand_vendor=75
 rand_loot=25
 
 [item]
+id=12
+name=Scroll of Teleport
+level=5
+icon=53
+power=129
+power_desc=Blink to a nearby location
+type=consumable
+sfx=page
+loot=scroll
+price=45
+max_quantity=10
+rand_vendor=3
+
+[item]
+id=13
+name=Scroll of Time Stop
+level=6
+icon=52
+power=130
+power_desc=Stun nearby enemies for 5 seconds 
+type=consumable
+sfx=page
+loot=scroll
+price=50
+max_quantity=10
+rand_vendor=3
+
+[item]
+id=14
+name=Scroll of Haste
+level=5
+icon=48
+power=131
+power_desc=Double run and attack speed for 8 seconds 
+type=consumable
+sfx=page
+loot=scroll
+price=40
+max_quantity=10
+rand_vendor=3
+
+[item]
 id=50
 name=Clothes
 level=1

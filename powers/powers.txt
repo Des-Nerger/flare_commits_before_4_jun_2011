@@ -746,3 +746,53 @@ trait_elemental=shadow
 post_power=126
 wall_power=126
 
+[power]
+id=129
+name=Scroll of Teleport
+type=effect
+icon=15
+description=Blink to a nearby location
+new_state=cast
+requires_empty_target=true
+gfx=runes.png
+sfx=teleport.ogg
+use_hazard=true
+rendered=true
+no_attack=true
+lifespan=16
+frame_duration=3
+frame_size=64,64
+frame_offset=32,32
+frame_loop=0
+floor=true
+starting_pos=source
+buff_teleport=true
+requires_item=12
+
+[power]
+id=130
+name=Scroll of Time Stop
+type=effect
+icon=19
+description=Stun nearby enemies for 5 seconds
+new_state=cast
+sfx=timestop.ogg
+use_hazard=true
+rendered=false
+lifespan=1
+radius=512
+multitarget=true
+stun_duration=150
+base_damage=none
+requires_item=13
+
+[power]
+id=131
+name=Scroll of Haste
+icon=12
+description=Double run and attack speed for 8 seconds
+type=effect
+new_state=cast
+face=false
+haste_duration=240
+requires_item=14

@@ -8,12 +8,11 @@
 
 #include "ItemDatabase.h"
 
-ItemDatabase::ItemDatabase(SDL_Surface *_screen, SDL_Surface *_icons, FontEngine *_font) {
+ItemDatabase::ItemDatabase(SDL_Surface *_screen, FontEngine *_font) {
 	screen = _screen;
-	icons = _icons;
 	font = _font;
 	
-	for (int i=0; i<1024; i++) {
+	for (int i=0; i<MAX_ITEM_ID; i++) {
 		items[i].name = "";
 		items[i].level = 0;
 		items[i].quality = ITEM_QUALITY_NORMAL;
@@ -43,6 +42,7 @@ ItemDatabase::ItemDatabase(SDL_Surface *_screen, SDL_Surface *_icons, FontEngine
 	vendor_ratio = 4; // this means scrap/vendor pays 1/4th price to buy items from hero
 	load();
 	loadSounds();
+	loadIcons();
 }
 
 void ItemDatabase::load() {
@@ -217,21 +217,53 @@ void ItemDatabase::loadSounds() {
 	
 }
 
+/**
+ * Icon sets
+ */
+void ItemDatabase::loadIcons() {
+	
+	icons32 = IMG_Load("images/icons/icons32.png");
+	icons64 = IMG_Load("images/icons/icons64.png");
+	
+	if(!icons32 || !icons64) {
+		fprintf(stderr, "Couldn't load icons: %s\n", IMG_GetError());
+		SDL_Quit();
+	}
+	
+	// optimize
+	SDL_Surface *cleanup = icons32;
+	icons32 = SDL_DisplayFormatAlpha(icons32);
+	SDL_FreeSurface(cleanup);
+	
+	cleanup = icons64;
+	icons64 = SDL_DisplayFormatAlpha(icons64);
+	SDL_FreeSurface(cleanup);
+}
+
+/**
+ * Renders icons at 32px size or 64px size
+ * Also display the stack size
+ */
 void ItemDatabase::renderIcon(ItemStack stack, int x, int y, int size) {
 	stringstream ss;
+	int columns;
 
 	dest.x = x;
 	dest.y = y;
 	src.w = src.h = dest.w = dest.h = size;
 	if (size == ICON_SIZE_32) {
-		src.x = (items[stack.item].icon32 % 16) * size;
-		src.y = (items[stack.item].icon32 / 16) * size;
+		columns = icons32->w / 32;
+		src.x = (items[stack.item].icon32 % columns) * size;
+		src.y = (items[stack.item].icon32 / columns) * size;
+		SDL_BlitSurface(icons32, &src, screen, &dest);
 	}
 	else if (size == ICON_SIZE_64) {
-		src.x = (items[stack.item].icon64 % 8) * size;
-		src.y = (items[stack.item].icon64 / 8) * size + 256;
+		columns = icons64->w / 64;
+		src.x = (items[stack.item].icon64 % columns) * size;
+		src.y = (items[stack.item].icon64 / columns) * size;
+		SDL_BlitSurface(icons64, &src, screen, &dest);
 	}
-	SDL_BlitSurface(icons, &src, screen, &dest);
+	
 	if( stack.quantity > 1 || items[stack.item].max_quantity > 1) {
 		// stackable item : show the quantity
 		ss << stack.quantity;
@@ -536,7 +568,10 @@ void ItemDatabase::applyEquipment(StatBlock *stats, ItemStack * equipped) {
 }
 
 ItemDatabase::~ItemDatabase() {
-	SDL_FreeSurface(icons);
+
+	SDL_FreeSurface(icons32);
+	SDL_FreeSurface(icons64);
+
 	for (int i=0; i<12; i++) {
 		if (sfx[i])
 			Mix_FreeChunk(sfx[i]);
