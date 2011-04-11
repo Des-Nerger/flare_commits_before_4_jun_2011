@@ -10,13 +10,13 @@
 
 #include "GameEngine.h"
 
-GameEngine::GameEngine(SDL_Surface *_screen, InputState *_inp) {
+GameEngine::GameEngine(SDL_Surface *_screen, InputState *_inp, FontEngine *_font) {
 	screen = _screen;
 	inp = _inp;
 	done = false;
 
 	powers = new PowerManager();
-	font = new FontEngine();
+	font = _font;
 	camp = new CampaignManager();
 	map = new MapIso(_screen, camp);
 	pc = new Avatar(powers, _inp, map);
@@ -26,8 +26,6 @@ GameEngine::GameEngine(SDL_Surface *_screen, InputState *_inp) {
 	loot = new LootManager(menu->items, menu->tip, enemies, map);
 	npcs = new NPCManager(map, menu->tip, loot, menu->items);
 	
-	
-	cancel_lock = false;
 	npc_id = -1;
 	loadGame();
 }
@@ -76,23 +74,23 @@ bool GameEngine::restrictPowerUse() {
  * Check to see if the player is picking up loot on the ground
  */
 void GameEngine::checkLoot() {
-	if (inp->pressing[MAIN1] && !inp->mouse_lock && pc->stats.alive) {
+	if (inp->pressing[MAIN1] && !inp->lock[MAIN1] && pc->stats.alive) {
 
 		ItemStack pickup;
 		int gold;
 		
 		pickup = loot->checkPickup(inp->mouse, map->cam, pc->stats.pos, gold, menu->inv->full());
 		if (pickup.item > 0) {
-			inp->mouse_lock = true;
+			inp->lock[MAIN1] = true;
 			menu->inv->add(pickup);
 			// TODO: play a little sound. Not the item's sound, in anticipation of a "Pickup all loots" key.
 		}
 		else if (gold > 0) {
-			inp->mouse_lock = true;
+			inp->lock[MAIN1] = true;
 			menu->inv->addGold(gold);
 		}
 		if (loot->full_msg) {
-			inp->mouse_lock = true;
+			inp->lock[MAIN1] = true;
 			menu->log->add("Inventory is full.");
 			loot->full_msg = false;
 		}
@@ -144,9 +142,9 @@ void GameEngine::checkTeleport() {
  * Also check closing the game window entirely.
  */
 void GameEngine::checkCancel() {
-	if (!inp->pressing[CANCEL]) cancel_lock = false;
-	else if (inp->pressing[CANCEL] && !cancel_lock) {
-		cancel_lock = true;
+
+	if (inp->pressing[CANCEL] && !inp->lock[CANCEL]) {
+		inp->lock[CANCEL] = true;
 		if (menu->menus_open) {
 			menu->closeAll(true);
 		}
@@ -224,7 +222,7 @@ void GameEngine::checkNPCInteraction() {
 	int interact_distance = max_interact_distance+1;
 	
 	// check for clicking on an NPC
-	if (inp->pressing[MAIN1] && !inp->mouse_lock) {
+	if (inp->pressing[MAIN1] && !inp->lock[MAIN1]) {
 		npc_click = npcs->checkNPCClick(inp->mouse, map->cam);
 		if (npc_click != -1) npc_id = npc_click;
 	}
@@ -236,7 +234,7 @@ void GameEngine::checkNPCInteraction() {
 	
 	// if close enough to the NPC, open the appropriate interaction screen
 	if (npc_click != -1 && interact_distance < max_interact_distance && pc->stats.alive) {
-		inp->mouse_lock = true;
+		inp->lock[MAIN1] = true;
 		
 		if (npcs->npcs[npc_id]->vendor) {
 			menu->vendor->npc = npcs->npcs[npc_id];
@@ -307,9 +305,6 @@ void GameEngine::checkNPCInteraction() {
  * This includes some message passing between child object
  */
 void GameEngine::logic() {
-	
-	if (!inp->pressing[MAIN1]) inp->mouse_lock = false;
-	if (!inp->pressing[MAIN2]) inp->mouse2_lock = false;
 
 	// check menus first (top layer gets mouse click priority)
 	menu->logic();
@@ -415,14 +410,13 @@ void GameEngine::showFPS(int fps) {
 }
 
 GameEngine::~GameEngine() {
-	delete(camp);
-	delete(npcs);
-	delete(hazards);
-	delete(enemies);
-	delete(pc);
-	delete(map);
-	delete(font);
-	delete(menu);
-	delete(loot);
-	delete(powers);
+	delete camp;
+	delete npcs;
+	delete hazards;
+	delete enemies;
+	delete pc;
+	delete map;
+	delete menu;
+	delete loot;
+	delete powers;
 }

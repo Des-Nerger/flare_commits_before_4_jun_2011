@@ -46,7 +46,6 @@ private:
 	NPCManager *npcs;
 	CampaignManager *camp;
 	
-	bool cancel_lock;
 	void saveGame();
 	void loadGame();
 	bool restrictPowerUse();
@@ -63,7 +62,7 @@ private:
 public:
 	bool done;
 	int npc_id;
-	GameEngine(SDL_Surface *screen, InputState *inp);
+	GameEngine(SDL_Surface *screen, InputState *inp, FontEngine *font);
 	~GameEngine();
 	
 	void logic();

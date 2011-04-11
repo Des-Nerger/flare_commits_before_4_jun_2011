@@ -208,7 +208,7 @@ Renderable EnemyManager::getRender(int enemyIndex) {
 
 EnemyManager::~EnemyManager() {
 	for (int i=0; i<enemy_count; i++) {
-		delete(enemies[i]);
+		delete enemies[i];
 	}
 	
 	for (int i=0; i<gfx_count; i++) {

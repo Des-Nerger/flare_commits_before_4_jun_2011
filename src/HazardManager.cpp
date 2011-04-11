@@ -178,6 +178,6 @@ Renderable HazardManager::getRender(int haz_id) {
 
 HazardManager::~HazardManager() {
 	for (int i=0; i<hazard_count; i++) {
-		delete(h[i]);
+		delete h[i];
 	}
 }

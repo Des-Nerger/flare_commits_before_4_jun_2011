@@ -729,7 +729,6 @@ Renderable Enemy::getRender() {
 }
 
 Enemy::~Enemy() {
-
-	if (haz != NULL) delete(haz);
+	delete haz;
 }
 

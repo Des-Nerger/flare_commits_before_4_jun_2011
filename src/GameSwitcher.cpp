@@ -21,8 +21,10 @@ GameSwitcher::GameSwitcher(SDL_Surface *_screen, InputState *_inp) {
 	inp = _inp;
 	screen = _screen;
 	
+	font = new FontEngine();
+	
 	game_state = GAME_STATE_PLAY;
-	eng = new GameEngine(screen, _inp);
+	eng = new GameEngine(screen, _inp, font);
 }
 
 void GameSwitcher::logic() {
@@ -89,5 +91,6 @@ void GameSwitcher::render() {
 }
 
 GameSwitcher::~GameSwitcher() {
-	delete(eng);
+	delete font;
+	delete eng;
 }

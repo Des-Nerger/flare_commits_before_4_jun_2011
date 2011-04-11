@@ -51,10 +51,11 @@ public:
 	void handle();
 
 	bool pressing[key_count];
+	bool lock[key_count];
+	
 	bool done;
 	Point mouse;
-	bool mouse_lock;
-	bool mouse2_lock;
+
 };
 
 #endif

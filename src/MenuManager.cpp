@@ -166,17 +166,17 @@ void MenuManager::logic() {
 		int offset_y = (VIEW_H - 416)/2;
 
 		// handle right-click
-		if (!dragging && inp->pressing[MAIN2] && !inp->mouse2_lock) {
+		if (!dragging && inp->pressing[MAIN2] && !inp->lock[MAIN2]) {
 
 			// activate inventory item
 			if (inv->visible && isWithin( inv->carried_area, inp->mouse)) {
 				inv->activate(inp);
-				inp->mouse2_lock = true;
+				inp->lock[MAIN2] = true;
 			}
 		}
 		
 		// handle left-click
-		if (!dragging && inp->pressing[MAIN1] && !inp->mouse_lock) {
+		if (!dragging && inp->pressing[MAIN1] && !inp->lock[MAIN1]) {
 		
 			// left side menu
 			if (inp->mouse.x <= 320 && inp->mouse.y >= offset_y && inp->mouse.y <= offset_y+416) {
@@ -184,7 +184,7 @@ void MenuManager::logic() {
 				
 					// applied a level-up
 					if (chr->checkUpgrade(inp->mouse)) {
-						inp->mouse_lock = true;
+						inp->lock[MAIN1] = true;
 						
 						// apply equipment and max hp/mp
 						items->applyEquipment(stats, inv->inventory[EQUIPMENT].storage);
@@ -195,7 +195,7 @@ void MenuManager::logic() {
 				else if (vendor->visible) {
 				
 					if (inp->pressing[CTRL]) {
-						inp->mouse_lock = true;
+						inp->lock[MAIN1] = true;
 						
 						// buy item from a vendor
 						if (!inv->full()) {
@@ -219,7 +219,7 @@ void MenuManager::logic() {
 						if (drag_stack.item > 0) {
 							dragging = true;
 							drag_src = DRAG_SRC_VENDOR;
-							inp->mouse_lock = true;
+							inp->lock[MAIN1] = true;
 						}
 					}
 				
@@ -233,7 +233,7 @@ void MenuManager::logic() {
 				if (inv->visible) {
 				
 					if (inp->pressing[CTRL]) {
-						inp->mouse_lock = true;
+						inp->lock[MAIN1] = true;
 						stack = inv->click(inp);
 						if( stack.item > 0) {
 							if (vendor->visible) {
@@ -257,7 +257,7 @@ void MenuManager::logic() {
 						if (drag_stack.item > 0) {
 							dragging = true;
 							drag_src = DRAG_SRC_INVENTORY;
-							inp->mouse_lock = true;
+							inp->lock[MAIN1] = true;
 						}
 					}
 				}
@@ -267,7 +267,7 @@ void MenuManager::logic() {
 					if (drag_power > -1) {
 						dragging = true;
 						drag_src = DRAG_SRC_POWERS;
-						inp->mouse_lock = true;
+						inp->lock[MAIN1] = true;
 					}
 				}
 			}
@@ -277,7 +277,7 @@ void MenuManager::logic() {
 				// ctrl-click action bar to clear that slot
 				if (inp->pressing[CTRL]) {
 					act->remove(inp->mouse);
-					inp->mouse_lock = true;
+					inp->lock[MAIN1] = true;
 				}
 				// allow drag-to-rearrange action bar
 				else if (!isWithin(act->menuArea, inp->mouse)) {
@@ -285,7 +285,7 @@ void MenuManager::logic() {
 					if (drag_power > -1) {
 						dragging = true;
 						drag_src = DRAG_SRC_ACTIONBAR;
-						inp->mouse_lock = true;
+						inp->lock[MAIN1] = true;
 					}
 				}
 				
@@ -484,19 +484,19 @@ void MenuManager::closeRight(bool play_sound) {
 }
 
 MenuManager::~MenuManager() {
-	delete(xp);
-	delete(mini);
-	delete(items);
-	delete(inv);
-	delete(pow);
-	delete(chr);
-	delete(log);
-	delete(act);
-	delete(tip);
-	delete(vendor);
-	delete(talker);
-	delete(enemy);
-	delete(hpmp);
+	delete xp;
+	delete mini;
+	delete items;
+	delete inv;
+	delete pow;
+	delete chr;
+	delete log;
+	delete act;
+	delete tip;
+	delete vendor;
+	delete talker;
+	delete enemy;
+	delete hpmp;
 	
 	Mix_FreeChunk(sfx_open);
 	Mix_FreeChunk(sfx_close);

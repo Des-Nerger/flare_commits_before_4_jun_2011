@@ -22,6 +22,7 @@
 #include "SDL_image.h"
 #include "InputState.h"
 #include "GameEngine.h"
+#include "FontEngine.h"
 
 const int GAME_STATE_TITLE = 0;
 const int GAME_STATE_PLAY = 1;
@@ -32,6 +33,7 @@ class GameSwitcher {
 private:
 	SDL_Surface *screen;
 	InputState *inp;
+	FontEngine *font;
 	
 	GameEngine *eng; // for GAME_STATE_PLAY
 	

@@ -119,10 +119,9 @@ void GameEngine::loadGame() {
 			if (line.length() > 0) {
 				starts_with = line.at(0);
 				
-				if (starts_with == "#") {
-					// skip comments
-				}
-				else { // this is data.  treatment depends on section type
+				if (starts_with != "#") { // skip comments
+					
+					// this is data.  treatment depends on section type
 					parse_key_pair(line, key, val);          
 					key = trim(key, ' ');
 					val = trim(val, ' ');

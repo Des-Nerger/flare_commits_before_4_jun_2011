@@ -54,11 +54,10 @@ InputState::InputState(void) {
 	binding_alt[SHIFT] = SDLK_RSHIFT;
 	
 	for (int key=0; key<key_count; key++) {
-		pressing[key] = false;	
+		pressing[key] = false;
+		lock[key] = false;
 	}
 	done = false;
-	mouse_lock = false;
-	mouse2_lock = false;
 	
 	loadKeyBindings();
 }
@@ -157,6 +156,7 @@ void InputState::handle() {
 				for (int key=0; key<key_count; key++) {
 					if (event.button.button == binding[key] || event.button.button == binding_alt[key]) {
 						pressing[key] = false;
+						lock[key] = false;
 					}
 				}
 				break;
@@ -171,6 +171,7 @@ void InputState::handle() {
 				for (int key=0; key<key_count; key++) {
 					if (event.key.keysym.sym == binding[key] || event.key.keysym.sym == binding_alt[key]) {
 						pressing[key] = false;
+						lock[key] = false;
 					}
 				}
 				break;

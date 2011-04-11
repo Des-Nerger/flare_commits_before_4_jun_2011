@@ -312,7 +312,7 @@ void Avatar::logic(int actionbar_power, bool restrictPowerUse) {
 			
 			// allowed to move or use powers?
 			if (MOUSE_MOVE) {
-				allowed_to_move = restrictPowerUse && (!inp->mouse_lock || drag_walking);
+				allowed_to_move = restrictPowerUse && (!inp->lock[MAIN1] || drag_walking);
 				allowed_to_use_power = !allowed_to_move;
 			}
 			else {
@@ -326,7 +326,7 @@ void Avatar::logic(int actionbar_power, bool restrictPowerUse) {
 			
 			if (pressing_move() && allowed_to_move) {
 				if (MOUSE_MOVE && inp->pressing[MAIN1]) {
-					inp->mouse_lock = true;
+					inp->lock[MAIN1] = true;
 					drag_walking = true;
 				}
 				
@@ -409,7 +409,7 @@ void Avatar::logic(int actionbar_power, bool restrictPowerUse) {
 
 			// allowed to move or use powers?
 			if (MOUSE_MOVE) {
-				allowed_to_use_power = !(restrictPowerUse && !inp->mouse_lock);
+				allowed_to_use_power = !(restrictPowerUse && !inp->lock[MAIN1]);
 			}
 			else {
 				allowed_to_use_power = true;
@@ -753,5 +753,5 @@ Avatar::~Avatar() {
 	Mix_FreeChunk(sound_steps[3]);
 	Mix_FreeChunk(level_up);
 			
-	if (haz != NULL) delete(haz);	
+	delete haz;	
 }

@@ -120,7 +120,7 @@ void NPCManager::renderTooltips(Point cam, Point mouse) {
 
 NPCManager::~NPCManager() {
 	for (int i=0; i<npc_count; i++) {
-		delete(npcs[i]);
+		delete npcs[i];
 	}
 
 }
