@@ -448,6 +448,13 @@ msg="Maddox died of the plague in 638.  After attempts to magically revive him f
 [event]
 type=run_once
 location=14,1,3,2
+requires_not=defeated_maddox
+msg=This chest is locked.
+
+[event]
+type=run_once
+location=14,1,3,2
+requires_status=defeated_maddox
 mapmod=object,15,1,161
 soundfx=soundfx/wood_open.ogg
 loot=random,14,2,6
@@ -600,7 +607,7 @@ type=skeleton
 spawnpoint=16,27,7
 
 [enemy]
-type=skeleton_boss
+type=sir_evan_maddox
 spawnpoint=16,8,7
 
 

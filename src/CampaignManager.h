@@ -28,7 +28,8 @@ public:
 	void setAll(std::string s);
 	std::string getAll();
 	bool checkStatus(std::string s);
-	void addStatus(std::string s);
+	void setStatus(std::string s);
+	void unsetStatus(std::string s);
 	void clearRewards();
 	
 	// helper functions to process NPC dialog

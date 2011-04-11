@@ -114,6 +114,8 @@ void NPC::load(string npc_id) {
 						else if (key == "reward_currency")
 							dialog[dialog_count-1][event_count].x = atoi(val.c_str());
 						else if (key == "set_status")
+							dialog[dialog_count-1][event_count].s = val;
+						else if (key == "unset_status")
 							dialog[dialog_count-1][event_count].s = val;						
 						
 						event_count++;

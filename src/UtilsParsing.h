@@ -15,6 +15,7 @@
 #include <fstream>
 using namespace std;
 
+bool isInt(string s);
 unsigned short xtoi(char c);
 unsigned short xtoi(string hex);
 char btox(bool b1, bool b2, bool b3, bool b4);

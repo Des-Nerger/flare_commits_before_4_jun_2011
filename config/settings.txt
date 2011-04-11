@@ -10,8 +10,11 @@ fullscreen=0
 resolution_w=720
 resolution_h=480
 
-# upper limit for frames per second.  All animations assume this fps.
-frames_per_sec=30
-
 # background music volume.  Ranged is 0 (silent) to 128 (max)
 music_volume=32
+
+# mouse movement.  0 for keyboard movement, 1 for mouse movement
+mouse_move=0
+
+# upper limit for frames per second.  All animations assume this fps.
+frames_per_sec=30

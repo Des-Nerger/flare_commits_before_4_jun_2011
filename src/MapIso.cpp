@@ -9,9 +9,10 @@
  
 #include "MapIso.h"
 
-MapIso::MapIso(SDL_Surface *_screen) {
+MapIso::MapIso(SDL_Surface *_screen, CampaignManager *_camp) {
 
 	screen = _screen;
+	camp = _camp;
 
 	// cam(x,y) is where on the map the camera is pointing
 	// units found in Settings.h (UNITS_PER_TILE)
@@ -288,6 +289,18 @@ int MapIso::load(string filename) {
 							else if (key == "shakycam") {
 								e->x = atoi(val.c_str());
 							}
+							else if (key == "requires_status") {
+								e->s = val;
+							}
+							else if (key == "requires_not") {
+								e->s = val;
+							}
+							else if (key == "set_status") {
+								e->s = val;
+							}
+							else if (key == "unset_status") {
+								e->s = val;
+							}
 							
 							events[event_count-1].comp_num++;
 						}
@@ -454,11 +467,8 @@ void MapIso::render(Renderable r[], int rnum) {
 				r_cursor++;
 
 			}
-			
 		}
 	}
-
-		
 }
 
 void MapIso::checkEvents(Point loc) {
@@ -486,6 +496,18 @@ void MapIso::executeEvent(int eid) {
 	for (int i=0; i<events[eid].comp_num; i++) {
 		ec = &events[eid].components[i];
 		
+		if (ec->type == "requires_status") {
+			if (!camp->checkStatus(ec->s)) return;
+		}
+		else if (ec->type == "requires_not") {
+			if (camp->checkStatus(ec->s)) return;
+		}
+		else if (ec->type == "set_status") {
+			camp->setStatus(ec->s);
+		}
+		else if (ec->type == "unset_status") {
+			camp->unsetStatus(ec->s);
+		}
 		if (ec->type == "intermap") {
 			teleportation = true;
 			teleport_mapname = ec->s;

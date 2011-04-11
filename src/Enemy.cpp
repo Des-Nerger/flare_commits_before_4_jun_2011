@@ -676,6 +676,34 @@ void Enemy::doRewards() {
 		loot_drop = true;
 	}
 	reward_xp = true;
+	
+	// some creatures create special loot if we're on a quest
+	if (stats.quest_loot_status != "") {
+	
+		// the loot manager will check quest_loot_id
+		// if set (not zero), the loot manager will 100% generate that loot.
+		if (map->camp->checkStatus(stats.quest_loot_status)) {
+			loot_drop = true;
+		}
+		else {
+			stats.quest_loot_id = 0;
+		}
+	}
+	
+	// some creatures drop special loot the first time they are defeated
+	// this must be done in conjunction with defeat status
+	if (stats.first_defeat_loot > 0) {
+		if (!map->camp->checkStatus(stats.defeat_status)) {
+			loot_drop = true;
+			stats.quest_loot_id = stats.first_defeat_loot;
+		}
+	}
+	
+	// defeating some creatures (e.g. bosses) affects the story
+	if (stats.defeat_status != "") {
+		map->camp->setStatus(stats.defeat_status);
+	}
+
 }
 
 /**

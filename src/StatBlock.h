@@ -193,13 +193,18 @@ public:
 	int mental_weapon_power;
 	int ranged_weapon_power;
 	
-	bool mouse_move;
-	
 	// for purchasing tracking
 	int gold;
 	
 	// marked for death
 	bool death_penalty;
+	
+	// Campaign event interaction
+	string defeat_status;
+	string quest_loot_status;
+	int quest_loot_id;
+	int first_defeat_loot;
+	
 };
 
 #endif

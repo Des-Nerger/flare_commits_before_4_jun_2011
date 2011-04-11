@@ -200,7 +200,7 @@ void MenuManager::logic() {
 						// buy item from a vendor
 						if (!inv->full()) {
 							stack = vendor->click(inp);
-							if (stack.item > -1) {
+							if (stack.item > 0) {
 								if( inv->full()) {
 									// Can we say "Not enough place" ?
 									vendor->itemReturn( stack);
@@ -235,7 +235,7 @@ void MenuManager::logic() {
 					if (inp->pressing[CTRL]) {
 						inp->mouse_lock = true;
 						stack = inv->click(inp);
-						if( stack.item > -1) {
+						if( stack.item > 0) {
 							if (vendor->visible) {
 								if( vendor->full()) {
 									// Can we say "Not enough place" ?

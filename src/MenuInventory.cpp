@@ -403,6 +403,7 @@ bool MenuInventory::buy(ItemStack stack, Point mouse) {
 	int area;
 	int slot = -1;
 	int count = items->items[stack.item].price * stack.quantity;
+	
 	if( gold >= count) {
 		gold -= count;
 

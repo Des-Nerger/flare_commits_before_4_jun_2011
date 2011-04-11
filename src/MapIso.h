@@ -21,6 +21,7 @@
 #include "MapCollision.h"
 #include "Settings.h"
 #include "UtilsParsing.h"
+#include "CampaignManager.h"
 
 using namespace std;
 
@@ -47,8 +48,9 @@ struct Map_Event {
 class MapIso {
 private:
 	SDL_Surface *screen;
+
 	Mix_Music *music;
-	
+		
 	// map events can play random soundfx
 	Mix_Chunk *sfx;
 	string sfx_filename;
@@ -62,8 +64,11 @@ private:
 	int event_count;
 	
 public:
+
+	CampaignManager *camp;
+
 	// functions
-	MapIso(SDL_Surface *_screen);
+	MapIso(SDL_Surface *_screen, CampaignManager *_camp);
 	~MapIso();
 	void clearEnemy(Map_Enemy e);
 	void clearNPC(Map_NPC n);

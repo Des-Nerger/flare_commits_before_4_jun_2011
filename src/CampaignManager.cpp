@@ -60,13 +60,30 @@ bool CampaignManager::checkStatus(std::string s) {
 	return false;
 }
 
-void CampaignManager::addStatus(std::string s) {
+void CampaignManager::setStatus(std::string s) {
 
 	// hit upper limit for status
 	// TODO: add a warning
 	if (status_count >= MAX_STATUS) return;
 	
+	// if it's already set, don't add it again
+	if (checkStatus(s)) return;
+	
 	status[status_count++] = s;
+}
+
+void CampaignManager::unsetStatus(std::string s) {
+	for (int i=status_count-1; i>=0; i--) {
+		if (status[i] == s) {
+		
+			// bubble existing statuses down
+			for (int j=i; j<status_count-1; j++) {
+				status[j] = status[j+1];
+			}
+			status_count--;
+			return;
+		}
+	}
 }
 
 /**
@@ -121,7 +138,10 @@ bool CampaignManager::processDialog(NPC *n, int dialog_node, int &event_cursor) 
 			// continue to next event component
 		}
 		else if (n->dialog[dialog_node][event_cursor].type == "set_status") {
-			addStatus(n->dialog[dialog_node][event_cursor].s);
+			setStatus(n->dialog[dialog_node][event_cursor].s);
+		}
+		else if (n->dialog[dialog_node][event_cursor].type == "unset_status") {
+			unsetStatus(n->dialog[dialog_node][event_cursor].s);
 		}
 		else if (n->dialog[dialog_node][event_cursor].type == "him") {
 			return true;

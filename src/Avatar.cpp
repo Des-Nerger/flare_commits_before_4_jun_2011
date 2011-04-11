@@ -38,7 +38,6 @@ Avatar::Avatar(PowerManager *_powers, InputState *_inp, MapIso *_map) {
 	stats.defense = 1;
 	stats.speed = 14;
 	stats.dspeed = 10;
-	stats.mouse_move = false;
 	stats.recalc();
 	
 	log_msg = "";
@@ -150,7 +149,7 @@ void Avatar::loadSounds() {
 }
 
 bool Avatar::pressing_move() {
-	if(stats.mouse_move) {
+	if(MOUSE_MOVE) {
 		return inp->pressing[MAIN1];
 	} else {
 		return inp->pressing[UP] || inp->pressing[DOWN] || inp->pressing[LEFT] || inp->pressing[RIGHT];
@@ -202,7 +201,7 @@ bool Avatar::move() {
 
 void Avatar::set_direction() {
 	// handle direction changes
-	if(stats.mouse_move) {
+	if(MOUSE_MOVE) {
 		Point target = screen_to_map(inp->mouse.x,  inp->mouse.y, stats.pos.x, stats.pos.y);
 		stats.direction = face(target.x, target.y);
 	} else {
@@ -312,7 +311,7 @@ void Avatar::logic(int actionbar_power, bool restrictPowerUse) {
 				stats.disp_frame = stats.cur_frame / stats.anim_stance_duration + stats.anim_stance_position;
 			
 			// allowed to move or use powers?
-			if (stats.mouse_move) {
+			if (MOUSE_MOVE) {
 				allowed_to_move = restrictPowerUse && (!inp->mouse_lock || drag_walking);
 				allowed_to_use_power = !allowed_to_move;
 			}
@@ -326,7 +325,7 @@ void Avatar::logic(int actionbar_power, bool restrictPowerUse) {
 				set_direction();
 			
 			if (pressing_move() && allowed_to_move) {
-				if (stats.mouse_move && inp->pressing[MAIN1]) {
+				if (MOUSE_MOVE && inp->pressing[MAIN1]) {
 					inp->mouse_lock = true;
 					drag_walking = true;
 				}
@@ -409,7 +408,7 @@ void Avatar::logic(int actionbar_power, bool restrictPowerUse) {
 			}
 
 			// allowed to move or use powers?
-			if (stats.mouse_move) {
+			if (MOUSE_MOVE) {
 				allowed_to_use_power = !(restrictPowerUse && !inp->mouse_lock);
 			}
 			else {

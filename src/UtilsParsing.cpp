@@ -1,6 +1,28 @@
 #include "UtilsParsing.h"
 using namespace std;
 
+/**
+ * Check to see if this string represents an integer
+ * The first character can be a negative (-) sign.
+ */
+bool isInt(string s) {
+	if (s == "") return false;
+
+	int start=0;
+	
+	// allow a negative sign as the first char
+	if (s.at(0) == '-') start=1;
+
+	for (int i=start; i<s.length(); i++) {
+		// if any character in this string is not a numeric digit, this string is not an integer
+		if (s.at(i) < 48 || s.at(i) > 57) return false;
+	}
+	return true;
+}
+
+/**
+ * Convert a single hex character (0123456789abcdef) into the equivalent integer
+ */
 unsigned short xtoi(char c) {
 	if (c >= 97) return c - 87;
 	else if (c >= 65) return c - 55;
@@ -22,6 +44,9 @@ unsigned short xtoi(string hex) {
 	return val;
 }
 
+/**
+ * Convert four booleans into a single hex character 0-f
+ */
 char btox(bool b1, bool b2, bool b3, bool b4) {
 	if (b4)
 		if (b3)

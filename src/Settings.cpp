@@ -30,10 +30,12 @@ int VIEW_H = 480;
 int VIEW_W_HALF = VIEW_W/2;
 int VIEW_H_HALF = VIEW_H/2;
 
-// Misc Settings
+// Audio Settings
 int MUSIC_VOLUME = 64;
 bool MENUS_PAUSE = false;
 
+// Input Settings
+bool MOUSE_MOVE = false;
 
 bool loadSettings() {
 
@@ -79,6 +81,9 @@ bool loadSettings() {
 					}
 					else if (key == "music_volume") {
 						MUSIC_VOLUME = atoi(val.c_str());
+					}
+					else if (key == "mouse_move") {
+						if (val == "1") MOUSE_MOVE = true;
 					}
 				}
 			}

@@ -233,12 +233,25 @@ void LootManager::renderTooltips(Point cam) {
 
 /**
  * Enemies that drop loot raise a "loot_drop" flag to notify this loot
- * mpger to create loot based on that creature's level and position.
+ * manager to create loot based on that creature's level and position.
  */
 void LootManager::checkEnemiesForLoot() {
+	ItemStack istack;
+	istack.quantity = 1;
+	
 	for (int i=0; i<enemies->enemy_count; i++) {
 		if (enemies->enemies[i]->loot_drop) {
-			determineLoot(enemies->enemies[i]->stats.level, enemies->enemies[i]->stats.pos);
+			
+			if (enemies->enemies[i]->stats.quest_loot_id != 0) {				
+				// quest loot
+				istack.item = enemies->enemies[i]->stats.quest_loot_id;
+				addLoot(istack, enemies->enemies[i]->stats.pos);
+			}
+			else {
+				// random loot
+				determineLoot(enemies->enemies[i]->stats.level, enemies->enemies[i]->stats.pos);
+			}
+			
 			enemies->enemies[i]->loot_drop = false;
 		}
 	}

@@ -26,9 +26,7 @@ StatBlock::StatBlock() {
 	accuracy = 75;
 	avoidance = 25;
 	crit = 0;
-	
-	//controls
-	mouse_move = false;
+
 
 	// equipment stats	
 	dmg_melee_min = 1;
@@ -104,6 +102,12 @@ StatBlock::StatBlock() {
 
 	gold = 0;
 	death_penalty = false;
+	
+	// campaign status interaction
+	defeat_status = "";
+	quest_loot_status = "";
+	quest_loot_id = 0;
+	first_defeat_loot = 0;
 }
 
 /**
@@ -139,16 +143,23 @@ void StatBlock::load(string filename) {
 					parse_key_pair(line, key, val);          
 					key = trim(key, ' ');
 					val = trim(val, ' ');
-					num = atoi(val.c_str());
+					if (isInt(val)) num = atoi(val.c_str());
 					
 					if (key == "name") name = val;
 					else if (key == "sfx_prefix") sfx_prefix = val;
 					else if (key == "gfx_prefix") gfx_prefix = val;
 					
 					else if (key == "level") level = num;
-					else if (key == "xp") xp = num;
 					
+					// enemy death rewards and events
+					else if (key == "xp") xp = num;
 					else if (key == "loot_chance") loot_chance = num;
+					else if (key == "defeat_status") defeat_status = val;
+					else if (key == "first_defeat_loot") first_defeat_loot = num;
+					else if (key == "quest_loot") {
+						quest_loot_status = eatFirstString(val, ',');
+						quest_loot_id = atoi(val.c_str());
+					}
 					
 					// combat stats
 					else if (key == "hp") {

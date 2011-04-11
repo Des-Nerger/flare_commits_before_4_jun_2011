@@ -17,6 +17,9 @@ extern int VIEW_H;
 extern int VIEW_W_HALF;
 extern int VIEW_H_HALF;
 
+// Input Settings
+extern bool MOUSE_MOVE;
+
 // Engine Settings
 extern bool MENUS_PAUSE;
 

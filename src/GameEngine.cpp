@@ -18,7 +18,7 @@ GameEngine::GameEngine(SDL_Surface *_screen, InputState *_inp) {
 	powers = new PowerManager();
 	font = new FontEngine();
 	camp = new CampaignManager();
-	map = new MapIso(_screen);
+	map = new MapIso(_screen, camp);
 	pc = new Avatar(powers, _inp, map);
 	enemies = new EnemyManager(powers, map);
 	hazards = new HazardManager(powers, pc, enemies);
@@ -64,7 +64,7 @@ void GameEngine::checkEnemyFocus() {
  * Do not allow power use with button MAIN1
  */
 bool GameEngine::restrictPowerUse() {
-	if(pc->stats.mouse_move) {
+	if(MOUSE_MOVE) {
 		if(enemy == NULL && inp->pressing[MAIN1] && !inp->pressing[SHIFT] && !(isWithin(menu->act->numberArea,inp->mouse) || isWithin(menu->act->mouseArea,inp->mouse) || isWithin(menu->act->menuArea, inp->mouse))) {
 			return true;
 		}
@@ -276,7 +276,7 @@ void GameEngine::checkNPCInteraction() {
 		pc->stats.xp += camp->xp_amount;
 	}
 	if (camp->currency_amount > 0) {
-		menu->inv->gold += camp->currency_amount;
+		menu->inv->addGold(camp->currency_amount);
 	}
 	if (camp->item_amount > 0) {
 	
