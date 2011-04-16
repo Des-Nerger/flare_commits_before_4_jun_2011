@@ -1,17 +1,17 @@
 # clint bellanger
-name=Dungeon Guide
+name=Clint Bellanger, Developer
 
 # talker info
 talker=true
-portrait=test_portrait
+#portrait=test_portrait
 txt=Thanks for playing the game. Although it is still early alpha, I hope you enjoy it. Feel free to send me any suggestions or bug reports.
 
 # animation info
-gfx=wandering_trader2
-render_size=32,64
-render_offset=14,56
+gfx=clint_bellanger
+render_size=48,64
+render_offset=22,56
 anim_frames=6
-anim_duration=30
+anim_duration=10
 
 # voiceover files
 
