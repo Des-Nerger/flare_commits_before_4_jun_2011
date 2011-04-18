@@ -243,12 +243,18 @@ void MenuManager::logic() {
 								}
 								else {
 									// The vendor could have a limited amount of money in the future. It will be tested here.
-									inv->sell(stack);
-									vendor->add(stack);
+									if (inv->sell(stack)) {
+										vendor->add(stack);
+									}
+									else {
+										inv->itemReturn(stack);
+									}
 								}
 							}
 							else {
-								inv->sell(stack);
+								if (!inv->sell(stack)) {
+									inv->itemReturn(stack);
+								}
 							}
 						}
 					}
@@ -335,16 +341,27 @@ void MenuManager::logic() {
 						inv->itemReturn( drag_stack);
 					}
 					else {
-						inv->sell( drag_stack);
-						vendor->add( drag_stack);
+						if (inv->sell( drag_stack)) {
+							vendor->add( drag_stack);
+						}
+						else {
+							inv->itemReturn(drag_stack);
+						}
 					}
 					drag_stack.item = 0;
 				}
 				else {
 					// if dragging and the source was inventory, drop item to the floor
-					drop_stack = drag_stack;
-					drag_stack.item = 0;
-					drag_stack.quantity = 0;
+					
+					// quest items cannot be dropped
+					if (items->items[drag_stack.item].type != ITEM_TYPE_QUEST) {
+						drop_stack = drag_stack;
+						drag_stack.item = 0;
+						drag_stack.quantity = 0;
+					}
+					else {
+						inv->itemReturn(drag_stack);
+					}
 				}
 			}
 			

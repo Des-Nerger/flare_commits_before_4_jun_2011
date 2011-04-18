@@ -111,6 +111,8 @@ void ItemDatabase::load() {
 							items[id].type = ITEM_TYPE_CONSUMABLE;
 						else if (val == "gem")
 							items[id].type = ITEM_TYPE_GEM;
+						else if (val == "quest")
+							items[id].type = ITEM_TYPE_QUEST;
 					}
 					else if (key == "dmg") {
 						val = val + ",";
@@ -353,6 +355,8 @@ TooltipData ItemDatabase::getTooltip(int item, StatBlock *stats, bool vendor_vie
 			tip.lines[tip.num_lines++] = "Consumable";
 		else if (items[item].type == ITEM_TYPE_GEM)
 			tip.lines[tip.num_lines++] = "Gem";
+		else if (items[item].type == ITEM_TYPE_QUEST)
+			tip.lines[tip.num_lines++] = "Quest Item";
 	}
 	
 	// damage

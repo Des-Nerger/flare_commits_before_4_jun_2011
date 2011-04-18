@@ -21,7 +21,7 @@
 
 using namespace std;
 
-const int MAX_ITEM_ID = 8192;
+const int MAX_ITEM_ID = 10000;
 
 const int ICON_SIZE_32 = 32;
 const int ICON_SIZE_64 = 64;
@@ -33,6 +33,7 @@ const int ITEM_TYPE_OFF = 2;
 const int ITEM_TYPE_ARTIFACT = 3;
 const int ITEM_TYPE_CONSUMABLE = 4;
 const int ITEM_TYPE_GEM = 5;
+const int ITEM_TYPE_QUEST = 6;
 
 const int REQUIRES_PHYS = 0;
 const int REQUIRES_MENT = 1;

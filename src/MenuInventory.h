@@ -66,7 +66,7 @@ public:
 	void remove(int item);
 	void addGold(int count);
 	bool buy(ItemStack stack, Point mouse = Point());
-	void sell(ItemStack stack);
+	bool sell(ItemStack stack);
 
 	bool full();
 	int getItemCountCarried(int item);
