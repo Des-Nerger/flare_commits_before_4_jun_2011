@@ -7,7 +7,10 @@
 
 #include "NPC.h"
 
-NPC::NPC(ItemDatabase *_items) {
+NPC::NPC(MapIso *_map, ItemDatabase *_items) {
+
+	items = _items;
+	map = _map;
 
 	// init general vars
 	name = "";
@@ -272,6 +275,110 @@ Renderable NPC::getRender() {
 		
 	return r;	
 }
+
+/**
+ * NPCs have a list of dialog nodes
+ * The player wants to begin dialog with this NPC
+ * Determine the correct dialog node by the place in the story line
+ */
+int NPC::chooseDialogNode() {
+
+	// NPC dialog nodes are listed in timeline order
+	// So check from the bottom of the list up
+	// First node we reach that meets requirements is the correct node
+	
+	for (int i=dialog_count-1; i>=0; i--) {
+		for (int j=0; j<NPC_MAX_EVENTS; j++) {
+			
+			// check requirements
+			// break (skip to next dialog node) if any requirement fails
+			// if we reach an event that is not a requirement, succeed
+			
+			if (dialog[i][j].type == "requires_status") {
+				if (!map->camp->checkStatus(dialog[i][j].s)) break;
+			}
+			else if (dialog[i][j].type == "requires_not") {
+				if (map->camp->checkStatus(dialog[i][j].s)) break;
+			}
+			else {
+				return i;
+			}
+		}
+	}
+	return 0;
+}
+
+
+/**
+ * Process the current dialog
+ *
+ * Return false if the dialog has ended
+ */
+bool NPC::processDialog(int dialog_node, int &event_cursor) {
+
+	stringstream ss;
+	ss.str("");
+	
+	while (event_cursor < NPC_MAX_EVENTS) {
+	
+		// we've already determined requirements are met, so skip these
+		if (dialog[dialog_node][event_cursor].type == "requires_status") {
+			// continue to next event component
+		}
+		else if (dialog[dialog_node][event_cursor].type == "requires_not") {
+			// continue to next event component
+		}
+		else if (dialog[dialog_node][event_cursor].type == "set_status") {
+			map->camp->setStatus(dialog[dialog_node][event_cursor].s);
+		}
+		else if (dialog[dialog_node][event_cursor].type == "unset_status") {
+			map->camp->unsetStatus(dialog[dialog_node][event_cursor].s);
+		}
+		else if (dialog[dialog_node][event_cursor].type == "him") {
+			return true;
+		}
+		else if (dialog[dialog_node][event_cursor].type == "her") {
+			return true;
+		}
+		else if (dialog[dialog_node][event_cursor].type == "you") {
+			return true;
+		}
+		else if (dialog[dialog_node][event_cursor].type == "reward_xp") {
+			map->camp->xp_amount = dialog[dialog_node][event_cursor].x;
+			if (map->camp->log_msg != "") map->camp->log_msg += "\n";
+			ss << "You receive " << map->camp->xp_amount << " XP.";
+			map->camp->log_msg += ss.str();
+			
+			// continue to next event component
+		}
+		else if (dialog[dialog_node][event_cursor].type == "reward_currency") {
+			map->camp->currency_amount = dialog[dialog_node][event_cursor].x;
+			if (map->camp->log_msg != "") map->camp->log_msg += "\n";
+			ss << "You receive " << map->camp->currency_amount << " gold.";
+			map->camp->log_msg += ss.str();
+			
+			// continue to next event component
+		}
+		else if (dialog[dialog_node][event_cursor].type == "reward_item") {
+			map->camp->item_id = dialog[dialog_node][event_cursor].x;
+			map->camp->item_amount = dialog[dialog_node][event_cursor].y;
+			
+			// allow GameEngine::checkNPCInteraction() to set log message for items
+			// reason 1: If the player's inventory is full, don't log the receive message
+			// reason 2: GameEngine can lookup the item name
+		
+			// continue to next event component
+		}
+		else if (dialog[dialog_node][event_cursor].type == "") {
+			// conversation ends
+			return false;
+		}
+		
+		event_cursor++;
+	}
+	return false;
+}
+
 
 NPC::~NPC() {
 	if (sprites != NULL) SDL_FreeSurface(sprites);

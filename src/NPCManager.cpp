@@ -43,7 +43,7 @@ void NPCManager::handleNewMap() {
 		mn = map->npcs.front();
 		map->npcs.pop();
 		
-		npcs[npc_count] = new NPC(items);
+		npcs[npc_count] = new NPC(map, items);
 		npcs[npc_count]->load(mn.id);
 		npcs[npc_count]->pos.x = mn.pos.x;
 		npcs[npc_count]->pos.y = mn.pos.y;

@@ -41,8 +41,8 @@ void MenuTalker::loadGraphics() {
 
 void MenuTalker::chooseDialogNode() {
 	event_cursor = 0;
-	dialog_node = camp->chooseDialogNode(npc);
-	camp->processDialog(npc, dialog_node, event_cursor);
+	dialog_node = npc->chooseDialogNode();
+	npc->processDialog(dialog_node, event_cursor);
 }
 
 /**
@@ -64,7 +64,7 @@ void MenuTalker::logic(bool pressing_accept) {
 	
 	// pressed next/more
 	event_cursor++;
-	more = camp->processDialog(npc, dialog_node, event_cursor);
+	more = npc->processDialog(dialog_node, event_cursor);
 	
 	if (!more) {
 		// end dialog

@@ -17,6 +17,7 @@
 #include "UtilsParsing.h"
 #include "ItemDatabase.h"
 #include "ItemStorage.h"
+#include "MapIso.h"
 
 using namespace std;
 
@@ -30,6 +31,9 @@ const int NPC_MAX_EVENTS = 16;
 class NPC {
 private:
 
+	ItemDatabase *items;
+	MapIso *map;
+
 	// animation info
 	SDL_Surface *sprites;
 	int anim_frames;
@@ -37,7 +41,7 @@ private:
 	int current_frame;
 	
 public:
-	NPC(ItemDatabase *_items);
+	NPC(MapIso *_map, ItemDatabase *_items);
 	~NPC();
 	void load(string npc_id);
 	void loadGraphics(string filename_sprites, string filename_portrait);
@@ -45,6 +49,8 @@ public:
 	void logic();
 	bool playSound(int type);
 	Renderable getRender();
+	int chooseDialogNode();
+	bool processDialog(int dialog_node, int &event_cursor);
 	
 	// general info
 	string name;

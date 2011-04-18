@@ -13,7 +13,6 @@
 #include <string>
 #include <sstream>
 #include "UtilsParsing.h"
-#include "NPC.h"
 
 const int MAX_STATUS = 1024;
 
@@ -31,10 +30,6 @@ public:
 	void setStatus(std::string s);
 	void unsetStatus(std::string s);
 	void clearRewards();
-	
-	// helper functions to process NPC dialog
-	int chooseDialogNode(NPC *n);
-	bool processDialog(NPC *n, int dialog_node, int &event_cursor);
 	
 	string status[MAX_STATUS];
 	int status_count;
