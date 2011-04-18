@@ -12,33 +12,6 @@ ItemDatabase::ItemDatabase(SDL_Surface *_screen, FontEngine *_font) {
 	screen = _screen;
 	font = _font;
 	
-	for (int i=0; i<MAX_ITEM_ID; i++) {
-		items[i].name = "";
-		items[i].level = 0;
-		items[i].quality = ITEM_QUALITY_NORMAL;
-		items[i].icon32 = 0;
-		items[i].icon64 = 0;
-		items[i].type = -1;
-		items[i].dmg_min = 0;
-		items[i].dmg_max = 0;
-		items[i].abs_min = 0;
-		items[i].abs_max = 0;
-		items[i].req_stat = 0;
-		items[i].req_val = 0;
-		items[i].bonus_stat = "";
-		items[i].bonus_val = 0;
-		items[i].sfx = SFX_NONE;
-		items[i].gfx = "";
-		items[i].loot = "";
-		items[i].power = -1;
-		items[i].power_mod = -1;
-		items[i].power_desc = "";
-		items[i].price = 0;
-		items[i].max_quantity = 1;
-		items[i].rand_loot = 1;
-		items[i].rand_vendor = 1;
-	}
-	
 	vendor_ratio = 4; // this means scrap/vendor pays 1/4th price to buy items from hero
 	load();
 	loadSounds();
@@ -178,8 +151,6 @@ void ItemDatabase::load() {
 						items[id].gfx = val;
 					else if (key == "loot")
 						items[id].loot = val;
-					else if (key == "effect")
-						items[id].effect = val;
 					else if (key == "power")
 						items[id].power = atoi(val.c_str());
 					else if (key == "power_mod")
@@ -194,6 +165,8 @@ void ItemDatabase::load() {
 						items[id].rand_loot = atoi(val.c_str());
 					else if (key == "rand_vendor")
 						items[id].rand_vendor = atoi(val.c_str());
+					else if (key == "pickup_status")
+						items[id].pickup_status = val;
 						
 				}
 			}

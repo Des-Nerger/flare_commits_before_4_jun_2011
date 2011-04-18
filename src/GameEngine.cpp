@@ -83,7 +83,8 @@ void GameEngine::checkLoot() {
 		if (pickup.item > 0) {
 			inp->lock[MAIN1] = true;
 			menu->inv->add(pickup);
-			// TODO: play a little sound. Not the item's sound, in anticipation of a "Pickup all loots" key.
+
+			camp->setStatus(menu->items->items[pickup.item].pickup_status);
 		}
 		else if (gold > 0) {
 			inp->lock[MAIN1] = true;

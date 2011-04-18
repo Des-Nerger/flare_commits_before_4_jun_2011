@@ -202,6 +202,7 @@ public:
 	// Campaign event interaction
 	string defeat_status;
 	string quest_loot_status;
+	string quest_loot_set;
 	int quest_loot_id;
 	int first_defeat_loot;
 	

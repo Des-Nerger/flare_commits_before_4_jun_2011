@@ -54,6 +54,10 @@ std::string CampaignManager::getAll() {
 }
 
 bool CampaignManager::checkStatus(std::string s) {
+
+	// avoid searching empty statuses
+	if (s == "") return false;
+	
 	for (int i=0; i<status_count; i++) {
 		if (status[i] == s) return true;
 	}
@@ -61,6 +65,9 @@ bool CampaignManager::checkStatus(std::string s) {
 }
 
 void CampaignManager::setStatus(std::string s) {
+
+	// avoid adding empty statuses
+	if (s == "") return;
 
 	// hit upper limit for status
 	// TODO: add a warning
@@ -73,6 +80,10 @@ void CampaignManager::setStatus(std::string s) {
 }
 
 void CampaignManager::unsetStatus(std::string s) {
+
+	// avoid searching empty statuses
+	if (s == "") return;
+
 	for (int i=status_count-1; i>=0; i--) {
 		if (status[i] == s) {
 		

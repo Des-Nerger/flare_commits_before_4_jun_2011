@@ -3,7 +3,6 @@ id=1
 name=Health Potion
 level=3
 icon=32
-effect=hp_restore
 power=100
 power_desc=Restore 25 HP
 type=consumable
@@ -18,7 +17,6 @@ id=2
 name=Mana Potion
 level=4
 icon=33
-effect=mp_restore
 power=101
 power_desc=Restore 25 MP
 type=consumable
@@ -8855,4 +8853,12 @@ sfx=gem
 loot=ring
 bonus=HP regen,1000
 
-
+[item]
+id=1024
+name=Averguard Temple Key
+icon=32
+power_desc=Opens the Averguard Temple doors
+type=quest
+sfx=potion
+loot=hp_potion
+pickup_status=averguard_temple_key
