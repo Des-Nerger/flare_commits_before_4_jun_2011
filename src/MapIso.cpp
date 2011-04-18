@@ -295,11 +295,20 @@ int MapIso::load(string filename) {
 							else if (key == "requires_not") {
 								e->s = val;
 							}
+							else if (key == "requires_item") {
+								e->x = atoi(val.c_str());
+							}
 							else if (key == "set_status") {
 								e->s = val;
 							}
 							else if (key == "unset_status") {
 								e->s = val;
+							}
+							else if (key == "remove_item") {
+								e->x = atoi(val.c_str());
+							}
+							else if (key == "reward_xp") {
+								e->x = atoi(val.c_str());
 							}
 							
 							events[event_count-1].comp_num++;
@@ -502,6 +511,9 @@ void MapIso::executeEvent(int eid) {
 		else if (ec->type == "requires_not") {
 			if (camp->checkStatus(ec->s)) return;
 		}
+		else if (ec->type == "requires_item") {
+			if (camp->checkItem(ec->x)) return;
+		}
 		else if (ec->type == "set_status") {
 			camp->setStatus(ec->s);
 		}
@@ -537,6 +549,12 @@ void MapIso::executeEvent(int eid) {
 		}
 		else if (ec->type == "shakycam") {
 			shaky_cam_ticks = ec->x;
+		}
+		else if (ec->type == "remove_item") {
+			camp->removeItem(ec->x);
+		}
+		else if (ec->type == "reward_xp") {
+			camp->rewardXP(ec->x);
 		}
 	}
 	if (events[eid].type == "run_once") {

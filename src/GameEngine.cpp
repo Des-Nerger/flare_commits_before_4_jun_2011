@@ -26,8 +26,15 @@ GameEngine::GameEngine(SDL_Surface *_screen, InputState *_inp, FontEngine *_font
 	loot = new LootManager(menu->items, menu->tip, enemies, map);
 	npcs = new NPCManager(map, menu->tip, loot, menu->items);
 	
+	
 	npc_id = -1;
 	loadGame();
+
+	// assign some object pointers after object creation, based on dependency order
+	camp->items = menu->items;
+	camp->carried_items = &menu->inv->inventory[CARRIED];
+	camp->currency = &menu->inv->gold;
+	camp->xp = &pc->stats.xp;
 }
 
 /**
@@ -197,6 +204,14 @@ void GameEngine::checkLootDrop() {
 		menu->drop_stack.item = 0;
 		menu->drop_stack.quantity = 0;
 	}
+	
+	// if the player has dropped a quest rward because inventory full
+	if (camp->drop_stack.item > 0) {
+		loot->addLoot(camp->drop_stack, pc->stats.pos);
+		camp->drop_stack.item = 0;
+		camp->drop_stack.quantity = 0;
+	}
+
 }
 
 /**
@@ -269,36 +284,7 @@ void GameEngine::checkNPCInteraction() {
 			npc_id = -1;
 		}
 	}
-	
-	// check for NPC giving a reward
-	if (camp->xp_amount > 0) {
-		pc->stats.xp += camp->xp_amount;
-	}
-	if (camp->currency_amount > 0) {
-		menu->inv->addGold(camp->currency_amount);
-	}
-	if (camp->item_amount > 0) {
-	
-		ItemStack istack;
-		istack.item = camp->item_id;
-		istack.quantity = camp->item_amount;
-		
-		if (!menu->inv->full()) {
-			menu->inv->add(istack, CARRIED, -1);
-			
-			stringstream ss;
-			ss.str("");
-			ss << "You receive " + menu->items->items[istack.item].name;
-			if (istack.quantity > 1) ss << " x" + istack.quantity << ".";
-			else ss << ".";
-			menu->log->add(ss.str());
-		}
-		else {
-			loot->addLoot(istack, pc->stats.pos);
-		}
-	}
-	
-	camp->clearRewards();
+
 }
 
 /**

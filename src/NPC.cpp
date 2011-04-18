@@ -103,6 +103,8 @@ void NPC::load(string npc_id) {
 							dialog[dialog_count-1][event_count].s = val;
 						else if (key == "requires_not")
 							dialog[dialog_count-1][event_count].s = val;
+						else if (key == "requires_item")
+							dialog[dialog_count-1][event_count].x = atoi(val.c_str());
 						else if (key == "him" || key == "her")
 							dialog[dialog_count-1][event_count].s = val;
 						else if (key == "you")
@@ -115,6 +117,8 @@ void NPC::load(string npc_id) {
 						else if (key == "reward_xp")
 							dialog[dialog_count-1][event_count].x = atoi(val.c_str());
 						else if (key == "reward_currency")
+							dialog[dialog_count-1][event_count].x = atoi(val.c_str());
+						else if (key == "remove_item")
 							dialog[dialog_count-1][event_count].x = atoi(val.c_str());
 						else if (key == "set_status")
 							dialog[dialog_count-1][event_count].s = val;
@@ -300,6 +304,9 @@ int NPC::chooseDialogNode() {
 			else if (dialog[i][j].type == "requires_not") {
 				if (map->camp->checkStatus(dialog[i][j].s)) break;
 			}
+			else if (dialog[i][j].type == "requires_item") {
+				if (map->camp->checkItem(dialog[i][j].x)) break;
+			}
 			else {
 				return i;
 			}
@@ -328,6 +335,9 @@ bool NPC::processDialog(int dialog_node, int &event_cursor) {
 		else if (dialog[dialog_node][event_cursor].type == "requires_not") {
 			// continue to next event component
 		}
+		else if (dialog[dialog_node][event_cursor].type == "requires_not") {
+			// continue to next event component		
+		}
 		else if (dialog[dialog_node][event_cursor].type == "set_status") {
 			map->camp->setStatus(dialog[dialog_node][event_cursor].s);
 		}
@@ -344,30 +354,19 @@ bool NPC::processDialog(int dialog_node, int &event_cursor) {
 			return true;
 		}
 		else if (dialog[dialog_node][event_cursor].type == "reward_xp") {
-			map->camp->xp_amount = dialog[dialog_node][event_cursor].x;
-			if (map->camp->log_msg != "") map->camp->log_msg += "\n";
-			ss << "You receive " << map->camp->xp_amount << " XP.";
-			map->camp->log_msg += ss.str();
-			
-			// continue to next event component
+			map->camp->rewardXP(dialog[dialog_node][event_cursor].x);
 		}
 		else if (dialog[dialog_node][event_cursor].type == "reward_currency") {
-			map->camp->currency_amount = dialog[dialog_node][event_cursor].x;
-			if (map->camp->log_msg != "") map->camp->log_msg += "\n";
-			ss << "You receive " << map->camp->currency_amount << " gold.";
-			map->camp->log_msg += ss.str();
-			
-			// continue to next event component
+			map->camp->rewardCurrency(dialog[dialog_node][event_cursor].x);
 		}
 		else if (dialog[dialog_node][event_cursor].type == "reward_item") {
-			map->camp->item_id = dialog[dialog_node][event_cursor].x;
-			map->camp->item_amount = dialog[dialog_node][event_cursor].y;
-			
-			// allow GameEngine::checkNPCInteraction() to set log message for items
-			// reason 1: If the player's inventory is full, don't log the receive message
-			// reason 2: GameEngine can lookup the item name
-		
-			// continue to next event component
+			ItemStack istack;
+			istack.item = dialog[dialog_node][event_cursor].x;
+			istack.quantity = dialog[dialog_node][event_cursor].y;
+			map->camp->rewardItem(istack);
+		}
+		else if (dialog[dialog_node][event_cursor].type == "remove_item") {
+			map->camp->removeItem(dialog[dialog_node][event_cursor].x);
 		}
 		else if (dialog[dialog_node][event_cursor].type == "") {
 			// conversation ends

@@ -11,9 +11,17 @@
 
 CampaignManager::CampaignManager() {
 
+	drop_stack.item = 0;
+	drop_stack.quantity = 0;
+
+	items = NULL;
+	carried_items = NULL;
+	currency = NULL;
+	xp = NULL;
+	
 	log_msg = "";
 	clearAll();
-	clearRewards();
+
 }
 
 void CampaignManager::clearAll() {
@@ -22,10 +30,6 @@ void CampaignManager::clearAll() {
 		status[i] = "";
 	}
 	status_count = 0;
-}
-
-void CampaignManager::clearRewards() {
-	xp_amount = currency_amount = item_amount = item_id = 0;
 }
 
 /**
@@ -97,7 +101,58 @@ void CampaignManager::unsetStatus(std::string s) {
 	}
 }
 
+bool CampaignManager::checkItem(int item_id) {
+	return carried_items->contain(item_id);
+}
+
+void CampaignManager::removeItem(int item_id) {
+	carried_items->remove(item_id);
+}
+
+void CampaignManager::rewardItem(ItemStack istack) {
+
+	if (carried_items->full()) {
+		drop_stack.item = istack.item;
+		drop_stack.quantity = istack.quantity;
+	}
+	else {
+		carried_items->add(istack);
+	
+		stringstream ss;
+		ss.str("");
+		ss << "You receive " << items->items[istack.item].name;
+		if (istack.quantity > 1) ss << " x" << istack.quantity;
+		ss << ".";
+		addMsg(ss.str());
+		
+		items->playSound(istack.item);
+	}
+}
+
+void CampaignManager::rewardCurrency(int amount) {
+	*currency += amount;
+	
+	stringstream ss;
+	ss.str("");
+	ss << "You receive " << amount << " gold.";
+	addMsg(ss.str());
+	
+	items->playCoinsSound();
+}
+
+void CampaignManager::rewardXP(int amount) {
+	*xp += amount;
+	
+	stringstream ss;
+	ss.str("");
+	ss << "You receive " << amount << " XP.";
+	addMsg(ss.str());
+}	
+
+void CampaignManager::addMsg(string msg) {
+	if (log_msg != "") log_msg += '\n';
+	log_msg += msg;
+}
 
 CampaignManager::~CampaignManager() {
-
 }

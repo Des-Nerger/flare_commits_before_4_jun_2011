@@ -279,6 +279,9 @@ void LootManager::checkMapForLoot() {
 			loot.quantity = 1;
 			addLoot(loot, p);
 		}
+		else if (ec->s == "currency") {
+			addGold(ec->z, p);
+		}
 		map->loot.pop();
 	}
 }

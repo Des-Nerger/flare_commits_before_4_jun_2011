@@ -13,6 +13,8 @@
 #include <string>
 #include <sstream>
 #include "UtilsParsing.h"
+#include "MenuItemStorage.h"
+#include "ItemDatabase.h"
 
 const int MAX_STATUS = 1024;
 
@@ -29,17 +31,24 @@ public:
 	bool checkStatus(std::string s);
 	void setStatus(std::string s);
 	void unsetStatus(std::string s);
-	void clearRewards();
+	bool checkItem(int item_id);
+	void removeItem(int item_id);
+	void rewardItem(ItemStack istack);
+	void rewardCurrency(int amount);
+	void rewardXP(int amount);
+	void addMsg(string msg);
 	
 	string status[MAX_STATUS];
 	int status_count;
-	
-	// if an event has generated a reward, set notification here
-	int xp_amount;
-	int currency_amount;
-	int item_amount;
-	int item_id;
 	string log_msg;
+	ItemStack drop_stack;
+	
+	// pointers to various info that can be changed
+	ItemDatabase *items;
+	MenuItemStorage *carried_items;
+	int *currency;
+	int *xp;
+	
 };
 
 
