@@ -105,8 +105,8 @@ StatBlock::StatBlock() {
 	
 	// campaign status interaction
 	defeat_status = "";
-	quest_loot_status = "";
-	quest_loot_set = "";
+	quest_loot_requires = "";
+	quest_loot_not = "";
 	quest_loot_id = 0;
 	first_defeat_loot = 0;
 }
@@ -158,9 +158,9 @@ void StatBlock::load(string filename) {
 					else if (key == "defeat_status") defeat_status = val;
 					else if (key == "first_defeat_loot") first_defeat_loot = num;
 					else if (key == "quest_loot") {
-						quest_loot_status = eatFirstString(val, ',');
-						quest_loot_id = eatFirstInt(val, ',');
-						quest_loot_set = val;
+						quest_loot_requires = eatFirstString(val, ',');
+						quest_loot_not = eatFirstString(val, ',');
+						quest_loot_id = atoi(val.c_str());
 					}
 					
 					// combat stats

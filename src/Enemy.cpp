@@ -678,13 +678,12 @@ void Enemy::doRewards() {
 	reward_xp = true;
 	
 	// some creatures create special loot if we're on a quest
-	if (stats.quest_loot_status != "") {
+	if (stats.quest_loot_requires != "") {
 	
 		// the loot manager will check quest_loot_id
 		// if set (not zero), the loot manager will 100% generate that loot.
-		if (map->camp->checkStatus(stats.quest_loot_status) && !map->camp->checkStatus(stats.quest_loot_set)) {
+		if (map->camp->checkStatus(stats.quest_loot_requires) && !map->camp->checkStatus(stats.quest_loot_not)) {
 			loot_drop = true;
-			map->camp->setStatus(stats.quest_loot_set);
 		}
 		else {
 			stats.quest_loot_id = 0;
