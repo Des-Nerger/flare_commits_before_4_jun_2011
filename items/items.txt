@@ -8856,11 +8856,11 @@ bonus=HP regen,1000
 [item]
 id=9000
 name=Averguard Tome
-icon=49
+icon=116,20
 power_desc=This tome bears the seal of the Averguard
 type=quest
-sfx=page
-loot=scroll
+sfx=object
+loot=book
 pickup_status=ak_tome_found
 
 [item]
