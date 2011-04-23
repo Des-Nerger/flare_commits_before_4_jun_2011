@@ -8866,7 +8866,7 @@ pickup_status=ak_tome_found
 [item]
 id=9001
 name=Averguard Key
-icon=32
+icon=40
 power_desc=Opens special doors in Averguard Keep
 type=quest
 sfx=gem
