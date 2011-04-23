@@ -305,7 +305,7 @@ int NPC::chooseDialogNode() {
 				if (map->camp->checkStatus(dialog[i][j].s)) break;
 			}
 			else if (dialog[i][j].type == "requires_item") {
-				if (map->camp->checkItem(dialog[i][j].x)) break;
+				if (!map->camp->checkItem(dialog[i][j].x)) break;
 			}
 			else {
 				return i;
@@ -335,8 +335,8 @@ bool NPC::processDialog(int dialog_node, int &event_cursor) {
 		else if (dialog[dialog_node][event_cursor].type == "requires_not") {
 			// continue to next event component
 		}
-		else if (dialog[dialog_node][event_cursor].type == "requires_not") {
-			// continue to next event component		
+		else if (dialog[dialog_node][event_cursor].type == "requires_item") {
+			// continue to next event component	
 		}
 		else if (dialog[dialog_node][event_cursor].type == "set_status") {
 			map->camp->setStatus(dialog[dialog_node][event_cursor].s);

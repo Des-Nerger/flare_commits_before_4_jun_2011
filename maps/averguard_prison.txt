@@ -544,10 +544,6 @@ type=zombie
 spawnpoint=93,44,4
 
 [enemy]
-type=zombie_boss
-spawnpoint=89,6,7
-
-[enemy]
 type=antlion
 spawnpoint=18,92,1
 
@@ -574,4 +570,8 @@ spawnpoint=91,56,7
 [enemy]
 type=antlion
 spawnpoint=88,59,2
+
+[enemy]
+type=the_warden
+spawnpoint=89,6,7
 

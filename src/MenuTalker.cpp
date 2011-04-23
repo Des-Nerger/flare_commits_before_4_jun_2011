@@ -92,17 +92,24 @@ void MenuTalker::render() {
 	SDL_BlitSurface(background, &src, screen, &dest);
 	
 	// show active portrait
-	if (npc->portrait != NULL) {
-		src.w = dest.w = 320;
-		src.h = dest.h = 320;
-		dest.x = offset_x + 48;
-		dest.y = offset_y;
-		SDL_BlitSurface(npc->portrait, &src, screen, &dest);	
+	string etype = npc->dialog[dialog_node][event_cursor].type;
+	if (etype == "him" || etype == "her") {
+		if (npc->portrait != NULL) {
+			src.w = dest.w = 320;
+			src.h = dest.h = 320;
+			dest.x = offset_x + 48;
+			dest.y = offset_y;
+			SDL_BlitSurface(npc->portrait, &src, screen, &dest);	
+		}
+		line = npc->name + ": ";
+	}
+	else if (etype == "you") {
+		// TODO: display the player's chosen portrait
+		// TODO: display the player's chosen name
+		line = "You: ";
 	}
 	
 	// text overlay
-	// TODO: translate()
-	line = npc->name + ": ";
 	line = line + npc->dialog[dialog_node][event_cursor].s;
 	font->render(line, offset_x+48, offset_y+336, JUSTIFY_LEFT, screen, 544, FONT_WHITE);
 }

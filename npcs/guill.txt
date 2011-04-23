@@ -1,0 +1,110 @@
+name=Guill, Scribe of the Order
+
+talker=true
+portrait=test_portrait
+
+# animation info
+gfx=wandering_trader1
+render_size=32,64
+render_offset=14,56
+anim_frames=6
+anim_duration=30
+
+# convention:
+# XX_arc_status, where XX is the area abbreviation
+# boss_search, boss_defeated, boss_reward
+# item_search, item_found, item_reward
+
+[dialog]
+him=I am Guill, a scribe with the Order. I am grateful you've come -- we are short on trained warriors due to the call-to-arms in Ancelot. What the locals call the Goblin Warrens is actually the entrance to a grand underground fortress known as Averguard Keep. This site is sacred to our order. Our primary mission is to cleanse the evil from this place.
+set_status=ak_intro
+
+[dialog]
+requires_status=ak_intro
+set_status=ak_ukkonen_search
+him=The goblins in the Warrens answer to a warlord named Ukkonen. Most goblins are merely curious; this Ukkonen is bloodthirsty. Punish him for desecrating this place. His lair is here in the Warrens, northwest of our location.
+
+[dialog]
+requires_status=ak_ukkonen_reward
+requires_not=ak_tome_found
+him=The symbol of the Averguard is twin eagles carrying a banner over the dawn's sun. If you find any artifacts bearing this emblem, return them to me. You may keep any other treasure you find.
+
+# This tome bears the seal of the Averguard
+
+[dialog]
+requires_status=ak_tome_found
+requires_item=9000
+remove_item=9000
+set_status=ak_tome_reward
+reward_xp=15
+him=You found this tome in Ukkonen's lair? Most excellent -- I feared this volume was lost. With it we can piece together the true history of this keep. I just need a moment to study...
+
+[dialog]
+requires_status=ak_ukkonen_search
+requires_status=ak_ukkonen_defeated
+requires_not=ak_ukkonen_reward
+set_status=ak_ukkonen_reward
+reward_currency=20
+reward_xp=35
+him=Ukkonen is defeated -- I sensed a calm in this place the moment you ended him. Take this reward for your bravery.
+
+[dialog]
+requires_status=ak_tome_reward
+him=This tome confirms what we know of Averguard Keep -- it crumbled against the plague many centuries ago. But not all of the infected were destroyed. It appears many undead where locked away in hopes that a cure would be found. Head northwest into the Atrium, then southeast to the Prison. Search for a key to access the sealed areas of the Keep.
+set_status=ak_key_search
+
+[dialog]
+requires_status=ak_key_found
+requires_item=9001
+reward_xp=75
+reward_item=1,1
+reward_item=2,1
+reward_currency=25
+him=You have the Averguard Key! Now the depths of Averguard Keep are open to us. The Order thanks you.
+set_status=ak_key_reward
+
+[dialog]
+requires_status=ak_key_reward
+him=There is one place within the Keep that no living being has seen for centuries: the burial chamber behind Averguard Temple. From the Atrium, head north to access the Temple. Use your key to enter the Burial Chamber. Show utmost respect -- the powerful leader of the Averguard is buried there.
+set_status=ak_temple_search
+
+#You insert the Averguard Key. Runes glow around the door, then fade. The door is still sealed.
+
+[dialog]
+requires_status=ak_temple_sealed
+him=So the Burial Chamber is still locked? It appears we need more than the key to get inside -- perhaps an arcane word or enchanted item to break the magical seal. The Averguard Academy is the logical place to look.  Go south from the Atrium to enter the Academy.  I must admit jealousy -- I have dreamed many years of seeing the old volumes there, but it is simply too dangerous yet.
+set_status=ak_talisman_search
+
+#Etched runes surround this talisman
+
+[dialog]
+requires_status=ak_talisman_found
+requires_item=9002
+set_status=ak_talisman_reward
+set_status=ak_maddox_search
+reward_xp=100
+reward_currency=50
+him=Fate has delivered this talisman to you. With it and the Averguard Key, you have the ability to open the Burial Chamber. Read these runes aloud at the sealed door and the path will be opened.
+
+[dialog]
+requires_status=ak_talisman_reward
+him=My worst fear is come alive: Sir Evan Maddox himself was inflicted with undeath. If we are to reclaim the Keep, you must defeat him. The Order will reward you magnificently for this service. But be prepared -- not even undeath will limit Maddox's zeal. Enter the Burial Chamber and allow him redemption.
+
+[dialog]
+requires_status=ak_maddox_defeated
+set_status=ak_maddox_reward
+remove_item=9001
+remove_item=9002
+reward_xp=250
+reward_currency=100
+reward_item=10,1
+him=You have risked much for the Order. Take this final reward, as your mission here is complete. The grip of necromancy over Averguard Keep is broken -- in time the remaining undead will pass over into death.
+
+[dialog]
+requires_status=ak_maddox_reward
+him=It is still dangerous here, but with Maddox defeated his followers will soon find rest.
+
+#New icons: book, key, talisman
+
+
+

@@ -1,12 +1,12 @@
 name=Sir Evan Maddox
-level=9
+level=7
 
 sfx_prefix=skeleton
 gfx_prefix=skeleton
 
 loot_chance=100
 
-defeat_status=defeated_maddox
+defeat_status=ak_maddox_defeated
 
 # combat stats
 hp=45

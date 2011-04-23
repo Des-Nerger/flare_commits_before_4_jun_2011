@@ -512,7 +512,7 @@ void MapIso::executeEvent(int eid) {
 			if (camp->checkStatus(ec->s)) return;
 		}
 		else if (ec->type == "requires_item") {
-			if (camp->checkItem(ec->x)) return;
+			if (!camp->checkItem(ec->x)) return;
 		}
 		else if (ec->type == "set_status") {
 			camp->setStatus(ec->s);

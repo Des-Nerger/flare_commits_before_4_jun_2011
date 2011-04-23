@@ -3,8 +3,6 @@ name=Clint Bellanger, Developer
 
 # talker info
 talker=true
-#portrait=test_portrait
-txt=Thanks for playing the game. Although it is still early alpha, I hope you enjoy it. Feel free to send me any suggestions or bug reports.
 
 # animation info
 gfx=clint_bellanger

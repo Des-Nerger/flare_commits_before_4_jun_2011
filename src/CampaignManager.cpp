@@ -150,7 +150,7 @@ void CampaignManager::rewardXP(int amount) {
 }	
 
 void CampaignManager::addMsg(string msg) {
-	if (log_msg != "") log_msg += '\n';
+	if (log_msg != "") log_msg += " ";
 	log_msg += msg;
 }
 

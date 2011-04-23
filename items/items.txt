@@ -8854,11 +8854,34 @@ loot=ring
 bonus=HP regen,1000
 
 [item]
-id=1024
-name=Averguard Temple Key
-icon=32
-power_desc=Opens the Averguard Temple doors
+id=9000
+name=Averguard Tome
+icon=49
+power_desc=This tome bears the seal of the Averguard
 type=quest
-sfx=potion
-loot=hp_potion
-pickup_status=averguard_temple_key
+sfx=page
+loot=scroll
+pickup_status=ak_tome_found
+
+[item]
+id=9001
+name=Averguard Key
+icon=32
+power_desc=Opens special doors in Averguard Keep
+type=quest
+sfx=gem
+loot=gem
+pickup_status=ak_key_found
+
+[item]
+id=9002
+name=Langlier's Talisman
+quality=high
+icon=36
+power_desc=Etched runes surround this talisman
+type=quest
+sfx=gem
+loot=gem
+pickup_status=ak_talisman_found
+
+

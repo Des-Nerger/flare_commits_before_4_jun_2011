@@ -607,7 +607,7 @@ type=antlion
 spawnpoint=55,65,4
 
 [enemy]
-type=skeleton_boss
+type=professor_langlier
 spawnpoint=5,91,1
 
 

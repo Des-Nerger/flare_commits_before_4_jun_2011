@@ -291,9 +291,12 @@ loot=random,2,32,1
 # dorm room book
 type=run_once
 location=2,28,1,2
+requires_status=ak_ukkonen_search
+requires_not=ak_tome_found
 mapmod=object,2,28,165
 soundfx=soundfx/inventory/inventory_page.ogg
-msg=Unintelligble goblin writings and drawings cover this book.
+msg=This book bears the seal of the Averguard
+loot=id,2,29,9000
 
 [event]
 #overlook book 1
@@ -320,7 +323,7 @@ type=brittle_skeleton
 spawnpoint=22,18,1
 
 [enemy]
-type=goblin_charger
+type=ukkonen
 spawnpoint=4,33,2
 
 [enemy]
@@ -426,3 +429,8 @@ position=28,77
 [npc]
 id=clint_bellanger
 position=28,71
+
+[npc]
+id=guill
+position=28,74
+
