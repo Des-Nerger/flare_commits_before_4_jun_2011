@@ -438,7 +438,7 @@ requires_status=ak_maddox_search
 requires_not=ak_talisman_used
 soundfx=soundfx/powers/quake.ogg
 shakycam=60
-msg=You read alout the runes on Langlier's Talisman. The Avergard Key begins to glow!
+msg=You read aloud the runes on Langlier's Talisman. The Avergard Key begins to glow!
 set_status=ak_talisman_used
 
 # each subsequent time the entrance just opens

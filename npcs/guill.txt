@@ -27,7 +27,7 @@ him=The goblins in the Warrens answer to a warlord named Ukkonen. Most goblins a
 [dialog]
 requires_status=ak_ukkonen_reward
 requires_not=ak_tome_found
-him=The symbol of the Averguard is twin eagles carrying a banner over the dawn's sun. If you find any artifacts bearing this emblem, return them to me. You may keep any other treasure you find.
+him=The Averguard left a set of Chronicles detailing their final era. One volume is missing -- maybe it is hidden in Ukkonen's lair?
 
 # This tome bears the seal of the Averguard
 
@@ -50,8 +50,8 @@ him=Ukkonen is defeated -- I sensed a calm in this place the moment you ended hi
 
 [dialog]
 requires_status=ak_tome_reward
-him=This tome confirms what we know of Averguard Keep -- it crumbled against the plague many centuries ago. But not all of the infected were destroyed. It appears many undead where locked away in hopes that a cure would be found. Head northwest into the Atrium, then southeast to the Prison. Search for a key to access the sealed areas of the Keep.
 set_status=ak_key_search
+him=This tome confirms what we know of Averguard Keep -- it crumbled against the plague many centuries ago. But not all of the infected were destroyed. It appears many undead where locked away in hopes that a cure would be found. Head northwest into the Atrium, then southeast to the Prison. Search for a key to access the sealed areas of the Keep.
 
 [dialog]
 requires_status=ak_key_found
@@ -60,20 +60,20 @@ reward_xp=75
 reward_item=1,1
 reward_item=2,1
 reward_currency=25
-him=You have the Averguard Key! Now the depths of Averguard Keep are open to us. The Order thanks you.
 set_status=ak_key_reward
+him=You have the Averguard Key! Now the depths of Averguard Keep are open to us. The Order thanks you.
 
 [dialog]
 requires_status=ak_key_reward
-him=There is one place within the Keep that no living being has seen for centuries: the burial chamber behind Averguard Temple. From the Atrium, head north to access the Temple. Use your key to enter the Burial Chamber. Show utmost respect -- the powerful leader of the Averguard is buried there.
 set_status=ak_temple_search
+him=There is one place within the Keep that no living being has seen for centuries: the burial chamber behind Averguard Temple. From the Atrium, head north to access the Temple. Use your key to enter the Burial Chamber. Show utmost respect -- the powerful leader of the Averguard is buried there.
 
 #You insert the Averguard Key. Runes glow around the door, then fade. The door is still sealed.
 
 [dialog]
 requires_status=ak_temple_sealed
-him=So the Burial Chamber is still locked? It appears we need more than the key to get inside -- perhaps an arcane word or enchanted item to break the magical seal. The Averguard Academy is the logical place to look.  Go south from the Atrium to enter the Academy.  I must admit jealousy -- I have dreamed many years of seeing the old volumes there, but it is simply too dangerous yet.
 set_status=ak_talisman_search
+him=So the Burial Chamber is still locked? It appears we need more than the key to get inside -- perhaps an arcane word or enchanted item to break the magical seal. The Averguard Academy is the logical place to look.  Go south from the Atrium to enter the Academy.  I must admit jealousy -- I have dreamed many years of seeing the old volumes there, but it is simply too dangerous yet.
 
 #Etched runes surround this talisman
 

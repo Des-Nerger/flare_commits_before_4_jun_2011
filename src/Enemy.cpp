@@ -174,7 +174,7 @@ void Enemy::logic() {
 	stats.logic();
 	if (stats.stun_duration > 0) return;
 	// check for bleeding to death
-	if (stats.hp == 0 && !(stats.cur_state == ENEMY_DEAD || stats.cur_state == ENEMY_CRITDEAD)) {
+	if (stats.hp <= 0 && !(stats.cur_state == ENEMY_DEAD || stats.cur_state == ENEMY_CRITDEAD)) {
 		doRewards();
 		stats.cur_state = ENEMY_DEAD;
 		stats.cur_frame = 0;
