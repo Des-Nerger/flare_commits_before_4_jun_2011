@@ -20,7 +20,8 @@
 // collision tile types
 const int BLOCKS_ALL = 1;
 const int BLOCKS_MOVEMENT = 2;
-const int BLOCKS_ALL_HIDDEN = 15;
+const int BLOCKS_ALL_HIDDEN = 3;
+const int BLOCKS_MOVEMENT_HIDDEN = 4;
 
 // collision check types
 const int CHECK_MOVEMENT = 1;

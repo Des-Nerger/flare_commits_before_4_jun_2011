@@ -13,7 +13,7 @@ bool isInt(string s) {
 	// allow a negative sign as the first char
 	if (s.at(0) == '-') start=1;
 
-	for (int i=start; i<s.length(); i++) {
+	for (unsigned int i=start; i<s.length(); i++) {
 		// if any character in this string is not a numeric digit, this string is not an integer
 		if (s.at(i) < 48 || s.at(i) > 57) return false;
 	}
