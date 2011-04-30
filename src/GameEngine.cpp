@@ -25,7 +25,7 @@ GameEngine::GameEngine(SDL_Surface *_screen, InputState *_inp, FontEngine *_font
 	menu = new MenuManager(powers, _screen, _inp, font, &pc->stats, camp);
 	loot = new LootManager(menu->items, menu->tip, enemies, map);
 	npcs = new NPCManager(map, menu->tip, loot, menu->items);
-	
+	quests = new QuestLog(camp, menu->log);
 	
 	npc_id = -1;
 	loadGame();
@@ -99,7 +99,7 @@ void GameEngine::checkLoot() {
 		}
 		if (loot->full_msg) {
 			inp->lock[MAIN1] = true;
-			menu->log->add("Inventory is full.");
+			menu->log->add("Inventory is full.", LOG_TYPE_MESSAGES);
 			loot->full_msg = false;
 		}
 	}
@@ -173,16 +173,25 @@ void GameEngine::checkCancel() {
  * Check for log messages from various child objects
  */
 void GameEngine::checkLog() {
+
+	// Map events can create messages
 	if (map->log_msg != "") {
-		menu->log->add(map->log_msg);
+		menu->log->add(map->log_msg, LOG_TYPE_MESSAGES);
+		menu->hudlog->add(map->log_msg);
 		map->log_msg = "";
 	}
+
+	// The avatar can create messages (e.g. level up)
 	if (pc->log_msg != "") {
-		menu->log->add(pc->log_msg);
+		menu->log->add(pc->log_msg, LOG_TYPE_MESSAGES);
+		menu->hudlog->add(pc->log_msg);
 		pc->log_msg = "";
 	}
+	
+	// Campaign events can create messages (e.g. quest rewards)
 	if (camp->log_msg != "") {
-		menu->log->add(camp->log_msg);
+		menu->log->add(camp->log_msg, LOG_TYPE_MESSAGES);
+		menu->hudlog->add(camp->log_msg);
 		camp->log_msg = "";
 	}
 }
@@ -323,9 +332,10 @@ void GameEngine::logic() {
 	checkLog();
 	checkEquipmentChange();
 	checkConsumable();
-	map->logic();
-
 	checkCancel();
+
+	map->logic();
+	quests->logic();
 	
 }
 
@@ -384,7 +394,7 @@ void GameEngine::render() {
 	loot->renderTooltips(map->cam);
 	npcs->renderTooltips(map->cam, inp->mouse);
 	
-	menu->log->renderHUDMessages();
+	menu->hudlog->render();
 	menu->mini->render(&map->collider, pc->stats.pos, map->w, map->h);
 	menu->render();
 
@@ -397,6 +407,7 @@ void GameEngine::showFPS(int fps) {
 }
 
 GameEngine::~GameEngine() {
+	delete quests;
 	delete camp;
 	delete npcs;
 	delete hazards;

@@ -456,8 +456,6 @@ wall_power=124
 
 
 
-
-
 [power]
 id=100
 type=effect

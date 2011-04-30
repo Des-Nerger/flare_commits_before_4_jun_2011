@@ -18,6 +18,7 @@
 #include "MenuPowers.h"
 #include "MenuCharacter.h"
 #include "MenuLog.h"
+#include "MenuHUDLog.h"
 #include "StatBlock.h"
 #include "MenuActionBar.h"
 #include "MenuHPMP.h"
@@ -72,6 +73,7 @@ public:
 	MenuPowers *pow;
 	MenuCharacter *chr;
 	MenuLog *log;
+	MenuHUDLog *hudlog;
 	MenuActionBar *act;
 	MenuHPMP *hpmp;
 	MenuTooltip *tip;

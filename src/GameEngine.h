@@ -26,6 +26,7 @@
 #include "PowerManager.h"
 #include "NPCManager.h"
 #include "CampaignManager.h"
+#include "QuestLog.h"
 
 class GameEngine {
 private:
@@ -45,6 +46,7 @@ private:
 	PowerManager *powers;
 	NPCManager *npcs;
 	CampaignManager *camp;
+	QuestLog *quests;
 	
 	void saveGame();
 	void loadGame();

@@ -29,6 +29,7 @@ const int FONT_RED = 1;
 const int FONT_GREEN = 2;
 const int FONT_BLUE = 3;
 const int FONT_GRAY = 4;
+const int FONT_GREY = 4;
 
 class FontEngine {
 private:

@@ -23,6 +23,7 @@ MenuManager::MenuManager(PowerManager *_powers, SDL_Surface *_screen, InputState
 	pow = new MenuPowers(screen, font, stats, powers);
 	chr = new MenuCharacter(screen, font, stats);
 	log = new MenuLog(screen, font);
+	hudlog = new MenuHUDLog(screen, font);
 	act = new MenuActionBar(screen, font, inp, powers, icons);
 	hpmp = new MenuHPMP(screen, font);
 	tip = new MenuTooltip(font, screen);
@@ -92,7 +93,7 @@ void MenuManager::logic() {
 	bool clicking_log = false;
 	ItemStack stack;
 	
-	log->logic();
+	hudlog->logic();
 	enemy->logic();
 	inv->logic();
 	talker->logic(inp->pressing[ACCEPT]);
@@ -223,6 +224,14 @@ void MenuManager::logic() {
 						}
 					}
 				
+				}
+				else if (log->visible) {
+				
+					// click on a log tab to make it the active display
+					if (isWithin(log->tabs_area, inp->mouse)) {
+						log->clickTab(inp->mouse);
+						inp->lock[MAIN1] = true;
+					}
 				}
 			}
 		
@@ -507,6 +516,7 @@ MenuManager::~MenuManager() {
 	delete inv;
 	delete pow;
 	delete chr;
+	delete hudlog;
 	delete log;
 	delete act;
 	delete tip;

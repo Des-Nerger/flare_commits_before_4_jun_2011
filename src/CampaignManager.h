@@ -49,6 +49,7 @@ public:
 	int *currency;
 	int *xp;
 	
+	bool quest_update;
 };
 
 

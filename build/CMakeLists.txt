@@ -4,7 +4,7 @@ cmake_minimum_required (VERSION 2.6)
 set (CMAKE_RUNTIME_OUTPUT_DIRECTORY ${PROJECT_SOURCE_DIR}/..)
 
 Set (PACKAGE "FLARE")
-Set (VERSION "0.12")
+Set (VERSION "0.13")
 
 
 # Detect missing dependencies
@@ -54,6 +54,7 @@ Set (FLARE_SOURCES
 	../src/MenuEnemy.cpp
 	../src/MenuExperience.cpp
 	../src/MenuHPMP.cpp
+	../src/MenuHUDLog.cpp
 	../src/MenuInventory.cpp
 	../src/MenuItemStorage.cpp
 	../src/MenuLog.cpp
@@ -66,6 +67,7 @@ Set (FLARE_SOURCES
 	../src/NPC.cpp
 	../src/NPCManager.cpp
 	../src/PowerManager.cpp
+	../src/QuestLog.cpp
 	../src/SaveLoad.cpp
 	../src/Settings.cpp
 	../src/StatBlock.cpp

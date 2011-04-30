@@ -102,19 +102,19 @@ loot=gem
 price=350
 max_quantity=100
 
-[item]
-id=11
-name=Arrows
-level=4
-quality=normal
-type=artifact
-icon=100,4
-sfx=wood
-loot=wand
-price=1
-max_quantity=100
-rand_vendor=75
-rand_loot=25
+#[item]
+#id=11
+#name=Arrows
+#level=4
+#quality=normal
+#type=artifact
+#icon=100,4
+#sfx=wood
+#loot=wand
+#price=1
+#max_quantity=100
+#rand_vendor=75
+#rand_loot=25
 
 [item]
 id=12

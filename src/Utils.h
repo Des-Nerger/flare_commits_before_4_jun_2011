@@ -42,6 +42,11 @@ struct Event_Component {
 	int x;
 	int y;
 	int z;
+	
+	Event_Component() {
+		type = s = "";
+		x = y = z = 0;
+	}
 };
 
 // Utility Functions

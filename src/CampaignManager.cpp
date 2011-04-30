@@ -20,6 +20,8 @@ CampaignManager::CampaignManager() {
 	xp = NULL;
 	
 	log_msg = "";
+	quest_update = true;
+	
 	clearAll();
 
 }
@@ -42,6 +44,7 @@ void CampaignManager::setAll(std::string s) {
 		token = eatFirstString(str, ',');
 		if (token != "") status[status_count++] = token;
 	}
+	quest_update = true;
 }
 
 /**
@@ -81,6 +84,7 @@ void CampaignManager::setStatus(std::string s) {
 	if (checkStatus(s)) return;
 	
 	status[status_count++] = s;
+	quest_update = true;
 }
 
 void CampaignManager::unsetStatus(std::string s) {
@@ -96,6 +100,7 @@ void CampaignManager::unsetStatus(std::string s) {
 				status[j] = status[j+1];
 			}
 			status_count--;
+			quest_update = true;
 			return;
 		}
 	}

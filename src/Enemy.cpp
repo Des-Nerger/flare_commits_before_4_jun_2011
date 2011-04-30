@@ -267,6 +267,7 @@ void Enemy::logic() {
 	// -----------------
 	
 	switch(stats.cur_state) {
+	
 		case ENEMY_STANCE:
 		
 			// handle animation
@@ -293,7 +294,8 @@ void Enemy::logic() {
 				if (dist > stats.melee_range && stats.cooldown_ticks == 0) {
 
 					// CHECK: ranged physical!
-					if (!powers->powers[stats.power_index[RANGED_PHYS]].requires_los || los) {
+					//if (!powers->powers[stats.power_index[RANGED_PHYS]].requires_los || los) {
+					if (los) {
 						if ((rand() % 100) < stats.power_chance[RANGED_PHYS] && stats.power_ticks[RANGED_PHYS] == 0) {
 							
 							newState(ENEMY_RANGED_PHYS);
@@ -301,7 +303,8 @@ void Enemy::logic() {
 						}
 					}
 					// CHECK: ranged spell!
-					if (!powers->powers[stats.power_index[RANGED_MENT]].requires_los || los) {					
+					//if (!powers->powers[stats.power_index[RANGED_MENT]].requires_los || los) {
+					if (los) {			
 						if ((rand() % 100) < stats.power_index[RANGED_MENT] && stats.power_ticks[RANGED_MENT] == 0) {
 							
 							newState(ENEMY_RANGED_MENT);
@@ -333,7 +336,8 @@ void Enemy::logic() {
 				else if (dist <= stats.melee_range && stats.cooldown_ticks == 0) {
 				
 					// CHECK: melee attack!
-					if (!powers->powers[stats.power_index[MELEE_PHYS]].requires_los || los) {
+					//if (!powers->powers[stats.power_index[MELEE_PHYS]].requires_los || los) {
+					if (los) {
 						if ((rand() % 100) < stats.power_chance[MELEE_PHYS] && stats.power_ticks[MELEE_PHYS] == 0) {
 							
 							newState(ENEMY_MELEE_PHYS);
@@ -341,7 +345,8 @@ void Enemy::logic() {
 						}
 					}
 					// CHECK: melee ment!
-					if (!powers->powers[stats.power_index[MELEE_MENT]].requires_los || los) {
+					//if (!powers->powers[stats.power_index[MELEE_MENT]].requires_los || los) {
+					if (los) {
 						if ((rand() % 100) < stats.power_chance[MELEE_MENT] && stats.power_ticks[MELEE_MENT] == 0) {
 													
 							newState(ENEMY_MELEE_MENT);
@@ -372,16 +377,18 @@ void Enemy::logic() {
 				
 				if (dist > stats.melee_range && stats.cooldown_ticks == 0) {
 				
-					// CHECK: ranged physical!
-					if (!powers->powers[stats.power_index[RANGED_PHYS]].requires_los || los) {
+					// check ranged physical!
+					//if (!powers->powers[stats.power_index[RANGED_PHYS]].requires_los || los) {
+					if (los) {
 						if ((rand() % 100) < stats.power_chance[RANGED_PHYS] && stats.power_ticks[RANGED_PHYS] == 0) {
 							
 							newState(ENEMY_RANGED_PHYS);
 							break;
 						}
 					}
-					// CHECK: ranged spell!
-					if (!powers->powers[stats.power_index[RANGED_MENT]].requires_los || los) {
+					// check ranged spell!
+					// if (!powers->powers[stats.power_index[RANGED_MENT]].requires_los || los) {
+					if (los) {
 						if ((rand() % 100) < stats.power_chance[RANGED_MENT] && stats.power_ticks[RANGED_MENT] == 0) {
 							
 							newState(ENEMY_RANGED_MENT);
