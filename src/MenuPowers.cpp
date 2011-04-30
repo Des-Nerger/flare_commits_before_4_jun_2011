@@ -210,6 +210,14 @@ TooltipData MenuPowers::checkTooltip(Point mouse) {
 				tip.lines[tip.num_lines++] = powers->powers[i].name;
 				tip.lines[tip.num_lines++] = powers->powers[i].description;
 				
+				if (powers->powers[i].requires_physical_weapon)
+					tip.lines[tip.num_lines++] = "Requires a physical weapon";
+				else if (powers->powers[i].requires_mental_weapon)
+					tip.lines[tip.num_lines++] = "Requires a mental weapon";
+				else if (powers->powers[i].requires_offense_weapon)
+					tip.lines[tip.num_lines++] = "Requires an offense weapon";
+				
+				
 				// add requirement
 				int required_val = (i / 4) * 2 + 1;
 				int required_stat = i % 4;
