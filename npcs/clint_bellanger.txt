@@ -20,7 +20,7 @@ him=In a completed game there would be an intro area with training, well before 
 reward_xp=20
 set_status=trained
 him=There, I've granted you enough experience points (XP) to reach level 2. Now you can increase one of your core Attributes:
-him=The four attributes in Flare are Physical, Mental, Offense, and Defense. Physical represents bodliy toughness and melee combat. Mental represents intelligence and affinity for magic. Offense represents combat precision and ranged weapons such as bows. Defense represents avoiding damage and proper armor use.
+him=The four attributes in Flare are Physical, Mental, Offense, and Defense. Physical represents bodily toughness and melee combat. Mental represents intelligence and affinity for magic. Offense represents combat precision and ranged weapons such as bows. Defense represents avoiding damage and proper armor use.
 him=You can increase one attribute now through the Character (C) menu.
 
 [dialog]

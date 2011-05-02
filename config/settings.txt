@@ -11,7 +11,7 @@ resolution_w=720
 resolution_h=480
 
 # background music volume.  Ranged is 0 (silent) to 128 (max)
-music_volume=32
+music_volume=64
 
 # mouse movement.  0 for keyboard movement, 1 for mouse movement
 mouse_move=0
