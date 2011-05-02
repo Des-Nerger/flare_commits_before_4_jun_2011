@@ -27,7 +27,7 @@ him=The goblins in the Warrens answer to a warlord named Ukkonen. Most goblins a
 [dialog]
 requires_status=ak_ukkonen_reward
 requires_not=ak_tome_found
-him=The Averguard left a set of Chronicles detailing their final era. One volume is missing -- maybe it is hidden in Ukkonen's lair?
+him=The Averguard left a set of Chronicles detailing their final era. One volume is missing. I've searched this entire area except for Ukkonen's lair. If you find the book please return to me.
 
 # This tome bears the seal of the Averguard
 
@@ -38,15 +38,6 @@ remove_item=9000
 set_status=ak_tome_reward
 reward_xp=15
 him=You found this tome in Ukkonen's lair? Most excellent -- I feared this volume was lost. With it we can piece together the true history of this keep. I just need a moment to study...
-
-[dialog]
-requires_status=ak_ukkonen_search
-requires_status=ak_ukkonen_defeated
-requires_not=ak_ukkonen_reward
-set_status=ak_ukkonen_reward
-reward_currency=20
-reward_xp=35
-him=Ukkonen is defeated -- I sensed a calm in this place the moment you ended him. Take this reward for your bravery.
 
 [dialog]
 requires_status=ak_tome_reward
@@ -61,7 +52,7 @@ reward_item=1,1
 reward_item=2,1
 reward_currency=25
 set_status=ak_key_reward
-him=You have the Averguard Key! Now the depths of Averguard Keep are open to us. The Order thanks you.
+him=The prison warden himself had the key? A shame that he was infected. Now that we have the Averguard Key, the depths of Averguard Keep are open to us. The Order thanks you.
 
 [dialog]
 requires_status=ak_key_reward
@@ -73,7 +64,7 @@ him=There is one place within the Keep that no living being has seen for centuri
 [dialog]
 requires_status=ak_temple_sealed
 set_status=ak_talisman_search
-him=So the Burial Chamber is still locked? It appears we need more than the key to get inside -- perhaps an arcane word or enchanted item to break the magical seal. The Averguard Academy is the logical place to look.  Go south from the Atrium to enter the Academy.  I must admit jealousy -- I have dreamed many years of seeing the old volumes there, but it is simply too dangerous yet.
+him=So the Burial Chamber is still locked? It must be sealed by powerful magic. There was only one sorceror of Averguard with that kind of power - Professor Langlier. Search through his collection to find a way into the Burial Chamber. Go south from the Atrium to enter his Academy.  I must admit jealousy -- I have dreamed many years of seeing the old volumes there, but it is simply too dangerous yet.
 
 #Etched runes surround this talisman
 
@@ -88,7 +79,7 @@ him=Fate has delivered this talisman to you. With it and the Averguard Key, you 
 
 [dialog]
 requires_status=ak_talisman_reward
-him=My worst fear is come alive: Sir Evan Maddox himself was inflicted with undeath. If we are to reclaim the Keep, you must defeat him. The Order will reward you magnificently for this service. But be prepared -- not even undeath will limit Maddox's zeal. Enter the Burial Chamber and allow him redemption.
+him=My worst fear is come alive. Just as with the Warden and with Professor Langlier, Sir Evan Maddox himself was inflicted with undeath. If we are to reclaim the Keep, you must defeat him. The Order will reward you magnificently for this service. But be prepared -- not even undeath will limit Maddox's zeal. Enter the Burial Chamber and allow him redemption.
 
 [dialog]
 requires_status=ak_maddox_defeated
@@ -103,6 +94,15 @@ him=You have risked much for the Order. Take this final reward, as your mission 
 [dialog]
 requires_status=ak_maddox_reward
 him=It is still dangerous here, but with Maddox defeated his followers will soon find rest.
+
+[dialog]
+requires_status=ak_ukkonen_search
+requires_status=ak_ukkonen_defeated
+requires_not=ak_ukkonen_reward
+set_status=ak_ukkonen_reward
+reward_currency=20
+reward_xp=35
+him=Ukkonen is defeated -- I sensed a calm in this place the moment you ended him. Take this reward for your bravery.
 
 #New icons: book, key, talisman
 
