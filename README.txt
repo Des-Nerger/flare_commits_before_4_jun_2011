@@ -49,12 +49,9 @@ If you're running flare from your operating system's gui file browser (e.g. Wind
 
 === FULLSCREEN ===
 
-If flare works in windowed mode, it should be safe to run fullscreen.  To run flare in fullscreen mode, add the following flag:
-flare -f
-or
-flare --fullscreen
-
+If flare works in windowed mode, it should be safe to run fullscreen.  To run flare in fullscreen mode, edit config/settings.txt and set
+fullscreen=1
 
 === SAVE FILES ===
 
-Make sure you have read access to the "saves" folder.  Currently the game is automatically saved when you exit.
+Make sure you have read and write access to the "saves" folder.  Currently the game is automatically saved when you exit.
