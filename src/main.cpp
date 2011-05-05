@@ -50,6 +50,9 @@ static void init() {
 		exit(1);
 	}
 	
+	// Set sound effects volume from settings file
+	Mix_Volume(-1, SOUND_VOLUME);
+	
 	SDL_WM_SetCaption("Flare", "Flare");
 	
 	/* Shared game units setup */

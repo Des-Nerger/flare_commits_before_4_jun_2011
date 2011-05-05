@@ -10,6 +10,7 @@
 
 // Audio and Video Settings
 extern int MUSIC_VOLUME;
+extern int SOUND_VOLUME;
 extern bool FULLSCREEN;
 extern int FRAMES_PER_SEC;
 extern int VIEW_W;
