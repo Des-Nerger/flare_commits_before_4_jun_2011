@@ -62,6 +62,7 @@ Set (FLARE_SOURCES
 	../src/MenuMiniMap.cpp
 	../src/MenuPowers.cpp
 	../src/MenuTalker.cpp
+	../src/MenuTitle.cpp
 	../src/MenuTooltip.cpp
 	../src/MenuVendor.cpp
 	../src/NPC.cpp
@@ -74,6 +75,7 @@ Set (FLARE_SOURCES
 	../src/TileSet.cpp
 	../src/Utils.cpp
 	../src/UtilsParsing.cpp
+	../src/WidgetButton.cpp
 	../src/main.cpp
 )
 

@@ -22,6 +22,10 @@ using namespace std;
  * Before exiting the game, save to file
  */
 void GameEngine::saveGame() {
+
+	// game slots are currently 1-4
+	if (game_slot == 0) return;
+	
 	ofstream outfile;
 
 	outfile.open("saves/save1.txt", ios::out);
@@ -97,6 +101,9 @@ void GameEngine::saveGame() {
  * When loading the game, load from file if possible
  */
 void GameEngine::loadGame() {
+
+	// game slots are currently 1-4
+	if (game_slot == 0) return;
 
 	ifstream infile;
 	string line;

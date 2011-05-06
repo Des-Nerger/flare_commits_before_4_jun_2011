@@ -48,8 +48,6 @@ private:
 	CampaignManager *camp;
 	QuestLog *quests;
 	
-	void saveGame();
-	void loadGame();
 	bool restrictPowerUse();
 	void checkEnemyFocus();
 	void checkLoot();
@@ -62,14 +60,19 @@ private:
 	void checkNPCInteraction();
 	
 public:
-	bool done;
-	int npc_id;
 	GameEngine(SDL_Surface *screen, InputState *inp, FontEngine *font);
 	~GameEngine();
 	
 	void logic();
 	void render();
 	void showFPS(int fps);
+	void saveGame();
+	void loadGame();
+
+	bool done;
+	int npc_id;
+	int game_slot;
+
 };
 
 #endif

@@ -1,7 +1,7 @@
 /**
  * class MenuTalker
  *
- * @author morris989
+ * @author morris989 and Clint Bellanger
  * @license GPL
  */
 

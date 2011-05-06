@@ -11,10 +11,17 @@
 #include "GameEngine.h"
 
 GameEngine::GameEngine(SDL_Surface *_screen, InputState *_inp, FontEngine *_font) {
+
+	// shared resources from GameSwitcher
 	screen = _screen;
 	inp = _inp;
+	
+	// GameEngine scope variables
 	done = false;
+	npc_id = -1;
+	game_slot = 0;
 
+	// construct gameplay objects
 	powers = new PowerManager();
 	font = _font;
 	camp = new CampaignManager();
@@ -26,15 +33,13 @@ GameEngine::GameEngine(SDL_Surface *_screen, InputState *_inp, FontEngine *_font
 	loot = new LootManager(menu->items, menu->tip, enemies, map);
 	npcs = new NPCManager(map, menu->tip, loot, menu->items);
 	quests = new QuestLog(camp, menu->log);
-	
-	npc_id = -1;
-	loadGame();
 
 	// assign some object pointers after object creation, based on dependency order
 	camp->items = menu->items;
 	camp->carried_items = &menu->inv->inventory[CARRIED];
 	camp->currency = &menu->inv->gold;
 	camp->xp = &pc->stats.xp;
+
 }
 
 /**
@@ -158,6 +163,7 @@ void GameEngine::checkCancel() {
 		}
 		else {
 			saveGame();
+			Mix_HaltMusic();
 			done = true;
 		}
 	}
@@ -165,6 +171,7 @@ void GameEngine::checkCancel() {
 	// if user closes the window
 	if (inp->done) {
 		saveGame();
+		Mix_HaltMusic();
 		done = true;
 	}	
 }

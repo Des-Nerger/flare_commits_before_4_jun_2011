@@ -23,6 +23,7 @@
 #include "InputState.h"
 #include "GameEngine.h"
 #include "FontEngine.h"
+#include "MenuTitle.h"
 
 const int GAME_STATE_TITLE = 0;
 const int GAME_STATE_PLAY = 1;
@@ -36,6 +37,7 @@ private:
 	FontEngine *font;
 	
 	GameEngine *eng; // for GAME_STATE_PLAY
+	MenuTitle *title; // for GAME_STATE_TITLE
 	
 	
 public:
