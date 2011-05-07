@@ -25,15 +25,19 @@ GameSwitcher *gswitch;
 static void init() {
 
 	// SDL Inits
-	if ( SDL_Init (SDL_INIT_VIDEO | SDL_INIT_AUDIO) < 0 ) {		
+	if ( SDL_Init (SDL_INIT_VIDEO | SDL_INIT_AUDIO | SDL_INIT_JOYSTICK) < 0 ) {		
         fprintf(stderr, "Couldn't initialize SDL: %s\n", SDL_GetError());
 		exit(1);
 	}
 
 	Uint32 flags = 0;
     
-	flags = SDL_HWSURFACE | SDL_DOUBLEBUF;
-    if (FULLSCREEN) flags = flags | SDL_FULLSCREEN;
+	if (FULLSCREEN) flags = flags | SDL_FULLSCREEN;
+	if (DOUBLEBUF) flags = flags | SDL_DOUBLEBUF;
+	if (HWSURFACE)
+		flags = flags | SDL_HWSURFACE;
+	else
+		flags = flags | SDL_SWSURFACE;
 	
 	// Create window
 	screen = SDL_SetVideoMode (VIEW_W, VIEW_H, 0, flags);
@@ -49,12 +53,20 @@ static void init() {
 		SDL_Quit();
 		exit(1);
 	}
-	
-	// Set sound effects volume from settings file
-	Mix_Volume(-1, SOUND_VOLUME);
+
+	if(SDL_NumJoysticks() > 0) {
+		printf("%i joystick(s) were found:\n", SDL_NumJoysticks());
+		for (int i = 0; i < SDL_NumJoysticks(); i++) {
+			printf("\t%i. %s\n", SDL_NumJoysticks(), SDL_JoystickName(i));
+		}
+		SDL_JoystickOpen(0);
+	}
 	
 	SDL_WM_SetCaption("Flare", "Flare");
 	
+	// Set sound effects volume from settings file
+	Mix_Volume(-1, SOUND_VOLUME);
+
 	/* Shared game units setup */
 	inps = new InputState();
 	gswitch = new GameSwitcher(screen, inps);

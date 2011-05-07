@@ -141,6 +141,11 @@ void InputState::handle() {
 	
 	SDL_GetMouseState(&mouse.x, &mouse.y);
 	
+	static bool joyHasMovedX;
+	static bool joyHasMovedY;
+	static int fakeKeyX;
+	static int fakeKeyY;
+
 	/* Check for events */
 	while (SDL_PollEvent (&event)) {
 		switch (event.type) {
@@ -170,6 +175,156 @@ void InputState::handle() {
 			case SDL_KEYUP:
 				for (int key=0; key<key_count; key++) {
 					if (event.key.keysym.sym == binding[key] || event.key.keysym.sym == binding_alt[key]) {
+						pressing[key] = false;
+						lock[key] = false;
+					}
+				}
+				break;
+			case SDL_JOYAXISMOTION:
+				switch(event.jaxis.axis) {
+					/* first analog */
+					case 0:
+						/* left */
+						if ((joyHasMovedX == false) && (event.jaxis.value < -JOY_DEADZONE) && (event.jaxis.value > JOY_MIN)) {
+							fakeKeyX = 276;
+							joyHasMovedX = true;
+						}
+						/* right */
+						if ((joyHasMovedX == false) && (event.jaxis.value > JOY_DEADZONE) && (event.jaxis.value < JOY_MAX)) {
+							fakeKeyX = 275;
+							joyHasMovedX = true;
+						}
+						/* centered */
+						if ((event.jaxis.value > -JOY_DEADZONE) && (event.jaxis.value < JOY_DEADZONE)) {
+							joyHasMovedX = false;
+						}
+						break;
+					case 1:
+						/* up */
+						if ((joyHasMovedY == false) && (event.jaxis.value < -JOY_DEADZONE) && (event.jaxis.value > JOY_MIN)) {
+							fakeKeyY = 273;
+							joyHasMovedY = true;
+						}
+						/* down */
+						if ((joyHasMovedY == false) && (event.jaxis.value > JOY_DEADZONE) && (event.jaxis.value < JOY_MAX)) {
+							fakeKeyY = 274;
+							joyHasMovedY = true;
+						}
+						/* centered */
+						if ((event.jaxis.value > -JOY_DEADZONE) && (event.jaxis.value < JOY_DEADZONE)) {
+							joyHasMovedY = false;
+						}
+						break;
+					/* second analog */
+					case 2:
+						break;
+					case 4:
+						break;
+				}
+				for (int key=0; key<key_count; key++) {
+					if (fakeKeyX == binding[key] || fakeKeyX == binding_alt[key]) {
+						if (joyHasMovedX) {
+							pressing[key] = true;
+						}
+						else {
+							pressing[key] = false;
+							lock[key] = false;
+						}
+					}
+					if (fakeKeyY == binding[key] || fakeKeyY == binding_alt[key]) {
+						if (joyHasMovedY) {
+							pressing[key] = true;
+						}
+						else {
+							pressing[key] = false;
+							lock[key] = false;
+						}
+					}
+				}
+				break;
+
+			case SDL_JOYHATMOTION:
+				/* according to the SDL docs joystick hat is being handled by bitmasks. */
+				/* that isn't working for me though... */
+				/*
+				if (event.jhat.value & SDL_HAT_UP) {
+					fakeKeyX = 273;
+				}
+				if (event.jhat.value & SDL_HAT_DOWN) {
+					fakeKeyX = 274;
+				}
+				if (event.jhat.value & SDL_HAT_LEFT) {
+					fakeKeyY = 276;
+				}
+				if (event.jhat.value & SDL_HAT_RIGHT) {
+					fakeKeyY = 275;
+				}
+				*/
+				switch (event.jhat.value) {
+					case SDL_HAT_UP:
+						fakeKeyX = 273;
+						break;
+					case SDL_HAT_DOWN:
+						fakeKeyX = 274;
+						break;
+					case SDL_HAT_LEFT:
+						fakeKeyY = 276;
+						break;
+					case SDL_HAT_RIGHT:
+						fakeKeyY = 275;
+						break;
+
+					/* these shouldn't be needed */
+					/*
+					case SDL_HAT_LEFTUP:
+						fakeKeyX = 273;
+						fakeKeyY = 276;
+						break;
+					case SDL_HAT_LEFTDOWN:
+						fakeKeyX = 274;
+						fakeKeyY = 276;
+						break;
+					case SDL_HAT_RIGHTUP:
+						fakeKeyX = 273;
+						fakeKeyY = 275;
+						break;
+					case SDL_HAT_RIGHTDOWN:
+						fakeKeyX = 274;
+						fakeKeyY = 275;
+						break;
+					*/
+				}
+				for (int key=0; key<key_count; key++) {
+					if (fakeKeyX == binding[key] || fakeKeyX == binding_alt[key]) {
+						if (event.jhat.value == SDL_HAT_CENTERED) {
+							pressing[key] = false;
+							lock[key] = false;
+						}
+						else {
+							pressing[key] = true;
+						}
+					}
+					if (fakeKeyY == binding[key] || fakeKeyY == binding_alt[key]) {
+						if (event.jhat.value == SDL_HAT_CENTERED) {
+							pressing[key] = false;
+							lock[key] = false;
+						}
+						else {
+							pressing[key] = true;
+						}
+					}
+				}
+				break;
+			case SDL_JOYBUTTONDOWN:
+				for (int key=0; key<key_count; key++) {
+					if (event.jbutton.button == binding[key] || event.jbutton.button == binding_alt[key]) {
+						pressing[key] = true;
+					}
+				}
+				break;
+			case SDL_JOYBUTTONUP:
+				for (int key=0; key<key_count; key++) {
+					if (event.jbutton.button == binding[key] || event.jbutton.button == binding_alt[key]) {
 						pressing[key] = false;
 						lock[key] = false;
 					}

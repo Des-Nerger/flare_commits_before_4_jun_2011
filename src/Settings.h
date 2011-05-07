@@ -17,6 +17,8 @@ extern int VIEW_W;
 extern int VIEW_H;
 extern int VIEW_W_HALF;
 extern int VIEW_H_HALF;
+extern bool DOUBLEBUF;
+extern bool HWSURFACE;
 
 // Input Settings
 extern bool MOUSE_MOVE;

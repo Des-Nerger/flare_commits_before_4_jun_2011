@@ -29,6 +29,8 @@ int VIEW_W = 720;
 int VIEW_H = 480;
 int VIEW_W_HALF = VIEW_W/2;
 int VIEW_H_HALF = VIEW_H/2;
+bool DOUBLEBUF = false;
+bool HWSURFACE = false;
 
 // Audio Settings
 int MUSIC_VOLUME = 64;
@@ -88,6 +90,12 @@ bool loadSettings() {
 					}
 					else if (key == "mouse_move") {
 						if (val == "1") MOUSE_MOVE = true;
+					}
+					else if (key == "hwsurface") {
+						if (val == "1") HWSURFACE = true;
+					}
+					else if (key == "doublebuf") {
+						if (val == "1") DOUBLEBUF = true;
 					}
 				}
 			}
