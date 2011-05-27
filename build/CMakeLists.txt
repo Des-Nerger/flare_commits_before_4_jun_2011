@@ -38,6 +38,7 @@ Set (FLARE_SOURCES
 	../src/CampaignManager.cpp
 	../src/Enemy.cpp
 	../src/EnemyManager.cpp
+	../src/FileParser.cpp
 	../src/FontEngine.cpp
 	../src/GameEngine.cpp
 	../src/GameSwitcher.cpp
@@ -57,6 +58,7 @@ Set (FLARE_SOURCES
 	../src/MenuHUDLog.cpp
 	../src/MenuInventory.cpp
 	../src/MenuItemStorage.cpp
+	../src/MenuGameSlots.cpp
 	../src/MenuLog.cpp
 	../src/MenuManager.cpp
 	../src/MenuMiniMap.cpp

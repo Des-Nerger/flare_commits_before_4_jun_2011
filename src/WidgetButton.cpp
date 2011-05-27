@@ -42,6 +42,10 @@ void WidgetButton::loadArt() {
 	
 }
 
+/**
+ * Sets and releases the "pressed" visual state of the button
+ * If press and release, activate (return true)
+ */
 bool WidgetButton::checkClick() {
 
 	// disabled buttons can't be clicked;
@@ -51,6 +55,16 @@ bool WidgetButton::checkClick() {
 	if (inp->lock[MAIN1]) return false;
 
 	// main click released, so the button state goes back to unpressed
+	if (pressed && !inp->lock[MAIN1]) {
+		pressed = false;
+		
+		if (isWithin(pos, inp->mouse)) {
+		
+			// activate upon release
+			return true;
+		}
+	}
+
 	pressed = false;
 	
 	// detect new click
@@ -59,9 +73,7 @@ bool WidgetButton::checkClick() {
 		
 			inp->lock[MAIN1] = true;
 			pressed = true;
-			// TODO: play click sound
-			
-			return true;
+
 		}
 	}
 	return false;

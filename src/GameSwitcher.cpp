@@ -24,6 +24,7 @@ GameSwitcher::GameSwitcher(SDL_Surface *_screen, InputState *_inp) {
 	font = new FontEngine();	
 	eng = new GameEngine(screen, inp, font);
 	title = new MenuTitle(screen, inp, font);
+	slots = new MenuGameSlots(screen, inp, font);
 	
 	game_state = GAME_STATE_TITLE;
 	eng->game_slot = 1;
@@ -39,13 +40,13 @@ void GameSwitcher::logic() {
 		
 			title->logic();
 			done = title->exit_game;
-			if (title->load_game) {
 			
-				// TODO: switch to load game menu instead to choose game slot
-				game_state = GAME_STATE_PLAY;
+			if (title->load_game) {
 				title->load_game = false;
-				eng->loadGame();
-				eng->logic(); // TEMP: run one frame of logic to set up the render
+				game_state = GAME_STATE_LOAD;				
+				
+				//eng->loadGame();
+				//eng->logic(); // TEMP: run one frame of logic to set up the render
 			}
 			break;
 			
@@ -55,8 +56,8 @@ void GameSwitcher::logic() {
 			eng->logic();
 			
 			if (eng->done) {
-				game_state = GAME_STATE_TITLE;
 				eng->done = false;
+				game_state = GAME_STATE_TITLE;
 			}
 			
 			break;
@@ -64,6 +65,11 @@ void GameSwitcher::logic() {
 		// load game
 		case GAME_STATE_LOAD:
 		
+			slots->logic();
+			if (slots->exit_slots) {
+				slots->exit_slots = false;
+				game_state = GAME_STATE_TITLE;
+			}
 			break;
 			
 		// new game
@@ -95,6 +101,7 @@ void GameSwitcher::render() {
 		// load game
 		case GAME_STATE_LOAD:
 		
+			slots->render();
 			break;
 			
 		// new game
@@ -113,4 +120,5 @@ GameSwitcher::~GameSwitcher() {
 	delete font;
 	delete title;
 	delete eng;
+	delete slots;
 }

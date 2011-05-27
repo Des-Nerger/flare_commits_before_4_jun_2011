@@ -24,6 +24,7 @@
 #include "GameEngine.h"
 #include "FontEngine.h"
 #include "MenuTitle.h"
+#include "MenuGameSlots.h"
 
 const int GAME_STATE_TITLE = 0;
 const int GAME_STATE_PLAY = 1;
@@ -38,7 +39,7 @@ private:
 	
 	GameEngine *eng; // for GAME_STATE_PLAY
 	MenuTitle *title; // for GAME_STATE_TITLE
-	
+	MenuGameSlots *slots; // for GAME_STATE_LOAD
 	
 public:
 	GameSwitcher(SDL_Surface *_screen, InputState *_inp);

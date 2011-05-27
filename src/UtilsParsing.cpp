@@ -114,6 +114,8 @@ void parse_key_pair(string s, string &key, string &val) {
 	}
 	key = s.substr(0, separator);
 	val = s.substr(separator+1, s.length());
+	key = trim(key, ' ');
+	val = trim(val, ' ');
 }
 
 /**
