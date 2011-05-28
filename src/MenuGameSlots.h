@@ -36,6 +36,7 @@ private:
 	FontEngine *font;
 	ItemDatabase *items;
 	WidgetButton *button_exit;
+	WidgetButton *button_action;
 	
 	SDL_Surface *background;
 	SDL_Surface *selection;
@@ -52,7 +53,7 @@ private:
 	Point map_pos;
 	Point sprites_pos;
 	
-	// temporary animation info
+	// animation info
 	int current_frame;
 	int frame_ticker;
 	
@@ -68,6 +69,8 @@ public:
 	void loadPreview(int slot);
 	
 	bool exit_slots;
+	bool load_game;
+	bool new_game;
 	int selected_slot;
 };
 

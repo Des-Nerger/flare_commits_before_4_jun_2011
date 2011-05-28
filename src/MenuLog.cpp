@@ -224,6 +224,12 @@ void MenuLog::clear(int log_type) {
 	log_count[log_type] = 0;
 }
 
+void MenuLog::clear() {
+	for (int i=0; i<LOG_TYPE_COUNT; i++) {
+		clear(i);
+	}
+}
+
 MenuLog::~MenuLog() {
 	SDL_FreeSurface(background);
 }

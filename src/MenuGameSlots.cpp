@@ -15,12 +15,19 @@ MenuGameSlots::MenuGameSlots(SDL_Surface *_screen, InputState *_inp, FontEngine 
 	items = new ItemDatabase(screen, font);
 	
 	button_exit = new WidgetButton(screen, font, inp);	
-	int button_left = VIEW_W_HALF - button_exit->pos.w/2;
 	button_exit->label = "Exit to Title";
-	button_exit->pos.x = button_left;
+	button_exit->pos.x = VIEW_W_HALF - button_exit->pos.w/2;
 	button_exit->pos.y = VIEW_H - 32;	
 	
+	button_action = new WidgetButton(screen, font, inp);
+	button_action->label = "Choose a Slot";
+	button_action->enabled = false;
+	button_action->pos.x = (VIEW_W - 640)/2 + 480 - button_action->pos.w/2;
+	button_action->pos.y = (VIEW_H - 480)/2 + 384;
+	
 	exit_slots = false;
+	load_game = false;
+	new_game = false;
 	
 	for (int i=0; i<GAME_SLOT_MAX; i++) {
 		sprites[i] = NULL;
@@ -28,7 +35,6 @@ MenuGameSlots::MenuGameSlots(SDL_Surface *_screen, InputState *_inp, FontEngine 
 	
 	loadGraphics();
 	readGameSlots();
-	loadPreview(0);
 	
 	for (int i=0; i<GAME_SLOT_MAX; i++) {
 		slot_pos[i].x = (VIEW_W - 640)/2 + 32;
@@ -121,12 +127,17 @@ void MenuGameSlots::readGameSlot(int slot) {
 			stats[slot].offense = eatFirstInt(infile.val, ',');
 			stats[slot].defense = eatFirstInt(infile.val, ',');		
 		}
-	
+		else if (infile.key == "equipped") {
+			equipped[slot][0] = eatFirstInt(infile.val, ',');
+			equipped[slot][1] = eatFirstInt(infile.val, ',');
+			equipped[slot][2] = eatFirstInt(infile.val, ',');			
+		}
 	}
 	infile.close();
 	
 	stats[slot].recalc();
-	
+	loadPreview(slot);
+
 }
 
 void MenuGameSlots::loadPreview(int slot) {
@@ -141,10 +152,11 @@ void MenuGameSlots::loadPreview(int slot) {
 	SDL_Rect src;
 	SDL_Rect dest;
 	
-	// TEMP
-	img_main = "longsword";
-	img_off = "buckler";
-	img_body = "clothes";
+	if (equipped[slot][0] != 0)	img_main = items->items[equipped[slot][0]].gfx;
+	if (equipped[slot][1] != 0)	img_body = items->items[equipped[slot][1]].gfx;
+	else img_body = "clothes";
+	if (equipped[slot][2] != 0)	img_off = items->items[equipped[slot][2]].gfx;
+	
 	
 	if (sprites[slot]) SDL_FreeSurface(sprites[slot]);	
 	sprites[slot] = IMG_Load("images/avatar/preview_background.png");
@@ -179,8 +191,6 @@ void MenuGameSlots::loadPreview(int slot) {
 	if (gfx_body) SDL_FreeSurface(gfx_body);
 	if (gfx_main) SDL_FreeSurface(gfx_main);
 	if (gfx_off) SDL_FreeSurface(gfx_off);
-	
-
 
 }
 
@@ -198,12 +208,30 @@ void MenuGameSlots::logic() {
 		exit_slots = true;
 	}
 	
+	if (button_action->checkClick()) {
+		if (stats[selected_slot].name == "") {
+			new_game = true;
+			button_action->label = "Load Game";
+		}
+		else {
+			load_game = true;
+		}
+	}
+	
 	// check clicking game slot
 	if (inp->pressing[MAIN1] && !inp->lock[MAIN1]) {
 		for (int i=0; i<GAME_SLOT_MAX; i++) {
 			if (isWithin(slot_pos[i], inp->mouse)) {
 				selected_slot = i;
 				inp->lock[MAIN1] = true;
+				
+				button_action->enabled = true;
+				if (stats[selected_slot].name == "") {
+					button_action->label = "New Game";
+				}
+				else {
+					button_action->label = "Load Game";
+				}
 			}
 		}
 	}
@@ -216,6 +244,7 @@ void MenuGameSlots::render() {
 
 	// display buttons
 	button_exit->render();
+	button_action->render();
 	
 	// display background
 	src.w = 288;
@@ -302,5 +331,6 @@ MenuGameSlots::~MenuGameSlots() {
 	SDL_FreeSurface(background);
 	SDL_FreeSurface(selection);
 	delete button_exit;
+	delete button_action;
 	delete items;
 }

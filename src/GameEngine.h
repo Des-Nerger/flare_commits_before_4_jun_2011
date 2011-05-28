@@ -68,6 +68,7 @@ public:
 	void showFPS(int fps);
 	void saveGame();
 	void loadGame();
+	void resetGame();
 
 	bool done;
 	int npc_id;

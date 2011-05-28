@@ -26,12 +26,7 @@ MenuActionBar::MenuActionBar(SDL_Surface *_screen, FontEngine *_font, InputState
 	label_src.h = 10;
 	drag_prev_slot = -1;
 	
-	// clear action bar
-	for (int i=0; i<12; i++) {
-		hotkeys[i] = -1;
-		slot_item_count[i] = -1;
-		slot_enabled[i] = true;
-	}
+	clear();
 	
 	// TEMP: set action bar positions
 	// TODO: define in a config file so that the menu is customizable
@@ -52,9 +47,6 @@ MenuActionBar::MenuActionBar(SDL_Surface *_screen, FontEngine *_font, InputState
 		menus[i].y = VIEW_H-32;
 		menus[i].x = offset_x + 480 + i*32;
 	}
-	
-	// default: LMB set to basic melee attack
-	hotkeys[10] = 1;
 		
 	// screen areas occupied by the three main sections	
 	numberArea.h = mouseArea.h = menuArea.h = 32;
@@ -67,6 +59,18 @@ MenuActionBar::MenuActionBar(SDL_Surface *_screen, FontEngine *_font, InputState
 	menuArea.w = 128;
 	
 	loadGraphics();
+}
+
+void MenuActionBar::clear() {
+	// clear action bar
+	for (int i=0; i<12; i++) {
+		hotkeys[i] = -1;
+		slot_item_count[i] = -1;
+		slot_enabled[i] = true;
+	}
+	
+	// default: LMB set to basic melee attack
+	hotkeys[10] = 1;
 }
 
 void MenuActionBar::loadGraphics() {

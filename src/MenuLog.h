@@ -52,6 +52,7 @@ public:
 	void renderTab(int log_type);
 	void add(string s, int log_type);
 	void clear(int log_type);
+	void clear();
 	void clickTab(Point mouse);
 	
 	bool visible;

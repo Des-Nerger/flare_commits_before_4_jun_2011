@@ -14,7 +14,7 @@
 
 using namespace std;
 
-class MenuItemStorage : public ItemStorage{
+class MenuItemStorage : public ItemStorage {
 protected:
 	SDL_Surface *screen;
 	FontEngine *font;

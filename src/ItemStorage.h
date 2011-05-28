@@ -28,6 +28,7 @@ public:
 	void substract(int slot, int quantity = 1);
 	bool remove(int item);
 	void sort();
+	void clear();
 
 	bool full();
 	int count(int item);

@@ -43,6 +43,20 @@ GameEngine::GameEngine(SDL_Surface *_screen, InputState *_inp, FontEngine *_font
 }
 
 /**
+ * Reset all game states to a new game.
+ */
+void GameEngine::resetGame() {
+	camp->clearAll();
+	pc->init();
+	menu->act->clear();
+	menu->inv->inventory[0].clear();
+	menu->inv->inventory[1].clear();
+	menu->inv->changed_equipment = true;
+	menu->log->clear();
+	quests->createQuestList();
+}
+
+/**
  * Check mouseover for enemies.
  * class variable "enemy" contains a live enemy on mouseover.
  * This function also sets enemy mouseover for Menu Enemy.

@@ -57,6 +57,7 @@ public:
 	void drop(Point mouse, int power_index, bool rearranging);
 	void remove(Point mouse);
 	void set(int power_id[12]);
+	void clear();
 
 	TooltipData checkTooltip(Point mouse);
 	

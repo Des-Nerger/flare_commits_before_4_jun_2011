@@ -27,7 +27,7 @@ GameSwitcher::GameSwitcher(SDL_Surface *_screen, InputState *_inp) {
 	slots = new MenuGameSlots(screen, inp, font);
 	
 	game_state = GAME_STATE_TITLE;
-	eng->game_slot = 1;
+	eng->game_slot = 0;
 	
 	done = false;
 }
@@ -45,23 +45,14 @@ void GameSwitcher::logic() {
 				title->load_game = false;
 				game_state = GAME_STATE_LOAD;				
 				
-				//eng->loadGame();
-				//eng->logic(); // TEMP: run one frame of logic to set up the render
 			}
 			break;
 			
-		// main gameplay
-		case GAME_STATE_PLAY:
+		// new game
+		case GAME_STATE_NEW:
 		
-			eng->logic();
-			
-			if (eng->done) {
-				eng->done = false;
-				game_state = GAME_STATE_TITLE;
-			}
-			
 			break;
-	
+				
 		// load game
 		case GAME_STATE_LOAD:
 		
@@ -70,13 +61,38 @@ void GameSwitcher::logic() {
 				slots->exit_slots = false;
 				game_state = GAME_STATE_TITLE;
 			}
-			break;
+			else if (slots->load_game) {
+				slots->load_game = false;
+				game_state = GAME_STATE_PLAY;
+				eng->resetGame();
+				eng->game_slot = slots->selected_slot+1;
+				eng->loadGame();
+				eng->logic(); // run one frame of logic to set up the render
+			}
+			else if (slots->new_game) {
+				slots->new_game = false;
+				game_state = GAME_STATE_PLAY;
+				eng->resetGame();
+				eng->game_slot = slots->selected_slot+1;
+				eng->loadGame();
+				eng->logic(); // run one frame of logic to set up the render
+			}
 			
-		// new game
-		case GAME_STATE_NEW:
-		
 			break;
 	
+		// main gameplay
+		case GAME_STATE_PLAY:
+		
+			eng->logic();
+			
+			if (eng->done) {
+				eng->done = false;
+				game_state = GAME_STATE_TITLE;
+				slots->readGameSlots();
+			}
+			
+			break;
+			
 		default:
 			break;
 	}

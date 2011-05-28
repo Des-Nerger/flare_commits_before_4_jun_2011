@@ -15,6 +15,7 @@
 #include "UtilsParsing.h"
 #include <fstream>
 #include <iostream>
+#include <sstream>
 
 using namespace std;
 
@@ -28,7 +29,11 @@ void GameEngine::saveGame() {
 	
 	ofstream outfile;
 
-	outfile.open("saves/save1.txt", ios::out);
+	stringstream ss;
+	ss.str("");
+	ss << "saves/save" << game_slot << ".txt";
+
+	outfile.open(ss.str().c_str(), ios::out);
 
 	if (outfile.is_open()) {
 
@@ -116,8 +121,11 @@ void GameEngine::loadGame() {
 		hotkeys[i] = -1;
 	}
 
-	// TODO: change to hero name?
-	infile.open("saves/save1.txt", ios::in);
+	stringstream ss;
+	ss.str("");
+	ss << "saves/save" << game_slot << ".txt";
+	
+	infile.open(ss.str().c_str(), ios::in);
 
 	if (infile.is_open()) {
 		while (!infile.eof()) {
@@ -200,15 +208,16 @@ void GameEngine::loadGame() {
 			}
 		}
 			
-		infile.close();
-		
-		// initialize vars
-		pc->stats.recalc();
-		menu->items->applyEquipment(&pc->stats, menu->inv->inventory[EQUIPMENT].storage);
-		pc->stats.hp = pc->stats.maxhp;
-		pc->stats.mp = pc->stats.maxmp;
-				
-		// just for aesthetics, turn the hero to face the camera
-		pc->stats.direction = 6;
+		infile.close();		
 	}
+
+	// initialize vars
+	pc->stats.recalc();
+	menu->items->applyEquipment(&pc->stats, menu->inv->inventory[EQUIPMENT].storage);
+	pc->stats.hp = pc->stats.maxhp;
+	pc->stats.mp = pc->stats.maxmp;
+			
+	// just for aesthetics, turn the hero to face the camera
+	pc->stats.direction = 6;
+
 }

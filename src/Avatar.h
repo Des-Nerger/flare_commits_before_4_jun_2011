@@ -60,6 +60,8 @@ private:
 public:
 	Avatar(PowerManager *_powers, InputState *_inp, MapIso *_map);
 	~Avatar();
+	
+	void init();
 	void loadGraphics(string img_main, string img_armor, string img_off);
 	void loadSounds();
 	

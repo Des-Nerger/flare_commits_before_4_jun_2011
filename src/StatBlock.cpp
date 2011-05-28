@@ -320,7 +320,7 @@ void StatBlock::recalc() {
 	mentoff = mental + offense;
 	mentdef = mental + defense;
 	
-	for (int i=1; i<17; i++) {
+	for (int i=0; i<17; i++) {
 		if (xp >= xp_table[i])
 			level=i+1;
 	}

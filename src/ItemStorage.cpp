@@ -23,6 +23,13 @@ ItemStack & ItemStorage::operator [] (int slot) {
 	return storage[slot];
 }
 
+void ItemStorage::clear() {
+	for( int i=0; i<slot_number; i++) {
+		storage[i].item = 0;
+		storage[i].quantity = 0;
+	}
+}
+
 /**
  * Insert item into first available carried slot, preferably in the optionnal specified slot
  *

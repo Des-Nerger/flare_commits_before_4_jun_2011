@@ -14,6 +14,40 @@ Avatar::Avatar(PowerManager *_powers, InputState *_inp, MapIso *_map) {
 	inp = _inp;
 	map = _map;
 	
+	loadSounds();
+	
+	init();
+	
+	// default hero animation data
+	stats.cooldown = 4;
+	stats.anim_stance_position = 0;
+	stats.anim_stance_frames = 4;
+	stats.anim_stance_duration = 6;
+	stats.anim_run_position = 4;
+	stats.anim_run_frames = 8;
+	stats.anim_run_duration = 2;
+	stats.anim_melee_position = 12;
+	stats.anim_melee_frames = 4;
+	stats.anim_melee_duration = 3;
+	stats.anim_ment_position = 24;
+	stats.anim_ment_frames = 4;
+	stats.anim_ment_duration = 3;
+	stats.anim_ranged_position = 28;
+	stats.anim_ranged_frames = 4;
+	stats.anim_ranged_duration = 3;
+	stats.anim_block_position = 16;
+	stats.anim_block_frames = 2;
+	stats.anim_block_duration = 2;
+	stats.anim_hit_position = 18;
+	stats.anim_hit_frames = 2;
+	stats.anim_hit_duration = 2;
+	stats.anim_die_position = 18;
+	stats.anim_die_frames = 6;
+	stats.anim_die_duration = 3;
+
+}
+
+void Avatar::init() {
 	// other init
 	sprites = 0;
 	stats.cur_state = AVATAR_STANCE;
@@ -46,38 +80,10 @@ Avatar::Avatar(PowerManager *_powers, InputState *_inp, MapIso *_map) {
 	
 	haz = NULL;
 
-	loadSounds();
-	
-	// default hero animation data
-	stats.cooldown = 4;
-	stats.anim_stance_position = 0;
-	stats.anim_stance_frames = 4;
-	stats.anim_stance_duration = 6;
-	stats.anim_run_position = 4;
-	stats.anim_run_frames = 8;
-	stats.anim_run_duration = 2;
-	stats.anim_melee_position = 12;
-	stats.anim_melee_frames = 4;
-	stats.anim_melee_duration = 3;
-	stats.anim_ment_position = 24;
-	stats.anim_ment_frames = 4;
-	stats.anim_ment_duration = 3;
-	stats.anim_ranged_position = 28;
-	stats.anim_ranged_frames = 4;
-	stats.anim_ranged_duration = 3;
-	stats.anim_block_position = 16;
-	stats.anim_block_frames = 2;
-	stats.anim_block_duration = 2;
-	stats.anim_hit_position = 18;
-	stats.anim_hit_frames = 2;
-	stats.anim_hit_duration = 2;
-	stats.anim_die_position = 18;
-	stats.anim_die_frames = 6;
-	stats.anim_die_duration = 3;
-
 	img_main = "";
 	img_armor = "";
 	img_off = "";
+
 }
 
 void Avatar::loadGraphics(string _img_main, string _img_armor, string _img_off) {
