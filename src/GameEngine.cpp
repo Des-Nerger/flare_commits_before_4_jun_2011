@@ -54,6 +54,7 @@ void GameEngine::resetGame() {
 	menu->inv->changed_equipment = true;
 	menu->log->clear();
 	quests->createQuestList();
+	menu->hudlog->clear();
 }
 
 /**

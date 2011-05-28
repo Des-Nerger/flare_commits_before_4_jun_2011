@@ -35,6 +35,7 @@ public:
 	void logic();
 	void render();
 	void add(string s);
+	void clear();
 	
 	Point list_area;
 

@@ -89,6 +89,10 @@ void MenuHUDLog::add(string s) {
 	log_count++;
 }
 
+void MenuHUDLog::clear() {
+	log_count = 0;
+}
+
 MenuHUDLog::~MenuHUDLog() {
 
 }
