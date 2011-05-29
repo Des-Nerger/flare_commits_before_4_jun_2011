@@ -46,12 +46,15 @@ GameEngine::GameEngine(SDL_Surface *_screen, InputState *_inp, FontEngine *_font
  * Reset all game states to a new game.
  */
 void GameEngine::resetGame() {
+	map->load("spawn.txt");
 	camp->clearAll();
 	pc->init();
+	pc->stats.gold = 0;
 	menu->act->clear();
 	menu->inv->inventory[0].clear();
 	menu->inv->inventory[1].clear();
 	menu->inv->changed_equipment = true;
+	menu->inv->gold = 0;
 	menu->log->clear();
 	quests->createQuestList();
 	menu->hudlog->clear();

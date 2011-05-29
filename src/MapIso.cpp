@@ -34,7 +34,7 @@ MapIso::MapIso(SDL_Surface *_screen, CampaignManager *_camp) {
 	shaky_cam_ticks = 0;
 	
 	// spawn is a special map that defines where the campaign begins
-	load("spawn.txt");
+	// load("spawn.txt");
 }
 
 
