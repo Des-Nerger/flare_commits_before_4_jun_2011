@@ -186,12 +186,12 @@ void InputState::handle() {
 					case 0:
 						/* left */
 						if ((joyHasMovedX == false) && (event.jaxis.value < -JOY_DEADZONE) && (event.jaxis.value > JOY_MIN)) {
-							fakeKeyX = 276;
+							fakeKeyX = SDLK_LEFT;
 							joyHasMovedX = true;
 						}
 						/* right */
 						if ((joyHasMovedX == false) && (event.jaxis.value > JOY_DEADZONE) && (event.jaxis.value < JOY_MAX)) {
-							fakeKeyX = 275;
+							fakeKeyX = SDLK_RIGHT;
 							joyHasMovedX = true;
 						}
 						/* centered */
@@ -202,12 +202,12 @@ void InputState::handle() {
 					case 1:
 						/* up */
 						if ((joyHasMovedY == false) && (event.jaxis.value < -JOY_DEADZONE) && (event.jaxis.value > JOY_MIN)) {
-							fakeKeyY = 273;
+							fakeKeyY = SDLK_UP;
 							joyHasMovedY = true;
 						}
 						/* down */
 						if ((joyHasMovedY == false) && (event.jaxis.value > JOY_DEADZONE) && (event.jaxis.value < JOY_MAX)) {
-							fakeKeyY = 274;
+							fakeKeyY = SDLK_DOWN;
 							joyHasMovedY = true;
 						}
 						/* centered */
@@ -244,75 +244,115 @@ void InputState::handle() {
 				break;
 
 			case SDL_JOYHATMOTION:
-				/* according to the SDL docs joystick hat is being handled by bitmasks. */
-				/* that isn't working for me though... */
-				/*
-				if (event.jhat.value & SDL_HAT_UP) {
-					fakeKeyX = 273;
-				}
-				if (event.jhat.value & SDL_HAT_DOWN) {
-					fakeKeyX = 274;
-				}
-				if (event.jhat.value & SDL_HAT_LEFT) {
-					fakeKeyY = 276;
-				}
-				if (event.jhat.value & SDL_HAT_RIGHT) {
-					fakeKeyY = 275;
-				}
-				*/
 				switch (event.jhat.value) {
+					case SDL_HAT_CENTERED:
+						for (int key = 0; key<key_count; key++) {
+							if (fakeKeyX == binding[key] || fakeKeyX == binding_alt[key]) {
+								pressing[key] = false;
+								lock[key] = false;
+							}
+							if (fakeKeyY == binding[key] || fakeKeyY == binding_alt[key]) {
+								pressing[key] = false;
+								lock[key] = false;
+							}
+						}
+						break;
 					case SDL_HAT_UP:
-						fakeKeyX = 273;
+						fakeKeyY = SDLK_UP;
+						for (int key = 0; key<key_count; key++) {
+							if (fakeKeyX == binding[key] || fakeKeyX == binding_alt[key]) {
+								pressing[key] = false;
+								lock[key] = false;
+							}
+							if (fakeKeyY == binding[key] || fakeKeyY == binding_alt[key]) {
+								pressing[key] = true;
+							}
+						}
 						break;
 					case SDL_HAT_DOWN:
-						fakeKeyX = 274;
+						fakeKeyY = SDLK_DOWN;
+						for (int key = 0; key<key_count; key++) {
+							if (fakeKeyX == binding[key] || fakeKeyX == binding_alt[key]) {
+								pressing[key] = false;
+								lock[key] = false;
+							}
+							if (fakeKeyY == binding[key] || fakeKeyY == binding_alt[key]) {
+								pressing[key] = true;
+							}
+						}
 						break;
 					case SDL_HAT_LEFT:
-						fakeKeyY = 276;
+						fakeKeyX = SDLK_LEFT;
+						for (int key = 0; key<key_count; key++) {
+							if (fakeKeyX == binding[key] || fakeKeyX == binding_alt[key]) {
+								pressing[key] = true;
+							}
+							if (fakeKeyY == binding[key] || fakeKeyY == binding_alt[key]) {
+								pressing[key] = false;
+								lock[key] = false;
+							}
+						}
 						break;
 					case SDL_HAT_RIGHT:
-						fakeKeyY = 275;
+						fakeKeyX = SDLK_RIGHT;
+						for (int key = 0; key<key_count; key++) {
+							if (fakeKeyX == binding[key] || fakeKeyX == binding_alt[key]) {
+								pressing[key] = true;
+							}
+							if (fakeKeyY == binding[key] || fakeKeyY == binding_alt[key]) {
+								pressing[key] = false;
+								lock[key] = false;
+							}
+						}
 						break;
-
-					/* these shouldn't be needed */
-					/*
 					case SDL_HAT_LEFTUP:
-						fakeKeyX = 273;
-						fakeKeyY = 276;
+						fakeKeyX = SDLK_LEFT;
+						fakeKeyY = SDLK_UP;
+						for (int key = 0; key<key_count; key++) {
+							if (fakeKeyX == binding[key] || fakeKeyX == binding_alt[key]) {
+								pressing[key] = true;
+							}
+							if (fakeKeyY == binding[key] || fakeKeyY == binding_alt[key]) {
+								pressing[key] = true;
+							}
+						}
 						break;
 					case SDL_HAT_LEFTDOWN:
-						fakeKeyX = 274;
-						fakeKeyY = 276;
+						fakeKeyX = SDLK_LEFT;
+						fakeKeyY = SDLK_DOWN;
+						for (int key = 0; key<key_count; key++) {
+							if (fakeKeyX == binding[key] || fakeKeyX == binding_alt[key]) {
+								pressing[key] = true;
+							}
+							if (fakeKeyY == binding[key] || fakeKeyY == binding_alt[key]) {
+								pressing[key] = true;
+							}
+						}
 						break;
 					case SDL_HAT_RIGHTUP:
-						fakeKeyX = 273;
-						fakeKeyY = 275;
+						fakeKeyX = SDLK_RIGHT;
+						fakeKeyY = SDLK_UP;
+						for (int key = 0; key<key_count; key++) {
+							if (fakeKeyX == binding[key] || fakeKeyX == binding_alt[key]) {
+								pressing[key] = true;
+							}
+							if (fakeKeyY == binding[key] || fakeKeyY == binding_alt[key]) {
+								pressing[key] = true;
+							}
+						}
 						break;
 					case SDL_HAT_RIGHTDOWN:
-						fakeKeyX = 274;
-						fakeKeyY = 275;
+						fakeKeyX = SDLK_RIGHT;
+						fakeKeyY = SDLK_DOWN;
+						for (int key = 0; key<key_count; key++) {
+							if (fakeKeyX == binding[key] || fakeKeyX == binding_alt[key]) {
+								pressing[key] = true;
+							}
+							if (fakeKeyY == binding[key] || fakeKeyY == binding_alt[key]) {
+								pressing[key] = true;
+							}
+						}
 						break;
-					*/
-				}
-				for (int key=0; key<key_count; key++) {
-					if (fakeKeyX == binding[key] || fakeKeyX == binding_alt[key]) {
-						if (event.jhat.value == SDL_HAT_CENTERED) {
-							pressing[key] = false;
-							lock[key] = false;
-						}
-						else {
-							pressing[key] = true;
-						}
-					}
-					if (fakeKeyY == binding[key] || fakeKeyY == binding_alt[key]) {
-						if (event.jhat.value == SDL_HAT_CENTERED) {
-							pressing[key] = false;
-							lock[key] = false;
-						}
-						else {
-							pressing[key] = true;
-						}
-					}
 				}
 				break;
 			case SDL_JOYBUTTONDOWN:

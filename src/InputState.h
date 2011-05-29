@@ -12,7 +12,7 @@
 
 #define JOY_MIN         -32768
 #define JOY_MAX         32767
-#define JOY_DEADZONE    10000
+#define JOY_DEADZONE    100
 
 #include "SDL.h"
 #include "Utils.h"
