@@ -8,8 +8,8 @@
 # The mouse enum is found in SDL_mouse.h
 #
 
-# cancel (default: escape and backspace)
-cancel=27,8
+# cancel (default: escape)
+cancel=27,27
 
 # accept (default: return and space)
 accept=13,32
@@ -36,12 +36,15 @@ bar0=48,48
 main1=1,1
 main2=3,3
 
-# menu toggle buttons
+# menu toggle buttons (default: c, i, p, l)
 character=99,99
 inventory=105,105
 powers=112,112
 log=108,108
 
-# ctrl and shift used by various menus/options
+# ctrl and shift used by various menus/options (default: left and right ctrl/shift)
 ctrl=306,305
 shift=304,303
+
+# delete used by text entry (default: backspace, delete)
+delete=8,127

@@ -14,8 +14,12 @@
 #define JOY_MAX         32767
 #define JOY_DEADZONE    100
 
+#include <string>
+#include <fstream>
 #include "SDL.h"
+#include "FileParser.h"
 #include "Utils.h"
+#include "UtilsParsing.h"
 
 // Input commands enum
 const int CANCEL = 0;
@@ -42,10 +46,11 @@ const int MAIN1 = 20;
 const int MAIN2 = 21;
 const int CTRL = 22;
 const int SHIFT = 23;
+const int DELETE = 24;
 
 class InputState {
 private:
-	static const int key_count = 24;
+	static const int key_count = 25;
 	int binding[key_count];
 	int binding_alt[key_count];
 public:
@@ -59,7 +64,7 @@ public:
 	
 	bool done;
 	Point mouse;
-
+	string inkeys;
 };
 
 #endif

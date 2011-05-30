@@ -1,10 +1,8 @@
-/*
- *  MenuTooltip.cpp
- *  RPGEngine
+/**
+ * class MenuTooltip
  *
- *  Created by Clint Bellanger on 5/29/10.
- *  Copyright 2010 Clint Bellanger. All rights reserved.
- *
+ * @author Clint Bellanger
+ * @license GPL
  */
 
 #include "MenuTooltip.h"

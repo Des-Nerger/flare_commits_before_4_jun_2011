@@ -8,13 +8,13 @@
  */
 
 #include "InputState.h"
-#include <fstream>
-#include <string>
-#include "UtilsParsing.h"
 
 using namespace std;
 
 InputState::InputState(void) {
+
+	SDL_EnableUNICODE(true);
+
 	binding[CANCEL] = SDLK_ESCAPE;
 	binding[ACCEPT] = SDLK_RETURN;
 	binding[UP] = SDLK_w;
@@ -66,72 +66,52 @@ InputState::InputState(void) {
  * Key bindings are found in config/keybindings.txt
  */
 void InputState::loadKeyBindings() {
-	ifstream infile;
-	string line;
-	string key;
-	string val;
+
+	FileParser infile;	
 	int key1;
 	int key2;
-	string starts_with;
 	int cursor;
-	
-	infile.open("config/keybindings.txt", ios::in);
 
-	if (infile.is_open()) {
-		while (!infile.eof()) {
-			line = getLine(infile);
-
-			if (line.length() > 0) {
-				starts_with = line.at(0);
-				
-				if (starts_with == "#") {
-					// skip comments
-				}
-				else if (starts_with == "[") {
-					// skip headers
-				}
-				else { // this is data.  treatment depends on key
-					parse_key_pair(line, key, val);          
-					key = trim(key, ' ');
-					val = trim(val, ' ');
-					key1 = eatFirstInt(val, ',');
-					key2 = atoi(val.c_str());
-				
-					cursor = -1;
-				
-					if (key == "cancel") cursor = CANCEL;
-					else if (key == "accept") cursor = ACCEPT;
-					else if (key == "up") cursor = UP;
-					else if (key == "down") cursor = DOWN;
-					else if (key == "left") cursor = LEFT;
-					else if (key == "right") cursor = RIGHT;
-					else if (key == "bar1") cursor = BAR_1;
-					else if (key == "bar2") cursor = BAR_2;
-					else if (key == "bar3") cursor = BAR_3;
-					else if (key == "bar4") cursor = BAR_4;
-					else if (key == "bar5") cursor = BAR_5;
-					else if (key == "bar6") cursor = BAR_6;
-					else if (key == "bar7") cursor = BAR_7;
-					else if (key == "bar8") cursor = BAR_8;
-					else if (key == "bar9") cursor = BAR_9;
-					else if (key == "bar0") cursor = BAR_0;
-					else if (key == "main1") cursor = MAIN1;
-					else if (key == "main2") cursor = MAIN2;
-					else if (key == "character") cursor = CHARACTER;
-					else if (key == "inventory") cursor = INVENTORY;
-					else if (key == "powers") cursor = POWERS;
-					else if (key == "log") cursor = LOG;
-					else if (key == "ctrl") cursor = CTRL;
-					else if (key == "shift") cursor = SHIFT;
-					
-					if (cursor != -1) {
-						binding[cursor] = key1;
-						binding_alt[cursor] = key2;
-					}
+	if (!infile.open("config/keybindings.txt")) return;
 	
-				}
-			}
+	while (infile.next()) {
+
+		key1 = eatFirstInt(infile.val, ',');
+		key2 = atoi(infile.val.c_str());
+		
+		cursor = -1;
+		
+		if (infile.key == "cancel") cursor = CANCEL;
+		else if (infile.key == "accept") cursor = ACCEPT;
+		else if (infile.key == "up") cursor = UP;
+		else if (infile.key == "down") cursor = DOWN;
+		else if (infile.key == "left") cursor = LEFT;
+		else if (infile.key == "right") cursor = RIGHT;
+		else if (infile.key == "bar1") cursor = BAR_1;
+		else if (infile.key == "bar2") cursor = BAR_2;
+		else if (infile.key == "bar3") cursor = BAR_3;
+		else if (infile.key == "bar4") cursor = BAR_4;
+		else if (infile.key == "bar5") cursor = BAR_5;
+		else if (infile.key == "bar6") cursor = BAR_6;
+		else if (infile.key == "bar7") cursor = BAR_7;
+		else if (infile.key == "bar8") cursor = BAR_8;
+		else if (infile.key == "bar9") cursor = BAR_9;
+		else if (infile.key == "bar0") cursor = BAR_0;
+		else if (infile.key == "main1") cursor = MAIN1;
+		else if (infile.key == "main2") cursor = MAIN2;
+		else if (infile.key == "character") cursor = CHARACTER;
+		else if (infile.key == "inventory") cursor = INVENTORY;
+		else if (infile.key == "powers") cursor = POWERS;
+		else if (infile.key == "log") cursor = LOG;
+		else if (infile.key == "ctrl") cursor = CTRL;
+		else if (infile.key == "shift") cursor = SHIFT;
+		else if (infile.key == "delete") cursor = DELETE;
+		
+		if (cursor != -1) {
+			binding[cursor] = key1;
+			binding_alt[cursor] = key2;
 		}
+
 	}
 	infile.close();
 }
@@ -146,8 +126,17 @@ void InputState::handle() {
 	static int fakeKeyX;
 	static int fakeKeyY;
 
+	inkeys = "";
+
 	/* Check for events */
 	while (SDL_PollEvent (&event)) {
+	
+		// grab ASCII keys
+		if (event.type == SDL_KEYDOWN) {
+			if (event.key.keysym.unicode >= 32 && event.key.keysym.unicode < 127)
+				inkeys = inkeys + (char)event.key.keysym.unicode;
+		}
+	
 		switch (event.type) {
 				
 			case SDL_MOUSEBUTTONDOWN:

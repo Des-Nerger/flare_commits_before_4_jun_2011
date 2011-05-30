@@ -21,14 +21,12 @@ MenuTitle::MenuTitle(SDL_Surface *_screen, InputState *_inp, FontEngine *_font) 
 	button_play = new WidgetButton(screen, font, inp);
 	button_exit = new WidgetButton(screen, font, inp);
 	
-	int button_left = VIEW_W_HALF - button_play->pos.w/2;
-	
 	button_play->label = "Play Game";
-	button_play->pos.x = button_left;
+	button_play->pos.x = VIEW_W_HALF - button_play->pos.w/2;
 	button_play->pos.y = VIEW_H - 64;
 
 	button_exit->label = "Exit Game";
-	button_exit->pos.x = button_left;
+	button_exit->pos.x = VIEW_W_HALF - button_exit->pos.w/2;
 	button_exit->pos.y = VIEW_H - 32;
 	
 }
@@ -49,6 +47,7 @@ void MenuTitle::loadGraphics() {
 }
 
 void MenuTitle::logic() {
+
 	if (button_play->checkClick()) {
 		load_game = true;
 	}
@@ -63,7 +62,7 @@ void MenuTitle::render() {
 	SDL_Rect src;
 	SDL_Rect dest;
 	
-	// display logo
+	// display logo centered
 	src.x = src.y = 0;
 	src.w = dest.w = logo->w;
 	src.h = dest.h = logo->h;
@@ -74,6 +73,7 @@ void MenuTitle::render() {
 	// display buttons
 	button_play->render();
 	button_exit->render();
+	
 }
 
 MenuTitle::~MenuTitle() {
