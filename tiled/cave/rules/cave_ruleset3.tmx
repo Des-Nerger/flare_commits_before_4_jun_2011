@@ -1,8 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.0" orientation="isometric" width="9" height="3" tilewidth="64" tileheight="32">
+<map version="1.0" orientation="isometric" width="11" height="11" tilewidth="64" tileheight="32">
  <properties>
-  <property name="AutomappingRadius" value="1"/>
-  <property name="DeleteTiles" value="1"/>
+  <property name="AutomappingRadius" value="2"/>
  </properties>
  <tileset firstgid="1" name="collision" tilewidth="64" tileheight="32">
   <image source="../tiled_collision.png" width="960" height="32"/>
@@ -13,29 +12,29 @@
  <tileset firstgid="256" name="set_rules" tilewidth="64" tileheight="32">
   <image source="../set_rules.png" width="128" height="128"/>
  </tileset>
- <layer name="ruleRegions" width="9" height="3">
+ <layer name="ruleRegions" width="11" height="11">
   <data encoding="base64" compression="zlib">
-   eJxjYCASMBKgiQAAAUgABQ==
+   eJxjYCARMKJhXGKDRe2o3xgAPqQAQQ==
   </data>
  </layer>
- <layer name="ruleSet" width="9" height="3">
+ <layer name="ruleSet" width="11" height="11">
   <data encoding="base64" compression="zlib">
-   eJxjYCAOMDFCaGYozQilWRiJNAAIAANoAA8=
+   eJxjYCANMDJCMAsQMzGiisEwsloWLGphYoTUsjCiYnxuYGJExeQAJiR3MRIwlwmLP3C5F5taXOGAzQ24wpdYAADPhADZ
   </data>
  </layer>
- <layer name="rule_background" width="9" height="3" visible="0">
+ <layer name="rule_background" width="11" height="11">
   <data encoding="base64" compression="zlib">
-   eJxjYCAOCEDpG0SqxwYAN0wA6Q==
+   eJxjYBgFwx0AAAHkAAE=
   </data>
  </layer>
- <layer name="rule_object" width="9" height="3" visible="0">
+ <layer name="rule_object" width="11" height="11">
   <data encoding="base64" compression="zlib">
-   eJxjYKAfAAAAbAAB
+   eJxjYKAt8AHiACxinljUegNxMJoYSG8gDdxFDYDNXSD3B2ERB4l5YRHHJkZtAABadARN
   </data>
  </layer>
- <layer name="rule_collision" width="9" height="3">
+ <layer name="rule_collision" width="11" height="11">
   <data encoding="base64" compression="zlib">
-   eJxjYCANsEBpZijNSIJeAAIkAAk=
+   eJxjYBgFwx0AAAHkAAE=
   </data>
  </layer>
 </map>
